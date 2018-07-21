@@ -1,0 +1,51 @@
+﻿@model LuanVan.Models.NHASANXUAT
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NHASANXUAT</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NSX_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NSX_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NSX_SDT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NSX_SDT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NSX_QUOCGIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NSX_QUOCGIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NSX_GHICHU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NSX_GHICHU)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NSX_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

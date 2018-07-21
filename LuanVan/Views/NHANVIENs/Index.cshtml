@@ -1,0 +1,94 @@
+﻿@model IEnumerable<LuanVan.Models.NHANVIEN>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LOAINV.LNV_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_NGAYSINH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_QUEQUAN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_DIACHI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_GIOITINH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_NGAYKYHOPDONG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_NGAYKETTHUCHOPDONG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_EMAIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_MATKHAU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NV_TAIKHOAN)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOAINV.LNV_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_NGAYSINH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_QUEQUAN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_DIACHI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_GIOITINH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_NGAYKYHOPDONG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_NGAYKETTHUCHOPDONG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_EMAIL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_MATKHAU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NV_TAIKHOAN)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NV_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NV_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NV_ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LuanVan.Models.DONHANG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DN_NGALAPDON)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DN_GHICHU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DN_SL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_GHICHU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_SL)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DN_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DN_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DN_ID })
+        </td>
+    </tr>
+}
+
+</table>

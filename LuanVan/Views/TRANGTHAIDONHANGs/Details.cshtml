@@ -1,0 +1,35 @@
+﻿@model LuanVan.Models.TRANGTHAIDONHANG
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TRANGTHAIDONHANG</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TTDH_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TTDH_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TTDH_MOTA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TTDH_MOTA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TTDH_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

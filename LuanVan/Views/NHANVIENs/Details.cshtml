@@ -1,0 +1,107 @@
+﻿@model LuanVan.Models.NHANVIEN
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NHANVIEN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LOAINV.LNV_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOAINV.LNV_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_NGAYSINH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_NGAYSINH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_QUEQUAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_QUEQUAN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_DIACHI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_DIACHI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_GIOITINH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_GIOITINH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_NGAYKYHOPDONG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_NGAYKYHOPDONG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_NGAYKETTHUCHOPDONG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_NGAYKETTHUCHOPDONG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_EMAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_EMAIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_MATKHAU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_MATKHAU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NV_TAIKHOAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NV_TAIKHOAN)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NV_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

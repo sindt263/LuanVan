@@ -1,0 +1,51 @@
+﻿@model LuanVan.Models.NHACUNGCAP
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NHACUNGCAP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NCC_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NCC_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NCC_SDT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NCC_SDT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NCC_DIACHI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NCC_DIACHI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NCC_GHICHU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NCC_GHICHU)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NCC_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

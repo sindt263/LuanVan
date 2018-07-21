@@ -1,0 +1,67 @@
+﻿@model LuanVan.Models.DONHANG
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DONHANG</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KHACHHANG.KH_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DN_NGALAPDON)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DN_NGALAPDON)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DN_GHICHU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DN_GHICHU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DN_SL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DN_SL)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DN_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

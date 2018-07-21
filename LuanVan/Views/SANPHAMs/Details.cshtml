@@ -1,0 +1,91 @@
+﻿@model LuanVan.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SANPHAM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DONGSANPHAM.DSP_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DONGSANPHAM.DSP_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GIASP.GIA_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIASP.GIA_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KHUYENMAI.KM_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NHASANXUAT.NSX_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NHASANXUAT.NSX_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NHOMSANPHAM.NSP_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NHOMSANPHAM.NSP_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SP_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SP_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SP_TRANGTHAI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SP_TRANGTHAI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SP_MOTANGAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SP_MOTANGAN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SP_MOTACHITIET)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SP_MOTACHITIET)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SP_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

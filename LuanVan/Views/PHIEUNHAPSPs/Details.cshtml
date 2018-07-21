@@ -1,0 +1,51 @@
+﻿@model LuanVan.Models.PHIEUNHAPSP
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PHIEUNHAPSP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NHACUNGCAP.NCC_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NHACUNGCAP.NCC_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NHANVIEN.NV_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NHANVIEN.NV_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PN_NGAY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PN_NGAY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PN_GHICHU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PN_GHICHU)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PN_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

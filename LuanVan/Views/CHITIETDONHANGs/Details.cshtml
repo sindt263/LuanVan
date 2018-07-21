@@ -1,0 +1,43 @@
+﻿@model LuanVan.Models.CHITIETDONHANG
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CHITIETDONHANG</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DONHANG.KH_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DONHANG.KH_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SANPHAM.NSP_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SANPHAM.NSP_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CTDH_DIACHIGIAO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CTDH_DIACHIGIAO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CTDH_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

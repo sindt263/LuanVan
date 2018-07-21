@@ -1,0 +1,35 @@
+﻿@model LuanVan.Models.GIASP
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GIASP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GIA_GIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIA_GIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GIA_NGAYCAPNHAT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIA_NGAYCAPNHAT)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GIA_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
