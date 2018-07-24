@@ -187,12 +187,14 @@
     <Compile Include="Controllers\DONGSANPHAMsController.cs" />
     <Compile Include="Controllers\DONHANGsController.cs" />
     <Compile Include="Controllers\GIASPsController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HINHANHSPsController.cs" />
     <Compile Include="Controllers\HINHTHUCTHANHTOANsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KHACHHANGsController.cs" />
     <Compile Include="Controllers\KHUYENMAIsController.cs" />
     <Compile Include="Controllers\LOAINVsController.cs" />
+    <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\NHACUNGCAPsController.cs" />
     <Compile Include="Controllers\NHANVIENsController.cs" />
     <Compile Include="Controllers\NHASANXUATsController.cs" />
@@ -205,6 +207,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BAOHANH.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CHITIETBH.cs" />
     <Compile Include="Models\CHITIETDONHANG.cs" />
     <Compile Include="Models\CHITIETNHAP.cs" />
@@ -367,6 +370,12 @@
     <Content Include="Views\TRANGTHAIDONHANGs\Details.cshtml" />
     <Content Include="Views\TRANGTHAIDONHANGs\Edit.cshtml" />
     <Content Include="Views\TRANGTHAIDONHANGs\Index.cshtml" />
+    <Content Include="Views\Logins\LoginKH.cshtml" />
+    <Content Include="Views\Logins\LoginNV.cshtml" />
+    <Content Include="Views\KHACHHANGs\IndexKH.cshtml" />
+    <Content Include="Views\KHACHHANGs\EditKH.cshtml" />
+    <Content Include="Views\KHACHHANGs\EditPass.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

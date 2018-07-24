@@ -1,0 +1,48 @@
+﻿@model LuanVan.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "LoginKH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Khách hàng đăng nhập</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="KH_TAIKHOAN">KH_TAIKHOAN</label>
+        <div class="col-md-10">
+            <input class="form-control text-box single-line" data-val="true" data-val-length="The field KH_TAIKHOAN must be a string with a maximum length of 16." data-val-length-max="16" id="KH_TAIKHOAN" name="KH_TAIKHOAN" type="text" value="@ViewBag.TK" />
+            <span class="field-validation-valid text-danger" data-valmsg-for="KH_TAIKHOAN" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="KH_MATKHAU">KH_MATKHAU</label>
+        <div class="col-md-10">
+            <input class="form-control text-box single-line" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU" name="KH_MATKHAU" type="text" value="@ViewBag.MK" />
+            <span class="field-validation-valid text-danger" data-valmsg-for="KH_MATKHAU" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Đăngg nhập" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

@@ -188,5 +188,19 @@ namespace LuanVan.Models
                 .Property(e => e.NSX_ID)
                 .IsUnicode(false);
         }
+
+        public int autottang(string namettable, string namerow, int sl)
+        {
+            DataContext a = new DataContext();
+            int result = a.Database.SqlQuery<int>("select count(*) from KhachHang where KH_ID = 2").SingleOrDefault();
+            if (result >= 1)
+            {
+                return autottang(namettable, namerow, sl + 1);
+            }
+            else
+            {
+                return sl;
+            }
+        }
     }
 }

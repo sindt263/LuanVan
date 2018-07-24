@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    LuanVan.Controllers.HINHANHSPsController hINHANHS = new LuanVan.Controllers.HINHANHSPsController();
 }
 
 <h2>Index</h2>
@@ -27,7 +28,7 @@
             @Html.DisplayFor(modelItem => item.SANPHAM.NSP_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HA_ND)
+            <img src="@hINHANHS.XemHinh(item.HA_ID)" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.HA_ID }) |

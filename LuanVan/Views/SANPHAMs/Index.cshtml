@@ -73,8 +73,9 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.SP_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SP_ID }) |
+            @Html.ActionLink("Details", "Details", new { id= item.SP_ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.SP_ID })
+            <a class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = Url.RequestContext.RouteData.Values["id"] })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
         </td>
     </tr>
 }

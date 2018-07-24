@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -128,5 +129,47 @@ namespace LuanVan.Controllers
             }
             base.Dispose(disposing);
         }
+        
+        public void addHA(HINHANHSP hINHANHSP)
+        {
+            hINHANHSP.HA_ID = db.autottang("HinhAnhSP", "HA_ID", db.HINHANHSPs.Count()).ToString();
+            db.HINHANHSPs.Add(hINHANHSP);
+            db.SaveChanges();
+        }
+
+        public class HinhAnhResult : ActionResult
+        {
+            public byte[] NoiDungHinhAnh { get; set; }
+
+            public HinhAnhResult(byte[] noidung)
+            {
+                NoiDungHinhAnh = noidung;
+            }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                var response = context.HttpContext.Response;
+                response.Clear();
+                response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+                if (NoiDungHinhAnh != null)
+                {
+                    var stream = new MemoryStream(NoiDungHinhAnh);
+                    stream.WriteTo(response.OutputStream);
+                    stream.Dispose();
+                }
+            }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult XemHinh(string id)
+        {
+            HINHANHSP hinhanh = db.HINHANHSPs.Where(h => h.HA_ID == id).SingleOrDefault();
+
+            HinhAnhResult result = new HinhAnhResult(hinhanh.HA_ND);
+
+            return result;
+        }
+
     }
 }

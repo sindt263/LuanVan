@@ -54,8 +54,21 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI,SP_MOTANGAN,SP_MOTACHITIET")] SANPHAM sANPHAM)
         {
+            HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
+            HINHANHSP hINHANHSP = new HINHANHSP();
+            HttpPostedFileBase file = Request.Files["Image"];
+            if (file != null)
+            {
+                Int32 length = file.ContentLength;
+                byte[] tempImage = new byte[length];
+                file.InputStream.Read(tempImage, 0, length);
+                hINHANHSP.HA_ND = tempImage;
+                hINHANHSP.HA_ID = sANPHAM.SP_ID;
+                hINHANHSPsController.addHA(hINHANHSP);
+            }
             if (ModelState.IsValid)
             {
+                
                 db.SANPHAMs.Add(sANPHAM);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -143,6 +156,12 @@ namespace LuanVan.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void addSP(SANPHAM sANPHAM)
+        {
+            db.SANPHAMs.Add(sANPHAM);
+            db.SaveChanges();
         }
     }
 }
