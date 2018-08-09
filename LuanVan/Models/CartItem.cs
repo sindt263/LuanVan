@@ -7,7 +7,7 @@ namespace LuanVan.Models
 {
     public class CartItem
     {
-        public string Hinh { get; set; }
+        public string HinhID { get; set; }
        
         public int SanPhamID { get; set; }
         public string TenSanPham { get; set; }

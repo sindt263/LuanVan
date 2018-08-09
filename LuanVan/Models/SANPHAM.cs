@@ -1,4 +1,4 @@
-namespace LuanVan.Models
+﻿namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -20,33 +20,43 @@ namespace LuanVan.Models
 
         [Key]
         [StringLength(20)]
+            [Display(Name = "Serial")]
         public string SP_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã Nhóm")]
         public string NSP_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã Khuyến Mãi")]
         public string KM_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã Giá")]
         public string GIA_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã Dòng")]
         public string DSP_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã NSX")]
         public string NSX_ID { get; set; }
 
         [StringLength(255)]
+        [Display(Name = "Tên")]
         public string SP_TEN { get; set; }
 
         [StringLength(15)]
+        [Display(Name = "Trạng Thái")]
         public string SP_TRANGTHAI { get; set; }
 
         [StringLength(255)]
+        [Display(Name = "Mô Tả Ngắn")]
         public string SP_MOTANGAN { get; set; }
 
         [StringLength(255)]
+        [Display(Name = "Mô tả")]
         public string SP_MOTACHITIET { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

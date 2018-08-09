@@ -22,10 +22,12 @@ namespace LuanVan.Models
         [StringLength(100)]
         public string KM_TEN { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? KM_NGAYBATDAU { get; set; }
 
         public int? KM_THOIGIAN { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? KM_NGAYKETTHUC { get; set; }
 
         [StringLength(500)]

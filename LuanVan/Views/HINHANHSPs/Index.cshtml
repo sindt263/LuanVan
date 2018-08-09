@@ -14,7 +14,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SANPHAM.NSP_ID)
+            @Html.DisplayNameFor(model => model.HA_ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.HA_ND)
@@ -25,15 +25,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.SANPHAM.NSP_ID)
+            @Html.DisplayFor(modelItem => item.HA_ID)
         </td>
         <td>
-            <img src="@hINHANHS.XemHinh(item.HA_ID)" />
+            <asp:Repeater runat="server" id="myRepeater">
+                <ItemTemplate>
+                    <img src="/HINHANHSPs/getImage/@item.HA_ID" alt="" width="300" height="300" style="float:left" />
+                </ItemTemplate>
+            </asp:Repeater>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.HA_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.HA_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.HA_ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.HA_ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.HA_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.HA_ID })
         </td>
     </tr>
 }

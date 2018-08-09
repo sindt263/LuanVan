@@ -40,7 +40,7 @@ namespace LuanVan.Controllers
         // GET: HINHANHSPs/Create
         public ActionResult Create()
         {
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID");
             return View();
         }
 
@@ -51,14 +51,19 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
+            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
+                hINHANHSP.HA_ID = db.autottang("HINHANHSP", "HA_ID", db.HINHANHSPs.Count()).ToString();
+                Int32 length = file.ContentLength;
+                byte[] tempImage = new byte[length];
+                file.InputStream.Read(tempImage, 0, length);
                 db.HINHANHSPs.Add(hINHANHSP);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", hINHANHSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -74,7 +79,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", hINHANHSP.SP_ID);
+            //ViewBag.HA_ID = new SelectList(db.HINHANHSPs, "HA_ID", "HA_ID", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -85,13 +90,18 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
+            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
+                Int32 length = file.ContentLength;
+                byte[] tempImage = new byte[length];
+                file.InputStream.Read(tempImage, 0, length);
+                hINHANHSP.HA_ND = tempImage;
                 db.Entry(hINHANHSP).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", hINHANHSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -162,13 +172,25 @@ namespace LuanVan.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult XemHinh(string id)
+        public ActionResult getImage(string id)
         {
-            HINHANHSP hinhanh = db.HINHANHSPs.Where(h => h.HA_ID == id).SingleOrDefault();
-
-            HinhAnhResult result = new HinhAnhResult(hinhanh.HA_ND);
-
-            return result;
+            string strID = Request.QueryString["ID"];
+            if (id!=null)
+            {
+                //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
+                var ha = (from p in db.HINHANHSPs where p.HA_ID == id select p).Take(1);
+                foreach (var i in ha)
+                {
+                    if (i == null || i.HA_ND == null)
+                    {
+                        ModelState.AddModelError("", "Loi");
+                    }
+                    //Response.ContentType = "image/jpeg";
+                    Response.OutputStream.Write(i.HA_ND.ToArray(), 0, i.HA_ND.Length);
+                    Response.Flush();
+                }
+            }
+            return View();
         }
 
     }

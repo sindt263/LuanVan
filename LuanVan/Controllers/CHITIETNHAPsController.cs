@@ -40,7 +40,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "NV_ID");
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
             return View();
         }
 
@@ -53,13 +53,15 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                cHITIETNHAP.CTN_ID = db.autottang("CHITIETNHAP", "CTN_ID", db.CHITIETNHAPs.Count()).ToString();
+                cHITIETNHAP.PN_ID = Session["PNSP"].ToString();
                 db.CHITIETNHAPs.Add(cHITIETNHAP);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "NV_ID", cHITIETNHAP.PN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", cHITIETNHAP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
             return View(cHITIETNHAP);
         }
 
@@ -76,7 +78,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "NV_ID", cHITIETNHAP.PN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", cHITIETNHAP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
             return View(cHITIETNHAP);
         }
 
@@ -94,7 +96,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "NV_ID", cHITIETNHAP.PN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", cHITIETNHAP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
             return View(cHITIETNHAP);
         }
 

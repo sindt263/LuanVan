@@ -26,6 +26,7 @@ namespace LuanVan.Models
 
         public short? HTTT_ID { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? DN_NGALAPDON { get; set; }
 
         [StringLength(255)]

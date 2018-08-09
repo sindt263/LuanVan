@@ -53,9 +53,14 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                pHIEUNHAPSP.PN_ID = db.autottang("PHIEUNHAPSP", "PN_ID", db.PHIEUNHAPSPs.Count()).ToString();
                 db.PHIEUNHAPSPs.Add(pHIEUNHAPSP);
+
                 db.SaveChanges();
+
+                Session["PNSP"] = pHIEUNHAPSP.PN_ID;
                 return RedirectToAction("Index");
+               
             }
 
             ViewBag.NCC_ID = new SelectList(db.NHACUNGCAPs, "NCC_ID", "NCC_TEN", pHIEUNHAPSP.NCC_ID);

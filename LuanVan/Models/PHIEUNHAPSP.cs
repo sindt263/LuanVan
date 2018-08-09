@@ -25,6 +25,7 @@ namespace LuanVan.Models
         [StringLength(10)]
         public string NCC_ID { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? PN_NGAY { get; set; }
 
         [StringLength(500)]

@@ -5,14 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script language="javascript">
+            angular.module('myapp', [])
+                .controller('DateController', ['$scope', function ($scope) {
+                    $scope.value = new Date("@Model.CTBH_NGAYBH");
+                    $scope.value1 = new Date("@Model.CTBH_NGAYTRA");
+        }]);
+
+</script>
 <h2>Edit</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+
+    <div class="form-horizontal" ng-app="myapp">
         <h4>CHITIETBH</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -44,16 +52,16 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CTBH_NGAYBH, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CTBH_NGAYBH, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-10" name="myForm" ng-controller="DateController">
+                <input type="date" name="CTBH_NGAYBH" id="CTBH_NGAYBH" ng-model="value1" class="form-control" />
                 @Html.ValidationMessageFor(model => model.CTBH_NGAYBH, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CTBH_NGAYTRA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CTBH_NGAYTRA, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-10" name="myForm" ng-controller="DateController">
+                <input type="date" name="CTBH_NGAYTRA" id="CTBH_NGAYTRA" ng-model="value1" class="form-control" />
                 @Html.ValidationMessageFor(model => model.CTBH_NGAYTRA, "", new { @class = "text-danger" })
             </div>
         </div>

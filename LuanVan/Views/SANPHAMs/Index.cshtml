@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
 }
 
 <h2>Index</h2>
@@ -16,7 +17,7 @@
             @Html.DisplayNameFor(model => model.DONGSANPHAM.DSP_TEN)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GIASP.GIA_ID)
+            @Html.DisplayNameFor(model => model.GIASP.GIA_GIA)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
@@ -39,7 +40,8 @@
         <th>
             @Html.DisplayNameFor(model => model.SP_MOTACHITIET)
         </th>
-        <th></th>
+        <th>Hình ảnh</th>
+        <th>Thao tác</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -48,7 +50,7 @@
             @Html.DisplayFor(modelItem => item.DONGSANPHAM.DSP_TEN)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GIASP.GIA_ID)
+            @Html.DisplayFor(modelItem => item.GIASP.GIA_GIA)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.KHUYENMAI.KM_TEN)
@@ -72,9 +74,16 @@
             @Html.DisplayFor(modelItem => item.SP_MOTACHITIET)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SP_ID }) |
-            @Html.ActionLink("Details", "Details", new { id= item.SP_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SP_ID })
+            <asp:Repeater runat="server" id="myRepeater">
+                <ItemTemplate>
+                    <img src="/SANPHAMs/getImage/@item.SP_ID" alt="" width="300" height="300" style="float:left" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SP_ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.SP_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SP_ID })
             <a class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = Url.RequestContext.RouteData.Values["id"] })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
         </td>
     </tr>

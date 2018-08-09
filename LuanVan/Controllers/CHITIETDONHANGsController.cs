@@ -40,7 +40,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID");
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace LuanVan.Controllers
             }
 
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", cHITIETDONHANG.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
             return View(cHITIETDONHANG);
         }
 
@@ -76,7 +76,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", cHITIETDONHANG.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
             return View(cHITIETDONHANG);
         }
 
@@ -94,7 +94,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "NSP_ID", cHITIETDONHANG.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
             return View(cHITIETDONHANG);
         }
 

@@ -163,5 +163,40 @@ namespace LuanVan.Controllers
             db.SANPHAMs.Add(sANPHAM);
             db.SaveChanges();
         }
+
+        public string getIDHA(string IDSP)
+        {
+            var result = (from p in db.HINHANHSPs where p.SP_ID == IDSP select p).Take(1);
+            foreach(var i in result)
+            {
+                string id = i.HA_ID;
+                if (id != null)
+                {
+                    return id;
+                }
+            }
+            return "";
+        }
+
+        public ActionResult getImage(string id)
+        {
+            string strID = Request.QueryString["ID"];
+            if (id != null)
+            {
+                //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
+                var ha = (from p in db.HINHANHSPs where p.SP_ID == id select p);
+                foreach (var i in ha)
+                {
+                    if (i == null || i.HA_ND == null)
+                    {
+                        ModelState.AddModelError("", "Loi");
+                    }
+                    //Response.ContentType = "image/jpeg";
+                    Response.OutputStream.Write(i.HA_ND.ToArray(), 0, i.HA_ND.Length);
+                    Response.Flush();
+                }
+            }
+            return View();
+        }
     }
 }
