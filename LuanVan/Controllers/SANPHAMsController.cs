@@ -21,6 +21,11 @@ namespace LuanVan.Controllers
             return View(sANPHAMs.ToList());
         }
 
+        public ActionResult ViewSP()
+        {
+            var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM);
+            return View(sANPHAMs.ToList());
+        }
         // GET: SANPHAMs/Details/5
         public ActionResult Details(string id)
         {
@@ -221,6 +226,11 @@ namespace LuanVan.Controllers
                 }
             }
             return View();
+        }
+        public int GetGia(string id)
+        {
+            int gia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID ='" + id+"'").SingleOrDefault();
+            return gia;
         }
     }
 }

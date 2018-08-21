@@ -1,48 +1,121 @@
-﻿@model LuanVan.Models.KHACHHANG
-
-@{
-    ViewBag.Title = "LoginKH";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V5</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Content/Login/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Login/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('~/Content/Login/images/bg-01.jpg');">
+                <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+                    <form class="login100-form validate-form flex-sb flex-w">
+                        <span class="login100-form-title p-b-53">
+                            Sign In With
+                        </span>
 
-<h2>Khách hàng đăng nhập</h2>
+                        <a href="#" class="btn-face m-b-20">
+                            <i class="fa fa-facebook-official"></i>
+                            Facebook
+                        </a>
 
+                        <a href="#" class="btn-google m-b-20">
+                            <img src="~/Content/Login/images/icons/icon-google.png" alt="GOOGLE">
+                            Google
+                        </a>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="p-t-31 p-b-9">
+                            <span class="txt1">
+                                Username
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate="Username is required">
+                            <input class="input100" type="text" data-val="true" data-val-length="The field KH_TAIKHOAN must be a string with a maximum length of 16." data-val-length-max="16" id="KH_TAIKHOAN" name="KH_TAIKHOAN" value="@ViewBag.TK">
+                            <span class="focus-input100"></span>
+                        </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        <label class="control-label col-md-2" for="KH_TAIKHOAN">KH_TAIKHOAN</label>
-        <div class="col-md-10">
-            <input class="form-control text-box single-line" data-val="true" data-val-length="The field KH_TAIKHOAN must be a string with a maximum length of 16." data-val-length-max="16" id="KH_TAIKHOAN" name="KH_TAIKHOAN" type="text" value="@ViewBag.TK" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="KH_TAIKHOAN" data-valmsg-replace="true"></span>
+                        <div class="p-t-13 p-b-9">
+                            <span class="txt1">
+                                Password
+                            </span>
+
+                            <a href="#" class="txt2 bo1 m-l-5">
+                                Forgot?
+                            </a>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            <input class="input100" type="password" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU" name="KH_MATKHAU" value="@ViewBag.MK">
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-17">
+                            <input type="submit" value="Đăng nhập" class="login100-form-btn">
+                        </div>
+
+                        <div class="w-full text-center p-t-55">
+                            <span class="txt2">
+                                Not a member?
+                            </span>
+
+                            <a href="#" class="txt2 bo1">
+                                Sign up now
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
+    }
 
-    <div class="form-group">
-        <label class="control-label col-md-2" for="KH_MATKHAU">KH_MATKHAU</label>
-        <div class="col-md-10">
-            <input class="form-control text-box single-line" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU" name="KH_MATKHAU" type="text" value="@ViewBag.MK" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="KH_MATKHAU" data-valmsg-replace="true"></span>
-        </div>
-    </div>
+    <div id="dropDownSelect1"></div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Đăngg nhập" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
+    <!--===============================================================================================-->
+    <script src="~/Content/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Login/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/Login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/Login/js/main.js"></script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</body>
+</html>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
 
