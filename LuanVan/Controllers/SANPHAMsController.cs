@@ -71,7 +71,7 @@ namespace LuanVan.Controllers
                 
                 db.SANPHAMs.Add(sANPHAM);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.SP_ID);
             }
 
             ViewBag.DSP_ID = new SelectList(db.DONGSANPHAMs, "DSP_ID", "DSP_TEN", sANPHAM.DSP_ID);
@@ -79,6 +79,30 @@ namespace LuanVan.Controllers
             ViewBag.KM_ID = new SelectList(db.KHUYENMAIs, "KM_ID", "KM_TEN", sANPHAM.KM_ID);
             ViewBag.NSX_ID = new SelectList(db.NHASANXUATs, "NSX_ID", "NSX_TEN", sANPHAM.NSX_ID);
             ViewBag.NSP_ID = new SelectList(db.NHOMSANPHAMs, "NSP_ID", "NSP_TEN", sANPHAM.NSP_ID);
+            return View(sANPHAM);
+        }
+        public ActionResult CreateSP(string id1,string id2, string id3, string id4, string id5, string id6, string id7, string id8, string id9)
+        {
+            SANPHAM sANPHAM = new SANPHAM();
+              
+            if (ModelState.IsValid)
+            {
+                sANPHAM.SP_ID = id1;
+                sANPHAM.NSP_ID = id2;
+                sANPHAM.KM_ID = id3;
+                sANPHAM.GIA_ID = id4;
+                sANPHAM.DSP_ID = id5;
+                sANPHAM.NSX_ID = id6;
+                sANPHAM.SP_TEN = id7;
+                sANPHAM.SP_MOTANGAN = id8;
+                sANPHAM.SP_MOTACHITIET = id9;
+
+                db.SANPHAMs.Add(sANPHAM);
+                db.SaveChanges();
+                ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.SP_ID);
+            }
+
+            
             return View(sANPHAM);
         }
 

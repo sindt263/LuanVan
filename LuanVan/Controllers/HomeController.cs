@@ -26,5 +26,9 @@ namespace LuanVan.Controllers
 
             return View();
         }
+        public ActionResult PagesEmpty()
+        {
+            return View();
+        }
     }
 }

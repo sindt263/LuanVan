@@ -3,32 +3,34 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layoutsecond.cshtml";
+
+    <script src="@Url.Content("~/Content/js/jquery-1.11.3.min.js")"></script>
 }
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal" id="ViewHideCTN">
         <h4>Phiếu nhập chi tiết</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
-            @Html.LabelFor(model => model.CTN_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CTN_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CTN_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                @Html.LabelFor(model => model.CTN_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CTN_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CTN_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.PN_ID, "PN_ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PN_ID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PN_ID, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.SP_ID, "SP_ID", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -48,12 +50,33 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" id="CreateCTN" class="btn btn-default" />
+                <input type="button" value="Nhập" id="CreateCTN" class="btn btn-default" />
             </div>
         </div>
+        <div id="Viewss"></div>
     </div>
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        var id1 = document.getElementById("PN_ID");
+        var id2 = document.getElementById("SP_ID");
+        var id3 = document.getElementById("CTN_GIA");
+       
+
+
+        $('#CreateCTN').click(function () {
+            $.ajax({
+                type: "GET",
+                url: '/ChiTietNhaps/CreateCTN/',
+                data: { 'id1': id1.value, 'id2': id2.value, 'id3': id3.value },
+                success: function (result) {
+                    $('#Viewss').html(result)
+                }
+            })
+        })
+    })
+</script>

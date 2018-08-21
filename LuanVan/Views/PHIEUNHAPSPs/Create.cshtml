@@ -1,72 +1,100 @@
 ﻿@model LuanVan.Models.PHIEUNHAPSP
 
 @{
+    /**/
+
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     <script src="@Url.Content("~/Content/js/jquery-1.11.3.min.js")"></script>
-    <link href="~/Content/PhieuYeuCau/css/cssprivate.css" rel="stylesheet" />
 }
+<script language="javascript">
+    angular.module('myapp', [])
+        .controller('DateController', ['$scope', function ($scope) {
+            $scope.value = new Date();
+        }]);
 
+</script>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Tạo phiếu nhập</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.PN_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PN_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PN_ID, "", new { @class = "text-danger" })
+    <div class="form-horizontal" id="ViewHide" hidden>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Thêm phiếu nhập" id="CreateShow" class="btn btn-default" />
+                <span class="field-validation-valid text-danger" data-valmsg-for="TrungPN" data-valmsg-replace="true"></span>
+
             </div>
-        </div>*@
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.NV_ID, "NV_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("NV_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.NV_ID, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-horizontal" id="Viewinfo"></div>
+    <div class="form-horizontal" id="ViewShow" ng-app="myapp">
+        <h4>Tạo phiếu nhập</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+                @Html.LabelFor(model => model.PN_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PN_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PN_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.NCC_ID, "NCC_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("NCC_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.NCC_ID, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.NV_ID, "NV_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("NV_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NV_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NCC_ID, "NCC_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("NCC_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NCC_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" name="myForm" ng-controller="DateController">
+            @Html.LabelFor(model => model.PN_NGAY, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" name="PN_NGAY" ng-model="value" id="PN_NGAY" class="form-control" />
+                @Html.ValidationMessageFor(model => model.PN_NGAY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PN_GHICHU, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PN_GHICHU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PN_GHICHU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Tạo phiếu" id="CreatePN" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PN_NGAY, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PN_NGAY, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PN_NGAY, "", new { @class = "text-danger" })
-        </div>
+    
+    <div class="col-lg-6">
+        <input type="button" value="Nhập sản phẩm" id="ShowViewSP" />
+        <input type="button" value="Ẩn khung" id="HideViewSP" hidden />
+    </div>
+    <div class="col-lg-6">
+        <input type="button" value="Nhập chi tiết phiếu nhập" id="ShowViewCTN" />
+        <input type="button" value="Ẩn khung" id="HideViewCTN" hidden />
+    </div>
+     <div class="col-lg-6" id="Views">
+    </div>
+    <div class="col-lg-6" id="ViewCTN">
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.PN_GHICHU, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PN_GHICHU, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PN_GHICHU, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="button" value="Create" id="CreatePN" class="btn btn-default" />
-        </div>
-    </div>
-
-    <div class="col-lg-6" id="Views"></div>
-    <div class="col-lg-6" id="ViewCTN"></div>
-
-</div>
 }
 
 <div class="col-md-12">
@@ -80,11 +108,39 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //var cmbsothe = document.getElementById("SoThe");
+        var cmbPN_ID = document.getElementById("PN_ID");
+        var cmbNCC_ID = document.getElementById("NCC_ID");
+        var cmbPN_NGAY = document.getElementById("PN_NGAY");
+        var cmbPN_GHICHU = document.getElementById("PN_GHICHU");
         //if (cmbsothe.value != "") {
         //alert("a")
 
-        //$('#Create').click(function () {
+        $('#CreateShow').click(function () {
+            $('#ViewShow').show()
+            $('#ViewHide').hide()
+        })
+
+
+        $('#CreatePN').click(function () {
+            $('#ViewShow').hide()
+            $('#ViewHide').show()
+       
+            $.ajax({
+
+                type: "Post",
+                url: '/PHIEUNHAPSPs/CreatePN/',
+                data: {
+                    'id': cmbNCC_ID.value, 'id2': cmbPN_NGAY.value, 'id3': cmbPN_GHICHU.value, 'id4':cmbPN_ID.value
+                },
+                success: function (result) {
+                    $('#Viewinfo').html(result)
+                }
+            })
+        })
+
+        $('#ShowViewSP').click(function () {
+            $('#HideViewSP').show()
+           
             $.ajax({
                 type: "GET",
                 url: '/SANPHAMs/Create/',
@@ -92,7 +148,12 @@
                 success: function (result) {
                     $('#Views').html(result)
                 }
-        })
+            })
+            })
+
+        $('#ShowViewCTN').click(function () {
+            $('#HideViewCTN').show()
+            
             $.ajax({
                 type: "GET",
                 url: '/CHITIETNHAPs/Create/',
@@ -101,8 +162,28 @@
                     $('#ViewCTN').html(result)
                 }
             })
-        //}
-        
+            })
+        $('#HideViewCTN').click(function () {
+            $.ajax({
+                type: "GET",
+                url: '/Home/PagesEmpty/',
+                //data: { 'id': cmbsothe.value },
+                success: function (result) {
+                    $('#ViewCTN').html(result)
+                }
+            })
+        })
+        $('#HideViewSP').click(function () {
+            $.ajax({
+                type: "GET",
+                url: '/Home/PagesEmpty/',
+                //data: { 'id': cmbsothe.value },
+                success: function (result) {
+                    $('#Views').html(result)
+                }
+            })
+        })
+
     })
 
 </script>

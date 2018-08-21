@@ -1159,6 +1159,10 @@
     <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Shared\_Layoutsecond.cshtml" />
+    <Content Include="Views\PHIEUNHAPSPs\CreatePN.cshtml" />
+    <Content Include="Views\CHITIETNHAPs\CreateCTN.cshtml" />
+    <Content Include="Views\SANPHAMs\CreateSP.cshtml" />
+    <Content Include="Views\Home\PagesEmpty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

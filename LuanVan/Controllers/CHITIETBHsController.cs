@@ -54,7 +54,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                cHITIETBH.CTBH_ID = db.autottang("ChiTietBH", "CTBH_ID", db.CHITIETBHs.Count()).ToString();
                 db.CHITIETBHs.Add(cHITIETBH);
                 db.SaveChanges();
                 return RedirectToAction("Index");

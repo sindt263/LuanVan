@@ -51,6 +51,9 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PN_ID,NV_ID,NCC_ID,PN_NGAY,PN_GHICHU")] PHIEUNHAPSP pHIEUNHAPSP)
         {
+            string NCC_ID = Request["NCC_ID"];
+            string PN_NGAY = Request["PN_NGAY"];
+            string PN_GHICHU = Request["PN_GHICHU"];
             if (ModelState.IsValid)
             {
                 pHIEUNHAPSP.PN_ID = db.autottang("PHIEUNHAPSP", "PN_ID", db.PHIEUNHAPSPs.Count()).ToString();
@@ -66,6 +69,39 @@ namespace LuanVan.Controllers
             ViewBag.NCC_ID = new SelectList(db.NHACUNGCAPs, "NCC_ID", "NCC_TEN", pHIEUNHAPSP.NCC_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", pHIEUNHAPSP.NV_ID);
             return View(pHIEUNHAPSP);
+        }
+        public ActionResult CreatePN(string id, string id2, string id3,string id4)
+        {
+            string testid = db.Database.SqlQuery<string>("select PN_ID from PhieuNhapsp where PN_ID = '"+id4+"'").SingleOrDefault();
+            if (testid != null)
+            {
+                ModelState.AddModelError("TrungPN", "Mã phiếu nhập bị trùng");
+            }
+            else
+            {
+                PHIEUNHAPSP pHIEUNHAPSP = new PHIEUNHAPSP();
+                if (ModelState.IsValid)
+                {
+                    //pHIEUNHAPSP.PN_ID = db.autottang("PHIEUNHAPSP", "PN_ID", db.PHIEUNHAPSPs.Count()).ToString();
+                    pHIEUNHAPSP.PN_ID = id4;
+                    pHIEUNHAPSP.NCC_ID = id;
+                    pHIEUNHAPSP.PN_NGAY = DateTime.Now;
+                    pHIEUNHAPSP.PN_GHICHU = id3;
+                    //pHIEUNHAPSP.NV_ID = "";
+                    db.PHIEUNHAPSPs.Add(pHIEUNHAPSP);
+
+                    db.SaveChanges();
+
+                    Session["PNSP"] = pHIEUNHAPSP.PN_ID;
+                    ModelState.AddModelError("", "Phiếu nhập " + pHIEUNHAPSP.PN_ID + " Đã được tạo");
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Lỗi !");
+                }
+            }
+            return View();
         }
 
         // GET: PHIEUNHAPSPs/Edit/5
