@@ -1,0 +1,94 @@
+﻿@model IEnumerable<LuanVan.Models.CHITIETSANPHAM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_CNMANGHINH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_DOPHANGIAI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_MANHINH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_CAMERATRUOC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_CAMERASAU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_HEDIEUHANH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_RAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_ROM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_DUNGLUONGPIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_SOSIM)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_CNMANGHINH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_DOPHANGIAI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_MANHINH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_CAMERATRUOC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_CAMERASAU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_HEDIEUHANH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_RAM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_ROM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_DUNGLUONGPIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_SOSIM)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CTSP_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CTSP_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CTSP_ID })
+        </td>
+    </tr>
+}
+
+</table>

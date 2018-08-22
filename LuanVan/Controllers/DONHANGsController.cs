@@ -54,6 +54,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
                 db.DONHANGs.Add(dONHANG);
                 db.SaveChanges();
                 return RedirectToAction("Index");

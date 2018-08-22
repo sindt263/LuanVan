@@ -52,14 +52,19 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CTBH_ID,SP_ID,BH_ID,TTBH_ID,CTBH_NGAYBH,CTBH_NGAYTRA,CTBH_GHICHU")] CHITIETBH cHITIETBH)
         {
-            if (ModelState.IsValid)
+            string SP_ID = Request["SP_ID"];
+            string result = db.Database.SqlQuery<string>("select SP_ID from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
+            if (ModelState.IsValid && result !=null)
             {
                 cHITIETBH.CTBH_ID = db.autottang("ChiTietBH", "CTBH_ID", db.CHITIETBHs.Count()).ToString();
                 db.CHITIETBHs.Add(cHITIETBH);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            else
+            {
+                ModelState.AddModelError("", "Lỗi !");
+            }
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN", cHITIETBH.BH_ID);
             ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.SP_ID);
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN", cHITIETBH.TTBH_ID);

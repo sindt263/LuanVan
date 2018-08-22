@@ -16,6 +16,7 @@ namespace LuanVan.Models
         public virtual DbSet<CHITIETBH> CHITIETBHs { get; set; }
         public virtual DbSet<CHITIETDONHANG> CHITIETDONHANGs { get; set; }
         public virtual DbSet<CHITIETNHAP> CHITIETNHAPs { get; set; }
+        public virtual DbSet<CHITIETSANPHAM> CHITIETSANPHAMs { get; set; }
         public virtual DbSet<DONGSANPHAM> DONGSANPHAMs { get; set; }
         public virtual DbSet<DONHANG> DONHANGs { get; set; }
         public virtual DbSet<GIASP> GIASPs { get; set; }
@@ -30,7 +31,6 @@ namespace LuanVan.Models
         public virtual DbSet<NHOMSANPHAM> NHOMSANPHAMs { get; set; }
         public virtual DbSet<PHIEUNHAPSP> PHIEUNHAPSPs { get; set; }
         public virtual DbSet<SANPHAM> SANPHAMs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TRANGTHAIBH> TRANGTHAIBHs { get; set; }
         public virtual DbSet<TRANGTHAIDONHANG> TRANGTHAIDONHANGs { get; set; }
 
@@ -66,6 +66,18 @@ namespace LuanVan.Models
 
             modelBuilder.Entity<CHITIETNHAP>()
                 .Property(e => e.SP_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CHITIETSANPHAM>()
+                .Property(e => e.CTSP_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CHITIETSANPHAM>()
+                .Property(e => e.CTSP_CAMERATRUOC)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CHITIETSANPHAM>()
+                .Property(e => e.CTSP_CAMERASAU)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DONGSANPHAM>()
@@ -169,6 +181,10 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<SANPHAM>()
+                .Property(e => e.CTSP_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SANPHAM>()
                 .Property(e => e.NSP_ID)
                 .IsUnicode(false);
 
@@ -202,5 +218,6 @@ namespace LuanVan.Models
                 return sl;
             }
         }
+
     }
 }

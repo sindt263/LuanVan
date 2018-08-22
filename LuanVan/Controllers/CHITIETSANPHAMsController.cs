@@ -10,117 +10,108 @@ using LuanVan.Models;
 
 namespace LuanVan.Controllers
 {
-    public class CHITIETDONHANGsController : Controller
+    public class CHITIETSANPHAMsController : Controller
     {
         private DataContext db = new DataContext();
 
-        // GET: CHITIETDONHANGs
+        // GET: CHITIETSANPHAMs
         public ActionResult Index()
         {
-            var cHITIETDONHANGs = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.SANPHAM);
-            return View(cHITIETDONHANGs.ToList());
+            return View(db.CHITIETSANPHAMs.ToList());
         }
 
-        // GET: CHITIETDONHANGs/Details/5
+        // GET: CHITIETSANPHAMs/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CHITIETDONHANG cHITIETDONHANG = db.CHITIETDONHANGs.Find(id);
-            if (cHITIETDONHANG == null)
+            CHITIETSANPHAM cHITIETSANPHAM = db.CHITIETSANPHAMs.Find(id);
+            if (cHITIETSANPHAM == null)
             {
                 return HttpNotFound();
             }
-            return View(cHITIETDONHANG);
+            return View(cHITIETSANPHAM);
         }
 
-        // GET: CHITIETDONHANGs/Create
+        // GET: CHITIETSANPHAMs/Create
         public ActionResult Create()
         {
-            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID");
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
             return View();
         }
 
-        // POST: CHITIETDONHANGs/Create
+        // POST: CHITIETSANPHAMs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO")] CHITIETDONHANG cHITIETDONHANG)
+        public ActionResult Create([Bind(Include = "CTSP_ID,CTSP_TEN,CTSP_CNMANGHINH,CTSP_DOPHANGIAI,CTSP_MANHINH,CTSP_CAMERATRUOC,CTSP_CAMERASAU,CTSP_HEDIEUHANH,CTSP_RAM,CTSP_ROM,CTSP_DUNGLUONGPIN,CTSP_SOSIM")] CHITIETSANPHAM cHITIETSANPHAM)
         {
             if (ModelState.IsValid)
             {
-                cHITIETDONHANG.CTDH_ID = db.autottang("ChiTietDonHang", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
-                db.CHITIETDONHANGs.Add(cHITIETDONHANG);
+                cHITIETSANPHAM.CTSP_ID = db.autottang("ChiTietSanPham", "CTSP_ID", db.CHITIETSANPHAMs.Count()).ToString();
+                db.CHITIETSANPHAMs.Add(cHITIETSANPHAM);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
-            return View(cHITIETDONHANG);
+            return View(cHITIETSANPHAM);
         }
 
-        // GET: CHITIETDONHANGs/Edit/5
+        // GET: CHITIETSANPHAMs/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CHITIETDONHANG cHITIETDONHANG = db.CHITIETDONHANGs.Find(id);
-            if (cHITIETDONHANG == null)
+            CHITIETSANPHAM cHITIETSANPHAM = db.CHITIETSANPHAMs.Find(id);
+            if (cHITIETSANPHAM == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
-            return View(cHITIETDONHANG);
+            return View(cHITIETSANPHAM);
         }
 
-        // POST: CHITIETDONHANGs/Edit/5
+        // POST: CHITIETSANPHAMs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO")] CHITIETDONHANG cHITIETDONHANG)
+        public ActionResult Edit([Bind(Include = "CTSP_ID,CTSP_TEN,CTSP_CNMANGHINH,CTSP_DOPHANGIAI,CTSP_MANHINH,CTSP_CAMERATRUOC,CTSP_CAMERASAU,CTSP_HEDIEUHANH,CTSP_RAM,CTSP_ROM,CTSP_DUNGLUONGPIN,CTSP_SOSIM")] CHITIETSANPHAM cHITIETSANPHAM)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cHITIETDONHANG).State = EntityState.Modified;
+                db.Entry(cHITIETSANPHAM).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
-            return View(cHITIETDONHANG);
+            return View(cHITIETSANPHAM);
         }
 
-        // GET: CHITIETDONHANGs/Delete/5
+        // GET: CHITIETSANPHAMs/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CHITIETDONHANG cHITIETDONHANG = db.CHITIETDONHANGs.Find(id);
-            if (cHITIETDONHANG == null)
+            CHITIETSANPHAM cHITIETSANPHAM = db.CHITIETSANPHAMs.Find(id);
+            if (cHITIETSANPHAM == null)
             {
                 return HttpNotFound();
             }
-            return View(cHITIETDONHANG);
+            return View(cHITIETSANPHAM);
         }
 
-        // POST: CHITIETDONHANGs/Delete/5
+        // POST: CHITIETSANPHAMs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            CHITIETDONHANG cHITIETDONHANG = db.CHITIETDONHANGs.Find(id);
-            db.CHITIETDONHANGs.Remove(cHITIETDONHANG);
+            CHITIETSANPHAM cHITIETSANPHAM = db.CHITIETSANPHAMs.Find(id);
+            db.CHITIETSANPHAMs.Remove(cHITIETSANPHAM);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

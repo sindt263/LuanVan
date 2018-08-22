@@ -21,7 +21,6 @@ namespace LuanVan.Models
 
         public int? GIA_GIA { get; set; }
 
-        [DataType(DataType.Date)]
         public DateTime? GIA_NGAYCAPNHAT { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

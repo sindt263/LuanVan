@@ -184,6 +184,7 @@
     <Compile Include="Controllers\CHITIETBHsController.cs" />
     <Compile Include="Controllers\CHITIETDONHANGsController.cs" />
     <Compile Include="Controllers\CHITIETNHAPsController.cs" />
+    <Compile Include="Controllers\CHITIETSANPHAMsController.cs" />
     <Compile Include="Controllers\DONGSANPHAMsController.cs" />
     <Compile Include="Controllers\DONHANGsController.cs" />
     <Compile Include="Controllers\GIASPsController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Models\CHITIETBH.cs" />
     <Compile Include="Models\CHITIETDONHANG.cs" />
     <Compile Include="Models\CHITIETNHAP.cs" />
+    <Compile Include="Models\CHITIETSANPHAM.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\DONGSANPHAM.cs" />
     <Compile Include="Models\DONHANG.cs" />
@@ -226,7 +228,6 @@
     <Compile Include="Models\NHOMSANPHAM.cs" />
     <Compile Include="Models\PHIEUNHAPSP.cs" />
     <Compile Include="Models\SANPHAM.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\TRANGTHAIBH.cs" />
     <Compile Include="Models\TRANGTHAIDONHANG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1289,6 +1290,11 @@
     <Content Include="Views\SANPHAMs\CreateSP.cshtml" />
     <Content Include="Views\Home\PagesEmpty.cshtml" />
     <Content Include="Views\SANPHAMs\ViewSP.cshtml" />
+    <Content Include="Views\CHITIETSANPHAMs\Create.cshtml" />
+    <Content Include="Views\CHITIETSANPHAMs\Delete.cshtml" />
+    <Content Include="Views\CHITIETSANPHAMs\Details.cshtml" />
+    <Content Include="Views\CHITIETSANPHAMs\Edit.cshtml" />
+    <Content Include="Views\CHITIETSANPHAMs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
