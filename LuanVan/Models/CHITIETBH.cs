@@ -20,10 +20,8 @@ namespace LuanVan.Models
 
         public short? TTBH_ID { get; set; }
 
-        [DataType(DataType.Date)]
         public DateTime? CTBH_NGAYBH { get; set; }
 
-        [DataType(DataType.Date)]
         public DateTime? CTBH_NGAYTRA { get; set; }
 
         [StringLength(255)]

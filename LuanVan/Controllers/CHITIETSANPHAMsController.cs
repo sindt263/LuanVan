@@ -48,6 +48,21 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CTSP_ID,CTSP_TEN,CTSP_CNMANGHINH,CTSP_DOPHANGIAI,CTSP_MANHINH,CTSP_CAMERATRUOC,CTSP_CAMERASAU,CTSP_HEDIEUHANH,CTSP_RAM,CTSP_ROM,CTSP_DUNGLUONGPIN,CTSP_SOSIM")] CHITIETSANPHAM cHITIETSANPHAM)
         {
+            HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
+            HINHANHSP hINHANHSP = new HINHANHSP();
+            string CTSP = Request["CTSP_ID"];
+            HttpPostedFileBase file = Request.Files["Image"];
+            if (file != null)
+            {
+                cHITIETSANPHAM.CTSP_ID = CTSP;
+                Int32 length = file.ContentLength;
+                byte[] tempImage = new byte[length];
+                file.InputStream.Read(tempImage, 0, length);
+                hINHANHSP.HA_ND = tempImage;
+                hINHANHSP.HA_ID = cHITIETSANPHAM.CTSP_ID;
+                hINHANHSPsController.addHA(hINHANHSP);
+            }
+
             if (ModelState.IsValid)
             {
                 cHITIETSANPHAM.CTSP_ID = db.autottang("ChiTietSanPham", "CTSP_ID", db.CHITIETSANPHAMs.Count()).ToString();

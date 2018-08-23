@@ -18,7 +18,7 @@ namespace LuanVan.Controllers
         // GET: HINHANHSPs
         public ActionResult Index()
         {
-            var hINHANHSPs = db.HINHANHSPs.Include(h => h.SANPHAM);
+            var hINHANHSPs = db.HINHANHSPs.Include(h => h.CHITIETSANPHAM);
             return View(hINHANHSPs.ToList());
         }
 
@@ -40,7 +40,7 @@ namespace LuanVan.Controllers
         // GET: HINHANHSPs/Create
         public ActionResult Create()
         {
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID");
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
             return View();
         }
 
@@ -49,21 +49,16 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
+        public ActionResult Create([Bind(Include = "HA_ID,CTSP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
-            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
-                hINHANHSP.HA_ID = db.autottang("HINHANHSP", "HA_ID", db.HINHANHSPs.Count()).ToString();
-                Int32 length = file.ContentLength;
-                byte[] tempImage = new byte[length];
-                file.InputStream.Read(tempImage, 0, length);
                 db.HINHANHSPs.Add(hINHANHSP);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", hINHANHSP.SP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.CTSP_ID);
             return View(hINHANHSP);
         }
 
@@ -79,7 +74,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.HA_ID = new SelectList(db.HINHANHSPs, "HA_ID", "HA_ID", hINHANHSP.SP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.CTSP_ID);
             return View(hINHANHSP);
         }
 
@@ -88,20 +83,15 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
+        public ActionResult Edit([Bind(Include = "HA_ID,CTSP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
-            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
-                Int32 length = file.ContentLength;
-                byte[] tempImage = new byte[length];
-                file.InputStream.Read(tempImage, 0, length);
-                hINHANHSP.HA_ND = tempImage;
                 db.Entry(hINHANHSP).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", hINHANHSP.SP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.CTSP_ID);
             return View(hINHANHSP);
         }
 
@@ -139,7 +129,7 @@ namespace LuanVan.Controllers
             }
             base.Dispose(disposing);
         }
-        
+
         public void addHA(HINHANHSP hINHANHSP)
         {
             hINHANHSP.HA_ID = db.autottang("HinhAnhSP", "HA_ID", db.HINHANHSPs.Count()).ToString();
@@ -175,7 +165,7 @@ namespace LuanVan.Controllers
         public ActionResult getImage(string id)
         {
             string strID = Request.QueryString["ID"];
-            if (id!=null)
+            if (id != null)
             {
                 //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
                 var ha = (from p in db.HINHANHSPs where p.HA_ID == id select p).Take(1);
@@ -192,6 +182,5 @@ namespace LuanVan.Controllers
             }
             return View();
         }
-
     }
 }

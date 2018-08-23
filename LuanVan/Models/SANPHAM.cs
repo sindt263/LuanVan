@@ -15,7 +15,6 @@ namespace LuanVan.Models
             CHITIETBHs = new HashSet<CHITIETBH>();
             CHITIETDONHANGs = new HashSet<CHITIETDONHANG>();
             CHITIETNHAPs = new HashSet<CHITIETNHAP>();
-            HINHANHSPs = new HashSet<HINHANHSP>();
         }
 
         [Key]
@@ -66,9 +65,6 @@ namespace LuanVan.Models
         public virtual DONGSANPHAM DONGSANPHAM { get; set; }
 
         public virtual GIASP GIASP { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HINHANHSP> HINHANHSPs { get; set; }
 
         public virtual KHUYENMAI KHUYENMAI { get; set; }
 

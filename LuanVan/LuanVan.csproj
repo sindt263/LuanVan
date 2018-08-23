@@ -1212,11 +1212,6 @@
     <Content Include="Views\GIASPs\Details.cshtml" />
     <Content Include="Views\GIASPs\Edit.cshtml" />
     <Content Include="Views\GIASPs\Index.cshtml" />
-    <Content Include="Views\HINHANHSPs\Create.cshtml" />
-    <Content Include="Views\HINHANHSPs\Delete.cshtml" />
-    <Content Include="Views\HINHANHSPs\Details.cshtml" />
-    <Content Include="Views\HINHANHSPs\Edit.cshtml" />
-    <Content Include="Views\HINHANHSPs\Index.cshtml" />
     <Content Include="Views\HINHTHUCTHANHTOANs\Create.cshtml" />
     <Content Include="Views\HINHTHUCTHANHTOANs\Delete.cshtml" />
     <Content Include="Views\HINHTHUCTHANHTOANs\Details.cshtml" />
@@ -1295,6 +1290,11 @@
     <Content Include="Views\CHITIETSANPHAMs\Details.cshtml" />
     <Content Include="Views\CHITIETSANPHAMs\Edit.cshtml" />
     <Content Include="Views\CHITIETSANPHAMs\Index.cshtml" />
+    <Content Include="Views\HINHANHSPs\Create.cshtml" />
+    <Content Include="Views\HINHANHSPs\Delete.cshtml" />
+    <Content Include="Views\HINHANHSPs\Details.cshtml" />
+    <Content Include="Views\HINHANHSPs\Edit.cshtml" />
+    <Content Include="Views\HINHANHSPs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

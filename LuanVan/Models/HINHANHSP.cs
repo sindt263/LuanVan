@@ -14,11 +14,11 @@ namespace LuanVan.Models
         public string HA_ID { get; set; }
 
         [StringLength(20)]
-        public string SP_ID { get; set; }
+        public string CTSP_ID { get; set; }
 
         [Column(TypeName = "image")]
         public byte[] HA_ND { get; set; }
 
-        public virtual SANPHAM SANPHAM { get; set; }
+        public virtual CHITIETSANPHAM CHITIETSANPHAM { get; set; }
     }
 }

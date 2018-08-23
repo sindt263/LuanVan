@@ -12,6 +12,7 @@ namespace LuanVan.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CHITIETSANPHAM()
         {
+            HINHANHSPs = new HashSet<HINHANHSP>();
             SANPHAMs = new HashSet<SANPHAM>();
         }
 
@@ -46,6 +47,9 @@ namespace LuanVan.Models
         public int? CTSP_DUNGLUONGPIN { get; set; }
 
         public short? CTSP_SOSIM { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HINHANHSP> HINHANHSPs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SANPHAM> SANPHAMs { get; set; }

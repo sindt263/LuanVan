@@ -58,13 +58,15 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI,SP_MOTANGAN,SP_MOTACHITIET")] SANPHAM sANPHAM)
+        public ActionResult Create([Bind(Include = "SP_ID,CTSP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI,SP_MOTANGAN,SP_MOTACHITIET")] SANPHAM sANPHAM)
         {
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
+            string CTSP = Request["CTSP_ID"];
             HttpPostedFileBase file = Request.Files["Image"];
             if (file != null)
             {
+                sANPHAM.CTSP_ID = CTSP;
                 Int32 length = file.ContentLength;
                 byte[] tempImage = new byte[length];
                 file.InputStream.Read(tempImage, 0, length);
@@ -74,10 +76,10 @@ namespace LuanVan.Controllers
             }
             if (ModelState.IsValid)
             {
-                
+
                 db.SANPHAMs.Add(sANPHAM);
                 db.SaveChanges();
-                ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.SP_ID);
+                ModelState.AddModelError("", "Đã thêm sản phẩm " + CTSP);
             }
 
             ViewBag.DSP_ID = new SelectList(db.DONGSANPHAMs, "DSP_ID", "DSP_TEN", sANPHAM.DSP_ID);
@@ -88,7 +90,7 @@ namespace LuanVan.Controllers
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN",sANPHAM.CTSP_ID);
             return View(sANPHAM);
         }
-        public ActionResult CreateSP(string id1,string id2, string id3, string id4, string id5, string id6, string id7, string id8, string id9)
+        public ActionResult CreateSP(string id1,string id2, string id3, string id4, string id5, string id6, string id7, string id8, string id9,string id10)
         {
             SANPHAM sANPHAM = new SANPHAM();
               
@@ -103,6 +105,7 @@ namespace LuanVan.Controllers
                 sANPHAM.SP_TEN = id7;
                 sANPHAM.SP_MOTANGAN = id8;
                 sANPHAM.SP_MOTACHITIET = id9;
+                sANPHAM.CTSP_ID = id10;
 
                 db.SANPHAMs.Add(sANPHAM);
                 db.SaveChanges();
@@ -197,44 +200,14 @@ namespace LuanVan.Controllers
             db.SaveChanges();
         }
 
-        public string getIDHA(string IDSP)
-        {
-            var result = (from p in db.HINHANHSPs where p.SP_ID == IDSP select p).Take(1);
-            foreach(var i in result)
-            {
-                string id = i.HA_ID;
-                if (id != null)
-                {
-                    return id;
-                }
-            }
-            return "";
-        }
-
-        public ActionResult getImage(string id)
-        {
-            string strID = Request.QueryString["ID"];
-            if (id != null)
-            {
-                //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
-                var ha = (from p in db.HINHANHSPs where p.SP_ID == id select p);
-                foreach (var i in ha)
-                {
-                    if (i == null || i.HA_ND == null)
-                    {
-                        ModelState.AddModelError("", "Loi");
-                    }
-                    //Response.ContentType = "image/jpeg";
-                    Response.OutputStream.Write(i.HA_ND.ToArray(), 0, i.HA_ND.Length);
-                    Response.Flush();
-                }
-            }
-            return View();
-        }
+       
+      
         public int GetGia(string id)
         {
             int gia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID ='" + id+"'").SingleOrDefault();
             return gia;
         }
+
+
     }
 }

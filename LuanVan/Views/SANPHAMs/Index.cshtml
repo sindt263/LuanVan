@@ -17,6 +17,9 @@
             @Html.DisplayNameFor(model => model.DONGSANPHAM.DSP_TEN)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.CTSP_ID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.GIASP.GIA_GIA)
         </th>
         <th>
@@ -48,6 +51,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.DONGSANPHAM.DSP_TEN)
+        </td> 
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_ID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GIASP.GIA_GIA)
@@ -76,14 +82,15 @@
         <td>
             <asp:Repeater runat="server" id="myRepeater">
                 <ItemTemplate>
-                    <img src="/SANPHAMs/getImage/@item.SP_ID" alt="" width="300" height="300" style="float:left" />
+                    <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="" width="300" height="300" style="float:left" />
                 </ItemTemplate>
             </asp:Repeater>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.SP_ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.SP_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.SP_ID })
+            @Html.ActionLink("Sửa", "Edit", new { id = item.SP_ID }) |
+            <a href="~/CHITIETSANPHAMs/Details/@item.CTSP_ID">Chi tiết</a> |
+
+            @Html.ActionLink("Xóa", "Delete", new { id = item.SP_ID })
             <a class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = Url.RequestContext.RouteData.Values["id"] })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
         </td>
     </tr>

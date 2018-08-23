@@ -6,11 +6,11 @@
 }
 
 <h2>Create</h2>
+<form method="post" enctype="multipart/form-data">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
         <h4>CHITIETSANPHAM</h4>
         <hr />
@@ -110,15 +110,21 @@
                 @Html.ValidationMessageFor(model => model.CTSP_SOSIM, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình ảnh</label>
+            <div class="col-md-10">
+                <input type="file" name="Image" class="form-control" />
+                @Html.ValidationMessage("HinhAnhSP", "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    }
+    </form>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

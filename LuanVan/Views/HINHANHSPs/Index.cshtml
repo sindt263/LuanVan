@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    LuanVan.Controllers.HINHANHSPsController hINHANHS = new LuanVan.Controllers.HINHANHSPsController();
 }
 
 <h2>Index</h2>
@@ -14,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.HA_ID)
+            @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.HA_ND)
@@ -25,7 +24,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.HA_ID)
+            @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
         </td>
         <td>
             <asp:Repeater runat="server" id="myRepeater">
@@ -35,9 +34,9 @@
             </asp:Repeater>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.HA_ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.HA_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.HA_ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.HA_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.HA_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.HA_ID })
         </td>
     </tr>
 }

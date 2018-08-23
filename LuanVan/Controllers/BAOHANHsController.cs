@@ -48,11 +48,20 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BH_ID,BH_TEN,BH_MOTA")] BAOHANH bAOHANH)
         {
+            string id = Request["BH_ID"];
+           
             if (ModelState.IsValid)
             {
+                bAOHANH.BH_ID = Convert.ToInt16(db.autottang("BaoHanh", "BH_ID", db.BAOHANHs.Count()));
                 db.BAOHANHs.Add(bAOHANH);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Đã thêm " + id);
+
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "ID bị trùng " + id);
             }
 
             return View(bAOHANH);

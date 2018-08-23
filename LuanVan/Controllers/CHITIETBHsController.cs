@@ -54,12 +54,13 @@ namespace LuanVan.Controllers
         {
             string SP_ID = Request["SP_ID"];
             string result = db.Database.SqlQuery<string>("select SP_ID from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
-            if (ModelState.IsValid && result !=null)
+            if (result != null)
             {
                 cHITIETBH.CTBH_ID = db.autottang("ChiTietBH", "CTBH_ID", db.CHITIETBHs.Count()).ToString();
                 db.CHITIETBHs.Add(cHITIETBH);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Đã thêm " + result);
+
             }
             else
             {

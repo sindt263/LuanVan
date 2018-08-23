@@ -101,7 +101,7 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<HINHANHSP>()
-                .Property(e => e.SP_ID)
+                .Property(e => e.CTSP_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<KHACHHANG>()
@@ -208,7 +208,7 @@ namespace LuanVan.Models
         public int autottang(string namettable, string namerow, int sl)
         {
             DataContext a = new DataContext();
-            int result = a.Database.SqlQuery<int>("select count(*) from KhachHang where KH_ID = 2").SingleOrDefault();
+            int result = a.Database.SqlQuery<int>("select count(*) from " + namettable + " where " + namerow + " = '" + sl + "'").SingleOrDefault();
             if (result >= 1)
             {
                 return autottang(namettable, namerow, sl + 1);
@@ -217,6 +217,13 @@ namespace LuanVan.Models
             {
                 return sl;
             }
+        }
+
+        public string KiemTraID(string nametable, string namerow, string id)
+        {
+            DataContext a = new DataContext();
+            string result = a.Database.SqlQuery<string>("select " + id + " from " + nametable + " where " + namerow + " = '" + id + "'").SingleOrDefault();
+            return result;
         }
 
     }
