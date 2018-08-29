@@ -53,13 +53,20 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU")] KHACHHANG kHACHHANG)
         {
+            string MK = Request["KH_MATKHAU"];
+            string MK1 = Request["KH_MATKHAU1"];
 
+            if(MK != MK1)
+            {
+                ModelState.AddModelError("", "Nhập mật khẩu chưa đúng");
+            }
             if (ModelState.IsValid)
             {
                 kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
+
                 db.KHACHHANGs.Add(kHACHHANG);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Đã thêm khách hàng " + kHACHHANG.KH_TEN);
             }
 
             return View(kHACHHANG);
@@ -205,6 +212,19 @@ namespace LuanVan.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult KTMK(string id,string id1)
+        {
+            if (id != id1)
+            {
+                ModelState.AddModelError("", "Mật khẩu và mật khẩu xác nhận chưa trùng khớp !");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Chấp nhận !");
+            }
+            return View();
         }
     }
 }

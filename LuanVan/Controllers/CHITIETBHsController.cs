@@ -143,5 +143,19 @@ namespace LuanVan.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult KTSP(string id)
+        {
+            string result = db.Database.SqlQuery<string>("select SP_ID from SanPham where SP_ID='"+id+"'").SingleOrDefault();
+            if(result != null)
+            {
+                ModelState.AddModelError("", "Đã xác định sản phẩm");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Sản phẩm không tồn tại");
+            }
+            return View();
+        }
     }
 }

@@ -237,6 +237,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\Menu.css" />
     <Content Include="Content\Images\Screenshot %281%29.png" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\jquery-1.11.3.min.js" />
@@ -1295,6 +1296,8 @@
     <Content Include="Views\HINHANHSPs\Details.cshtml" />
     <Content Include="Views\HINHANHSPs\Edit.cshtml" />
     <Content Include="Views\HINHANHSPs\Index.cshtml" />
+    <Content Include="Views\KHACHHANGs\KTMK.cshtml" />
+    <Content Include="Views\CHITIETBHs\KTSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

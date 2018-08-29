@@ -33,14 +33,15 @@ namespace LuanVan.Controllers
         public ActionResult SubmitLoginKH()
         {            
             
-            string TK = Request["KH_TaiKhoan"];
-            string MK = Request["KH_MatKhau"];
+            string TK = Request["KH_TAIKHOAN"];
+            string MK = Request["KH_MATKHAU"];
+            
             var result = (from p in db.KHACHHANGs where p.KH_TAIKHOAN == TK && p.KH_MATKHAU == MK select p);
             if (result.Count() >= 1)
             {
                 HttpCookie userInfo = new HttpCookie("LoginKH");
-                userInfo["KH_TaiKhoan"] = Request["KH_TaiKhoan"];
-                userInfo["KH_MatKhau"] = Request["KH_MatKhau"];
+                userInfo["KH_TaiKhoan"] = TK;
+                userInfo["KH_MatKhau"] = MK;
                 userInfo.Expires.Add(new TimeSpan(0, 1, 0));
                 Response.Cookies.Add(userInfo);
                 ViewBag.TK = userInfo["KH_TaiKhoan"];
@@ -53,8 +54,10 @@ namespace LuanVan.Controllers
 
                 return Redirect("~/Home/");
             }
-            else
-                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");
+            else {
+                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai " + TK + MK + result.Count());
+            }
+               
             return View();
         }
 
@@ -75,12 +78,13 @@ namespace LuanVan.Controllers
                 foreach(var item in result)
                 {
                     Session["NV_ID"] = item.NV_ID;
+                    Session["LNV_ID"] = item.LNV_ID;
                 }
                 return Redirect("~/Home/");
             }
             else
             {
-                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");
+                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai "+TK+MK);
             }
             return View();
         }

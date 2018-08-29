@@ -4,13 +4,11 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
-
+<h2></h2>
+<marquee font-size="20" style="border:blue 2px SOLID"><h2>Chi tiết sản phẩm </h2></marquee>
 <div>
-    <h4>CHITIETSANPHAM</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal col-md-8">
         <dt>
             @Html.DisplayNameFor(model => model.CTSP_TEN)
         </dt>
@@ -18,7 +16,7 @@
         <dd>
             @Html.DisplayFor(model => model.CTSP_TEN)
         </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.CTSP_CNMANGHINH)
         </dt>
@@ -99,6 +97,18 @@
             @Html.DisplayFor(model => model.CTSP_SOSIM)
         </dd>
 
+    </dl>
+    <dl class="col-md-4">
+        <dt>
+            @Html.DisplayName("Hình ảnh")
+        </dt>
+        <dd>
+            <asp:Repeater runat="server" id="myRepeater">
+                <ItemTemplate>
+                    <img src="/HinhAnhSPs/getImage/@Model.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image ca" width="200" height="200" style="float:left" />
+                </ItemTemplate>
+            </asp:Repeater>
+        </dd>
     </dl>
 </div>
 <p>

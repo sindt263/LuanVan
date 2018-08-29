@@ -7,11 +7,15 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="~/Content/css/Menu.css" rel="stylesheet" />
+
     <Script src="~/Scripts/angular.js"></Script>
     <Script src="~/Scripts/bootstrap.min.js"></Script>
+
+    <script src="@Url.Content("~/Content/js/jquery-1.11.3.min.js")"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" id="menu">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,17 +23,41 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SSS Shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Convert.ToInt32(Session["LNV_ID"]) == 1)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quản lý<span class="caret"></span></a>
+                            <ul class="dropdown-menu nav" role="menu">
+                                <li><a href="~/Chitietsanphams">Chi Tiết sản phẩm</a></li>
+                                <li><a href="~/PhieuNhapSPs">Nhập sản phẩm</a></li>
+                                <li><a href="#">Thống kê</a></li>
+                            </ul>
+                        </li>
+                    }
                     <li>@Html.ActionLink("Sản phẩm", "", "SanPhams")</li>
                     <li>@Html.ActionLink("Nhập hàng", "", "PhieuNhapSps")</li>
+
+                </ul>
+                <ul class="navbar-right nav navbar-nav">
+                    @if (Session["LNV_ID"] != null)
+                    {
+                        <li >@Html.ActionLink("Đăng xuất", "LoginKH", "Logins")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Đăng nhập", "LoginKH", "Logins")</li>
+                    }
                 </ul>
             </div>
         </div>
     </div>
+
+    <marquee direction="right" style="background:orange" id="little"><h2>SSS Shop</h2></marquee>
     <div class="container body-content">
         @RenderBody()
         <hr />

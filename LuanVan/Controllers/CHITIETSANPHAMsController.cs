@@ -50,26 +50,28 @@ namespace LuanVan.Controllers
         {
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
-            string CTSP = Request["CTSP_ID"];
             HttpPostedFileBase file = Request.Files["Image"];
-            if (file != null)
-            {
-                cHITIETSANPHAM.CTSP_ID = CTSP;
-                Int32 length = file.ContentLength;
-                byte[] tempImage = new byte[length];
-                file.InputStream.Read(tempImage, 0, length);
-                hINHANHSP.HA_ND = tempImage;
-                hINHANHSP.HA_ID = cHITIETSANPHAM.CTSP_ID;
-                hINHANHSPsController.addHA(hINHANHSP);
-            }
-
             if (ModelState.IsValid)
             {
                 cHITIETSANPHAM.CTSP_ID = db.autottang("ChiTietSanPham", "CTSP_ID", db.CHITIETSANPHAMs.Count()).ToString();
                 db.CHITIETSANPHAMs.Add(cHITIETSANPHAM);
                 db.SaveChanges();
+                if (file != null)
+                {
+
+                    Int32 length = file.ContentLength;
+                    byte[] tempImage = new byte[length];
+                    file.InputStream.Read(tempImage, 0, length);
+                    hINHANHSP.HA_ND = tempImage;
+                    hINHANHSP.HA_ID = db.autottang("HinhAnhSP", "HA_ID", db.HINHANHSPs.Count()).ToString();
+                    hINHANHSP.CTSP_ID = cHITIETSANPHAM.CTSP_ID;
+                    hINHANHSPsController.addHA(hINHANHSP);
+                }
+
                 return RedirectToAction("Index");
             }
+           
+          
 
             return View(cHITIETSANPHAM);
         }

@@ -35,7 +35,7 @@
             @Html.LabelFor(model => model.SP_ID, "SP_ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SP_ID, new { htmlAttributes = new { @class = "form-control" } })
-
+                <span id="ViewSP_ID"></span>
                 @Html.ValidationMessageFor(model => model.SP_ID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -95,3 +95,17 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    var SP_ID = document.getElementById("SP_ID")
+    $("#SP_ID").change(function () {
+        $.ajax({
+            type: "GET",
+            url: "/ChiTietBHs/KTSP/",
+            data: { 'id': SP_ID.value },
+            success: function (result) {
+                $("#ViewSP_ID").html(result)
+            }
+        })
+    })
+</script>

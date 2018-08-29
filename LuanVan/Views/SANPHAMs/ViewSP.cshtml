@@ -6,24 +6,32 @@
     LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
 }
 
-<h2>ViewSP</h2>
-<div class="row mb-2">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-6">
-            <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-                <div class="card-body d-flex flex-column align-items-start">
-                    <strong class="d-inline-block mb-2 text-primary">@item.SP_TRANGTHAI</strong>
-                    <h3 class="mb-0">
-                        <a class="text-dark" href="#">@item.SP_TEN</a>
-                    </h3>
-                    <div class="mb-1 text-muted">@sANPHAMs.GetGia(item.GIA_ID) VND</div>
-                    <p class="card-text mb-auto">@item.SP_MOTANGAN</p>
-                    <a href="#">Continue reading</a>
+<font>
+    <marquee direction="right" style="background:orange" id="little"><h2>SSS Shop</h2></marquee>
+</font>
+
+    <div class="row mb-2">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <strong class="d-inline-block mb-2 text-primary">@item.SP_TRANGTHAI</strong>
+                        <h3 class="mb-0">
+                            <a class="text-dark" href="#">@item.SP_TEN</a>
+                        </h3>
+                        <div class="mb-1 text-muted">@sANPHAMs.GetGia(item.GIA_ID) VND</div>
+                        <p class="card-text mb-auto">@item.SP_MOTANGAN</p>
+                        <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID"><font><marquee direction="left" style="background:orange" behavior="alternate" width="10%">>></marquee>Continue reading<marquee direction="left" style="background:orange" behavior="alternate" width="10%"><< </marquee></font></a>
+                    </div>
+                    <asp:Repeater runat="server" id="myRepeater">
+                        <ItemTemplate>
+                            <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="300" height="300" style="float:left" />
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
-                <img class="card-img-right flex-auto d-none d-lg-block" src="~/Content/Images/Screenshot (1).png" height="250" width="250" alt="Card image cap">
             </div>
-        </div>
-       
-    }
-</div>
+
+        }
+    </div>
+    <div></div>

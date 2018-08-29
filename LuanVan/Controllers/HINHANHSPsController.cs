@@ -168,7 +168,7 @@ namespace LuanVan.Controllers
             if (id != null)
             {
                 //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
-                var ha = (from p in db.HINHANHSPs where p.HA_ID == id select p).Take(1);
+                var ha = (from p in db.HINHANHSPs where p.CTSP_ID == id select p).Take(1);
                 foreach (var i in ha)
                 {
                     if (i == null || i.HA_ND == null)
