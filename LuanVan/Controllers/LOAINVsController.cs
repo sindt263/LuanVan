@@ -50,6 +50,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                lOAINV.LNV_ID = Convert.ToInt16(db.autottang("LoaiNV", "LNV_ID", db.LOAINVs.Count()));
                 db.LOAINVs.Add(lOAINV);
                 db.SaveChanges();
                 return RedirectToAction("Index");

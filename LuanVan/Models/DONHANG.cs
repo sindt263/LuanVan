@@ -19,6 +19,7 @@ namespace LuanVan.Models
         [StringLength(10)]
         public string DN_ID { get; set; }
 
+        
         public short? TTDH_ID { get; set; }
 
         [StringLength(10)]
@@ -26,6 +27,7 @@ namespace LuanVan.Models
 
         public short? HTTT_ID { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? DN_NGALAPDON { get; set; }
 
         [StringLength(255)]

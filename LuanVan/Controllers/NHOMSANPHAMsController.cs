@@ -50,6 +50,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                nHOMSANPHAM.NSP_ID = db.autottang("nhomSanPham", "NSP_ID", db.NHOMSANPHAMs.Count()).ToString();
                 db.NHOMSANPHAMs.Add(nHOMSANPHAM);
                 db.SaveChanges();
                 return RedirectToAction("Index");

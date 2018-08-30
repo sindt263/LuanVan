@@ -51,8 +51,18 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "HA_ID,CTSP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
+            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+
+                    Int32 length = file.ContentLength;
+                    byte[] tempImage = new byte[length];
+                    file.InputStream.Read(tempImage, 0, length);
+                    hINHANHSP.HA_ND = tempImage;
+                    hINHANHSP.HA_ID = db.autottang("HinhAnhSP", "HA_ID", db.HINHANHSPs.Count()).ToString();
+                }
                 db.HINHANHSPs.Add(hINHANHSP);
                 db.SaveChanges();
                 return RedirectToAction("Index");

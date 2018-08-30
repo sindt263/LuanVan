@@ -50,6 +50,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                nHACUNGCAP.NCC_ID = db.autottang("NhaCungCap", "NCC_ID", db.NHACUNGCAPs.Count()).ToString();
                 db.NHACUNGCAPs.Add(nHACUNGCAP);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -50,6 +50,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                tRANGTHAIBH.TTBH_ID = Convert.ToInt16(db.autottang("TRANGTHAIBH", "TTBH_ID", db.TRANGTHAIBHs.Count()));
                 db.TRANGTHAIBHs.Add(tRANGTHAIBH);
                 db.SaveChanges();
                 return RedirectToAction("Index");

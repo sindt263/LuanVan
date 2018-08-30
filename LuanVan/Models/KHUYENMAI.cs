@@ -24,7 +24,7 @@ namespace LuanVan.Models
 
         public DateTime? KM_NGAYBATDAU { get; set; }
 
-        public int? KM_THOIGIAN { get; set; }
+        public float? KM_GIATRI { get; set; }
 
         public DateTime? KM_NGAYKETTHUC { get; set; }
 

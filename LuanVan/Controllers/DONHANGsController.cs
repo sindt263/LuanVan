@@ -52,12 +52,22 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DN_ID,TTDH_ID,KH_ID,HTTT_ID,DN_NGALAPDON,DN_GHICHU,DN_SL")] DONHANG dONHANG)
         {
-            if (ModelState.IsValid)
+            string KH_ID = Request["KH_ID"];
+            string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
+
+            if (result != null)
             {
-                dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
-                db.DONHANGs.Add(dONHANG);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
+                    db.DONHANGs.Add(dONHANG);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("KH_ID", "Khách hàng không tồn tại");
             }
 
             ViewBag.HTTT_ID = new SelectList(db.HINHTHUCTHANHTOANs, "HTTT_ID", "HTTT_TEN", dONHANG.HTTT_ID);
@@ -136,6 +146,22 @@ namespace LuanVan.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult KTKH(string id)
+        {
+            string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + id + "'").SingleOrDefault();
+            if(result != null)
+            {
+                string output = "Đã xác định khách hàng " +id;
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string output = "Khánh hàng " + id + " không tồn tại";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+            
         }
     }
 }

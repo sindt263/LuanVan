@@ -38,6 +38,7 @@ namespace LuanVan.Controllers
         // GET: KHUYENMAIs/Create
         public ActionResult Create()
         {
+           
             return View();
         }
 
@@ -46,8 +47,9 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_THOIGIAN,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
+        public ActionResult Create([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_GIATRI,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
         {
+            
             if (ModelState.IsValid)
             {
                 db.KHUYENMAIs.Add(kHUYENMAI);
@@ -78,7 +80,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_THOIGIAN,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
+        public ActionResult Edit([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_GIATRI,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
         {
             if (ModelState.IsValid)
             {

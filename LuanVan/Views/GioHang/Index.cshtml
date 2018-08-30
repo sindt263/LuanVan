@@ -30,7 +30,7 @@ else
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="text-center"><img src="~/Content/Photos/SanPham/@item.Hinh" width="70" height="60" /> </td>
+                            <td class="text-center">@*<img src="~/Content/Photos/SanPham/@item.Hinh" width="70" height="60" />*@ </td>
                             <td><a target="_blank" href="@Url.Action("ChiTiet", "SanPham", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
                             <td>
                                 <form action="@Url.Action("SuaSoLuong")" method="get">

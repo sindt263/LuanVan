@@ -5,14 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<script language="javascript">
+    angular.module('myapp', [])
+        .controller('DateController', ['$scope', function ($scope) {
+            $scope.value = new Date();
+        }]);
+
+</script>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal" ng-app="myapp">
         <h4>GIASP</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -32,10 +38,10 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" name="myForm" ng-controller="DateController">
             @Html.LabelFor(model => model.GIA_NGAYCAPNHAT, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GIA_NGAYCAPNHAT, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="date" name="GIA_NGAYCAPNHAT" ng-model="value" id="GIA_NGAYCAPNHAT" class="form-control" />
                 @Html.ValidationMessageFor(model => model.GIA_NGAYCAPNHAT, "", new { @class = "text-danger" })
             </div>
         </div>
