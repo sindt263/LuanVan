@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "CreateDH";
+    Layout = "~/Views/Shared/_Layoutsecond.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}

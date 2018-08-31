@@ -9,7 +9,7 @@ namespace LuanVan.Models
     {
         public string HinhID { get; set; }
        
-        public int SanPhamID { get; set; }
+        public string SanPhamID { get; set; }
         public string TenSanPham { get; set; }
         public int DonGia { get; set; }
         public int SoLuong { get; set; }

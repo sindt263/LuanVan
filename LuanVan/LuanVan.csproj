@@ -1299,6 +1299,7 @@
     <Content Include="Views\KHACHHANGs\KTMK.cshtml" />
     <Content Include="Views\CHITIETBHs\KTSP.cshtml" />
     <Content Include="Views\DONHANGs\KTKH.cshtml" />
+    <Content Include="Views\DONHANGs\CreateDH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

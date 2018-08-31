@@ -1,4 +1,4 @@
-namespace LuanVan.Models
+﻿namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +24,8 @@ namespace LuanVan.Models
 
         [StringLength(10)]
         public string KH_ID { get; set; }
-
+    
+        [Display(Name ="Hình thức thanh toán")]
         public short? HTTT_ID { get; set; }
 
         [DataType(DataType.Date)]

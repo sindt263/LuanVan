@@ -13,12 +13,13 @@ namespace LuanVan.Controllers
         // GET: GioHang
         public ActionResult Index()
         {
+            ViewBag.HTTT_ID = new SelectList(db.HINHTHUCTHANHTOANs, "HTTT_ID", "HTTT_TEN");
             List<CartItem> giohang = Session["giohang"] as List<CartItem>;
             return View(giohang);
 
         }
 
-        public RedirectToRouteResult ThemVaoGio(int SanPhamID)
+        public RedirectToRouteResult ThemVaoGio(string SanPhamID)
         {
             if (Session["giohang"] == null) // Nếu giỏ hàng chưa được khởi tạo
             {
@@ -32,11 +33,12 @@ namespace LuanVan.Controllers
             if (giohang.FirstOrDefault(m => m.SanPhamID == SanPhamID) == null) // ko co sp nay trong gio hang
             {
                 SANPHAM sp = db.SANPHAMs.Find(SanPhamID);  // tim sp theo sanPhamID
-
+                string GiaID = sp.GIA_ID;
                 CartItem newItem = new CartItem()
                 {
                     SanPhamID = SanPhamID,
                     TenSanPham = sp.SP_TEN,
+                    DonGia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID='" + GiaID + "'").SingleOrDefault(),
                     SoLuong = 1,
 
                 };  // Tạo ra 1 CartItem mới
@@ -51,10 +53,10 @@ namespace LuanVan.Controllers
             }
 
             // Action này sẽ chuyển hướng về trang chi tiết sp khi khách hàng đặt vào giỏ thành công. Bạn có thể chuyển về chính trang khách hàng vừa đứng bằng lệnh return Redirect(Request.UrlReferrer.ToString()); nếu muốn.
-            return RedirectToAction("ChiTiet", "SanPham", new { id = SanPhamID });
+            return RedirectToAction("");
         }
 
-        public RedirectToRouteResult SuaSoLuong(int SanPhamID, int soluongmoi)
+        public RedirectToRouteResult SuaSoLuong(string SanPhamID, int soluongmoi)
         {
             // tìm carditem muon sua
             List<CartItem> giohang = Session["giohang"] as List<CartItem>;
@@ -67,7 +69,7 @@ namespace LuanVan.Controllers
 
         }
 
-        public RedirectToRouteResult XoaKhoiGio(int SanPhamID)
+        public RedirectToRouteResult XoaKhoiGio(string SanPhamID)
         {
             List<CartItem> giohang = Session["giohang"] as List<CartItem>;
             CartItem itemXoa = giohang.FirstOrDefault(m => m.SanPhamID == SanPhamID);

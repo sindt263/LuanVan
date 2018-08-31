@@ -75,6 +75,45 @@ namespace LuanVan.Controllers
             ViewBag.TTDH_ID = new SelectList(db.TRANGTHAIDONHANGs, "TTDH_ID", "TTDH_TEN", dONHANG.TTDH_ID);
             return View(dONHANG);
         }
+         public ActionResult CreateDH(string id, string id2,string id3)
+        {
+            string KH_ID = Session["KH_ID"].ToString();
+            string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
+            CHITIETDONHANGsController cHITIETDONHANGsController = new CHITIETDONHANGsController();
+            if (result != null)
+            {
+                DONHANG dONHANG = new DONHANG();
+                if (ModelState.IsValid)
+                {
+                    dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
+                    dONHANG.TTDH_ID = 4;
+                    dONHANG.KH_ID = KH_ID;
+                    dONHANG.HTTT_ID = Convert.ToInt16(id);
+                    dONHANG.DN_SL = Convert.ToInt32(id2);
+                    db.DONHANGs.Add(dONHANG);
+                    db.SaveChanges();
+                    CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
+                    var giohang = Session["giohang"] as List<CartItem>;
+                    foreach (var i in giohang)
+                    {
+                        cHITIETDONHANG.CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
+                        cHITIETDONHANG.DN_ID = dONHANG.DN_ID;
+                        cHITIETDONHANG.CTDH_DIACHIGIAO = id3;
+                        cHITIETDONHANG.SP_ID = i.SanPhamID;
+                        cHITIETDONHANGsController.Create(cHITIETDONHANG);
+                        ModelState.AddModelError("", "Xạc nhận mua "+i.SanPhamID +" thành công");
+                    }
+                    ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Khách hàng không tồn tại");
+            }
+
+            
+            return View();
+        }
 
         // GET: DONHANGs/Edit/5
         public ActionResult Edit(string id)

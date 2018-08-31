@@ -6,9 +6,6 @@
     LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
 }
 
-<font>
-    <marquee direction="right" style="background:orange" id="little"><h2>SSS Shop</h2></marquee>
-</font>
 
     <div class="row mb-2">
         @foreach (var item in Model)
@@ -16,10 +13,11 @@
             <div class="col-md-6">
                 <div class="card flex-md-row mb-4 shadow-sm h-md-250">
                     <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">@item.SP_TRANGTHAI</strong>
+
                         <h3 class="mb-0">
                             <a class="text-dark" href="#">@item.SP_TEN</a>
                         </h3>
+                        <strong class="d-inline-block mb-2 text-primary">Khuyến Mãi @item.KHUYENMAI.KM_TEN</strong>
                         <div class="mb-1 text-muted">@sANPHAMs.GetGia(item.GIA_ID) VND</div>
                         <p class="card-text mb-auto">@item.SP_MOTANGAN</p>
                         <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID"><font><marquee direction="left" style="background:orange" behavior="alternate" width="10%">>></marquee>Continue reading<marquee direction="left" style="background:orange" behavior="alternate" width="10%"><< </marquee></font></a>
@@ -29,6 +27,7 @@
                             <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="300" height="300" style="float:left" />
                         </ItemTemplate>
                     </asp:Repeater>
+                    <a class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = item.SP_ID})"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
                 </div>
             </div>
 
