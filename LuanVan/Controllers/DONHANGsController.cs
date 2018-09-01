@@ -79,7 +79,7 @@ namespace LuanVan.Controllers
         {
             string KH_ID = Session["KH_ID"].ToString();
             string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
-            CHITIETDONHANGsController cHITIETDONHANGsController = new CHITIETDONHANGsController();
+            SANPHAMsController sANPHAM = new SANPHAMsController();
             if (result != null)
             {
                 DONHANG dONHANG = new DONHANG();
@@ -88,20 +88,24 @@ namespace LuanVan.Controllers
                     dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
                     dONHANG.TTDH_ID = 4;
                     dONHANG.KH_ID = KH_ID;
+                    dONHANG.DN_NGALAPDON = DateTime.Now;
+                    dONHANG.DN_GHICHU = "Khách đặc Online";
                     dONHANG.HTTT_ID = Convert.ToInt16(id);
                     dONHANG.DN_SL = Convert.ToInt32(id2);
                     db.DONHANGs.Add(dONHANG);
                     db.SaveChanges();
+                    string DN_ID = dONHANG.DN_ID;
                     CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
                     var giohang = Session["giohang"] as List<CartItem>;
                     foreach (var i in giohang)
                     {
-                        cHITIETDONHANG.CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
-                        cHITIETDONHANG.DN_ID = dONHANG.DN_ID;
-                        cHITIETDONHANG.CTDH_DIACHIGIAO = id3;
-                        cHITIETDONHANG.SP_ID = i.SanPhamID;
-                        cHITIETDONHANGsController.Create(cHITIETDONHANG);
+                        string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
+                        
+                        string SP_ID = i.SanPhamID;
+                        db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "','" + id3 + "')");
+                        db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
                         ModelState.AddModelError("", "Xạc nhận mua "+i.SanPhamID +" thành công");
+
                     }
                     ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
                 }
