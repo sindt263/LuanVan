@@ -1303,6 +1303,7 @@
     <Content Include="Views\DONHANGs\IndexKH.cshtml" />
     <Content Include="Views\CHITIETDONHANGs\IndexKH.cshtml" />
     <Content Include="Views\DONHANGs\EditHuy.cshtml" />
+    <Content Include="Views\Shared\_LayoutKH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

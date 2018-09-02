@@ -26,46 +26,29 @@
                 @Html.ActionLink("SSS Shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-
-                @if (Session["NV_ID"] != null)
-                {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        if (Convert.ToInt32(Session["LNV_ID"]) == 1)
-                        {
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quản lý<span class="caret"></span></a>
-                            <ul class="dropdown-menu nav" role="menu">
-                                <li><a href="~/Chitietsanphams">Chi Tiết sản phẩm</a></li>
-                                <li><a href="~/PhieuNhapSPs">Nhập sản phẩm</a></li>
-                                <li>@Html.ActionLink("Nhập hàng", "", "PhieuNhapSps")</li>
-                                <li><a href="#">Thống kê</a></li>
-                            </ul>
-                        </li>
-                        }
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Session["KH_ID"] != null)
+                    {
                         <li><a href="~/GioHang">Xem giỏ hàng</a></li>
                         <li>@Html.ActionLink("Đơn Hàng", "indexkh", "DonHangs")</li>
-                        <li>@Html.ActionLink("Sản phẩm", "", "SanPhams")</li>
-                    </ul>
+                        <li>@Html.ActionLink("Sản phẩm", "ViewSP", "SanPhams")</li>
+                        <li>@Html.ActionLink("Thông tin cá nhân "+Session["KH_ID"].ToString(), "IndexKH", "KhachHangs")</li>
+                        
+                    }
+                    
 
-                }
-
+                </ul>
                 <ul class="navbar-right nav navbar-nav">
-                    @if (Session["NV_ID"] != null)
+                    @if (Session["KH_ID"] != null)
                     {
-                        <li>@Html.ActionLink("Đăng xuất", "LoginNV", "Logins")</li>
+                        <li >@Html.ActionLink("Đăng xuất", "LoginKH", "Logins")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Đăng nhập", "LoginNV", "Logins")</li>
+                        <li>@Html.ActionLink("Đăng nhập", "LoginKH", "Logins")</li>
                     }
                 </ul>
-
-
-
-
-
             </div>
         </div>
     </div>

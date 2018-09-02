@@ -2,14 +2,11 @@
 
 @{
     ViewBag.Title = "IndexKH";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
 
-<h2>IndexKH</h2>
+<h2>Thông tin cá nhân</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -33,10 +30,10 @@
         <th>
             @Html.DisplayNameFor(model => model.KH_TAIKHOAN)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.KH_MATKHAU)
-        </th>
-        <th></th>
+        </th>*@
+        <th>tùy chọn</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -62,9 +59,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.KH_TAIKHOAN)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.KH_MATKHAU)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Sửa", "EditKH", new { id=item.KH_ID }) 
         </td>

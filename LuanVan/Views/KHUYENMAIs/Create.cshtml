@@ -22,7 +22,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal" ng-app="myapp">
-    <h4>KHUYENMAI</h4>
+    <h4>Thêm khuyến mãi mới</h4>
     @Html.Raw(ViewBag.mindate)
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -76,14 +76,14 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Lưu" class="btn btn-success" />
         </div>
     </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Về trang danh sách", "Index")
 </div>
 
 @section Scripts {

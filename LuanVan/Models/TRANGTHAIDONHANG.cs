@@ -1,4 +1,4 @@
-namespace LuanVan.Models
+﻿namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,12 +17,18 @@ namespace LuanVan.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required]
+        [Display(Name = "Mã số")]
         public short TTDH_ID { get; set; }
 
         [StringLength(20)]
+        [Required]
+        [Display(Name = "Tên")]
         public string TTDH_TEN { get; set; }
 
         [StringLength(255)]
+        [Required]
+        [Display(Name = "Mô tả")]
         public string TTDH_MOTA { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

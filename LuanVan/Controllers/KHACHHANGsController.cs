@@ -21,8 +21,12 @@ namespace LuanVan.Controllers
         }
         public ActionResult IndexKH()
         {
-            string id = Session["KH_ID"].ToString();
-            return View(db.KHACHHANGs.Where(k=>k.KH_ID == id).ToList());
+            if (Session["KH_ID"] != null)
+            {
+                string id = Session["KH_ID"].ToString();
+                return View(db.KHACHHANGs.Where(k => k.KH_ID == id).ToList());
+            }
+            return RedirectToAction("LoginKH", "Logins");
         }
 
         // GET: KHACHHANGs/Details/5
@@ -66,7 +70,8 @@ namespace LuanVan.Controllers
 
                 db.KHACHHANGs.Add(kHACHHANG);
                 db.SaveChanges();
-                ModelState.AddModelError("", "Đã thêm khách hàng " + kHACHHANG.KH_TEN);
+
+                return RedirectToAction("LoginKH", "Logins");
             }
 
             return View(kHACHHANG);

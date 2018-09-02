@@ -17,23 +17,34 @@
 
         [Key]
         [StringLength(10)]
+        [Display(Name = "Mã đơn hàng")]
+        [Required]
         public string DN_ID { get; set; }
 
-        
+        [Display(Name = "Mã trạng thái")]
+        [Required]
         public short? TTDH_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã khách hàng")]
+        [Required]
         public string KH_ID { get; set; }
-    
+
+        [Required]
         [Display(Name ="Hình thức thanh toán")]
         public short? HTTT_ID { get; set; }
 
         [DataType(DataType.Date)]
+        [Required]
+        [Display(Name = "Ngày lập đơn")]
         public DateTime? DN_NGALAPDON { get; set; }
 
         [StringLength(255)]
+        [Display(Name = "Ghi chú")]
         public string DN_GHICHU { get; set; }
 
+        [Display(Name = "số lượng")]
+        [Required]
         public int? DN_SL { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

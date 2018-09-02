@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Danh sách nhân viên</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm nhân viên", "Create")
 </p>
 <table class="table">
     <tr>
@@ -45,7 +45,7 @@
         <th>
             @Html.DisplayNameFor(model => model.NV_TAIKHOAN)
         </th>
-        <th></th>
+        <th>Tùy chọn</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -84,9 +84,9 @@
             @Html.DisplayFor(modelItem => item.NV_TAIKHOAN)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NV_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NV_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.NV_ID })
+            @Html.ActionLink("Sửa", "Edit", new { id=item.NV_ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.NV_ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.NV_ID })
         </td>
     </tr>
 }

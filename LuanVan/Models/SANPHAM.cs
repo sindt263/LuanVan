@@ -1,4 +1,4 @@
-namespace LuanVan.Models
+﻿namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,36 +19,57 @@ namespace LuanVan.Models
 
         [Key]
         [StringLength(20)]
+        [Required]
+        [Display(Name = "Mã sản phẩm")]
         public string SP_ID { get; set; }
 
         [StringLength(20)]
+        [Display(Name = "Mã chi tiết")]
         public string CTSP_ID { get; set; }
 
         [StringLength(10)]
+        [Required]
+        [Display(Name = "Mã nhóm")]
         public string NSP_ID { get; set; }
 
         [StringLength(10)]
+        [Required]
+        [Display(Name = "Mã khuyến mãi")]
         public string KM_ID { get; set; }
 
         [StringLength(10)]
+        [Required]
+        [Display(Name = "Mã giá")]
         public string GIA_ID { get; set; }
 
         [StringLength(10)]
+        [Required]
+        [Display(Name = "Mã dòng")]
         public string DSP_ID { get; set; }
 
         [StringLength(10)]
+        [Required]
+        [Display(Name = "Mã nhà sản xuất")]
         public string NSX_ID { get; set; }
 
         [StringLength(255)]
+        [Required]
+        [Display(Name = "Tên sản phẩm")]
         public string SP_TEN { get; set; }
 
         [StringLength(15)]
+        [Required]
+        [Display(Name = "Trạng thái")]
         public string SP_TRANGTHAI { get; set; }
 
         [StringLength(255)]
+        [Required]
+        [Display(Name = "Mô tả ngắn")]
         public string SP_MOTANGAN { get; set; }
 
         [StringLength(255)]
+        [Required]
+        [Display(Name = "Mô tả chi tiết")]
         public string SP_MOTACHITIET { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

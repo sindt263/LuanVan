@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Danh sách</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -21,7 +21,7 @@
         <th>
             @Html.DisplayNameFor(model => model.HA_ND)
         </th>
-        <th></th>
+        <th>tùy chọn</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -40,9 +40,9 @@
             </asp:Repeater>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.HA_ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.HA_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.HA_ID })
+            @Html.ActionLink("Sửa", "Edit", new { id = item.HA_ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id = item.HA_ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id = item.HA_ID })
         </td>
     </tr>
 }

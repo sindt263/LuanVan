@@ -18,6 +18,7 @@ namespace LuanVan.Controllers
         [HttpGet]
         public ActionResult LoginKH()
         {
+            Session["KH_ID"] = null;
             HttpCookie userInfo = Request.Cookies["LoginKH"];
             if(userInfo != null)
             {
@@ -52,7 +53,7 @@ namespace LuanVan.Controllers
                     Session["KH_Ten"] = item.KH_TEN;
                 }
 
-                return Redirect("~/Home/");
+                return Redirect("~/SanPhams/ViewSP");
             }
             else {
                 ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai " + TK + MK + result.Count());
@@ -63,6 +64,7 @@ namespace LuanVan.Controllers
 
         public ActionResult LoginNV()
         {
+            Session["NV_ID"] = null;
             return View();
         }
 
