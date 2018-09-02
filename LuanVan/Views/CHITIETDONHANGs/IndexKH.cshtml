@@ -1,0 +1,36 @@
+﻿@model IEnumerable<LuanVan.Models.CHITIETDONHANG>
+
+@{
+    ViewBag.Title = "IndexKH";
+    Layout = "~/Views/Shared/_Layoutsecond.cshtml";
+}
+<h3>Chi Tiết đơn hàng @Html.Raw(ViewBag.DH_ID)</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DONHANG.KH_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SANPHAM.SP_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTDH_DIACHIGIAO)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTDH_DIACHIGIAO)
+        </td>
+        
+    </tr>
+}
+
+</table>

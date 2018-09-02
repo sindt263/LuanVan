@@ -20,6 +20,12 @@ namespace LuanVan.Controllers
             var dONHANGs = db.DONHANGs.Include(d => d.HINHTHUCTHANHTOAN).Include(d => d.KHACHHANG).Include(d => d.TRANGTHAIDONHANG);
             return View(dONHANGs.ToList());
         }
+        public ActionResult IndexKH()
+        {
+            string kh_id = Session["KH_ID"].ToString();
+            var dONHANGs = from p in db.DONHANGs where p.KH_ID == kh_id select p;
+            return View(dONHANGs.ToList());
+        }
 
         // GET: DONHANGs/Details/5
         public ActionResult Details(string id)
@@ -203,8 +209,19 @@ namespace LuanVan.Controllers
             {
                 string output = "Khánh hàng " + id + " không tồn tại";
                 return Json(output, JsonRequestBehavior.AllowGet);
+            }            
+        }
+
+        public JsonResult EditHuy(string id)
+        {
+            DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id);
+            if (dONHANG != null)
+            {
+                dONHANG.TTDH_ID = 2;
+                db.SaveChanges();
             }
-            
+            string a = "Đã hũy đơn hàng " + id;
+            return Json(a,JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<LuanVan.Models.DONHANG>
+
+@{
+    ViewBag.Title = "IndexKH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Đơn hàng</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DN_NGALAPDON)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DN_GHICHU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DN_SL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_GHICHU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_SL)
+        </td>
+        <td>
+            <input type="button" class="btn-link" id="@item.DN_ID" value="Chi Tiết" />
+            @if(item.TTDH_ID != 2) { <input type="button" class="@item.DN_ID" value="Hủy đơn" /> }
+        </td>
+        <div id="Show"></div>
+        <script type="text/javascript">
+
+            $('#@item.DN_ID').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '/ChiTietDonHangs/IndexKH/',
+                    data: { 'id': @item.DN_ID},
+                    success: function (result) {
+                        $('#Show').html(result)
+                    }
+                })
+            })
+            $('.@item.DN_ID').click(function () {
+                 $.ajax({
+                    type: "GET",
+                    url: '/DonHangs/EditHuy/',
+                    data: { 'id': @item.DN_ID},
+                    success: function (result) {
+                        $('#Show').html(result)
+                    }
+                })
+            })
+
+
+        </script>
+    </tr>
+    
+}
+
+</table>

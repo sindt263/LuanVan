@@ -20,6 +20,12 @@ namespace LuanVan.Controllers
             var cHITIETDONHANGs = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.SANPHAM);
             return View(cHITIETDONHANGs.ToList());
         }
+        public ActionResult IndexKH(string id)
+        {
+            ViewBag.DH_ID = id;
+            var cHITIETDONHANGs = from p in db.CHITIETDONHANGs where p.DN_ID == id select p;
+            return View(cHITIETDONHANGs.ToList());
+        }
 
         // GET: CHITIETDONHANGs/Details/5
         public ActionResult Details(string id)

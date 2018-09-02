@@ -1300,6 +1300,9 @@
     <Content Include="Views\CHITIETBHs\KTSP.cshtml" />
     <Content Include="Views\DONHANGs\KTKH.cshtml" />
     <Content Include="Views\DONHANGs\CreateDH.cshtml" />
+    <Content Include="Views\DONHANGs\IndexKH.cshtml" />
+    <Content Include="Views\CHITIETDONHANGs\IndexKH.cshtml" />
+    <Content Include="Views\DONHANGs\EditHuy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
