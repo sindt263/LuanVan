@@ -37,7 +37,6 @@
         public float? KM_GIATRI { get; set; }
 
         [Display(Name = "Ngày kết thúc")]
-        [Required]
         [DataType(DataType.Date)]
         public DateTime? KM_NGAYKETTHUC { get; set; }
 

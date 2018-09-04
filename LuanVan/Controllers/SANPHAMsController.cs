@@ -23,6 +23,17 @@ namespace LuanVan.Controllers
 
         public ActionResult ViewSP()
         {
+            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now select p).OrderByDescending(a => a.KM_NGAYBATDAU);
+
+            var PN_ID = (from p in db.PHIEUNHAPSPs select p).OrderByDescending(a => a.PN_NGAY);
+            string SP_ID = "";
+            foreach (var i in PN_ID)
+            {
+                SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='"+i.PN_ID+"'").SingleOrDefault();
+
+            }
+            ViewBag.MaSP = SP_ID;
+
             var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM);
             return View(sANPHAMs.ToList());
         }
@@ -87,13 +98,13 @@ namespace LuanVan.Controllers
             ViewBag.KM_ID = new SelectList(db.KHUYENMAIs, "KM_ID", "KM_TEN", sANPHAM.KM_ID);
             ViewBag.NSX_ID = new SelectList(db.NHASANXUATs, "NSX_ID", "NSX_TEN", sANPHAM.NSX_ID);
             ViewBag.NSP_ID = new SelectList(db.NHOMSANPHAMs, "NSP_ID", "NSP_TEN", sANPHAM.NSP_ID);
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN",sANPHAM.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", sANPHAM.CTSP_ID);
             return View(sANPHAM);
         }
-        public ActionResult CreateSP(string id1,string id2, string id3, string id4, string id5, string id6, string id7, string id8, string id9,string id10)
+        public ActionResult CreateSP(string id1, string id2, string id3, string id4, string id5, string id6, string id7, string id8, string id9, string id10)
         {
             SANPHAM sANPHAM = new SANPHAM();
-              
+
             if (ModelState.IsValid)
             {
                 sANPHAM.SP_ID = id1;
@@ -112,7 +123,7 @@ namespace LuanVan.Controllers
                 ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.SP_ID);
             }
 
-            
+
             return View(sANPHAM);
         }
 
@@ -132,7 +143,7 @@ namespace LuanVan.Controllers
             ViewBag.GIA_ID = new SelectList(db.GIASPs, "GIA_ID", "GIA_ID", sANPHAM.GIA_ID);
             ViewBag.KM_ID = new SelectList(db.KHUYENMAIs, "KM_ID", "KM_TEN", sANPHAM.KM_ID);
             ViewBag.NSX_ID = new SelectList(db.NHASANXUATs, "NSX_ID", "NSX_TEN", sANPHAM.NSX_ID);
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN",sANPHAM.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", sANPHAM.CTSP_ID);
             ViewBag.NSP_ID = new SelectList(db.NHOMSANPHAMs, "NSP_ID", "NSP_TEN", sANPHAM.NSP_ID);
             return View(sANPHAM);
         }
@@ -142,7 +153,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI,SP_MOTANGAN,SP_MOTACHITIET")] SANPHAM sANPHAM)
+        public ActionResult Edit([Bind(Include = "SP_ID,CTSP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI,SP_MOTANGAN,SP_MOTACHITIET")] SANPHAM sANPHAM)
         {
             if (ModelState.IsValid)
             {
@@ -200,22 +211,33 @@ namespace LuanVan.Controllers
             db.SaveChanges();
         }
 
-       
-      
+
+
         public int GetGia(string id)
         {
-            int gia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID ='" + id+"'").SingleOrDefault();
+            int gia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID ='" + id + "'").SingleOrDefault();
             return gia;
         }
 
         public RedirectToRouteResult ChuyenTrangThaiSPDaDuocDac(string id)
         {
             SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(m => m.SP_ID == id); ;
-            if(sANPHAM != null)
+            if (sANPHAM != null)
             {
                 sANPHAM.SP_TRANGTHAI = "0";
             }
             return RedirectToAction("");
+        }
+
+        public string GetTenSP(string id)
+        {
+            string tensp = db.Database.SqlQuery<string>("select SP_TEN from SanPham where SP_ID ='" + id + "'").SingleOrDefault();
+            return tensp;
+        }
+        public string GetCTSP(string id)
+        {
+            string tensp = db.Database.SqlQuery<string>("select CTSP_ID from SanPham where SP_ID ='" + id + "'").SingleOrDefault();
+            return tensp;
         }
     }
 }

@@ -37,15 +37,15 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quản lý<span class="caret"></span></a>
                             <ul class="dropdown-menu nav" role="menu">
-                                <li><a href="~/Chitietsanphams">Chi Tiết sản phẩm</a></li>
-                                <li><a href="~/PhieuNhapSPs">Nhập sản phẩm</a></li>
+                                <li>@Html.ActionLink("Chi Tiết sản phẩm", "", "Chitietsanphams")</li>
                                 <li>@Html.ActionLink("Nhập hàng", "", "PhieuNhapSps")</li>
+                                <li>@Html.ActionLink("Khuyến mãi", "", "KhuyenMais")</li>
+                                <li>@Html.ActionLink("Nhân viên", "", "NhanViens")</li>
                                 <li><a href="#">Thống kê</a></li>
                             </ul>
                         </li>
                         }
-                        <li><a href="~/GioHang">Xem giỏ hàng</a></li>
-                        <li>@Html.ActionLink("Đơn Hàng", "indexkh", "DonHangs")</li>
+                        <li>@Html.ActionLink("Đơn Hàng", "index", "DonHangs")</li>
                         <li>@Html.ActionLink("Sản phẩm", "", "SanPhams")</li>
                     </ul>
 

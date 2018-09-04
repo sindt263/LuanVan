@@ -6,8 +6,14 @@
     LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
 }
 
-
-<div class="row mb-2">
+<div class="col-lg-2" style='max-width:200px; max-height:500px;'>
+    <div><h5 class="text-center">Danh sách khuyến mãi hiện có</h5></div>
+    @foreach (var item in ViewBag.KM)
+    {
+        <a href="/KhuyenMais/Details/@item.KM_ID">@item.KM_TEN</a><br />
+    }
+</div>
+<div class="col-lg-8">
     @foreach (var item in Model)
     {
         <div class="col-md-6">
@@ -19,15 +25,25 @@
                         @if (Convert.ToInt32(item.SP_TRANGTHAI) == 0)
                         {
                             <h3 class="text-danger">Sản phẩm đã được đặc hoặc bán</h3>
-                            
-                        }else
+
+                        }
+                        else
                         {
                             <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = item.SP_ID})"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
                         }
                     </h3>
                     <strong class="d-inline-block mb-2 text-primary">Khuyến Mãi @item.KHUYENMAI.KM_TEN</strong>
                     <div class="mb-1 text-muted">@sANPHAMs.GetGia(item.GIA_ID) VND</div>
-                    <p class="card-text mb-auto">@item.SP_MOTANGAN</p>
+                    <p class="card-text mb-auto">
+                        Mô tả : @if (item.SP_MOTANGAN.Length <= 100)
+                        {
+                            @item.SP_MOTANGAN
+                        }
+                        else
+                        {
+                            @item.SP_MOTANGAN.Substring(0, 100)
+                        }
+                    </p>
                     <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID"><font><marquee direction="left" style="background:orange" behavior="alternate" width="10%">>></marquee>Continue reading<marquee direction="left" style="background:orange" behavior="alternate" width="10%"><< </marquee></font></a>
                 </div>
                 <asp:Repeater runat="server" id="myRepeater">
@@ -35,9 +51,17 @@
                         <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="300" height="300" style="float:left" />
                     </ItemTemplate>
                 </asp:Repeater>
-                
+
             </div>
         </div>
+
+    }
+</div>
+<div class="col-lg-2" style='max-width:200px; max-height:500px;'>
+    <div><h5 class="text-center">Hàng mới nhập</h5></div>
+    @foreach (var item in ViewBag.MaSP)
+    {
+        <a href="/ChiTietSanPhams/Details/@sANPHAMs.GetCTSP(Convert.ToString(item))">@sANPHAMs.GetTenSP(Convert.ToString(item))</a><br />
 
     }
 </div>
