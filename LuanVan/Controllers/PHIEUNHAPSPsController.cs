@@ -56,6 +56,7 @@ namespace LuanVan.Controllers
             string PN_GHICHU = Request["PN_GHICHU"];
             if (ModelState.IsValid)
             {
+                pHIEUNHAPSP.NV_ID = Session["NV_ID"].ToString();
                 pHIEUNHAPSP.PN_ID = db.autottang("PHIEUNHAPSP", "PN_ID", db.PHIEUNHAPSPs.Count()).ToString();
                 db.PHIEUNHAPSPs.Add(pHIEUNHAPSP);
 
@@ -85,6 +86,7 @@ namespace LuanVan.Controllers
                     pHIEUNHAPSP.PN_ID = db.autottang("PHIEUNHAPSP", "PN_ID", db.PHIEUNHAPSPs.Count()).ToString();
                     //pHIEUNHAPSP.PN_ID = id4;
                     pHIEUNHAPSP.NCC_ID = id;
+                    pHIEUNHAPSP.NV_ID = Session["NV_ID"].ToString();
                     pHIEUNHAPSP.PN_NGAY = DateTime.Now;
                     pHIEUNHAPSP.PN_GHICHU = id3;
                     //pHIEUNHAPSP.NV_ID = Session["NV_ID"].ToString();
@@ -130,6 +132,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                pHIEUNHAPSP.NV_ID = Session["NV_ID"].ToString();
                 db.Entry(pHIEUNHAPSP).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

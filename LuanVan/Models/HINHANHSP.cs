@@ -12,17 +12,17 @@
         [Key]
         [StringLength(10)]
         [Display(Name = "Mã hình ảnh")]
-        [Required]
+        
         public string HA_ID { get; set; }
 
         [StringLength(20)]
         [Display(Name = "Mã chi tiết sản phẩm")]
-        [Required]
+        
         public string CTSP_ID { get; set; }
 
         [Column(TypeName = "image")]
         [Display(Name = "Nội dung")]
-        [Required]
+        
         public byte[] HA_ND { get; set; }
 
         public virtual CHITIETSANPHAM CHITIETSANPHAM { get; set; }

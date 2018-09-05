@@ -18,15 +18,15 @@
         [Key]
         [StringLength(10)]
         [Display(Name = "Mã giá")]
-        [Required]
+        
         public string GIA_ID { get; set; }
 
         [Display(Name = "Giá")]
-        [Required]
+        
         public int? GIA_GIA { get; set; }
 
         [Display(Name = "Ngày cập nhật")]
-        [Required]
+        
         public DateTime? GIA_NGAYCAPNHAT { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

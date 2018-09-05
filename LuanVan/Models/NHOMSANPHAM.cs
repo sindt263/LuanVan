@@ -17,17 +17,17 @@
 
         [Key]
         [StringLength(10)]
-        [Required]
+        
         [Display(Name = "Mã số")]
         public string NSP_ID { get; set; }
 
         [StringLength(50)]
-        [Required]
+        
         [Display(Name = "Tên")]
         public string NSP_TEN { get; set; }
 
         [StringLength(255)]
-        [Required]
+        
         [Display(Name = "Mô tả")]
         public string NSP_MOTA { get; set; }
 

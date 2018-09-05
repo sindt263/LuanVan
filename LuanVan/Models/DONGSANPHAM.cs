@@ -18,12 +18,12 @@
         [Key]
         [StringLength(10)]
         [Display(Name = "Mã số")]
-        [Required]
+        
         public string DSP_ID { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Tên")]
-        [Required]
+        
         public string DSP_TEN { get; set; }
 
         [StringLength(255)]

@@ -17,26 +17,21 @@
 
         [Key]
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã phiếu")]
         public string PN_ID { get; set; }
 
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã nhân viên")]
         public string NV_ID { get; set; }
 
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã nhà cung cấp")]
         public string NCC_ID { get; set; }
 
-        [Required]
         [Display(Name = "Ngày nhập")]
         public DateTime? PN_NGAY { get; set; }
 
         [StringLength(500)]
-        [Required]
         [Display(Name = "Ghi chú")]
         public string PN_GHICHU { get; set; }
 

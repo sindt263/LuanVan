@@ -17,12 +17,12 @@
 
         [Key]
         [StringLength(10)]
-        [Required]
+        
         [Display(Name = "Mã số")]
         public string NSX_ID { get; set; }
 
         [StringLength(100)]
-        [Required]
+        
         [Display(Name = "Tên")]
         public string NSX_TEN { get; set; }
 
@@ -31,12 +31,12 @@
         public string NSX_SDT { get; set; }
 
         [StringLength(50)]
-        [Required]
+        
         [Display(Name = "Quốc gia")]
         public string NSX_QUOCGIA { get; set; }
 
         [StringLength(255)]
-        [Required]
+        
         [Display(Name = "Ghi chú")]
         public string NSX_GHICHU { get; set; }
 

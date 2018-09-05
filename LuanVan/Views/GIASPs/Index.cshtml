@@ -13,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.GIA_ID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.GIA_GIA)
         </th>
         <th>
@@ -23,6 +26,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GIA_ID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.GIA_GIA)
         </td>

@@ -95,8 +95,17 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "HA_ID,CTSP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
+            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+
+                    Int32 length = file.ContentLength;
+                    byte[] tempImage = new byte[length];
+                    file.InputStream.Read(tempImage, 0, length);
+                    hINHANHSP.HA_ND = tempImage;
+                }
                 db.Entry(hINHANHSP).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

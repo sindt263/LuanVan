@@ -17,17 +17,17 @@
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
+        
         [Display(Name = "Mã số")]
         public short TTDH_ID { get; set; }
 
         [StringLength(20)]
-        [Required]
+        
         [Display(Name = "Tên")]
         public string TTDH_TEN { get; set; }
 
         [StringLength(255)]
-        [Required]
+        
         [Display(Name = "Mô tả")]
         public string TTDH_MOTA { get; set; }
 

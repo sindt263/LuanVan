@@ -29,8 +29,7 @@ namespace LuanVan.Controllers
             string SP_ID = "";
             foreach (var i in PN_ID)
             {
-                SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='"+i.PN_ID+"'").SingleOrDefault();
-
+                SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='"+i.PN_ID+"'").DefaultIfEmpty();
             }
             ViewBag.MaSP = SP_ID;
 
@@ -78,6 +77,7 @@ namespace LuanVan.Controllers
             if (file != null)
             {
                 sANPHAM.CTSP_ID = CTSP;
+                sANPHAM.SP_TRANGTHAI = "1";
                 Int32 length = file.ContentLength;
                 byte[] tempImage = new byte[length];
                 file.InputStream.Read(tempImage, 0, length);

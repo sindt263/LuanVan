@@ -98,7 +98,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "NV_ID", cHITIETNHAP.PN_ID);
+            ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
             ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
             return View(cHITIETNHAP);
         }
@@ -112,11 +112,12 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Entry(cHITIETNHAP).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "NV_ID", cHITIETNHAP.PN_ID);
+            ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
             ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
             return View(cHITIETNHAP);
         }

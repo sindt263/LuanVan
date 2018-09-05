@@ -14,7 +14,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DONGSANPHAM.DSP_TEN)
+            @Html.DisplayNameFor(model => model.SP_ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CTSP_ID)
@@ -50,10 +50,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DONGSANPHAM.DSP_TEN)
+            @Html.DisplayFor(modelItem => item.SP_ID)
         </td> 
         <td>
-            @Html.DisplayFor(modelItem => item.CTSP_ID)
+            @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GIASP.GIA_GIA)

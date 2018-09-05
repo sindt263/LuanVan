@@ -18,16 +18,16 @@
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Mã số")]
-        [Required]
+        
         public short LNV_ID { get; set; }
 
         [StringLength(20)]        
-        [Required]
+        
         [Display(Name = "Tên quyền")]
         public string LNV_TEN { get; set; }
 
         [StringLength(200)]
-        [Required]
+        
         [Display(Name = "Mô tả")]
         public string LNV_MOTA { get; set; }
 

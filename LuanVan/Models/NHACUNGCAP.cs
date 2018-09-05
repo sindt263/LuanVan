@@ -17,27 +17,27 @@
 
         [Key]
         [StringLength(10)]
-        [Required]
+        
         [Display(Name = "Mã số")]
         public string NCC_ID { get; set; }
 
         [StringLength(100)]
-        [Required]
+        
         [Display(Name = "Tên")]
         public string NCC_TEN { get; set; }
 
         [StringLength(15)]
-        [Required]
+        
         [Display(Name = "Số điện thoại")]
         public string NCC_SDT { get; set; }
 
         [StringLength(100)]
-        [Required]
+        
         [Display(Name = "Địa chỉ")]
         public string NCC_DIACHI { get; set; }
 
         [StringLength(255)]
-        [Required]
+        
         [Display(Name = "Ghi chú")]
         public string NCC_GHICHU { get; set; }
 

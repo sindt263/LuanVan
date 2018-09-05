@@ -18,17 +18,17 @@
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Mã số")]
-        [Required]
+        
         public short HTTT_ID { get; set; }
 
         [StringLength(20)]
         [Display(Name = "Cách thanh toán")]
-        [Required]
+        
         public string HTTT_TEN { get; set; }
 
         [StringLength(255)]
         [Display(Name = "Mô tả")]
-        [Required]
+        
         public string HTTT_MOTA { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -19,7 +19,6 @@
 
         [Key]
         [StringLength(20)]
-        [Required]
         [Display(Name = "Mã sản phẩm")]
         public string SP_ID { get; set; }
 
@@ -28,47 +27,38 @@
         public string CTSP_ID { get; set; }
 
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã nhóm")]
         public string NSP_ID { get; set; }
 
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã khuyến mãi")]
         public string KM_ID { get; set; }
 
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã giá")]
         public string GIA_ID { get; set; }
 
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã dòng")]
         public string DSP_ID { get; set; }
 
         [StringLength(10)]
-        [Required]
         [Display(Name = "Mã nhà sản xuất")]
         public string NSX_ID { get; set; }
 
         [StringLength(255)]
-        [Required]
         [Display(Name = "Tên sản phẩm")]
         public string SP_TEN { get; set; }
 
         [StringLength(15)]
-        [Required]
         [Display(Name = "Trạng thái")]
         public string SP_TRANGTHAI { get; set; }
 
         [StringLength(255)]
-        [Required]
         [Display(Name = "Mô tả ngắn")]
         public string SP_MOTANGAN { get; set; }
 
         [StringLength(255)]
-        [Required]
         [Display(Name = "Mô tả chi tiết")]
         public string SP_MOTACHITIET { get; set; }
 
