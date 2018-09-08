@@ -37,6 +37,7 @@ namespace LuanVan.Controllers
                 CartItem newItem = new CartItem()
                 {
                     SanPhamID = SanPhamID,
+                    CTSP_ID = sp.CTSP_ID,
                     TenSanPham = sp.SP_TEN,
                     DonGia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID='" + GiaID + "'").SingleOrDefault(),
                     SoLuong = 1,

@@ -221,7 +221,7 @@ namespace LuanVan.Controllers
 
         public RedirectToRouteResult ChuyenTrangThaiSPDaDuocDac(string id)
         {
-            SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(m => m.SP_ID == id); ;
+            SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(m => m.SP_ID == id);
             if (sANPHAM != null)
             {
                 sANPHAM.SP_TRANGTHAI = "0";

@@ -32,7 +32,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.KH_EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.KH_EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.KH_EMAIL, new { htmlAttributes = new { @class = "form-control", @type="email" } })
                 @Html.ValidationMessageFor(model => model.KH_EMAIL, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,12 +64,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.KH_GIOITINH, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="KH_GIOITINH" name="KH_GIOITINH" class="form-control" >
-                    <option value="Nam" >Nam</option>
-                    <option value="Nữ" >Nữ</option>
+                <select id="KH_GIOITINH" name="KH_GIOITINH" class="form-control">
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
                     <option value="Khác">Khác</option>
                 </select>
-               @* @Html.EditorFor(model => model.KH_GIOITINH, new { htmlAttributes = new { @class = "form-control" } })*@
+                @* @Html.EditorFor(model => model.KH_GIOITINH, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.KH_GIOITINH, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -86,16 +86,16 @@
             @Html.LabelFor(model => model.KH_MATKHAU, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.KH_MATKHAU, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KH_MATKHAU, "", new { @class = "text-danger"  })
+                @Html.ValidationMessageFor(model => model.KH_MATKHAU, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
         <div class="form-group">
             <label class="control-label col-md-2" for="KH_MATKHAU">Xác nhận mật khẩu</label>
             <div class="col-md-10">
-                <input class="form-control text-box single-line" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU1" name="KH_MATKHAU1" type="text" value="" />
+                <input class="form-control text-box single-line" type="password" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU1" name="KH_MATKHAU1" type="text" value="" />
                 <span class="field-validation-valid text-danger" id="ViewKTMK" data-valmsg-for="KH_MATKHAU" data-valmsg-replace="true"></span>
-               
+
             </div>
         </div>
 
@@ -117,16 +117,28 @@
     $(document).ready(function () {
         var MK = document.getElementById("KH_MATKHAU")
         var MK1 = document.getElementById("KH_MATKHAU1")
-                $("#KH_MATKHAU1").change(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: '/KHACHHANGs/KTMK/',
-                        data: { 'id': MK.value, 'id1': MK1.value },
-                        success: function (result) {
-                            $('#ViewKTMK').html(result)
-                        }
-                    })
-                })
-            
+        var TK = document.getElementById("KH_TAIKHOAN")
+
+        $("#KH_MATKHAU1").change(function () {
+            $.ajax({
+                type: "GET",
+                url: '/KHACHHANGs/KTMK/',
+                data: { 'id': MK.value, 'id1': MK1.value },
+                success: function (result) {
+                    $('#ViewKTMK').html(result)
+                }
+            })
         })
+        $("#KH_TAIKHOAN").change(function () {
+            $.ajax({
+                type: "GET",
+                url: '/KHACHHANGs/KTTK',
+                data: { 'id': TK.value },
+                success: function (result) {
+                    $('#ViewKTMK').html(result)
+                }
+            })
+        })
+
+    })
 </script>

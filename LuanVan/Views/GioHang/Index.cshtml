@@ -35,11 +35,11 @@ else
                             <td>
                                 <asp:Repeater runat="server" id="myRepeater">
                                     <ItemTemplate>
-                                        <img src="/HinhAnhSPs/getImage/@item.SanPhamID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
+                                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </td>
-                            <td><a target="_blank" href="@Url.Action("Details", "SanPham", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
+                            <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
                             <td>
                                 <form action="@Url.Action("SuaSoLuong")" method="get">
                                     <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
@@ -95,13 +95,15 @@ else
     var SL = document.getElementById("TXTSL")
   
     $("#btnsubmit").click(function () {
-        $.ajax({
-            type: "GET",
-            url: "/DonHangs/CreateDH/",
-            data: { 'id1': HTTT_ID.value, 'id2': SL.value, 'id3': CTDH_DIACHIGIAO.value },
-            success: function (result) {
-                $("#ViewDH").html(result)
-            }
-        })
+       
+            $.ajax({
+                type: "GET",
+                url: "/DonHangs/CreateDH/",
+                data: { 'id1': HTTT_ID.value, 'id2': SL.value, 'id3': CTDH_DIACHIGIAO.value },
+                success: function (result) {
+                    $("#ViewDH").html(result)
+                }
+            })
+        
     })
 </script>

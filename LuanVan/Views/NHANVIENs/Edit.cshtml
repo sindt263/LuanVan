@@ -4,13 +4,21 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script language="javascript">
+    angular.module('myapp', [])
+        .controller('DateController', ['$scope', function ($scope) {
+            $scope.value = new Date("@Model.NV_NGAYKETTHUCHOPDONG");
+            $scope.value1 = new Date("@Model.NV_NGAYKYHOPDONG");
+            $scope.value2 = new Date("@Model.NV_NGAYSINH");
+        }]);
 
+</script>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal" ng-app="myapp">
         <h4>Nhân viên</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -32,10 +40,10 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" name="myForm" ng-controller="DateController">
             @Html.LabelFor(model => model.NV_NGAYSINH, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NV_NGAYSINH, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="date" name="NV_NGAYSINH" ng-model="value2" id="NV_NGAYSINH" class="form-control" />
                 @Html.ValidationMessageFor(model => model.NV_NGAYSINH, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,18 +72,18 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" name="myForm" ng-controller="DateController">
             @Html.LabelFor(model => model.NV_NGAYKYHOPDONG, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NV_NGAYKYHOPDONG, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="date" name="NV_NGAYKYHOPDONG" ng-model="value1" id="NV_NGAYKYHOPDONG" class="form-control" />
                 @Html.ValidationMessageFor(model => model.NV_NGAYKYHOPDONG, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" name="myForm" ng-controller="DateController">
             @Html.LabelFor(model => model.NV_NGAYKETTHUCHOPDONG, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NV_NGAYKETTHUCHOPDONG, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="date" name="NV_NGAYKETTHUCHOPDONG" ng-model="value" id="NV_NGAYKETTHUCHOPDONG" class="form-control" />
                 @Html.ValidationMessageFor(model => model.NV_NGAYKETTHUCHOPDONG, "", new { @class = "text-danger" })
             </div>
         </div>

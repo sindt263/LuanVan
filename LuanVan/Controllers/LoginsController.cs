@@ -34,8 +34,8 @@ namespace LuanVan.Controllers
         public ActionResult SubmitLoginKH()
         {            
             
-            string TK = Request["KH_TAIKHOAN"];
-            string MK = Request["KH_MATKHAU"];
+            string TK = Request["TK"];
+            string MK = Request["MK"];
             
             var result = (from p in db.KHACHHANGs where p.KH_TAIKHOAN == TK && p.KH_MATKHAU == MK select p);
             if (result.Count() >= 1)
@@ -72,8 +72,8 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitLoginnv()
         {
-            string TK = Request["NV_TaiKhoan"];
-            string MK = Request["NV_MatKhau"];
+            string TK = Request["NVTK"];
+            string MK = Request["NVMK"];
             var result = (from p in db.NHANVIENs where p.NV_TAIKHOAN == TK && p.NV_MATKHAU == MK select p);
                 if(result.Count() >= 1)
             {

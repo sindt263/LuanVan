@@ -4029,6 +4029,8 @@
     <Content Include="Views\CHITIETDONHANGs\IndexKH.cshtml" />
     <Content Include="Views\DONHANGs\EditHuy.cshtml" />
     <Content Include="Views\Shared\_LayoutKH.cshtml" />
+    <Content Include="Views\KHACHHANGs\KTTK.cshtml" />
+    <Content Include="Views\KHACHHANGs\TKEditPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,21 +22,23 @@
 
         [StringLength(100)]
         [Display(Name = "Tên khách hàng")]
+        [Required(ErrorMessage ="Tên không được rỗng")]
         public string KH_TEN { get; set; }
 
         [StringLength(100)]
         [Display(Name = "Email")]
-        //
+        [Required(ErrorMessage = "Email không được rỗng")]
         public string KH_EMAIL { get; set; }
 
         [StringLength(15)]
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Số điện thoại")]
         
         public string KH_SDT { get; set; }
 
         [StringLength(200)]
         [Display(Name = "Địa chỉ")]
-        
+        [Required(ErrorMessage = "Địa chỉ không được rỗng")]
         public string KH_DIACHI { get; set; }
 
         [DataType(DataType.Date)]
@@ -51,12 +53,13 @@
 
         [StringLength(16)]
         [Display(Name = "Tài khoản")]
-        //
+        [Required(ErrorMessage = "Tài khoản không được rỗng")]
         public string KH_TAIKHOAN { get; set; }
 
         [StringLength(200)]
         [Display(Name = "Mật khẩu")]
-        //
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Mật khẩu không được rỗng")]
         public string KH_MATKHAU { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,71 +1,84 @@
-﻿@model IEnumerable<LuanVan.Models.KHACHHANG>
+﻿@model LuanVan.Models.KHACHHANG
 
 @{
-    ViewBag.Title = "IndexKH";
-    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Thông tin cá nhân</h2>
-
-<table class="table">
-    <tr>
-        <th>
+<div>
+    <h4>Chi tiết khách hàng</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
             @Html.DisplayNameFor(model => model.KH_TEN)
-        </th>
-        <th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_TEN)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KH_EMAIL)
-        </th>
-        <th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_EMAIL)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KH_SDT)
-        </th>
-        <th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_SDT)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KH_DIACHI)
-        </th>
-        <th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_DIACHI)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KH_NGAYSINH)
-        </th>
-        <th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_NGAYSINH)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KH_GIOITINH)
-        </th>
-        <th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_GIOITINH)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KH_TAIKHOAN)
-        </th>
-        @*<th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_TAIKHOAN)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KH_MATKHAU)
-        </th>*@
-        <th>tùy chọn</th>
-    </tr>
+        </dt>
+        <dd>
+            <a href="/KhachHangs/EditPass"><input type="button" class="btn btn-success" value="Đổi mật khẩu" /></a>
+        </dd>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_EMAIL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_SDT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_DIACHI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_NGAYSINH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_GIOITINH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KH_TAIKHOAN)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.KH_MATKHAU)
-        </td>*@
-        <td>
-            @Html.ActionLink("Sửa", "EditKH", new { id=item.KH_ID }) 
-        </td>
-    </tr>
-}
+    </dl>
+</div>
+<p>
 
-</table>
+    <td>
+        <a href="/KHACHHANGs/EditKH/@Model.KH_ID" class="btn btn-info">Thay đổi thông tin</a>
+
+    </td>
+</p>
+

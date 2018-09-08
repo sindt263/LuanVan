@@ -25,8 +25,7 @@
         [Display(Name = "Mã quyền")]
         public short? LNV_ID { get; set; }
 
-        [StringLength(100)]
-        
+        [StringLength(100)]        
         [Display(Name = "Họ tên")]
         public string NV_TEN { get; set; }
 
@@ -52,10 +51,12 @@
 
         
         [Display(Name = "Ngày ký hợp đồng")]
+        [DataType(DataType.Date)]
         public DateTime? NV_NGAYKYHOPDONG { get; set; }
 
         
         [Display(Name = "Ngày kết thúc hợp đồng")]
+        [DataType(DataType.Date)]
         public DateTime? NV_NGAYKETTHUCHOPDONG { get; set; }
 
         [StringLength(100)]
@@ -66,6 +67,7 @@
         [StringLength(200)]
         
         [Display(Name = "Mật khẩu")]
+        [DataType(DataType.Password)]
         public string NV_MATKHAU { get; set; }
 
         [StringLength(16)]

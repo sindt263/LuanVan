@@ -16,7 +16,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.NV_TAIKHOAN, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.NV_TAIKHOAN, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control text-box single-line" data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" id="NVTK" name="NVTK" type="text" value="" />
             @Html.ValidationMessageFor(model => model.NV_TAIKHOAN, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -24,7 +24,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.NV_MATKHAU, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.NV_MATKHAU, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control text-box single-line password" data-val="true" data-val-length="The field Mật khẩu must be a string with a maximum length of 200." data-val-length-max="200" id="NVMK" name="NVMK" type="password" value="" />
+
             @Html.ValidationMessageFor(model => model.NV_MATKHAU, "", new { @class = "text-danger" })
         </div>
     </div>

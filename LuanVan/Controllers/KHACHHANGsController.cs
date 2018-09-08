@@ -24,7 +24,12 @@ namespace LuanVan.Controllers
             if (Session["KH_ID"] != null)
             {
                 string id = Session["KH_ID"].ToString();
-                return View(db.KHACHHANGs.Where(k => k.KH_ID == id).ToList());
+                KHACHHANG kHACHHANG = db.KHACHHANGs.Find(id);
+                if (kHACHHANG == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(kHACHHANG);
             }
             return RedirectToAction("LoginKH", "Logins");
         }
@@ -59,10 +64,15 @@ namespace LuanVan.Controllers
         {
             string MK = Request["KH_MATKHAU"];
             string MK1 = Request["KH_MATKHAU1"];
-
-            if(MK != MK1)
+            string TK = Request["KH_TAIKHOAN"];
+            string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + TK + "'").SingleOrDefault();
+            if (result != null)
             {
-                ModelState.AddModelError("", "Nhập mật khẩu chưa đúng");
+                ModelState.AddModelError("", "Tài khoản đã tồn tại !");
+            }
+            else if (MK != MK1)
+            {
+                ModelState.AddModelError("", "Nhập mật khẩu chưa đúng !");
             }
             if (ModelState.IsValid)
             {
@@ -77,7 +87,7 @@ namespace LuanVan.Controllers
             return View(kHACHHANG);
         }
 
-       
+
         // GET: KHACHHANGs/Edit/5
         public ActionResult Edit(string id)
         {
@@ -139,13 +149,15 @@ namespace LuanVan.Controllers
             }
             return View(kHACHHANG);
         }
-         public ActionResult EditPass()
+        public ActionResult EditPass()
         {
-            string id = Session["KH_ID"].ToString();
-            if (id == null)
+
+            if (Session["KH_ID"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                return RedirectToAction("LoginKH", "Logins");
             }
+            string id = Session["KH_ID"].ToString();
             KHACHHANG kHACHHANG = db.KHACHHANGs.Find(id);
             if (kHACHHANG == null)
             {
@@ -154,34 +166,39 @@ namespace LuanVan.Controllers
             return View(kHACHHANG);
         }
 
-        // POST: KHACHHANGs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditPass([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU")] KHACHHANG kHACHHANG)
+
+        public JsonResult TKEditPass(string id, string id1)
         {
-            string MK = Request["KH_MATKHAU"];
-            string MK1 = Request["KH_MATKHAU1"];
-            if(MK.Length <=0 )
+            
+            if (id.Length <= 0)
             {
-                ModelState.AddModelError("KH_MATKHAU", "Không được để trống mật khẩu ~~");
-               
-            }else if(MK1.Length <= 0)
-            {
-                ModelState.AddModelError("KH_MATKHAU1", "Không được để trống xấc nhận ~~");
+                string output = "Không được để trống xấc nhận !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+
             }
-            else if(MK != MK1)
+            else if (id1.Length <= 0)
             {
-                ModelState.AddModelError("", "Mật khẩu xác nhận không giống nhau ");
+                string output = "Không được để trống xấc nhận !";
+                return Json(output, JsonRequestBehavior.AllowGet);
             }
-            if (ModelState.IsValid)
+            else if (id != id1)
             {
-                db.Entry(kHACHHANG).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("IndexKH");
+                string output = "Mật khẩu xác nhận không giống nhau !";
+                return Json(output, JsonRequestBehavior.AllowGet);
             }
-            return View(kHACHHANG);
+            else
+            {
+                string kh_id = Session["KH_ID"].ToString();
+                KHACHHANG kHACHHANG = db.KHACHHANGs.Find(kh_id);
+                if (kHACHHANG != null)
+                {
+                    kHACHHANG.KH_MATKHAU = id;
+                    db.SaveChanges();
+
+                }
+                string output = "Mật khẩu đã được thay đổi !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: KHACHHANGs/Delete/5
@@ -219,7 +236,7 @@ namespace LuanVan.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult KTMK(string id,string id1)
+        public ActionResult KTMK(string id, string id1)
         {
             if (id != id1)
             {
@@ -232,6 +249,19 @@ namespace LuanVan.Controllers
             return View();
         }
 
-        
+        public JsonResult KTTK(string id)
+        {
+            string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + id + "'").SingleOrDefault();
+            if (result != null)
+            {
+                string output = "Tài khoản đã tồn tại !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string output = "Có thể sử dụng !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

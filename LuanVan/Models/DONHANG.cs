@@ -21,21 +21,22 @@
         
         public string DN_ID { get; set; }
 
-        [Display(Name = "Mã trạng thái")]
-        
+        [Display(Name = "Mã trạng thái")]        
         public short? TTDH_ID { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Mã khách hàng")]
-        
+        [Display(Name = "Mã khách hàng")]        
         public string KH_ID { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Mã nhân viên")]        
+        public string NV_ID { get; set; }
 
         
         [Display(Name ="Hình thức thanh toán")]
         public short? HTTT_ID { get; set; }
 
-        [DataType(DataType.Date)]
-        
+        [DataType(DataType.Date)]        
         [Display(Name = "Ngày lập đơn")]
         public DateTime? DN_NGALAPDON { get; set; }
 
@@ -43,8 +44,7 @@
         [Display(Name = "Ghi chú")]
         public string DN_GHICHU { get; set; }
 
-        [Display(Name = "số lượng")]
-        
+        [Display(Name = "Số lượng")]        
         public int? DN_SL { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

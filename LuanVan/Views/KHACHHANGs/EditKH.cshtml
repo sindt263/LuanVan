@@ -4,15 +4,20 @@
     ViewBag.Title = "EditKH";
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
+<script language="javascript">
+    angular.module('myapp', [])
+        .controller('DateController', ['$scope', function ($scope) {
+            $scope.value = new Date("@Model.KH_NGAYSINH");
+        }]);
 
-<h2>EditKH</h2>
+</script>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-<div class="form-horizontal">
+<div class="form-horizontal" ng-app="myapp">
     <h4>Khách hàng</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -53,10 +58,10 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" name="myForm" ng-controller="DateController">
         @Html.LabelFor(model => model.KH_NGAYSINH, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.KH_NGAYSINH, new { htmlAttributes = new { @class = "form-control" } })
+            <input type="date" name="KH_NGAYSINH" ng-model="value" id="KH_NGAYSINH" class="form-control" />
             @Html.ValidationMessageFor(model => model.KH_NGAYSINH, "", new { @class = "text-danger" })
         </div>
     </div>

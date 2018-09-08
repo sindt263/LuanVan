@@ -139,5 +139,16 @@ namespace LuanVan.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public void EditHuy(string id)
+        {
+            SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == id);
+            if (sANPHAM != null)
+            {
+                sANPHAM.SP_TRANGTHAI = "1";
+                db.SaveChanges();
+            }
+           
+        }
     }
 }

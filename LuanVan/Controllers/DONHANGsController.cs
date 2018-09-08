@@ -65,6 +65,7 @@ namespace LuanVan.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    dONHANG.NV_ID = Session["NV_ID"].ToString();
                     dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
                     db.DONHANGs.Add(dONHANG);
                     db.SaveChanges();
@@ -81,46 +82,63 @@ namespace LuanVan.Controllers
             ViewBag.TTDH_ID = new SelectList(db.TRANGTHAIDONHANGs, "TTDH_ID", "TTDH_TEN", dONHANG.TTDH_ID);
             return View(dONHANG);
         }
-         public ActionResult CreateDH(string id, string id2,string id3)
+         public ActionResult CreateDH(string id1, string id2,string id3)
         {
             string KH_ID = Session["KH_ID"].ToString();
             string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
             SANPHAMsController sANPHAM = new SANPHAMsController();
             if (result != null)
-            {
-                DONHANG dONHANG = new DONHANG();
-                if (ModelState.IsValid)
                 {
-                    dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
-                    dONHANG.TTDH_ID = 4;
-                    dONHANG.KH_ID = KH_ID;
-                    dONHANG.DN_NGALAPDON = DateTime.Now;
-                    dONHANG.DN_GHICHU = "Khách đặc Online";
-                    dONHANG.HTTT_ID = Convert.ToInt16(id);
-                    dONHANG.DN_SL = Convert.ToInt32(id2);
-                    db.DONHANGs.Add(dONHANG);
-                    db.SaveChanges();
-                    string DN_ID = dONHANG.DN_ID;
-                    CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
-                    var giohang = Session["giohang"] as List<CartItem>;
-                    foreach (var i in giohang)
+                    DONHANG dONHANG = new DONHANG();
+                    if (ModelState.IsValid)
                     {
-                        string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
-                        
-                        string SP_ID = i.SanPhamID;
-                        db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "','" + id3 + "')");
-                        db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
-                        ModelState.AddModelError("", "Xạc nhận mua "+i.SanPhamID +" thành công");
-
+                    if (Session["DN_ID"] == null) { Session["DN_ID"] = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()); 
+                    //dONHANG.NV_ID = Session["NV_ID"].ToString();
+                        dONHANG.DN_ID = Session["DN_ID"].ToString();
+                        dONHANG.TTDH_ID = 4;
+                        dONHANG.KH_ID = KH_ID;
+                        dONHANG.DN_NGALAPDON = DateTime.Now;
+                        dONHANG.DN_GHICHU = "Khách đặc Online";
+                        dONHANG.HTTT_ID = Convert.ToInt16(id1);
+                        dONHANG.DN_SL = Convert.ToInt32(id2);
+                        db.DONHANGs.Add(dONHANG);
+                        db.SaveChanges();
                     }
-                    ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Khách hàng không tồn tại");
-            }
+                    else
+                    {
+                        string DNID = Session["DN_ID"].ToString();
+                        DONHANG dON = db.DONHANGs.FirstOrDefault(m => m.DN_ID == DNID);                        
+                        if (dON != null)
+                        {
+                            dON.HTTT_ID = Convert.ToInt16(id1);
+                            dON.DN_SL = Convert.ToInt32(id2);
+                            db.SaveChanges();
+                        }
+                    }
+                        string DN_ID = Session["DN_ID"].ToString();
+                    CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
+                        var giohang = Session["giohang"] as List<CartItem>;
+                        foreach (var i in giohang)
+                        {
+                            string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
 
+                            string SP_ID = i.SanPhamID;
+                            string TT=    db.Database.SqlQuery<string>("select SP_TRANGTHAI from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
+                        if (Convert.ToInt32(TT) == 1)
+                        {
+                            db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "','" + id3 + "')");
+                            db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
+                            ModelState.AddModelError("", "Xạc nhận mua " + i.SanPhamID + " thành công");
+                        }
+
+                        }
+                        ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Khách hàng không tồn tại");
+                }
             
             return View();
         }
@@ -152,6 +170,7 @@ namespace LuanVan.Controllers
         {
             if (ModelState.IsValid)
             {
+                dONHANG.NV_ID = Session["NV_ID"].ToString();
                 db.Entry(dONHANG).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -215,8 +234,15 @@ namespace LuanVan.Controllers
         public JsonResult EditHuy(string id)
         {
             DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id);
+            var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == id select p);
+            CHITIETDONHANGsController cHITIETDONHANGs = new CHITIETDONHANGsController();
             if (dONHANG != null)
             {
+                foreach(var i in SP_ID)
+                {
+                    SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
+                    cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
+                }
                 dONHANG.TTDH_ID = 2;
                 db.SaveChanges();
             }

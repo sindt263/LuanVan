@@ -20,6 +20,11 @@
         
         public string SP_ID { get; set; }
 
+        [StringLength(10)]
+        [Display(Name = "Mã nhân viên")]
+
+        public string NV_ID { get; set; }
+
         [Display(Name = "Mã bảo hành")]
         
         public short? BH_ID { get; set; }
