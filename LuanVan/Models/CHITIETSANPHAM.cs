@@ -71,6 +71,10 @@
         
         public short? CTSP_SOSIM { get; set; }
 
+        [StringLength(2555)]
+        [Display(Name = "Mô tả chi tiết")]
+        public string CTSP_MOTA { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HINHANHSP> HINHANHSPs { get; set; }
 

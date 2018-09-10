@@ -82,64 +82,71 @@ namespace LuanVan.Controllers
             ViewBag.TTDH_ID = new SelectList(db.TRANGTHAIDONHANGs, "TTDH_ID", "TTDH_TEN", dONHANG.TTDH_ID);
             return View(dONHANG);
         }
-         public ActionResult CreateDH(string id1, string id2,string id3)
+        public ActionResult CreateDH(string id1, string id2, string id3)
         {
-            string KH_ID = Session["KH_ID"].ToString();
-            string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
+
+            //string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
             SANPHAMsController sANPHAM = new SANPHAMsController();
-            if (result != null)
+            //if (result != null)
+            //{
+            DONHANG dONHANG = new DONHANG();
+            if (ModelState.IsValid)
+            {
+                if (Session["DN_ID"] == null)
                 {
-                    DONHANG dONHANG = new DONHANG();
-                    if (ModelState.IsValid)
-                    {
-                    if (Session["DN_ID"] == null) { Session["DN_ID"] = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()); 
+                    Session["DN_ID"] = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
                     //dONHANG.NV_ID = Session["NV_ID"].ToString();
-                        dONHANG.DN_ID = Session["DN_ID"].ToString();
-                        dONHANG.TTDH_ID = 4;
-                        dONHANG.KH_ID = KH_ID;
-                        dONHANG.DN_NGALAPDON = DateTime.Now;
-                        dONHANG.DN_GHICHU = "Khách đặc Online";
-                        dONHANG.HTTT_ID = Convert.ToInt16(id1);
-                        dONHANG.DN_SL = Convert.ToInt32(id2);
-                        db.DONHANGs.Add(dONHANG);
-                        db.SaveChanges();
-                    }
-                    else
+                    dONHANG.DN_ID = Session["DN_ID"].ToString();
+                    dONHANG.TTDH_ID = 4;
+                    if (Session["KH_ID"] != null)
                     {
-                        string DNID = Session["DN_ID"].ToString();
-                        DONHANG dON = db.DONHANGs.FirstOrDefault(m => m.DN_ID == DNID);                        
-                        if (dON != null)
-                        {
-                            dON.HTTT_ID = Convert.ToInt16(id1);
-                            dON.DN_SL = Convert.ToInt32(id2);
-                            db.SaveChanges();
-                        }
+                        string KH_ID = Session["KH_ID"].ToString();
+                        dONHANG.KH_ID = KH_ID;
                     }
-                        string DN_ID = Session["DN_ID"].ToString();
-                    CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
-                        var giohang = Session["giohang"] as List<CartItem>;
-                        foreach (var i in giohang)
-                        {
-                            string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
 
-                            string SP_ID = i.SanPhamID;
-                            string TT=    db.Database.SqlQuery<string>("select SP_TRANGTHAI from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
-                        if (Convert.ToInt32(TT) == 1)
-                        {
-                            db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "','" + id3 + "')");
-                            db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
-                            ModelState.AddModelError("", "Xạc nhận mua " + i.SanPhamID + " thành công");
-                        }
-
-                        }
-                        ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
-                    }
+                    dONHANG.DN_NGALAPDON = DateTime.Now;
+                    dONHANG.DN_GHICHU = "Khách đặc Online";
+                    dONHANG.HTTT_ID = Convert.ToInt16(id1);
+                    dONHANG.DN_SL = Convert.ToInt32(id2);
+                    db.DONHANGs.Add(dONHANG);
+                    db.SaveChanges();
                 }
-                else
+                //else
+                //{
+                //    string DNID = Session["DN_ID"].ToString();
+                //    DONHANG dON = db.DONHANGs.FirstOrDefault(m => m.DN_ID == DNID);
+                //    if (dON != null)
+                //    {
+                //        dON.HTTT_ID = Convert.ToInt16(id1);
+                //        dON.DN_SL = Convert.ToInt32(id2);
+                //        db.SaveChanges();
+                //    }
+                //}
+                string DN_ID = Session["DN_ID"].ToString();
+                CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
+                var giohang = Session["giohang"] as List<CartItem>;
+                foreach (var i in giohang)
                 {
-                    ModelState.AddModelError("", "Khách hàng không tồn tại");
+                    string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
+
+                    string SP_ID = i.SanPhamID;
+                    string TT = db.Database.SqlQuery<string>("select SP_TRANGTHAI from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
+                    if (Convert.ToInt32(TT) == 1)
+                    {
+                        db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "',N'" + id3 + "')");
+                        db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
+                        ModelState.AddModelError("", "Xạc nhận mua " + i.SanPhamID + " thành công");
+                    }
+
                 }
-            
+                ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
+            }
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("", "Khách hàng không tồn tại");
+            //}
+
             return View();
         }
 
@@ -219,16 +226,16 @@ namespace LuanVan.Controllers
         public JsonResult KTKH(string id)
         {
             string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + id + "'").SingleOrDefault();
-            if(result != null)
+            if (result != null)
             {
-                string output = "Đã xác định khách hàng " +id;
+                string output = "Đã xác định khách hàng " + id;
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
             else
             {
                 string output = "Khánh hàng " + id + " không tồn tại";
                 return Json(output, JsonRequestBehavior.AllowGet);
-            }            
+            }
         }
 
         public JsonResult EditHuy(string id)
@@ -238,7 +245,7 @@ namespace LuanVan.Controllers
             CHITIETDONHANGsController cHITIETDONHANGs = new CHITIETDONHANGsController();
             if (dONHANG != null)
             {
-                foreach(var i in SP_ID)
+                foreach (var i in SP_ID)
                 {
                     SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
                     cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
@@ -247,7 +254,7 @@ namespace LuanVan.Controllers
                 db.SaveChanges();
             }
             string a = "Đã hũy đơn hàng " + id;
-            return Json(a,JsonRequestBehavior.AllowGet);
+            return Json(a, JsonRequestBehavior.AllowGet);
         }
     }
 }

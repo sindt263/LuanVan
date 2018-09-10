@@ -1,31 +1,304 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
+    LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="slider-area">
+    <!-- Slider -->
+    <div class="block-slider block-slider4">
+        <ul class="" id="bxslider-home4">
+            @foreach (var item in ViewBag.SP)
+            {
+            <li>
+                <div class="col-md-4 col-sm-4">
+                    
+                            <asp:Repeater runat="server" id="myRepeater">
+                                <ItemTemplate>
+                                    <img class="product-thumbSlider" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                </ItemTemplate>
+                            </asp:Repeater>
+                       
+                    </div>
+                    <div class="caption-group">
+                        <h2 class="caption title">
+                            <span class="primary"><strong>@item.CTSP_TEN</strong></span>
+                            <br />
+                            <span>Camera trước <strong>@item.CTSP_CAMERATRUOC MP</strong></span>
+                            <span>Camera sau <strong>@item.CTSP_CAMERASAU MP</strong></span>
+                            <br />
+                            <ins><strong>@cHITIETSANPH.GetGia(item.CTSP_ID) VND</strong></ins>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                        </h2>
+
+                        <a class="caption button-radius" href="~/ChiTietSanPhams/Details/@item.CTSP_ID"><span class="icon"></span>Xem ngay</a>
+                    </div>
+            </li>
+            }
+        </ul>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <!-- ./Slider -->
+</div> <!-- End slider area -->
+
+<div class="promo-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo1">
+                    <i class="fa fa-refresh"></i>
+                    <p>Trả lại nếu lỗi</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo2">
+                    <i class="fa fa-truck"></i>
+                    <p>Miễn phí vận chuyển</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo3">
+                    <i class="fa fa-lock"></i>
+                    <p>Thanh toán an toàn</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="single-promo promo4">
+                    <i class="fa fa-gift"></i>
+                    <p>Sản phẩm mới</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</div> <!-- End promo area -->
+
+<div class="maincontent-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-6">
+                <div class="latest-product">
+                    <h2 class="section-title">Latest Products</h2>
+                    <div class="product-carousel">
+                        @foreach (var item in ViewBag.sp)
+                        {
+                           
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <asp:Repeater runat="server" id="myRepeater">
+                                            <ItemTemplate>
+                                                <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <div class="product-hover">
+                                            @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
+                                            {
+                                                <h4 class="text-danger">Hết hàng</h4>
+
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                            }
+                                            
+                                            <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                        </div>
+                                    </div>
+
+                                   
+                                    <h2><a href="single-product.html">@item.CTSP_TEN</a></h2>
+
+                                    <div class="product-carousel-price">
+
+                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID) VND</ins> Khuyến Mãi 
+                                    </div>
+                                </div>
+                            }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End main content area -->
+
+<div class="zigzag-bottom"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="brand-wrapper">
+                <div class="brand-list">
+                    @foreach (var item in ViewBag.NSX)
+                    {
+                        <h3>@item.NSX_TEN</h3>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<!-- End brands area -->
+
+<div class="product-widget-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="single-product-widget">
+                    <h2 class="product-wid-title">Top Sellers</h2>
+                    <a href="" class="wid-view-more">View All</a>
+                    @foreach (var item in ViewBag.sp)
+                    {
+
+
+                    <div class="single-wid-product">
+                        <a href="single-product.html">
+                            <asp:Repeater runat="server" id="myRepeater">
+                                <ItemTemplate>
+                                    <img  class="product-thumb" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </a>
+                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                    }
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="single-product-widget">
+                    <h2 class="product-wid-title">Recently Viewed</h2>
+                    <a href="#" class="wid-view-more">View All</a>
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Sony Smart Air Condtion</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="single-product-widget">
+                    <h2 class="product-wid-title">Top New</h2>
+                    <a href="#" class="wid-view-more">View All</a>
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                    <div class="single-wid-product">
+                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
+                        <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                        <div class="product-wid-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-wid-price">
+                            <ins>$400.00</ins> <del>$425.00</del>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End product widget area -->

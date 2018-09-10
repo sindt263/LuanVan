@@ -2,77 +2,77 @@
 
 @{
     ViewBag.Title = "Đăng ký thành viên mới";
-    Layout = "~/Views/Shared/_Layoutsecond.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Đăng ký thành viên</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.KH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.KH_ID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.KH_ID, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <h4>Đăng ký thành viên</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*<div class="form-group">
+                    @Html.LabelFor(model => model.KH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.KH_ID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.KH_ID, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KH_TEN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KH_TEN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KH_TEN, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KH_TEN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KH_TEN, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KH_TEN, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KH_EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KH_EMAIL, new { htmlAttributes = new { @class = "form-control", @type="email" } })
-                @Html.ValidationMessageFor(model => model.KH_EMAIL, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KH_EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KH_EMAIL, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                    @Html.ValidationMessageFor(model => model.KH_EMAIL, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KH_SDT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KH_SDT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KH_SDT, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KH_SDT, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KH_SDT, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KH_SDT, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KH_DIACHI, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KH_DIACHI, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KH_DIACHI, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KH_DIACHI, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KH_DIACHI, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KH_DIACHI, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KH_NGAYSINH, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KH_NGAYSINH, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KH_NGAYSINH, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KH_NGAYSINH, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KH_NGAYSINH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KH_NGAYSINH, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KH_GIOITINH, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <select id="KH_GIOITINH" name="KH_GIOITINH" class="form-control">
-                    <option value="Nam">Nam</option>
-                    <option value="Nữ">Nữ</option>
-                    <option value="Khác">Khác</option>
-                </select>
-                @* @Html.EditorFor(model => model.KH_GIOITINH, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.ValidationMessageFor(model => model.KH_GIOITINH, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KH_GIOITINH, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="KH_GIOITINH" name="KH_GIOITINH" class="form-control">
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                    @* @Html.EditorFor(model => model.KH_GIOITINH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KH_GIOITINH, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.KH_TAIKHOAN, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -98,19 +98,54 @@
 
             </div>
         </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Đăng ký" class="btn btn-success" />
-            </div>
+    *@
+    <div class="form-sub-w3ls">
+        <input placeholder="Tên khách hàng" type="text" required="" data-val="true" data-val-length="The field Tên khách hàng must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Tên không được rỗng" id="KH_TEN" name="KH_TEN">
+        <div class="icon-agile">
+            <i class="fa fa-user" aria-hidden="true"></i>
         </div>
     </div>
-}
+    <div class="form-sub-w3ls">
+        <input placeholder="Email" class="mail" data-val="true" data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Email không được rỗng" id="KH_EMAIL" name="KH_EMAIL" type="email" required="">
+        <div class="icon-agile">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        </div>
+    </div>
 
+    <div class="form-sub-w3ls">
+        <input placeholder="Địa chỉ" type="text" data-val="true" data-val-length="The field Địa chỉ must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Địa chỉ không được rỗng" id="KH_DIACHI" name="KH_DIACHI" required="">
+        <div class="icon-agile">
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div class="form-sub-w3ls">
+        <input placeholder="Tài khoản" data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" data-val-required="Tài khoản không được rỗng" id="KH_TAIKHOAN" name="KH_TAIKHOAN" type="text" value="" required="">
+        <div class="icon-agile">
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+        </div>
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <div class="form-sub-w3ls">
+        <input placeholder="Password" data-val="true" data-val-length="The field Mật khẩu must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Mật khẩu không được rỗng" id="KH_MATKHAU" name="KH_MATKHAU" type="password" value="" required="">
+        <div class="icon-agile">
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div class="form-sub-w3ls">
+        <input placeholder="Confirm Password" type="password" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU1" name="KH_MATKHAU1" type="text" value="" required="">
+        <div class="icon-agile">
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+        </div>
+    </div>
+    <span class="field-validation-valid text-danger" id="ViewKTMK" data-valmsg-for="KH_MATKHAU" data-valmsg-replace="true"></span>
+    <div class="login-check">
+        <label class="checkbox"><input type="checkbox" name="checkbox" checked="">I Accept Terms & Conditions</label>
+    </div>
+    <div class="submit-w3l">
+        <input type="submit" value="Register">
+    </div>
+</div>
 }
 
 <script type="text/javascript">

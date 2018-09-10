@@ -54,10 +54,37 @@
             @Html.DisplayFor(modelItem => item.DN_SL)
         </td>
         <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.DN_ID }) |
-            @Html.ActionLink("Chi tiết", "Details", new { id=item.DN_ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.DN_ID })
+            @Html.ActionLink("Sửa", "Edit", new { id = item.DN_ID }) |
+            <input type="button" class="btn-link" id="@item.DN_ID" value="Chi Tiết" />
+
+            @*@Html.ActionLink("Xóa", "Delete", new { id = item.DN_ID })*@
         </td>
+        <div id="Show"></div>
+        <script type="text/javascript">
+
+            $('#@item.DN_ID').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '/ChiTietDonHangs/IndexKH/',
+                    data: { 'id': @item.DN_ID},
+                    success: function (result) {
+                        $('#Show').html(result)
+                    }
+                })
+            })
+            $('.@item.DN_ID').click(function () {
+                 $.ajax({
+                    type: "GET",
+                    url: '/DonHangs/EditHuy/',
+                    data: { 'id': @item.DN_ID},
+                    success: function (result) {
+                        $('#Show').html(result)
+                    }
+                })
+            })
+
+
+        </script>
     </tr>
 }
 

@@ -56,7 +56,7 @@ namespace LuanVan.Controllers
                 return Redirect("~/SanPhams/ViewSP");
             }
             else {
-                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai " + TK + MK + result.Count());
+                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");
             }
                
             return View();
@@ -82,11 +82,11 @@ namespace LuanVan.Controllers
                     Session["NV_ID"] = item.NV_ID;
                     Session["LNV_ID"] = item.LNV_ID;
                 }
-                return Redirect("~/Home/");
+                return Redirect("~/sanphams/");
             }
             else
             {
-                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai "+TK+MK);
+                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");
             }
             return View();
         }

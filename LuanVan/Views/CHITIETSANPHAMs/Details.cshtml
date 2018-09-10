@@ -2,112 +2,253 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
 }
-<h2></h2>
-<marquee font-size="20" style="border:blue 2px SOLID"><h2>Chi tiết sản phẩm </h2></marquee>
-<div>
-    <hr />
-    <dl class="dl-horizontal col-md-8">
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_TEN)
-        </dt>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Shop</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_TEN)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_CNMANGHINH)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_CNMANGHINH)
-        </dd>
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Tìm kiếm sản phẩm</h2>
+                    <form action="">
+                        <input type="text" placeholder="Search products...">
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_DOPHANGIAI)
-        </dt>
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">@Model.CTSP_TEN</h2>
+                    <div class="thubmnail-recent">
+  <img src="/HinhAnhSPs/getImage/@Model.CTSP_ID" class="ecent-thumb" alt="Card image ca"style="float:left" />
+                           
+                        <h2><a href="">Sony Smart TV - 2015</a></h2>
+                        <div class="product-sidebar-price">
+                            <ins>$700.00</ins> <del>$100.00</del>
+                        </div>
+                    </div>
+                    <div class="thubmnail-recent">
+                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                        <h2><a href="">Sony Smart TV - 2015</a></h2>
+                        <div class="product-sidebar-price">
+                            <ins>$700.00</ins> <del>$100.00</del>
+                        </div>
+                    </div>
+                    <div class="thubmnail-recent">
+                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                        <h2><a href="">Sony Smart TV - 2015</a></h2>
+                        <div class="product-sidebar-price">
+                            <ins>$700.00</ins> <del>$100.00</del>
+                        </div>
+                    </div>
+                    <div class="thubmnail-recent">
+                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                        <h2><a href="">Sony Smart TV - 2015</a></h2>
+                        <div class="product-sidebar-price">
+                            <ins>$700.00</ins> <del>$100.00</del>
+                        </div>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_DOPHANGIAI)
-        </dd>
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Recent Posts</h2>
+                    <ul>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                    </ul>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_MANHINH)
-        </dt>
+            <div class="col-md-8">
+                <div class="product-content-right">
+                    <div class="product-breadcroumb">
+                        <a href="">Home</a>
+                        <a href="">Category Name</a>
+                        <a href="">Sony Smart TV - 2015</a>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_MANHINH)
-        </dd>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="product-images">
+                                <div class="product-main-img">
+                                    <img src="img/product-2.jpg" alt="">
+                                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_CAMERATRUOC)
-        </dt>
+                                <div class="product-gallery">
+                                    <img src="img/product-thumb-1.jpg" alt="">
+                                    <img src="img/product-thumb-2.jpg" alt="">
+                                    <img src="img/product-thumb-3.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_CAMERATRUOC)
-        </dd>
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name">@Model.CTSP_TEN</h2>
+                                <div class="product-inner-price">
+                                    <ins><h3>@cHITIETSANPH.GetGia(Model.CTSP_ID) VND</h3></ins>
+                                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_CAMERASAU)
-        </dt>
+                                <form action="" class="cart">
+                                   
+                                    <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(Model.CTSP_ID)})"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
+                                </form>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_CAMERASAU)
-        </dd>
+                                @*<div class="product-inner-category">
+                                    <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+                                </div>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_HEDIEUHANH)
-        </dt>
+                                <div role="tabpanel">
+                                    <ul class="product-tab" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                                        @*<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>*@
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                            <h2>Mô tả sản phẩm</h2>
+                                            <p>@Model.CTSP_MOTA</p>
+                                        </div>
+                                        @*<div role="tabpanel" class="tab-pane fade" id="profile">
+                                            <h2>Reviews</h2>
+                                            <div class="submit-review">
+                                                <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
+                                                <div class="rating-chooser">
+                                                    <p>Your rating</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_HEDIEUHANH)
-        </dd>
+                                                    <div class="rating-wrap-post">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                <p><input type="submit" value="Submit"></p>
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_RAM)
-        </dt>
+                            </div>
+                        </div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_RAM)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_ROM)
-        </dt>
+                    <div class="related-products-wrapper">
+                        <h2 class="related-products-title">Related Products</h2>
+                        <div class="related-products-carousel">
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-1.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_ROM)
-        </dd>
+                                <h2><a href="">Sony Smart TV - 2015</a></h2>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_DUNGLUONGPIN)
-        </dt>
+                                <div class="product-carousel-price">
+                                    <ins>$700.00</ins> <del>$100.00</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-2.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_DUNGLUONGPIN)
-        </dd>
+                                <h2><a href="">Apple new mac book 2015 March :P</a></h2>
+                                <div class="product-carousel-price">
+                                    <ins>$899.00</ins> <del>$999.00</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-3.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_SOSIM)
-        </dt>
+                                <h2><a href="">Apple new i phone 6</a></h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_SOSIM)
-        </dd>
+                                <div class="product-carousel-price">
+                                    <ins>$400.00</ins> <del>$425.00</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-4.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
 
-    </dl>
-    <dl class="col-md-4">
-        <dt>
-            @Html.DisplayName("Hình ảnh")
-        </dt>
-        <dd>
-            <asp:Repeater runat="server" id="myRepeater">
-                <ItemTemplate>
-                    <img src="/HinhAnhSPs/getImage/@Model.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image ca" width="200" height="200" style="float:left" />
-                </ItemTemplate>
-            </asp:Repeater>
-        </dd>
-    </dl>
+                                <h2><a href="">Sony playstation microsoft</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>$200.00</ins> <del>$225.00</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-5.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="">Sony Smart Air Condtion</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>$1200.00</ins> <del>$1355.00</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-6.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="">Samsung gallaxy note 4</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>$400.00</ins>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

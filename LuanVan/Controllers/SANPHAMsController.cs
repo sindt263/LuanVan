@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,14 +17,14 @@ namespace LuanVan.Controllers
         // GET: SANPHAMs
         public ActionResult Index()
         {
-            var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM);
+            var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs);
             return View(sANPHAMs.ToList());
         }
 
         public ActionResult ViewSP()
         {
-            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now select p).OrderByDescending(a => a.KM_NGAYBATDAU);
-
+            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
+            
             var PN_ID = (from p in db.PHIEUNHAPSPs select p).OrderByDescending(a => a.PN_NGAY);
             string SP_ID = "";
             foreach (var i in PN_ID)
@@ -32,8 +32,7 @@ namespace LuanVan.Controllers
                 SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='"+i.PN_ID+"'").DefaultIfEmpty();
             }
             ViewBag.MaSP = SP_ID;
-
-            var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM);
+            var sANPHAMs = db.CHITIETSANPHAMs.ToList();
             return View(sANPHAMs.ToList());
         }
         // GET: SANPHAMs/Details/5
@@ -68,7 +67,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SP_ID,CTSP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI,SP_MOTANGAN,SP_MOTACHITIET")] SANPHAM sANPHAM)
+        public ActionResult Create([Bind(Include = "SP_ID,CTSP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI")] SANPHAM sANPHAM)
         {
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
@@ -77,7 +76,7 @@ namespace LuanVan.Controllers
             if (file != null)
             {
                 sANPHAM.CTSP_ID = CTSP;
-                sANPHAM.SP_TRANGTHAI = "1";
+                sANPHAM.SP_TRANGTHAI = 1;
                 Int32 length = file.ContentLength;
                 byte[] tempImage = new byte[length];
                 file.InputStream.Read(tempImage, 0, length);
@@ -101,7 +100,7 @@ namespace LuanVan.Controllers
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", sANPHAM.CTSP_ID);
             return View(sANPHAM);
         }
-        public ActionResult CreateSP(string id1, string id2, string id3, string id4, string id5, string id6, string id7, string id8, string id9, string id10)
+        public ActionResult CreateSP(string id1, string id2, string id3, string id4, string id5, string id6, string id7, string id10)
         {
             SANPHAM sANPHAM = new SANPHAM();
 
@@ -114,10 +113,8 @@ namespace LuanVan.Controllers
                 sANPHAM.DSP_ID = id5;
                 sANPHAM.NSX_ID = id6;
                 sANPHAM.SP_TEN = id7;
-                sANPHAM.SP_MOTANGAN = id8;
-                sANPHAM.SP_MOTACHITIET = id9;
                 sANPHAM.CTSP_ID = id10;
-
+                sANPHAM.SP_TRANGTHAI = 1;
                 db.SANPHAMs.Add(sANPHAM);
                 db.SaveChanges();
                 ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.SP_ID);
@@ -153,7 +150,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SP_ID,CTSP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI,SP_MOTANGAN,SP_MOTACHITIET")] SANPHAM sANPHAM)
+        public ActionResult Edit([Bind(Include = "SP_ID,CTSP_ID,NSP_ID,KM_ID,GIA_ID,DSP_ID,NSX_ID,SP_TEN,SP_TRANGTHAI")] SANPHAM sANPHAM)
         {
             if (ModelState.IsValid)
             {
@@ -224,7 +221,7 @@ namespace LuanVan.Controllers
             SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(m => m.SP_ID == id);
             if (sANPHAM != null)
             {
-                sANPHAM.SP_TRANGTHAI = "0";
+                sANPHAM.SP_TRANGTHAI = 0;
             }
             return RedirectToAction("");
         }
@@ -239,5 +236,17 @@ namespace LuanVan.Controllers
             string tensp = db.Database.SqlQuery<string>("select CTSP_ID from SanPham where SP_ID ='" + id + "'").SingleOrDefault();
             return tensp;
         }
+
+        public short KTKho (string id)
+        {
+            var result = from p in db.SANPHAMs where p.CTSP_ID == id && p.SP_TRANGTHAI ==1 select p;
+            if(result != null)
+            {
+                return 1;
+            }
+            return 0;
+           
+        }
+
     }
 }

@@ -50,17 +50,11 @@
         [Display(Name = "Tên sản phẩm")]
         public string SP_TEN { get; set; }
 
-        [StringLength(15)]
+        
         [Display(Name = "Trạng thái")]
-        public string SP_TRANGTHAI { get; set; }
-
-        [StringLength(255)]
-        [Display(Name = "Mô tả ngắn")]
-        public string SP_MOTANGAN { get; set; }
-
-        [StringLength(255)]
-        [Display(Name = "Mô tả chi tiết")]
-        public string SP_MOTACHITIET { get; set; }
+        public short SP_TRANGTHAI { get; set; }
+        
+      
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETBH> CHITIETBHs { get; set; }

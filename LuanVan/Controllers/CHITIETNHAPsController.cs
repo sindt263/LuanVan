@@ -40,7 +40,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID");
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID");
             return View();
         }
 
@@ -63,7 +63,7 @@ namespace LuanVan.Controllers
             }
 
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", cHITIETNHAP.SP_ID);
             return View(cHITIETNHAP);
         }
         public ActionResult CreateCTN(string id1, string id2,int id3)

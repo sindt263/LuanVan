@@ -17,7 +17,8 @@ namespace LuanVan.Controllers
         // GET: CHITIETSANPHAMs
         public ActionResult Index()
         {
-            return View(db.CHITIETSANPHAMs.ToList());
+            var CHITIETSANPHAMs = db.CHITIETSANPHAMs.Include(s => s.SANPHAMs);
+            return View(CHITIETSANPHAMs.ToList());
         }
 
         // GET: CHITIETSANPHAMs/Details/5
@@ -46,7 +47,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CTSP_ID,CTSP_TEN,CTSP_CNMANGHINH,CTSP_DOPHANGIAI,CTSP_MANHINH,CTSP_CAMERATRUOC,CTSP_CAMERASAU,CTSP_HEDIEUHANH,CTSP_RAM,CTSP_ROM,CTSP_DUNGLUONGPIN,CTSP_SOSIM")] CHITIETSANPHAM cHITIETSANPHAM)
+        public ActionResult Create([Bind(Include = "CTSP_ID,CTSP_TEN,CTSP_CNMANGHINH,CTSP_DOPHANGIAI,CTSP_MANHINH,CTSP_CAMERATRUOC,CTSP_CAMERASAU,CTSP_HEDIEUHANH,CTSP_RAM,CTSP_ROM,CTSP_DUNGLUONGPIN,CTSP_SOSIM,CTSP_MOTA")] CHITIETSANPHAM cHITIETSANPHAM)
         {
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
@@ -96,7 +97,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CTSP_ID,CTSP_TEN,CTSP_CNMANGHINH,CTSP_DOPHANGIAI,CTSP_MANHINH,CTSP_CAMERATRUOC,CTSP_CAMERASAU,CTSP_HEDIEUHANH,CTSP_RAM,CTSP_ROM,CTSP_DUNGLUONGPIN,CTSP_SOSIM")] CHITIETSANPHAM cHITIETSANPHAM)
+        public ActionResult Edit([Bind(Include = "CTSP_ID,CTSP_TEN,CTSP_CNMANGHINH,CTSP_DOPHANGIAI,CTSP_MANHINH,CTSP_CAMERATRUOC,CTSP_CAMERASAU,CTSP_HEDIEUHANH,CTSP_RAM,CTSP_ROM,CTSP_DUNGLUONGPIN,CTSP_SOSIM,CTSP_MOTA")] CHITIETSANPHAM cHITIETSANPHAM)
         {
             if (ModelState.IsValid)
             {
@@ -140,6 +141,20 @@ namespace LuanVan.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public int GetGia(string id)
+        {
+            string sp_id = db.Database.SqlQuery<string>("select SP_ID from SanPham where CTSP_ID ='" + id + "'").Take(1).SingleOrDefault();
+            string gia_id = db.Database.SqlQuery<string>("select Gia_ID from SanPham where SP_ID ='" + sp_id + "'").Take(1).SingleOrDefault();
+            int gia = db.Database.SqlQuery<int>("select Gia_GIA from GIASP where GIA_ID ='" + gia_id + "'").Take(1).SingleOrDefault();
+            return gia;
+            
+        } public string GetSP_ID(string id)
+        {
+            string sp_id = db.Database.SqlQuery<string>("select SP_ID from SanPham where CTSP_ID ='" + id + "' and SP_TRANGTHAI = 1").Take(1).SingleOrDefault();
+            return sp_id;
+            
         }
     }
 }

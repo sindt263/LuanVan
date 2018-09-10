@@ -37,12 +37,7 @@
         <th>
             @Html.DisplayNameFor(model => model.SP_TRANGTHAI)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SP_MOTANGAN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SP_MOTACHITIET)
-        </th>
+       
         <th>Hình ảnh</th>
         <th>Thao tác</th>
     </tr>
@@ -73,12 +68,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.SP_TRANGTHAI)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SP_MOTANGAN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SP_MOTACHITIET)
-        </td>
+        
         <td>
             <asp:Repeater runat="server" id="myRepeater">
                 <ItemTemplate>

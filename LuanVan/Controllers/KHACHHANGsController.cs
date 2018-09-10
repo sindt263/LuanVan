@@ -80,11 +80,10 @@ namespace LuanVan.Controllers
 
                 db.KHACHHANGs.Add(kHACHHANG);
                 db.SaveChanges();
-
                 return RedirectToAction("LoginKH", "Logins");
             }
 
-            return View(kHACHHANG);
+            return View();
         }
 
 
@@ -236,17 +235,18 @@ namespace LuanVan.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult KTMK(string id, string id1)
+        public JsonResult KTMK(string id, string id1)
         {
             if (id != id1)
             {
-                ModelState.AddModelError("", "Mật khẩu và mật khẩu xác nhận chưa trùng khớp !");
+                string output = "Mật khẩu và mật khẩu xác nhận chưa trùng khớp !";
+                return Json(output, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                ModelState.AddModelError("", "Chấp nhận !");
+                string output = "Chấp nhận !";
+                return Json(output, JsonRequestBehavior.AllowGet);
             }
-            return View();
         }
 
         public JsonResult KTTK(string id)
@@ -262,6 +262,42 @@ namespace LuanVan.Controllers
                 string output = "Có thể sử dụng !";
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult CreateKH(string id,string id1,string id2,string id3,string id4,string id5)
+        {
+            string MK = id4;
+            string MK1 = id5;
+            string TK = id3;
+           
+
+                string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + TK + "'").SingleOrDefault();
+                if (result != null)
+                {
+                    string output = "Tài khoản đã tồn tại !";
+                    return Json(output, JsonRequestBehavior.AllowGet);
+                }
+                else if (MK != MK1)
+                {
+
+                    string output = "Nhập mật khẩu chưa đúng !";
+                    return Json(output, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    KHACHHANG kHACHHANG = new KHACHHANG();
+                    kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
+                    kHACHHANG.KH_TEN = id;
+                    kHACHHANG.KH_EMAIL = id1;
+                    kHACHHANG.KH_DIACHI = id2;
+                    kHACHHANG.KH_TAIKHOAN = id3;
+                    kHACHHANG.KH_MATKHAU = MK;
+                    db.KHACHHANGs.Add(kHACHHANG);
+                    db.SaveChanges();
+                    string output = "Đăng ký thành công !";
+                    return Json(output, JsonRequestBehavior.AllowGet);
+                }
+            //}
         }
     }
 }
