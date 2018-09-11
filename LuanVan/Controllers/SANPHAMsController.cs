@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using LuanVan.Controllers;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,14 +18,35 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: SANPHAMs
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs);
-            return View(sANPHAMs.ToList());
+            var SanPhams = new SANPHAMsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+            //var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs);
+            return View(mode);
+        }
+      
+        public IEnumerable<SANPHAM> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<SANPHAM> model = db.SANPHAMs;
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.DONGSANPHAM.DSP_TEN.Contains(searchTerm) || x.SP_TEN.Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.SP_TRANGTHAI).ToPagedList(page, pageSize);
         }
 
         public ActionResult ViewSP()
         {
+            ViewBag.nsx = db.NHASANXUATs.ToList();
+            foreach(var i in ViewBag.nsx)
+            {
+                string id = i.NSX_ID;
+                ViewData[i.NSX_TEN] = (from p in db.SANPHAMs where p.NSX_ID == id select p).OrderByDescending(p => p.SP_TRANGTHAI);
+            }
             ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
             
             var PN_ID = (from p in db.PHIEUNHAPSPs select p).OrderByDescending(a => a.PN_NGAY);
@@ -32,6 +56,7 @@ namespace LuanVan.Controllers
                 SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='"+i.PN_ID+"'").DefaultIfEmpty();
             }
             ViewBag.MaSP = SP_ID;
+
             var sANPHAMs = db.CHITIETSANPHAMs.ToList();
             return View(sANPHAMs.ToList());
         }
@@ -239,14 +264,22 @@ namespace LuanVan.Controllers
 
         public short KTKho (string id)
         {
-            var result = from p in db.SANPHAMs where p.CTSP_ID == id && p.SP_TRANGTHAI ==1 select p;
-            if(result != null)
+            short TTSP = db.Database.SqlQuery<short>("select SP_TRANGTHAI from sanpham where CTSP_ID ='"+id+"' and SP_TRANGTHAI =1").Take(1).SingleOrDefault();
+            if (TTSP ==1)
             {
                 return 1;
             }
-            return 0;
+            else
+            {
+                return 0;
+            }
            
         }
 
+        public ActionResult PrintProductByProducer(string id)
+        {
+            var product = (from p in db.SANPHAMs where p.NSX_ID == id select p).OrderByDescending(p => p.SP_TRANGTHAI);
+            return View(product.ToList());
+        }
     }
 }

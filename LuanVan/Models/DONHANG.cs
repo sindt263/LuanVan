@@ -47,6 +47,12 @@
         [Display(Name = "Số lượng")]        
         public int? DN_SL { get; set; }
 
+        [StringLength(20)]
+        [Display(Name = "Số điện thoại")]
+        public string DN_SDT { get; set; }
+
+     
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETDONHANG> CHITIETDONHANGs { get; set; }
 

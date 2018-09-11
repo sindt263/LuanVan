@@ -1,0 +1,44 @@
+﻿@model IEnumerable<LuanVan.Models.SANPHAM>
+
+@{
+    ViewBag.Title = "PrintProductByProducer";
+    Layout = null;
+    LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
+    LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
+}
+
+
+
+@foreach (var item in Model)
+{
+    <div class="single-product">
+        <div class="product-f-image">
+            <asp:Repeater runat="server" id="myRepeater">
+                <ItemTemplate>
+                    <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                </ItemTemplate>
+            </asp:Repeater>
+            <div class="product-hover">
+                @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
+                {
+                    <h4 class="text-danger">Hết hàng</h4>
+
+                }
+                else
+                {
+                    <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                }
+
+                <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+            </div>
+        </div>
+
+
+        <h2><a href="single-product.html">@item.SP_TEN</a></h2>
+
+        <div class="product-carousel-price">
+
+            <ins>@cHITIETSANPH.GetGia(item.CTSP_ID) VND</ins> Khuyến Mãi
+        </div>
+    </div>
+}

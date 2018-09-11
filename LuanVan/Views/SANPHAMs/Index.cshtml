@@ -8,6 +8,15 @@
 
 <h2>Danh sách</h2>
 
+@using (Html.BeginForm("Index", "SanPhams", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+{
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
+    </div>
+}
 <p>
     @Html.ActionLink("Thêm sản phẩm", "Create")
 </p>
@@ -37,53 +46,54 @@
         <th>
             @Html.DisplayNameFor(model => model.SP_TRANGTHAI)
         </th>
-       
+
         <th>Hình ảnh</th>
         <th>Thao tác</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SP_ID)
-        </td> 
-        <td>
-            @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GIASP.GIA_GIA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KHUYENMAI.KM_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NHASANXUAT.NSX_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NHOMSANPHAM.NSP_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SP_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SP_TRANGTHAI)
-        </td>
-        
-        <td>
-            <asp:Repeater runat="server" id="myRepeater">
-                <ItemTemplate>
-                    <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="" width="300" height="300" style="float:left" />
-                </ItemTemplate>
-            </asp:Repeater>
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id = item.SP_ID }) |
-            <a href="~/CHITIETSANPHAMs/Details/@item.CTSP_ID">Chi tiết</a> |
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SP_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GIASP.GIA_GIA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KHUYENMAI.KM_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NHASANXUAT.NSX_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NHOMSANPHAM.NSP_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SP_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SP_TRANGTHAI)
+            </td>
 
-            @Html.ActionLink("Xóa", "Delete", new { id = item.SP_ID })
-            
-        </td>
-    </tr>
-}
+            <td>
+                <asp:Repeater runat="server" id="myRepeater">
+                    <ItemTemplate>
+                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="" width="300" height="300" style="float:left" />
+                    </ItemTemplate>
+                </asp:Repeater>
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.SP_ID }) |
+                <a href="~/CHITIETSANPHAMs/Details/@item.CTSP_ID">Chi tiết</a> |
+
+                @Html.ActionLink("Xóa", "Delete", new { id = item.SP_ID })
+
+            </td>
+        </tr>
+    }
 
 </table>

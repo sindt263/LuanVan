@@ -18,7 +18,7 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="~/Content/LayoutKH/css/bootstrap.min.css">
-
+    <script src="@Url.Content("~/Content/js/jquery-1.11.3.min.js")"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/Content/LayoutKH/css/font-awesome.min.css">
 
@@ -43,18 +43,21 @@
                     <div class="user-menu">
                         <ul>
                             <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="/DonHangs/IndexKH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
-                            <li><a href="/GioHang/"><i class="fa fa-user"></i>Giỏ hàng</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            @if (Session["KH_ID"] == null)
+                            @if (Session["KH_ID"] != null)
                             {
-                                <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                                <li><a href="/DonHangs/IndexKH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
                             }
-                            else
-                            {
-                                <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i> Đăng xuất</a></li>
-                            }
-                        </ul>
+                                <li><a href="/GioHang/"><i class="fa fa-user"></i>Giỏ hàng</a></li>
+                                <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
+                                @if (Session["KH_ID"] == null)
+                                {
+                                    <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i> Đăng xuất</a></li>
+                                }
+                            </ul>
                     </div>
                 </div>
 

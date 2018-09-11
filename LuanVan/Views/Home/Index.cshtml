@@ -4,22 +4,30 @@
     LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
     LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
 }
-
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+{
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
+    </div>
+}
 <div class="slider-area">
     <!-- Slider -->
     <div class="block-slider block-slider4">
         <ul class="" id="bxslider-home4">
-            @foreach (var item in ViewBag.SP)
+            @foreach (var item in Model)
             {
-            <li>
-                <div class="col-md-4 col-sm-4">
-                    
-                            <asp:Repeater runat="server" id="myRepeater">
-                                <ItemTemplate>
-                                    <img class="product-thumbSlider" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
-                                </ItemTemplate>
-                            </asp:Repeater>
-                       
+                <li>
+                    <div class="col-md-4 col-sm-4">
+
+                        <asp:Repeater runat="server" id="myRepeater">
+                            <ItemTemplate>
+                                <img class="product-thumbSlider" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                            </ItemTemplate>
+                        </asp:Repeater>
+
                     </div>
                     <div class="caption-group">
                         <h2 class="caption title">
@@ -34,7 +42,7 @@
 
                         <a class="caption button-radius" href="~/ChiTietSanPhams/Details/@item.CTSP_ID"><span class="icon"></span>Xem ngay</a>
                     </div>
-            </li>
+                </li>
             }
         </ul>
     </div>
@@ -73,6 +81,8 @@
     </div>
 </div> <!-- End promo area -->
 
+
+
 <div class="maincontent-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
@@ -80,42 +90,43 @@
             <div class="col-md-12 col-sm-6">
                 <div class="latest-product">
                     <h2 class="section-title">Latest Products</h2>
+
                     <div class="product-carousel">
-                        @foreach (var item in ViewBag.sp)
+                        @foreach (var item in ViewBag.SP)
                         {
-                           
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <asp:Repeater runat="server" id="myRepeater">
-                                            <ItemTemplate>
-                                                <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                        <div class="product-hover">
-                                            @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
-                                            {
-                                                <h4 class="text-danger">Hết hàng</h4>
 
-                                            }
-                                            else
-                                            {
-                                                <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
-                                            }
-                                            
-                                            <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                        </div>
-                                    </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <asp:Repeater runat="server" id="myRepeater">
+                                        <ItemTemplate>
+                                            <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <div class="product-hover">
+                                        @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
+                                        {
+                                            <h4 class="text-danger">Hết hàng</h4>
 
-                                   
-                                    <h2><a href="single-product.html">@item.CTSP_TEN</a></h2>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                        }
 
-                                    <div class="product-carousel-price">
-
-                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID) VND</ins> Khuyến Mãi 
+                                        <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
                                     </div>
                                 </div>
-                            }
-                        
+
+
+                                <h2><a href="single-product.html">@item.CTSP_TEN</a></h2>
+
+                                <div class="product-carousel-price">
+
+                                    <ins>@cHITIETSANPH.GetGia(item.CTSP_ID) VND</ins> Khuyến Mãi
+                                </div>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -148,31 +159,31 @@
                 <div class="single-product-widget">
                     <h2 class="product-wid-title">Top Sellers</h2>
                     <a href="" class="wid-view-more">View All</a>
-                    @foreach (var item in ViewBag.sp)
+                    @*@foreach (var item in ViewBag.sp)
                     {
 
 
-                    <div class="single-wid-product">
-                        <a href="single-product.html">
-                            <asp:Repeater runat="server" id="myRepeater">
-                                <ItemTemplate>
-                                    <img  class="product-thumb" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </a>
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                        <div class="single-wid-product">
+                            <a href="single-product.html">
+                                <asp:Repeater runat="server" id="myRepeater">
+                                    <ItemTemplate>
+                                        <img class="product-thumb" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </a>
+                            <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
+                            <div class="product-wid-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product-wid-price">
+                                <ins>$400.00</ins> <del>$425.00</del>
+                            </div>
                         </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins> <del>$425.00</del>
-                        </div>
-                    </div>
-                    }
+                    }*@
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
                         <h2><a href="single-product.html">Apple new mac book 2015</a></h2>

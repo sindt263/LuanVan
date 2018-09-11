@@ -71,7 +71,16 @@ else
                         <span class="field-validation-valid text-danger" data-valmsg-for="HTTT_ID" data-valmsg-replace="true"></span>
                     </div>
                 </div>
-
+                @if (Session["KH_ID"] == null)
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="DN_SDT">SDT</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                }
                 <div class="form-group">
                     <label class="control-label col-md-2" for="CTDH_DIACHIGIAO">Địa chỉ giao hàng</label>
                     <div class="col-md-10">
@@ -79,8 +88,9 @@ else
                         <span class="field-validation-valid text-danger" data-valmsg-for="CTDH_DIACHIGIAO" data-valmsg-replace="true"></span>
                         <input type="button" value="Xác nhận" id="btnsubmit" class="form-control btn-success" />
                     </div>
-                    
+
                 </div>
+
                 <div id="ViewDH"></div>
             </div>
 
@@ -88,22 +98,24 @@ else
 
     </div>
 }
-
 <script type="text/javascript">
     var HTTT_ID = document.getElementById("HTTT_ID")
     var CTDH_DIACHIGIAO = document.getElementById("CTDH_DIACHIGIAO")
+    var DN_SDT = document.getElementById("DN_SDT")
     var SL = document.getElementById("TXTSL")
-  
+    var idkh = document.getElementById("idkh")
     $("#btnsubmit").click(function () {
-       
-            $.ajax({
-                type: "GET",
-                url: "/DonHangs/CreateDH/",
-                data: { 'id1': HTTT_ID.value, 'id2': SL.value, 'id3': CTDH_DIACHIGIAO.value },
-                success: function (result) {
-                    $("#ViewDH").html(result)
-                }
-            })
-        
+        /**/
+      
+        $.ajax({
+            type: "GET",
+            url: "/DonHangs/CreateDH/",
+            data: { 'id1': HTTT_ID.value, 'id2': SL.value, 'id3': CTDH_DIACHIGIAO.value, 'id4': DN_SDT.value },
+            success: function (result) {
+                $("#ViewDH").html(result)
+            }
+        })
+
     })
+/**/
 </script>

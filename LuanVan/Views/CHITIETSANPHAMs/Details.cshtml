@@ -4,6 +4,8 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
     LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
+
+    LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
 }
 <div class="product-big-title-area">
     <div class="container">
@@ -23,19 +25,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Tìm kiếm sản phẩm</h2>
-                    <form action="">
-                        <input type="text" placeholder="Search products...">
-                        <input type="submit" value="Search">
-                    </form>
-                </div>
+                @*<div class="single-sidebar">
+                        <h2 class="sidebar-title">Tìm kiếm sản phẩm</h2>
+                        <form action="">
+                            <input type="text" placeholder="Search products...">
+                            <input type="submit" value="Search">
+                        </form>
+                    </div>*@
 
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">@Model.CTSP_TEN</h2>
                     <div class="thubmnail-recent">
-  <img src="/HinhAnhSPs/getImage/@Model.CTSP_ID" class="ecent-thumb" alt="Card image ca"style="float:left" />
-                           
+                        <img src="/HinhAnhSPs/getImage/@Model.CTSP_ID" class="ecent-thumb" alt="Card image ca" style="float:left" />
+
                         <h2><a href="">Sony Smart TV - 2015</a></h2>
                         <div class="product-sidebar-price">
                             <ins>$700.00</ins> <del>$100.00</del>
@@ -107,13 +109,20 @@
                                 </div>
 
                                 <form action="" class="cart">
-                                   
-                                    <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(Model.CTSP_ID)})"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
-                                </form>
+                                    @if (sANPHAMs.KTKho(Model.CTSP_ID) == 0)
+                                    {
+                                        <h4 class="text-danger">Hết hàng</h4>
+
+                                    }
+                                    else
+                                    {
+                                        <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(Model.CTSP_ID) })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
+                                    }
+                                    </form>
 
                                 @*<div class="product-inner-category">
-                                    <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
-                                </div>*@
+                                        <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+                                    </div>*@
 
                                 <div role="tabpanel">
                                     <ul class="product-tab" role="tablist">
@@ -126,25 +135,25 @@
                                             <p>@Model.CTSP_MOTA</p>
                                         </div>
                                         @*<div role="tabpanel" class="tab-pane fade" id="profile">
-                                            <h2>Reviews</h2>
-                                            <div class="submit-review">
-                                                <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                <div class="rating-chooser">
-                                                    <p>Your rating</p>
+                                                <h2>Reviews</h2>
+                                                <div class="submit-review">
+                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
+                                                    <div class="rating-chooser">
+                                                        <p>Your rating</p>
 
-                                                    <div class="rating-wrap-post">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
+                                                        <div class="rating-wrap-post">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
                                                     </div>
+                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                    <p><input type="submit" value="Submit"></p>
                                                 </div>
-                                                <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                <p><input type="submit" value="Submit"></p>
-                                            </div>
-                                        </div>*@
+                                            </div>*@
                                     </div>
                                 </div>
 
