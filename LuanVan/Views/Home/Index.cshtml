@@ -36,7 +36,7 @@
                             <span>Camera trước <strong>@item.CTSP_CAMERATRUOC MP</strong></span>
                             <span>Camera sau <strong>@item.CTSP_CAMERASAU MP</strong></span>
                             <br />
-                            <ins><strong>@cHITIETSANPH.GetGia(item.CTSP_ID) VND</strong></ins>
+                            <ins><strong>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</strong></ins>
 
                         </h2>
 
@@ -122,7 +122,7 @@
 
                                 <div class="product-carousel-price">
 
-                                    <ins>@cHITIETSANPH.GetGia(item.CTSP_ID) VND</ins> Khuyến Mãi
+                                    <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins> Khuyến Mãi
                                 </div>
                             </div>
                         }

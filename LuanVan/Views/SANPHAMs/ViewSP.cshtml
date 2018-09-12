@@ -63,7 +63,7 @@
 
                                 <div class="product-carousel-price">
 
-                                    <ins>@cHITIETSANPHA.GetGia(i.CTSP_ID) VND</ins> Khuyến Mãi
+                                    <ins>@cHITIETSANPHA.GetGia(i.CTSP_ID).ToString("###,###") VND</ins> Khuyến Mãi
                                 </div>
 
                             </div>
@@ -121,7 +121,7 @@
                         </div>
                         <h2><a href="">@i.CTSP_TEN</a></h2>
                         <div class="product-carousel-price">
-                            <ins>@cHITIETSANPHA.GetGia(i.CTSP_ID)</ins>
+                            <ins>@cHITIETSANPHA.GetGia(i.CTSP_ID).ToString("###,###")</ins>
                         </div>
                         @cHITIETSANPHA.GetSP_ID(i.CTSP_ID)
                         <div class="product-option-shop">

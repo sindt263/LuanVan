@@ -3,6 +3,14 @@
     width: 1165px;
 }
 
+.mfp-hide {
+    display: none !important;
+}
+
+.mfp-content iframe {
+    width: 100%;
+    min-height: 380px;
+}
 .floatleft { float: left }
 .floatright { float: right }
 .alignleft {

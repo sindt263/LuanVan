@@ -82,6 +82,7 @@ namespace LuanVan.Controllers
             ViewBag.TTDH_ID = new SelectList(db.TRANGTHAIDONHANGs, "TTDH_ID", "TTDH_TEN", dONHANG.TTDH_ID);
             return View(dONHANG);
         }
+        
         public ActionResult CreateDH(string id1, string id2, string id3,string id4)
         {
             if (Session["KH_ID"] == null && id4.Length <= 9)
@@ -179,15 +180,41 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DN_ID,TTDH_ID,KH_ID,HTTT_ID,DN_NGALAPDON,DN_GHICHU,DN_SL,DN_SDT")] DONHANG dONHANG)
+        public ActionResult Edit()
         {
-            if (ModelState.IsValid)
+
+            string id_ttdh = Request["TTDH_ID"];
+            string id_dh = Request["DN_ID"];
+            DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id_dh);
+            var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == id_dh select p);
+            CHITIETDONHANGsController cHITIETDONHANGs = new CHITIETDONHANGsController();
+            if (dONHANG != null)
             {
+                if (Convert.ToInt16(id_ttdh) == 2)
+                {
+                    foreach (var i in SP_ID)
+                    {
+                        SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
+                        cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
+                    }
+                }
+                
                 dONHANG.NV_ID = Session["NV_ID"].ToString();
-                db.Entry(dONHANG).State = EntityState.Modified;
+                dONHANG.TTDH_ID = Convert.ToInt16(id_ttdh);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            //if (ModelState.IsValid)
+            //{
+            //if (Convert.ToInt16(id_ttdh) == 2)
+            //{
+            //    EditHuy(id_dh);
+            //}
+            //    dONHANG.NV_ID = Session["NV_ID"].ToString();
+            //    db.Entry(dONHANG).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
             ViewBag.HTTT_ID = new SelectList(db.HINHTHUCTHANHTOANs, "HTTT_ID", "HTTT_TEN", dONHANG.HTTT_ID);
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", dONHANG.KH_ID);
             ViewBag.TTDH_ID = new SelectList(db.TRANGTHAIDONHANGs, "TTDH_ID", "TTDH_TEN", dONHANG.TTDH_ID);
@@ -245,6 +272,24 @@ namespace LuanVan.Controllers
         }
 
         public JsonResult EditHuy(string id)
+        {
+            DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id);
+            var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == id select p);
+            CHITIETDONHANGsController cHITIETDONHANGs = new CHITIETDONHANGsController();
+            if (dONHANG != null)
+            {
+                foreach (var i in SP_ID)
+                {
+                    SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
+                    cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
+                }
+                dONHANG.TTDH_ID = 2;
+                db.SaveChanges();
+            }
+            string a = "Đã hũy đơn hàng " + id;
+            return Json(a, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult EditDuyet(string id)
         {
             DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id);
             var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == id select p);

@@ -36,14 +36,18 @@
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">@Model.CTSP_TEN</h2>
                     <div class="thubmnail-recent">
-                        <img src="/HinhAnhSPs/getImage/@Model.CTSP_ID" class="ecent-thumb" alt="Card image ca" style="float:left" />
-
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
+                        <div class="col-md-12">
+                            @foreach (var item in ViewBag.HAID)
+                            {
+                                <img src="/HinhAnhSPs/getImageHA/@item.HA_ID" class="ecent-thumb" alt="Card image ca" style="float:left" />
+                            }
+                        </div>
+                        <h2><a href="">@Model.CTSP_TEN</a></h2>
                         <div class="product-sidebar-price">
-                            <ins>$700.00</ins> <del>$100.00</del>
+                            <h2>@cHITIETSANPH.GetGia(Model.CTSP_ID).ToString("###,###") VND</h2> @* <del>$100.00</del>*@
                         </div>
                     </div>
-                    <div class="thubmnail-recent">
+                    @*<div class="thubmnail-recent">
                         <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
                         <h2><a href="">Sony Smart TV - 2015</a></h2>
                         <div class="product-sidebar-price">
@@ -63,27 +67,27 @@
                         <div class="product-sidebar-price">
                             <ins>$700.00</ins> <del>$100.00</del>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
 
                 <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
+                    @*<h2 class="sidebar-title">Recent Posts</h2>
                     <ul>
                         <li><a href="">Sony Smart TV - 2015</a></li>
                         <li><a href="">Sony Smart TV - 2015</a></li>
                         <li><a href="">Sony Smart TV - 2015</a></li>
                         <li><a href="">Sony Smart TV - 2015</a></li>
                         <li><a href="">Sony Smart TV - 2015</a></li>
-                    </ul>
+                    </ul>*@
                 </div>
             </div>
 
             <div class="col-md-8">
                 <div class="product-content-right">
                     <div class="product-breadcroumb">
-                        <a href="">Home</a>
+                        @*<a href="">Home</a>
                         <a href="">Category Name</a>
-                        <a href="">Sony Smart TV - 2015</a>
+                        <a href="">Sony Smart TV - 2015</a>*@
                     </div>
 
                     <div class="row">
@@ -105,7 +109,7 @@
                             <div class="product-inner">
                                 <h2 class="product-name">@Model.CTSP_TEN</h2>
                                 <div class="product-inner-price">
-                                    <ins><h3>@cHITIETSANPH.GetGia(Model.CTSP_ID) VND</h3></ins>
+                                    <ins><h3>@cHITIETSANPH.GetGia(Model.CTSP_ID).ToString("###,###") VND</h3></ins>
                                 </div>
 
                                 <form action="" class="cart">
@@ -118,7 +122,7 @@
                                     {
                                         <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(Model.CTSP_ID) })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
                                     }
-                                    </form>
+                                </form>
 
                                 @*<div class="product-inner-category">
                                         <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
@@ -126,20 +130,28 @@
 
                                 <div role="tabpanel">
                                     <ul class="product-tab" role="tablist">
-                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-                                        @*<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>*@
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mô tả</a></li>
+                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Cấu hình</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane fade in active" id="home">
                                             <h2>Mô tả sản phẩm</h2>
                                             <p>@Model.CTSP_MOTA</p>
                                         </div>
-                                        @*<div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h2>Reviews</h2>
-                                                <div class="submit-review">
-                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                    <div class="rating-chooser">
+                                        <div role="tabpanel" class="tab-pane fade" id="profile">
+                                            <h2>Cấu Hình</h2>
+                                            <div class="submit-review">
+                                                <p><label>Công nghệ màng hình: @Model.CTSP_CNMANGHINH</label></p>
+                                                <p><label>Độ phân giải: @Model.CTSP_DOPHANGIAI</label></p>
+                                                <p><label>Kích thước màn hình: @Model.CTSP_MANHINH</label></p>
+                                                <p><label>Camera trước: @Model.CTSP_CAMERATRUOC</label></p>
+                                                <p><label>Camera Sau: @Model.CTSP_CAMERASAU</label></p>
+                                                <p><label>Hệ điều hành: @Model.CTSP_HEDIEUHANH</label></p>
+                                                <p><label>Bộ nhơ RAM: @Model.CTSP_RAM</label></p>
+                                                <p><label>Bộ nhớ ROM: @Model.CTSP_ROM</label></p>
+                                                <p><label>Dung lượng PIN: @Model.CTSP_DUNGLUONGPIN</label></p>
+                                                <p><label>Số SIM: @Model.CTSP_SOSIM</label></p>
+                                                @*<div class="rating-chooser">
                                                         <p>Your rating</p>
 
                                                         <div class="rating-wrap-post">
@@ -151,9 +163,9 @@
                                                         </div>
                                                     </div>
                                                     <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Submit"></p>
-                                                </div>
-                                            </div>*@
+                                                    <p><input type="submit" value="Submit"></p>*@
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -162,7 +174,7 @@
                     </div>
 
 
-                    <div class="related-products-wrapper">
+                    @*<div class="related-products-wrapper">
                         <h2 class="related-products-title">Related Products</h2>
                         <div class="related-products-carousel">
                             <div class="single-product">
@@ -255,7 +267,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
