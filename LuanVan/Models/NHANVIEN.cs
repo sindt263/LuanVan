@@ -75,6 +75,10 @@
         [Display(Name = "Tài khoản")]
         public string NV_TAIKHOAN { get; set; }
 
+        [StringLength(15)]        
+        [Display(Name = "Số điện thoại")]
+        public string NV_SDT { get; set; }
+
         public virtual LOAINV LOAINV { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

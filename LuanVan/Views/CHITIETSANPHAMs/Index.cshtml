@@ -7,6 +7,15 @@
 
 <h2>Danh sách</h2>
 
+@using (Html.BeginForm("Index", "ChiTietSanPhams", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+{
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
+    </div>
+}
 <p>
     @Html.ActionLink("Thêm chi tiết", "Create")
 </p>
@@ -48,47 +57,48 @@
         <th>Tùy chọn</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_CNMANGHINH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_DOPHANGIAI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_MANHINH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_CAMERATRUOC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_CAMERASAU)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_HEDIEUHANH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_RAM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_ROM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_DUNGLUONGPIN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTSP_SOSIM)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.CTSP_ID }) |
-            @Html.ActionLink("Chi tiết", "Details", new { id=item.CTSP_ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.CTSP_ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_CNMANGHINH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_DOPHANGIAI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_MANHINH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_CAMERATRUOC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_CAMERASAU)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_HEDIEUHANH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_RAM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_ROM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_DUNGLUONGPIN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTSP_SOSIM)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.CTSP_ID }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.CTSP_ID }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.CTSP_ID })
+            </td>
+        </tr>
+    }
 
 </table>

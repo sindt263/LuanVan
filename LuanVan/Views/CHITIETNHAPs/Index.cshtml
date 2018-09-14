@@ -7,6 +7,15 @@
 
 <h2>Danh sách</h2>
 
+@using (Html.BeginForm("Index", "ChiTietNhaps", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+{
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
+    </div>
+}
 <p>
     @Html.ActionLink("Tạo phiếu mới", "Create")
 </p>
@@ -24,23 +33,24 @@
         <th>Tùy chọn</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PHIEUNHAPSP.NV_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTN_GIA)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.CTN_ID }) |
-            @Html.ActionLink("Chi tiết", "Details", new { id=item.CTN_ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.CTN_ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PHIEUNHAPSP.NV_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTN_GIA)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.CTN_ID }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.CTN_ID }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.CTN_ID })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,12 +17,28 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: NHANVIENs
-        public ActionResult Index()
+       
+
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var nHANVIENs = db.NHANVIENs.Include(n => n.LOAINV);
-            return View(nHANVIENs.ToList());
+            var SanPhams = new NHANVIENsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
         }
 
+        public IEnumerable<NHANVIEN> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<NHANVIEN> model = db.NHANVIENs.Include(n => n.LOAINV);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.NV_ID.Contains(searchTerm) || x.NV_TEN.Contains(searchTerm) || x.NV_SDT.Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.NV_ID).ToPagedList(page, pageSize);
+        }
         // GET: NHANVIENs/Details/5
         public ActionResult Details(string id)
         {
@@ -48,7 +66,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NV_ID,LNV_ID,NV_TEN,NV_NGAYSINH,NV_QUEQUAN,NV_DIACHI,NV_GIOITINH,NV_NGAYKYHOPDONG,NV_NGAYKETTHUCHOPDONG,NV_EMAIL,NV_MATKHAU,NV_TAIKHOAN")] NHANVIEN nHANVIEN)
+        public ActionResult Create([Bind(Include = "NV_ID,LNV_ID,NV_TEN,NV_NGAYSINH,NV_QUEQUAN,NV_DIACHI,NV_GIOITINH,NV_NGAYKYHOPDONG,NV_NGAYKETTHUCHOPDONG,NV_EMAIL,NV_MATKHAU,NV_TAIKHOAN,NV_SDT")] NHANVIEN nHANVIEN)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +100,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NV_ID,LNV_ID,NV_TEN,NV_NGAYSINH,NV_QUEQUAN,NV_DIACHI,NV_GIOITINH,NV_NGAYKYHOPDONG,NV_NGAYKETTHUCHOPDONG,NV_EMAIL,NV_MATKHAU,NV_TAIKHOAN")] NHANVIEN nHANVIEN)
+        public ActionResult Edit([Bind(Include = "NV_ID,LNV_ID,NV_TEN,NV_NGAYSINH,NV_QUEQUAN,NV_DIACHI,NV_GIOITINH,NV_NGAYKYHOPDONG,NV_NGAYKETTHUCHOPDONG,NV_EMAIL,NV_MATKHAU,NV_TAIKHOAN,NV_SDT")] NHANVIEN nHANVIEN)
         {
             if (ModelState.IsValid)
             {

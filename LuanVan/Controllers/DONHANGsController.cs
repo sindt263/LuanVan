@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,15 +17,32 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: DONHANGs
-        public ActionResult Index()
+       
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var dONHANGs = db.DONHANGs.Include(d => d.HINHTHUCTHANHTOAN).Include(d => d.KHACHHANG).Include(d => d.TRANGTHAIDONHANG);
-            return View(dONHANGs.ToList());
+            var SanPhams = new DONHANGsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
         }
+      
+        public IEnumerable<DONHANG> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<DONHANG> model = db.DONHANGs.Include(d => d.HINHTHUCTHANHTOAN).Include(d => d.KHACHHANG).Include(d => d.TRANGTHAIDONHANG);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.DN_ID.Contains(searchTerm) || x.KH_ID.Contains(searchTerm)|| x.NV_ID.Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.DN_NGALAPDON).ToPagedList(page, pageSize);
+        }
+
         public ActionResult IndexKH()
         {
             string kh_id = Session["KH_ID"].ToString();
-            var dONHANGs = from p in db.DONHANGs where p.KH_ID == kh_id select p;
+            var dONHANGs = (from p in db.DONHANGs where p.KH_ID == kh_id select p).OrderByDescending(m=>m.DN_NGALAPDON);
             return View(dONHANGs.ToList());
         }
 

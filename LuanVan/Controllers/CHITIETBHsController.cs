@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,10 +17,30 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: CHITIETBHs
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    var cHITIETBHs = db.CHITIETBHs.Include(c => c.BAOHANH).Include(c => c.SANPHAM).Include(c => c.TRANGTHAIBH);
+        //    return View(cHITIETBHs.ToList());
+        //}
+
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var cHITIETBHs = db.CHITIETBHs.Include(c => c.BAOHANH).Include(c => c.SANPHAM).Include(c => c.TRANGTHAIBH);
-            return View(cHITIETBHs.ToList());
+            var SanPhams = new CHITIETBHsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+            
+            return View(mode);
+        }
+
+        public IEnumerable<CHITIETBH> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<CHITIETBH> model = db.CHITIETBHs.Include(c => c.BAOHANH).Include(c => c.SANPHAM).Include(c => c.TRANGTHAIBH);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.SANPHAM.CHITIETSANPHAM.CTSP_TEN.Contains(searchTerm) || x.BH_ID.ToString().Contains(searchTerm) || x.SP_ID.ToString().Contains(searchTerm));
+            }
+
+            return model.OrderByDescending(x => x.CTBH_NGAYBH).ToPagedList(page, pageSize);
         }
 
         // GET: CHITIETBHs/Details/5

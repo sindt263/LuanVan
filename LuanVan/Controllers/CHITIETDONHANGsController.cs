@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,10 +17,27 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: CHITIETDONHANGs
-        public ActionResult Index()
+       
+
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var cHITIETDONHANGs = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.SANPHAM);
-            return View(cHITIETDONHANGs.ToList());
+            var SanPhams = new CHITIETDONHANGsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
+        }
+
+        public IEnumerable<CHITIETDONHANG> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<CHITIETDONHANG> model = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.SANPHAM);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.DONHANG.DN_ID.Contains(searchTerm) || x.CTDH_ID.ToString().Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.DONHANG.DN_NGALAPDON).ToPagedList(page, pageSize);
         }
         public ActionResult IndexKH(string id)
         {

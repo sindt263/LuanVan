@@ -29,7 +29,7 @@ namespace LuanVan.Controllers
       
         public IEnumerable<SANPHAM> ListAllPaging(string searchTerm, int page, int pageSize)
         {
-            IQueryable<SANPHAM> model = db.SANPHAMs;
+            IQueryable<SANPHAM> model = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs);
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 model = model.Where(x => x.DONGSANPHAM.DSP_TEN.Contains(searchTerm) || x.SP_TEN.Contains(searchTerm));
@@ -42,11 +42,21 @@ namespace LuanVan.Controllers
         public ActionResult ViewSP()
         {
             ViewBag.nsx = db.NHASANXUATs.ToList();
-            foreach(var i in ViewBag.nsx)
+            ViewBag.nsx1 = (from p in db.SANPHAMs select p.CTSP_ID).Distinct(); 
+
+            foreach (var i in ViewBag.nsx)
             {
                 string id = i.NSX_ID;
-                ViewData[i.NSX_TEN] = (from p in db.SANPHAMs where p.NSX_ID == id select p).OrderByDescending(p => p.SP_TRANGTHAI);
+               
+                ViewData[i.NSX_TEN] = (from p in db.SANPHAMs where p.NSX_ID == id select p.CTSP_ID).Distinct();
+                foreach(var ii in ViewData[i.NSX_TEN])
+                {
+                    string ctsp_id = ii;
+                    ViewData[ii] = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == ctsp_id select p);
+                }
+                
             }
+           
             ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
             
             var PN_ID = (from p in db.PHIEUNHAPSPs select p).OrderByDescending(a => a.PN_NGAY);
@@ -280,6 +290,13 @@ namespace LuanVan.Controllers
         {
             var product = (from p in db.SANPHAMs where p.NSX_ID == id select p).OrderByDescending(p => p.SP_TRANGTHAI);
             return View(product.ToList());
+        }
+
+      
+        public ViewResult GetCTSPbyCTSPID(string id)
+        {
+            ViewBag.id = from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p;
+            return View();
         }
     }
 }

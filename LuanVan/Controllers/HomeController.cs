@@ -27,9 +27,9 @@ namespace LuanVan.Controllers
         public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
             ViewBag.NSX = db.NHASANXUATs.ToList();
-            ViewBag.sp = db.CHITIETSANPHAMs.ToList();
+            ViewBag.sp = db.CHITIETSANPHAMs.ToList().Take(10);
             var ChiTietSanPham = new HomeController();
-            var mode = ChiTietSanPham.ListAllPaging(searchTerm, page, pageSize);
+            var mode = ChiTietSanPham.ListAllPaging(searchTerm, page, pageSize).Take(6);
             ViewBag.SearchTerm = searchTerm;
             //var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs);
             return View(mode);

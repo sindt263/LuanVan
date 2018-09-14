@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,11 +17,27 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: GIASPs
-        public ActionResult Index()
+       
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            return View(db.GIASPs.ToList());
+            var SanPhams = new GIASPsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
         }
 
+        public IEnumerable<GIASP> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<GIASP> model = db.GIASPs;
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.GIA_ID.Contains(searchTerm) || x.GIA_GIA.ToString().Contains(searchTerm) || x.GIA_NGAYCAPNHAT.ToString().Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.GIA_NGAYCAPNHAT).ToPagedList(page, pageSize);
+        }
         // GET: GIASPs/Details/5
         public ActionResult Details(string id)
         {

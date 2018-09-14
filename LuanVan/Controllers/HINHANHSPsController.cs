@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -16,12 +18,27 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: HINHANHSPs
-        public ActionResult Index()
+       
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var hINHANHSPs = db.HINHANHSPs.Include(h => h.CHITIETSANPHAM);
-            return View(hINHANHSPs.ToList());
+            var SanPhams = new HINHANHSPsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
         }
 
+        public IEnumerable<HINHANHSP> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<HINHANHSP> model = db.HINHANHSPs.Include(h => h.CHITIETSANPHAM);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.HA_ID.Contains(searchTerm) || x.CHITIETSANPHAM.CTSP_TEN.Contains(searchTerm)|| x.CTSP_ID.ToString().Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.HA_ID).ToPagedList(page, pageSize);
+        }
         // GET: HINHANHSPs/Details/5
         public ActionResult Details(string id)
         {

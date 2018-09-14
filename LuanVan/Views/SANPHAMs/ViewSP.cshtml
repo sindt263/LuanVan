@@ -29,50 +29,51 @@
                     @foreach (var item in ViewBag.nsx)
                     {
                         <h2 class="section-title">@item.NSX_TEN</h2>
-
                         <div class="product-carousel">
 
-                            @foreach (var i in ViewData[item.NSX_TEN])
+                            @foreach (var ii in ViewData[item.NSX_TEN])
                             {
-                            <div class="single-product">
+                                foreach (var i in ViewData[ii])
+                                {
+                                <div class="single-product">
+                                    <div class="product-f-image">
 
-                                <div class="product-f-image">
+                                        <asp:Repeater runat="server" id="myRepeater">
+                                            <ItemTemplate>
+                                                <img src="/HinhAnhSPs/getImage/@i.CTSP_ID" alt="Hình sản phẩm" />
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <div class="product-hover">
+                                            @if (sANPHAMs.KTKho(i.CTSP_ID) == 0)
+                                            {
+                                                <h4 class="text-danger">Hết hàng</h4>
 
-                                    <asp:Repeater runat="server" id="myRepeater">
-                                        <ItemTemplate>
-                                            <img src="/HinhAnhSPs/getImage/@i.CTSP_ID" alt="Hình sản phẩm" />
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                    <div class="product-hover">
-                                        @if (sANPHAMs.KTKho(i.CTSP_ID) == 0)
-                                        {
-                                            <h4 class="text-danger">Hết hàng</h4>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPHA.GetSP_ID(i.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                            }
 
-                                        }
-                                        else
-                                        {
-                                            <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPHA.GetSP_ID(i.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
-                                        }
-
-                                        <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                            <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                        </div>
                                     </div>
+
+
+
+                                    <h2><a href="single-product.html">@i.CTSP_TEN</a></h2>
+
+                                    <div class="product-carousel-price">
+
+                                        <ins>@cHITIETSANPHA.GetGia(i.CTSP_ID).ToString("###,###") VND</ins> Khuyến Mãi
+                                    </div>
+
                                 </div>
-
-
-                                <h2><a href="single-product.html">@i.SP_TEN</a></h2>
-
-                                <div class="product-carousel-price">
-
-                                    <ins>@cHITIETSANPHA.GetGia(i.CTSP_ID).ToString("###,###") VND</ins> Khuyến Mãi
-                                </div>
-
-                            </div>
-                            }
-
+                                    }
+                                }
 
                         </div>}
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -104,7 +105,7 @@
 
 
 
-<div class="single-product-area">
+@*<div class="single-product-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
@@ -166,5 +167,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 

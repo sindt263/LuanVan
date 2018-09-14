@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,12 +17,27 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: PHIEUNHAPSPs
-        public ActionResult Index()
+       
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var pHIEUNHAPSPs = db.PHIEUNHAPSPs.Include(p => p.NHACUNGCAP).Include(p => p.NHANVIEN);
-            return View(pHIEUNHAPSPs.ToList());
+            var SanPhams = new PHIEUNHAPSPsController();
+            var mode = SanPhams.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
         }
 
+        public IEnumerable<PHIEUNHAPSP> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<PHIEUNHAPSP> model = db.PHIEUNHAPSPs.Include(p => p.NHACUNGCAP).Include(p => p.NHANVIEN);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.PN_ID.Contains(searchTerm) || x.NHACUNGCAP.NCC_TEN.Contains(searchTerm) || x.NHANVIEN.NV_TEN.Contains(searchTerm)|| x.PN_GHICHU.Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.PN_NGAY).ToPagedList(page, pageSize);
+        }
         // GET: PHIEUNHAPSPs/Details/5
         public ActionResult Details(string id)
         {
