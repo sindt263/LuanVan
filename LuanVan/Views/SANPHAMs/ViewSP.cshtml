@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Shop</h2>
+                   
                 </div>
             </div>
         </div>
@@ -27,8 +27,7 @@
             <div class="col-md-12 col-sm-6">
                 <div class="latest-product">
                     @foreach (var item in ViewBag.nsx)
-                    {
-                        <h2 class="section-title">@item.NSX_TEN</h2>
+                    { <marquee direction="right" style="background: #0094ff" id="little"><h5 class="clip-text clip-text_fourteen clip-text--cover">@item.NSX_TEN</h5></marquee>
                         <div class="product-carousel">
 
                             @foreach (var ii in ViewData[item.NSX_TEN])

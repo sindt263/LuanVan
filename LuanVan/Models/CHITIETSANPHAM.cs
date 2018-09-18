@@ -40,40 +40,41 @@
         
         public double? CTSP_MANHINH { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         
         [Display(Name = "Camera trước")]
         public string CTSP_CAMERATRUOC { get; set; }
 
-        [StringLength(10)]
-        [Display(Name = "Camera sau")]
-        
+        [StringLength(50)]
+        [Display(Name = "Camera sau")]        
         public string CTSP_CAMERASAU { get; set; }
 
-        [StringLength(100)]
-        
+        [StringLength(100)]        
         [Display(Name = "Hệ điều hành")]
         public string CTSP_HEDIEUHANH { get; set; }
 
-        [Display(Name = "Bộ nhớ RAM")]
-        
-        public short? CTSP_RAM { get; set; }
+        [StringLength(50)]
+        [Display(Name = "Bộ nhớ RAM")]        
+        public string CTSP_RAM { get; set; }
 
         [Display(Name = "Bộ nhớ ROM")]
-        
-        public short? CTSP_ROM { get; set; }
+        [StringLength(50)]
+        public string CTSP_ROM { get; set; }
 
         [Display(Name = "Dung lượng PIN")]
-        
         public int? CTSP_DUNGLUONGPIN { get; set; }
 
         [Display(Name = "Số SIM")]
-        
-        public short? CTSP_SOSIM { get; set; }
+        [StringLength(50)]
+        public string CTSP_SOSIM { get; set; }
 
         [StringLength(2555)]
         [Display(Name = "Mô tả chi tiết")]
         public string CTSP_MOTA { get; set; }
+
+        [Display(Name = "Ngày tạo")]
+        [DataType(DataType.Date)]
+        public DateTime? CTSP_NGAYTAO { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HINHANHSP> HINHANHSPs { get; set; }

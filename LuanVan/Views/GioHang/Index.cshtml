@@ -1,12 +1,13 @@
 ﻿@model List<LuanVan.Models.CartItem>
+@using LuanVan.Models;
 @{
+    DataContext db = new DataContext();
     ViewBag.Title = "Giỏ hàng của bạn";
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
 
 
 <h2>@ViewBag.Title</h2>
-
 @if (Model == null || Model.Count == 0)
 {
     <p class="text-info text-center">
@@ -31,27 +32,28 @@ else
                     </tr>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                <asp:Repeater runat="server" id="myRepeater">
-                                    <ItemTemplate>
-                                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </td>
-                            <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
-                            <td>
-                                <form action="@Url.Action("SuaSoLuong")" method="get">
-                                    <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
-                                    <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
-                                    <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
-                                </form>
-                            </td>
-                            <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
+                    <tr>
+                        <td>
+                            <asp:Repeater runat="server" id="myRepeater">
+                                <ItemTemplate>
+                                    <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </td>
+                        <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
+                        <td>
+                            <form action="@Url.Action("SuaSoLuong")" method="get">
+                                <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
+                                <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
+                                <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
+                            </form>
+                        </td>
+                        <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
+                        
                             <td> @item.ThanhTien.ToString("#,##0").Replace(',', '.') VNĐ </td>
-
-                            <td> <a href="@Url.Action("XoaKhoiGio", new { SanPhamID = item.SanPhamID })" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger btn-sm">Xóa</a> </td>
-                        </tr>
+                           
+                        <td> <a href="@Url.Action("XoaKhoiGio", new { SanPhamID = item.SanPhamID })" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger btn-sm">Xóa</a> </td>
+                    </tr>
                     }
                     <tr>
                         <td></td>
@@ -110,7 +112,7 @@ else
     var idkh = document.getElementById("idkh")
     $("#btnsubmit").click(function () {
         /**/
-      
+
         $.ajax({
             type: "GET",
             url: "/DonHangs/CreateDH/",

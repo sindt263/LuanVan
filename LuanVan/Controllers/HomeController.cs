@@ -24,10 +24,17 @@ namespace LuanVan.Controllers
         //    return View(sp);
         //}
 
+        public ViewResult test()
+        {
+            return View();
+        }
+
         public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
+
             ViewBag.NSX = db.NHASANXUATs.ToList();
-            ViewBag.sp = db.CHITIETSANPHAMs.ToList().Take(10);
+            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now select p).OrderByDescending(k => k.KM_NGAYBATDAU).Take(10);
+            ViewBag.sp = db.SANPHAMs.ToList().Take(10);
             var ChiTietSanPham = new HomeController();
             var mode = ChiTietSanPham.ListAllPaging(searchTerm, page, pageSize).Take(6);
             ViewBag.SearchTerm = searchTerm;
@@ -44,7 +51,7 @@ namespace LuanVan.Controllers
 
             }
 
-            return model.OrderByDescending(x => x.CTSP_ID).ToPagedList(page, pageSize);
+            return model.OrderByDescending(x => x.CTSP_NGAYTAO).ToPagedList(page, pageSize);
         }
         public ActionResult About()
         {
@@ -64,6 +71,6 @@ namespace LuanVan.Controllers
             return View();
         }
 
-        
+
     }
 }

@@ -13,13 +13,15 @@ namespace LuanVan.Models
         public string CTSP_ID { get; set; }
         public string TenSanPham { get; set; }
         public int DonGia { get; set; }
+        public float DonGiaKM { get; set; }
         public int SoLuong { get; set; }
-        public int ThanhTien
+        public float ThanhTien
         {
             get
             {
-                return SoLuong * DonGia;
+                return SoLuong * DonGiaKM;
             }
         }
+
     }
 }
