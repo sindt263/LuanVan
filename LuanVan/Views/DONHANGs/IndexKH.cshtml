@@ -7,15 +7,15 @@
 
 <h2>Đơn hàng</h2>
 
-@using (Html.BeginForm("IndexKH", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
-{
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
-    </div>
-}
+@*@using (Html.BeginForm("IndexKH", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+    {
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
+        </div>
+    }*@
 <table class="table">
     <tr>
         <th>
@@ -61,11 +61,11 @@
                 @Html.DisplayFor(modelItem => item.DN_SL)
             </td>
             <td>
-                <input type="button" class="btn-link" id="@item.DN_ID" value="Chi Tiết" />
+                <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
                 @if (item.TTDH_ID != 2)
-                {<input type="button" class="@item.DN_ID" value="Hủy đơn" />}
+                {<input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" />}
             </td>
-            <div id="Show"></div>
+            <div id="Show" style="background-color:cornflowerblue"></div>
             <script type="text/javascript">
 
             $('#@item.DN_ID').click(function () {

@@ -32,28 +32,28 @@ else
                     </tr>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            <asp:Repeater runat="server" id="myRepeater">
-                                <ItemTemplate>
-                                    <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </td>
-                        <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
-                        <td>
-                            <form action="@Url.Action("SuaSoLuong")" method="get">
-                                <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
-                                <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
-                                <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
-                            </form>
-                        </td>
-                        <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
-                        
+                        <tr>
+                            <td>
+                                <asp:Repeater runat="server" id="myRepeater">
+                                    <ItemTemplate>
+                                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </td>
+                            <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
+                            <td>
+                                <form action="@Url.Action("SuaSoLuong")" method="get">
+                                    <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
+                                    <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
+                                    <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
+                                </form>
+                            </td>
+                            <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
+
                             <td> @item.ThanhTien.ToString("#,##0").Replace(',', '.') VNĐ </td>
-                           
-                        <td> <a href="@Url.Action("XoaKhoiGio", new { SanPhamID = item.SanPhamID })" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger btn-sm">Xóa</a> </td>
-                    </tr>
+
+                            <td> <a href="@Url.Action("XoaKhoiGio", new { SanPhamID = item.SanPhamID })" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger btn-sm">Xóa</a> </td>
+                        </tr>
                     }
                     <tr>
                         <td></td>
@@ -84,8 +84,13 @@ else
                     </div>
                 }
                 else
-                {
-                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="0" hidden />
+                { <div class="form-group">
+                        <label class="control-label col-md-2" for="DN_SDT">SDT</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="@Session["KH_SDT"]" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
                 }
                 <div class="form-group">
                     <label class="control-label col-md-2" for="CTDH_DIACHIGIAO">Địa chỉ giao hàng</label>
@@ -100,9 +105,9 @@ else
                 <div id="ViewDH"></div>
             </div>
 
-        </div>
+                    </div>
 
-    </div>
+                </div>
 }
 <script type="text/javascript">
     var HTTT_ID = document.getElementById("HTTT_ID")

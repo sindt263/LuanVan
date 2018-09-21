@@ -1,4 +1,8 @@
-﻿.txtelegantshadow {
+﻿.hederbackground {
+    background-color: green;
+}
+
+.txtelegantshadow {
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
     text-transform: uppercase;
     text-align: center;

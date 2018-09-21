@@ -253,6 +253,7 @@
     <Content Include="Content\css\Login\js\jquery-2.1.4.min.js" />
     <Content Include="Content\css\Login\js\jquery.magnific-popup.js" />
     <Content Include="Content\css\Menu.css" />
+    <Content Include="Content\Images\kt123.jpg" />
     <Content Include="Content\Images\Screenshot %281%29.png" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\JavaScript.js" />
@@ -4098,6 +4099,7 @@
     <Content Include="Views\Shared\_Layoutajax.cshtml" />
     <Content Include="Views\SANPHAMs\PrintProductByProducer.cshtml" />
     <Content Include="Views\Home\test.cshtml" />
+    <Content Include="Views\Shared\_LayoutKHAjaxy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

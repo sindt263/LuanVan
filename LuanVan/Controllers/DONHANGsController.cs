@@ -17,7 +17,7 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: DONHANGs
-       
+
         public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
             var SanPhams = new DONHANGsController();
@@ -26,13 +26,13 @@ namespace LuanVan.Controllers
 
             return View(mode);
         }
-      
+
         public IEnumerable<DONHANG> ListAllPaging(string searchTerm, int page, int pageSize)
         {
             IQueryable<DONHANG> model = db.DONHANGs.Include(d => d.HINHTHUCTHANHTOAN).Include(d => d.KHACHHANG).Include(d => d.TRANGTHAIDONHANG);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.DN_ID.Contains(searchTerm) || x.KH_ID.Contains(searchTerm)|| x.NV_ID.Contains(searchTerm));
+                model = model.Where(x => x.DN_ID.Contains(searchTerm) || x.KH_ID.Contains(searchTerm) || x.NV_ID.Contains(searchTerm));
 
             }
 
@@ -42,7 +42,7 @@ namespace LuanVan.Controllers
         public ActionResult IndexKH()
         {
             string kh_id = Session["KH_ID"].ToString();
-            var dONHANGs = (from p in db.DONHANGs where p.KH_ID == kh_id select p).OrderByDescending(m=>m.DN_NGALAPDON);
+            var dONHANGs = (from p in db.DONHANGs where p.KH_ID == kh_id select p).OrderByDescending(m => m.DN_NGALAPDON);
             return View(dONHANGs.ToList());
         }
 
@@ -101,8 +101,8 @@ namespace LuanVan.Controllers
             ViewBag.TTDH_ID = new SelectList(db.TRANGTHAIDONHANGs, "TTDH_ID", "TTDH_TEN", dONHANG.TTDH_ID);
             return View(dONHANG);
         }
-        
-        public ActionResult CreateDH(string id1, string id2, string id3,string id4)
+
+        public ActionResult CreateDH(string id1, string id2, string id3, string id4)
         {
             if (Session["KH_ID"] == null && id4.Length <= 9)
             {
@@ -110,10 +110,9 @@ namespace LuanVan.Controllers
             }
             else
             {
-                //string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
+                
                 SANPHAMsController sANPHAM = new SANPHAMsController();
-                //if (result != null)
-                //{
+               
                 DONHANG dONHANG = new DONHANG();
                 if (ModelState.IsValid)
                 {
@@ -137,17 +136,7 @@ namespace LuanVan.Controllers
                         db.DONHANGs.Add(dONHANG);
                         db.SaveChanges();
                     }
-                    //else
-                    //{
-                    //    string DNID = Session["DN_ID"].ToString();
-                    //    DONHANG dON = db.DONHANGs.FirstOrDefault(m => m.DN_ID == DNID);
-                    //    if (dON != null)
-                    //    {
-                    //        dON.HTTT_ID = Convert.ToInt16(id1);
-                    //        dON.DN_SL = Convert.ToInt32(id2);
-                    //        db.SaveChanges();
-                    //    }
-                    //}
+                   
                     string DN_ID = Session["DN_ID"].ToString();
                     CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
                     var giohang = Session["giohang"] as List<CartItem>;
@@ -161,17 +150,15 @@ namespace LuanVan.Controllers
                         {
                             db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "',N'" + id3 + "')");
                             db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
+                                                        
                             ModelState.AddModelError("", "Xạc nhận mua " + i.SanPhamID + " thành công");
                         }
-
+                        CartItem itemXoa = giohang.FirstOrDefault(m => m.SanPhamID == i.SanPhamID);                        
+                            giohang.Remove(itemXoa);
                     }
                     ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
                 }
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", "Khách hàng không tồn tại");
-                //}
+               
             }
             return View();
         }
@@ -217,7 +204,7 @@ namespace LuanVan.Controllers
                         cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
                     }
                 }
-                
+
                 dONHANG.NV_ID = Session["NV_ID"].ToString();
                 dONHANG.TTDH_ID = Convert.ToInt16(id_ttdh);
                 db.SaveChanges();

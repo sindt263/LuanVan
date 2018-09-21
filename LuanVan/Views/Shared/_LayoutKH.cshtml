@@ -51,9 +51,9 @@
                     <div class="user-menu">
                         <ul>
                             @* <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> My Account</a></li>*@
-                             @*<li><a href="/KhuyenMais/IndexKH"><i class="fa fa-bomb"></i> Khuyến mãi</a></li>*@
+                            @*<li><a href="/KhuyenMais/IndexKH"><i class="fa fa-bomb"></i> Khuyến mãi</a></li>*@
 
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -78,17 +78,18 @@
                                         <li><a href="#">German</a></li>
                                     </ul>
                                 </li>*@
-                               
-                             
-                           
+
+
+
                             <li class="dropdown dropdown-small">
                                 <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Khách hàng :</span><span class="value"> @Session["KH_TEN"]</span><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     @if (Session["KH_ID"] != null)
                                     {
                                         <li><a href="/DonHangs/IndexKH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
+                                        <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
                                     }
-                                    <li><a href="/GioHang/"><i class="fa fa-user"></i>Giỏ hàng</a></li>
+                                    <li><a href="/GioHang/"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
                                     <li><a href="checkout.html">@*<i class="fa fa-user"></i> Checkout*@</a></li>
                                     @if (Session["KH_ID"] == null)
                                     {
@@ -96,7 +97,7 @@
                                     }
                                     else
                                     {
-                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i> Đăng xuất</a></li>
+                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
                                     }
                                 </ul>
                             </li>
@@ -106,92 +107,94 @@
             </div>
         </div>
     </div> <!-- End header area -->
-        
-        <div class="site-branding-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="logo">
-                            <h1><a href="/Home/">
-    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
-    <h1>
-        <em>S</em>
-        <em>S</em>
-        <em class="planet left">S</em>
-        <em>S</em>
-        <em>H</em>
-        <em class="planet right">O</em>
-        <em>P</em>
-    </h1>
-</a></h1>
-                        </div>
-                    </div>
 
-                    <div class="col-sm-6">
-                        <div class="shopping-item">
-                            <a href="/GioHang/">
-                                Cart - <span class="cart-amunt">
-                                    @if (giohang != null)
-                                    {
-                                        <td>@giohang.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </td>
-                                    }
-                                    else
-                                    {
-                                        <td>0 VNĐ</td>
-                                    }
-                                </span> <i class="fa fa-shopping-cart"></i> <span class="product-count">
-                                    @if (giohang != null)
-                                    {
-                                        <td>@giohang.Sum(m => m.SoLuong) </td>
-                                    }
-                                    else
-                                    {
-                                        <td>0</td>
-                                    }
-                                </span>
+    <div class="site-branding-area" style="background-color:#eee90c">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6" >
+                    <div class="logo">
+                        <h1>
+                            <a href="/Home/">
+                                <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+                                <h1 >
+                                    <em>S</em>
+                                    <em>S</em>
+                                    <em class="planet left">S</em>
+                                    <em>S</em>
+                                    <em>H</em>
+                                    <em class="planet right">O</em>
+                                    <em>P</em>
+                                </h1>
                             </a>
-                        </div>
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="shopping-item">
+                        <a href="/GioHang/">
+                            Cart - <span class="cart-amunt">
+                                @if (giohang != null)
+                                {
+                                    <td>@giohang.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </td>
+                                }
+                                else
+                                {
+                                    <td>0 VNĐ</td>
+                                }
+                            </span> <i class="fa fa-shopping-cart"></i> <span class="product-count">
+                                @if (giohang != null)
+                                {
+                                    <td>@giohang.Sum(m => m.SoLuong) </td>
+                                }
+                                else
+                                {
+                                    <td>0</td>
+                                }
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div> <!-- End site branding area -->
+        </div>
+    </div> <!-- End site branding area -->
 
-        <div class="mainmenu-area">
-            <div class="container">
-                <div class="row">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a class="txtinsetshadow" href="/">Home</a></li>
-                            <li><a href="/SanPhams/ViewSP" class="txtdeepshadow">Trang sản phẩm</a></li>
-                            @*<li><a href="single-product.html">Single product</a></li>*@
-                            <li><a href="/GioHang/" class="txtdeepshadow">Giõ hàng</a></li>
-                            <li><a href="#" class="txtdeepshadow">Category</a></li>
-                            <li><a href="#" class="txtdeepshadow">Others</a></li>
-                            <li><a href="#" class="txtdeepshadow">Contact</a></li>
-                            
-                        </ul>
-                    </div>
+    <div class="mainmenu-area"style="background-color:#0094ff">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" style="background-image: url('../../Content/Images/kt123.jpg'); border-radius: 10px 10px;">
+                    <ul class="nav navbar-nav">
+                        <li><a class="txtinsetshadow" href="/">Home</a></li>
+                        <li><a href="/SanPhams/ViewSP" class="txtdeepshadow">Trang sản phẩm</a></li>
+                        @*<li><a href="single-product.html">Single product</a></li>*@
+                        <li><a href="/GioHang/" class="txtdeepshadow">Giõ hàng</a></li>
+                        <li><a href="#" class="txtdeepshadow">Category</a></li>
+                        <li><a href="#" class="txtdeepshadow">Others</a></li>
+                        <li><a href="#" class="txtdeepshadow">Contact</a></li>
+
+                    </ul>
                 </div>
             </div>
-        </div> <!-- End mainmenu area -->
-        @RenderBody()
+        </div>
+    </div> <!-- End mainmenu area -->
+    @RenderBody()
 
-        <div class="footer-top-area">
+    @* <div class="footer-top-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
                         <div class="footer-about-us">
                             <h2>u<span>Stora</span></h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis sunt id doloribus vero quam laborum quas alias dolores blanditiis iusto consequatur, modi aliquid eveniet eligendi iure eaque ipsam iste, pariatur omnis sint! Suscipit, debitis, quisquam. Laborum commodi veritatis magni at?</p>
+                            <p>SSS - Shop là shop chuyên bán các sản phẩm smart phone mới và uy tính, sản phẩm gồm nhiều sản phẩm của các hãng điện thoại nổi tiếng nhất hiện nay.</p>
                             <div class="footer-social">
                                 <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
                                 <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
@@ -239,48 +242,52 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+        </div>
+        </div>
         </div> <!-- End footer top area -->
-
-        <div class="footer-bottom-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="copyright">
-                            <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com" target="_blank">freshDesignweb.com</a></p>
-                        </div>
+    *@
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="copyright">
+                        <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com" target="_blank">freshDesignweb.com</a></p>
                     </div>
+                </div>
 
-                    <div class="col-md-4">
-                        <div class="footer-card-icon">
-                            <i class="fa fa-cc-discover"></i>
-                            <i class="fa fa-cc-mastercard"></i>
-                            <i class="fa fa-cc-paypal"></i>
-                            <i class="fa fa-cc-visa"></i>
-                        </div>
+                <div class="col-md-4">
+                    <div class="footer-card-icon">
+                        <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        <i class="fa fa-cc-discover"></i>
+                        <i class="fa fa-cc-mastercard"></i>
+                        <i class="fa fa-cc-paypal"></i>
+                        <i class="fa fa-cc-visa"></i>
                     </div>
                 </div>
             </div>
-        </div> <!-- End footer bottom area -->
-        <!-- Latest jQuery form server -->
-        <script src="https://code.jquery.com/jquery.min.js"></script>
+        </div>
+    </div> <!-- End footer bottom area -->
+    <!-- Latest jQuery form server -->
+    <script src="https://code.jquery.com/jquery.min.js"></script>
 
-        <!-- Bootstrap JS form CDN -->
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS form CDN -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-        <!-- jQuery sticky menu -->
-        <script src="~/Content/LayoutKH/js/owl.carousel.min.js"></script>
-        <script src="~/Content/LayoutKH/js/jquery.sticky.js"></script>
+    <!-- jQuery sticky menu -->
+    <script src="~/Content/LayoutKH/js/owl.carousel.min.js"></script>
+    <script src="~/Content/LayoutKH/js/jquery.sticky.js"></script>
 
-        <!-- jQuery easing -->
-        <script src="~/Content/LayoutKH/js/jquery.easing.1.3.min.js"></script>
+    <!-- jQuery easing -->
+    <script src="~/Content/LayoutKH/js/jquery.easing.1.3.min.js"></script>
 
-        <!-- Main Script -->
-        <script src="~/Content/LayoutKH/js/main.js"></script>
+    <!-- Main Script -->
+    <script src="~/Content/LayoutKH/js/main.js"></script>
 
-        <!-- Slider -->
-        <script type="text/javascript" src="~/Content/LayoutKH/js/bxslider.min.js"></script>
-        <script type="text/javascript" src="~/Content/LayoutKH/js/script.slider.js"></script>
+    <!-- Slider -->
+    <script type="text/javascript" src="~/Content/LayoutKH/js/bxslider.min.js"></script>
+    <script type="text/javascript" src="~/Content/LayoutKH/js/script.slider.js"></script>
 </body>
 </html>

@@ -6,7 +6,10 @@
 }
 
 <h2>Danh sách</h2>
-
+@foreach (var i in ViewBag.b)
+{
+    <h2>@i</h2>
+}
 <p>
     @Html.ActionLink("Tạo loại bảo hành mới", "Create")
 </p>
@@ -21,20 +24,21 @@
         <th>Tùy chọn</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BH_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BH_MOTA)
-        </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.BH_ID }) |
-            @Html.ActionLink("Chi Tiết", "Details", new { id=item.BH_ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.BH_ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BH_TEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BH_MOTA)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.BH_ID }) |
+                @Html.ActionLink("Chi Tiết", "Details", new { id = item.BH_ID }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.BH_ID })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -15,8 +15,8 @@
         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
     </div>
 }
-    
-    <h1 class="txtelegantshadow">Sản phẩm mới</h1>
+
+<h1 class="txtelegantshadow" style="background-color:#0094ff">Sản phẩm mới</h1>
 <div class="slider-area">
     <!-- Slider -->
     <div class="block-slider block-slider4">
@@ -94,7 +94,8 @@
         <div class="row">
             <div class="col-md-12 col-sm-6">
                 <div class="latest-product">
-                    <h2 class="section-title"><span class="clip-text clip-text_fourteen clip-text--cover text-center">Khuyến mãi mới</span>
+                    <h2 class="section-title">
+                        <span class="clip-text clip-text_fourteen clip-text--cover text-center">Khuyến mãi mới</span>
                     </h2>
                     <div class="product-carousel">
                         @foreach (var i in ViewBag.KM)
@@ -132,7 +133,7 @@
                                     <h2><a href="single-product.html">@item.CTSP_TEN</a></h2>
 
                                     <div class="product-carousel-price">
-                                        @{ 
+                                        @{
                                             float newprice;
                                             if (i.KM_GIATRI > 1)
                                             {
@@ -180,67 +181,44 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="single-product-widget">
-                    <h2 class="product-wid-title">Top Sellers</h2>
-                    <a href="" class="wid-view-more">View All</a>
-                    @*@foreach (var item in ViewBag.sp)
-                        {
-
-
+                    <h2 class="product-wid-title clip-text clip-text_fourteen clip-text--cover text-center">Mua nhiều</h2>
+                    @*<a href="" class="wid-view-more">View All</a>*@
+                    @*@foreach (var item in ViewBag.Top)*@
+                    @for (int i = 1; i <= 3; i++)
+                    {
+                        string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID)  group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
+                        int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) where ctsp.CTSP_ID = '" + top + "'").SingleOrDefault();
+                        <div class="single-wid-product">
+                            <a href="/ChiTietSanPhams/Details/@top">
+                                <asp:Repeater runat="server" id="myRepeater">
+                                    <ItemTemplate>
+                                        <img class="product-thumb" src="/HinhAnhSPs/getImage/@top" alt="Hình sản phẩm" />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </a>
                             <div class="single-wid-product">
-                                <a href="single-product.html">
-                                    <asp:Repeater runat="server" id="myRepeater">
-                                        <ItemTemplate>
-                                            <img class="product-thumb" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </a>
-                                <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                                <div class="product-wid-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product-wid-price">
-                                    <ins>$400.00</ins> <del>$425.00</del>
-                                </div>
+                                <a href="/ChiTietSanPhams/Details/@top"><h2 class="txtdeepshadow" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
+                                <h2 style="background-color:#0094ff; font-size:large">Số lượng bán: @count</h2>
                             </div>
-                        }*@
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                            @*<div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>*@
+                            <div class="product-wid-price">
+                                <ins>@*$400.00*@</ins> @*<del>$425.00</del>*@
+                            </div>
                         </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins> <del>$425.00</del>
-                        </div>
-                    </div>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new i phone 6</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins> <del>$425.00</del>
-                        </div>
-                    </div>
+
+                    }
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="single-product-widget">
-                    <h2 class="product-wid-title">Recently Viewed</h2>
-                    <a href="#" class="wid-view-more">View All</a>
+                    <h2 class="product-wid-title clip-text clip-text_fourteen clip-text--cover text-center">Recently Viewed</h2>
+                    @*<a href="#" class="wid-view-more">View All</a>*@
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
                         <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
@@ -287,8 +265,8 @@
             </div>
             <div class="col-md-4">
                 <div class="single-product-widget">
-                    <h2 class="product-wid-title">Top New</h2>
-                    <a href="#" class="wid-view-more">View All</a>
+                    <h2 class="product-wid-title clip-text clip-text_fourteen clip-text--cover text-center">Top New</h2>
+                    @*<a href="#" class="wid-view-more">View All</a>*@
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
                         <h2><a href="single-product.html">Apple new i phone 6</a></h2>
@@ -336,4 +314,3 @@
         </div>
     </div>
 </div> <!-- End product widget area -->
-

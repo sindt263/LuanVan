@@ -51,6 +51,8 @@ namespace LuanVan.Controllers
                 {
                     Session["KH_ID"] = item.KH_ID;
                     Session["KH_Ten"] = item.KH_TEN;
+                    Session["KH_SDT"] = item.KH_SDT;
+
                 }
 
                 return Redirect("~/SanPhams/ViewSP");

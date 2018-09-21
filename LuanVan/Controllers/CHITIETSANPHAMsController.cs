@@ -169,9 +169,16 @@ namespace LuanVan.Controllers
             int gia = db.Database.SqlQuery<int>("select Gia_GIA from GIASP where GIA_ID ='" + gia_id + "'").Take(1).SingleOrDefault();
             return gia;
             
-        } public string GetSP_ID(string id)
+        }
+        public string GetSP_ID(string id)
         {
             string sp_id = db.Database.SqlQuery<string>("select SP_ID from SanPham where CTSP_ID ='" + id + "' and SP_TRANGTHAI = 1").Take(1).SingleOrDefault();
+            return sp_id;
+            
+        }
+        public string GetCTSP_TEN(string id)
+        {
+            string sp_id = db.Database.SqlQuery<string>("select CTSP_TEN from ChiTietSanPham where CTSP_ID ='" + id + "'").Take(1).SingleOrDefault();
             return sp_id;
             
         }
