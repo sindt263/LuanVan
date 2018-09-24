@@ -1,12 +1,14 @@
-﻿@model IEnumerable<LuanVan.Models.SANPHAM>
+﻿@model IPagedList<LuanVan.Models.SANPHAM>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
 }
 
-<h2>Danh sách</h2>
+<br />
 
 @using (Html.BeginForm("Index", "SanPhams", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
 {
@@ -18,33 +20,33 @@
     </div>
 }
 <p>
-    @Html.ActionLink("Thêm sản phẩm", "Create")
+    <button class="btn btn-success">@Html.ActionLink("Thêm sản phẩm", "Create")</button> 
 </p>
-<table class="table">
+<table class="table table1">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SP_ID)
+            @Html.DisplayName("ID")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_ID)
+            @Html.DisplayName("Mã chi tiết")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GIASP.GIA_GIA)
+            @Html.DisplayName("Giá")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
+            @Html.DisplayName("Khuyến mãi")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NHASANXUAT.NSX_TEN)
+            @Html.DisplayName("Nhà sản xuất")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NHOMSANPHAM.NSP_TEN)
+            @Html.DisplayName("Tên nhóm")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SP_TEN)
+            @Html.DisplayName("Tên sản phẩm")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SP_TRANGTHAI)
+            @Html.DisplayName("Trạng thái")
         </th>
 
         <th>Hình ảnh</th>
@@ -82,7 +84,7 @@
             <td>
                 <asp:Repeater runat="server" id="myRepeater">
                     <ItemTemplate>
-                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="" width="300" height="300" style="float:left" />
+                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="" width="200" height="200" style="float:left" />
                     </ItemTemplate>
                 </asp:Repeater>
             </td>
@@ -97,3 +99,6 @@
     }
 
 </table>
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>

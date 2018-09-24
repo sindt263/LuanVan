@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
 
+using PagedList;
+using PagedList.Mvc;
 namespace LuanVan.Controllers
 {
     public class NHACUNGCAPsController : Controller

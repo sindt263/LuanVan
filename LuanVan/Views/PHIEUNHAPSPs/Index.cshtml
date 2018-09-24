@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.PHIEUNHAPSP>
+﻿@model IPagedList<LuanVan.Models.PHIEUNHAPSP>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,16 +24,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NHACUNGCAP.NCC_TEN)
+            @Html.DisplayName("Nhà cung cấp")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NHANVIEN.NV_TEN)
+            @Html.DisplayName("Nhân viên")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PN_NGAY)
+            @Html.DisplayName("Ngày nhập")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PN_GHICHU)
+            @Html.DisplayName("Ghi chú")
         </th>
         <th>Tùy chọn</th>
     </tr>
@@ -53,10 +55,13 @@
             </td>
             <td>
                 @Html.ActionLink("Sửa", "Edit", new { id = item.PN_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.PN_ID }) |
+                <a href="/ChiTietNhaps?SearchTerm=@item.PN_ID">Chi tiết</a> |
                 @Html.ActionLink("Xóa", "Delete", new { id = item.PN_ID })
             </td>
         </tr>
     }
 
 </table>
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>

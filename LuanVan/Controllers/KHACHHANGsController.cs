@@ -188,20 +188,20 @@ namespace LuanVan.Controllers
         public JsonResult TKEditPass(string id, string id1)
         {
             
-            if (id.Length <= 0)
+            if (id.Length <= 5)
             {
-                string output = "Không được để trống xấc nhận !";
+                string output = "Mật khẩu phải dài hơn 6 ký tự !";
                 return Json(output, JsonRequestBehavior.AllowGet);
 
             }
             else if (id1.Length <= 0)
             {
-                string output = "Không được để trống xấc nhận !";
+                string output = "Không được để trống mật khẩu xác nhận !";
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
             else if (id != id1)
             {
-                string output = "Mật khẩu xác nhận không giống nhau !";
+                string output = "Mật khẩu không khớp nhau !";
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
             else

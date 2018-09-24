@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.NHANVIEN>
+﻿@model IPagedList<LuanVan.Models.NHANVIEN>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,37 +24,37 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LOAINV.LNV_TEN)
+            @Html.DisplayName("Quyền nhân viên")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_TEN)
+            @Html.DisplayName("Tên nhân viên")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_NGAYSINH)
+            @Html.DisplayName("Ngày Sinh")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_QUEQUAN)
+            @Html.DisplayName("Quê quán")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_DIACHI)
+            @Html.DisplayName("Địa chỉ")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_GIOITINH)
+            @Html.DisplayName("Giới tính")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_NGAYKYHOPDONG)
+            @Html.DisplayName("Ngày ký hợp đồng")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_NGAYKETTHUCHOPDONG)
+            @Html.DisplayName("Thời hạn")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_EMAIL)
+            @Html.DisplayName("Email")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_MATKHAU)
+            @Html.DisplayName("Mật khẩu")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NV_TAIKHOAN)
+            @Html.DisplayName("Tài khoản")
         </th>
         <th>Tùy chọn</th>
     </tr>
@@ -88,7 +90,7 @@
                 @Html.DisplayFor(modelItem => item.NV_EMAIL)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NV_MATKHAU)
+                @*@Html.DisplayFor(modelItem => item.NV_MATKHAU)*@@Html.DisplayName("Ẩn")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NV_TAIKHOAN)
@@ -102,3 +104,6 @@
     }
 
 </table>
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>

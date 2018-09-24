@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.CHITIETSANPHAM>
+﻿@model IPagedList<LuanVan.Models.CHITIETSANPHAM>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,39 +24,40 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_TEN)
+            @Html.DisplayName("Tên")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_CNMANGHINH)
+            @Html.DisplayName("Công nghệ màn hình")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_DOPHANGIAI)
+            @Html.DisplayName("Độ phân giải")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_MANHINH)
+            @Html.DisplayName("Kích thước màn hình")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_CAMERATRUOC)
+            @Html.DisplayName("Camera trước")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_CAMERASAU)
+            @Html.DisplayName("Camera sau")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_HEDIEUHANH)
+            @Html.DisplayName("Hệ điều hành")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_RAM)
+            @Html.DisplayName("Bộ nhớ RAM")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_ROM)
+            @Html.DisplayName("Bộ nhớ ROM")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_DUNGLUONGPIN)
+            @Html.DisplayName("Dung lượng PIN")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CTSP_SOSIM)
-        </th><th>
-            @Html.DisplayNameFor(model => model.CTSP_NGAYTAO)
+            @Html.DisplayName("Số SIM")
+        </th>
+        <th>
+            @Html.DisplayName("Ngày tạo")
         </th>
         <th>Tùy chọn</th>
     </tr>
@@ -107,3 +110,7 @@
     }
 
 </table>
+
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>

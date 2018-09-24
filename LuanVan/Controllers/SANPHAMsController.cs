@@ -41,8 +41,8 @@ namespace LuanVan.Controllers
 
         public ActionResult ViewSP()
         {
+            var Model = db.NHASANXUATs.ToList();
             ViewBag.nsx = db.NHASANXUATs.ToList();
-            ViewBag.nsx1 = (from p in db.SANPHAMs select p.CTSP_ID).Distinct(); 
 
             foreach (var i in ViewBag.nsx)
             {
@@ -67,8 +67,8 @@ namespace LuanVan.Controllers
             }
             ViewBag.MaSP = SP_ID;
 
-            var sANPHAMs = db.CHITIETSANPHAMs.ToList();
-            return View(sANPHAMs.ToList());
+            //var sANPHAMs = db.CHITIETSANPHAMs.ToList();
+            return View(Model.ToList());
         }
         // GET: SANPHAMs/Details/5
         public ActionResult Details(string id)

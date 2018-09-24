@@ -41,29 +41,32 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DN_GHICHU)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DN_SL)
-            </td>
-            <td>
-                <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
-                @if (item.TTDH_ID != 2)
-                {<input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" />}
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_GHICHU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DN_SL)
+        </td>
+        <td>
+            <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
+            @if (item.TTDH_ID != 2)
+            {
+                <input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" onclick="return confirm('Xác nhận hủy !');"/>
+            @*<a  class="btn btn-default" href="@Url.Action("EditHuy", new { id = item.DN_ID})" onclick="return confirm('Xác nhận hủy !');">Hủy đơn</a>*@
+        }
             </td>
             <div id="Show" style="background-color:cornflowerblue"></div>
             <script type="text/javascript">

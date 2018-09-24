@@ -38,3 +38,12 @@
 }
 
 
+table1 {
+    border: 1px solid black;
+    text-align: center;
+    background-color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

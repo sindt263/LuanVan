@@ -5,110 +5,109 @@
     ViewBag.Title = "Giỏ hàng của bạn";
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
-
-
 <h2>@ViewBag.Title</h2>
-@if (Model == null || Model.Count == 0)
-{
-    <p class="text-info text-center">
-        Giỏ hàng của bạn rỗng!
-        <a href="~/sanphams/ViewSP"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
-    </p>
-}
-else
-{
-    <div class="row">
-        <a href="~/sanphams/ViewSP"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
-        <div class="col-sm-12">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>Hình</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Thành tiền</th>
-                        <th></th>
-                    </tr>
-                    @foreach (var item in Model)
-                    {
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <p class="text-info text-center">
+            Giỏ hàng của bạn rỗng!
+            <a href="~/sanphams/ViewSP"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
+        </p>
+    }
+    else
+    {
+        <div class="row">
+            <a href="~/sanphams/ViewSP"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
                         <tr>
-                            <td>
-                                <asp:Repeater runat="server" id="myRepeater">
-                                    <ItemTemplate>
-                                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </td>
-                            <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
-                            <td>
-                                <form action="@Url.Action("SuaSoLuong")" method="get">
-                                    <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
-                                    <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
-                                    <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
-                                </form>
-                            </td>
-                            <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
-
-                            <td> @item.ThanhTien.ToString("#,##0").Replace(',', '.') VNĐ </td>
-
-                            <td> <a href="@Url.Action("XoaKhoiGio", new { SanPhamID = item.SanPhamID })" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger btn-sm">Xóa</a> </td>
+                            <th>Hình</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                            <th></th>
                         </tr>
-                    }
-                    <tr>
-                        <td></td>
-                        <td class="text-right">Tổng số lượng:</td>
-                        <td><input type="text" disabled value="@Model.Sum(m => m.SoLuong)" id="TXTSL" /> </td>
-                        <td class="text-right">Tổng thành tiền:</td>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <asp:Repeater runat="server" id="myRepeater">
+                                        <ItemTemplate>
+                                            <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </td>
+                                <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
+                                <td>
+                                    <form action="@Url.Action("SuaSoLuong")" method="get">
+                                        <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
+                                        <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
+                                        <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
+                                    </form>
+                                </td>
+                                <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
 
-                        <td>@Model.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </td>
+                                <td> @item.ThanhTien.ToString("#,##0").Replace(',', '.') VNĐ </td>
 
-                    </tr>
-                    <tr></tr>
-                </table>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="HTTT_ID">Hình thức thanh toán</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("HTTT_ID", null, htmlAttributes: new { @class = "form-control" })
-                        <span class="field-validation-valid text-danger" data-valmsg-for="HTTT_ID" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-                @if (Session["KH_ID"] == null)
-                {
+                                <td> <a href="@Url.Action("XoaKhoiGio", new { SanPhamID = item.SanPhamID })" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger btn-sm">Xóa</a> </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td></td>
+                            <td class="text-right">Tổng số lượng:</td>
+                            <td><input type="text" disabled value="@Model.Sum(m => m.SoLuong)" id="TXTSL" /> </td>
+                            <td class="text-right">Tổng thành tiền:</td>
+
+                            <td>@Model.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </td>
+
+                        </tr>
+                        <tr></tr>
+                    </table>
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="DN_SDT">SDT</label>
+                        <label class="control-label col-md-2" for="HTTT_ID">Hình thức thanh toán</label>
                         <div class="col-md-10">
-                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="" />
-                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                            @Html.DropDownList("HTTT_ID", null, htmlAttributes: new { @class = "form-control" })
+                            <span class="field-validation-valid text-danger" data-valmsg-for="HTTT_ID" data-valmsg-replace="true"></span>
                         </div>
                     </div>
-                }
-                else
-                { <div class="form-group">
-                        <label class="control-label col-md-2" for="DN_SDT">SDT</label>
-                        <div class="col-md-10">
-                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="@Session["KH_SDT"]" />
-                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                    @if (Session["KH_ID"] == null)
+                    {
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="DN_SDT">SDT</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                            </div>
                         </div>
-                    </div>
-                }
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="CTDH_DIACHIGIAO">Địa chỉ giao hàng</label>
-                    <div class="col-md-10">
-                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field CTDH_DIACHIGIAO must be a string with a maximum length of 200." data-val-length-max="200" id="CTDH_DIACHIGIAO" name="CTDH_DIACHIGIAO" type="text" value="" />
-                        <span class="field-validation-valid text-danger" data-valmsg-for="CTDH_DIACHIGIAO" data-valmsg-replace="true"></span>
-                        <input type="button" value="Xác nhận" id="btnsubmit" class="form-control btn-success" />
+                    }
+                    else
+                    { <div class="form-group">
+                            <label class="control-label col-md-2" for="DN_SDT">SDT</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="@Session["KH_SDT"]" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="CTDH_DIACHIGIAO">Địa chỉ giao hàng</label>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field CTDH_DIACHIGIAO must be a string with a maximum length of 200." data-val-length-max="200" id="CTDH_DIACHIGIAO" name="CTDH_DIACHIGIAO" type="text" value="@ViewBag.diachi" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="CTDH_DIACHIGIAO" data-valmsg-replace="true"></span>
+                            <input type="button" value="Xác nhận" id="btnsubmit" class="form-control btn-success" />
+                        </div>
+
                     </div>
 
+                    <div id="ViewDH"></div>
                 </div>
 
-                <div id="ViewDH"></div>
             </div>
 
-                    </div>
-
-                </div>
-}
+        </div>
+    }
 <script type="text/javascript">
     var HTTT_ID = document.getElementById("HTTT_ID")
     var CTDH_DIACHIGIAO = document.getElementById("CTDH_DIACHIGIAO")

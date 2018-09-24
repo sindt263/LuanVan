@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.GIASP>
+﻿@model IPagedList<LuanVan.Models.GIASP>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,13 +24,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.GIA_ID)
+            @Html.DisplayName("ID")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GIA_GIA)
+            @Html.DisplayName("Giá")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GIA_NGAYCAPNHAT)
+            @Html.DisplayName("Ngày cập nhật")
         </th>
         <th>tùy chọn</th>
     </tr>
@@ -54,3 +56,6 @@
     }
 
 </table>
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>

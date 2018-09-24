@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.KHACHHANG>
+﻿@model IPagedList<LuanVan.Models.KHACHHANG>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,25 +24,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.KH_TEN)
+            @Html.DisplayName("Tên khách hàng")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KH_EMAIL)
+            @Html.DisplayName("Email")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KH_SDT)
+            @Html.DisplayName("SĐT")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KH_DIACHI)
+            @Html.DisplayName("Địa chỉ")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KH_NGAYSINH)
+            @Html.DisplayName("Ngày sinh")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KH_GIOITINH)
+            @Html.DisplayName("Giới tính")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KH_TAIKHOAN)
+            @Html.DisplayName("Tai khoản")
         </th>
         @*<th>
                 @Html.DisplayNameFor(model => model.KH_MATKHAU)
@@ -84,3 +86,6 @@
     }
 
 </table>
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>

@@ -15,6 +15,7 @@ namespace LuanVan.Controllers
         {
             ViewBag.HTTT_ID = new SelectList(db.HINHTHUCTHANHTOANs, "HTTT_ID", "HTTT_TEN");
             List<CartItem> giohang = Session["giohang"] as List<CartItem>;
+            ViewBag.diachi = db.Database.SqlQuery<string>("select ctdn.CTDH_DIACHIGIAO from CHITIETDONHANG ctdn inner join DONHANG dn on ctdn.DN_ID = dn.DN_ID and dn.KH_ID ='"+Session["KH_ID"]+"' group by ctdn.CTDH_DIACHIGIAO").LastOrDefault();
             return View(giohang);
 
         }

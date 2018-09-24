@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.HINHANHSP>
+﻿@model IPagedList<LuanVan.Models.HINHANHSP>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,15 +24,15 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.HA_ID)
+            @Html.DisplayName("ID")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
+            @Html.DisplayName("Chi tiết sản phẩm")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HA_ND)
+            @Html.DisplayName("Hình")
         </th>
-        <th>tùy chọn</th>
+        <th>Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
@@ -58,3 +60,6 @@
     }
 
 </table>
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>

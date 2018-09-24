@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.KHUYENMAI>
+﻿@model IPagedList<LuanVan.Models.KHUYENMAI>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,19 +24,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.KM_TEN)
+            @Html.DisplayName("Tên khuyến mãi")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KM_NGAYBATDAU)
+            @Html.DisplayName("Ngày bắt đầu")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KM_GIATRI)
+            @Html.DisplayName("Giá trị")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KM_NGAYKETTHUC)
+            @Html.DisplayName("Ngày kết thúc")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KM_MOTA)
+            @Html.DisplayName("Mô tả")
         </th>
         <th>Tùy chọn</th>
     </tr>
@@ -66,3 +68,6 @@
     }
 
 </table>
+<div class="col-md-12 text-center">
+    @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+</div>
