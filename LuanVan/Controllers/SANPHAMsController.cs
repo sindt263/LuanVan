@@ -39,10 +39,26 @@ namespace LuanVan.Controllers
             return model.OrderByDescending(x => x.SP_TRANGTHAI).ToPagedList(page, pageSize);
         }
 
-        public ActionResult ViewSP()
+
+        public IEnumerable<CHITIETSANPHAM> ListAllPaging1(string searchTerm, int page, int pageSize)
         {
-            var Model = db.NHASANXUATs.ToList();
+            IQueryable<CHITIETSANPHAM> model = db.CHITIETSANPHAMs.Include(s => s.SANPHAMs);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.CTSP_ID.Contains(searchTerm) || x.CTSP_TEN.Contains(searchTerm) || x.CTSP_MOTA.Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.CTSP_ID).ToPagedList(page, pageSize);
+        }
+        public ActionResult ViewSP(string searchTerm, int page = 1, int pageSize =100)
+        {
+            //var Model = db.NHASANXUATs.ToList();
             ViewBag.nsx = db.NHASANXUATs.ToList();
+
+            var SanPhams = new SANPHAMsController();
+            var mode = SanPhams.ListAllPaging1(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
 
             foreach (var i in ViewBag.nsx)
             {
@@ -68,7 +84,7 @@ namespace LuanVan.Controllers
             ViewBag.MaSP = SP_ID;
 
             //var sANPHAMs = db.CHITIETSANPHAMs.ToList();
-            return View(Model.ToList());
+            return View(mode);
         }
         // GET: SANPHAMs/Details/5
         public ActionResult Details(string id)
