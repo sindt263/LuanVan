@@ -1,0 +1,103 @@
+﻿@model IEnumerable<LuanVan.Models.CHITIETDONHANG>
+
+@{
+    ViewBag.Title = "ThongKeBanTheoNSX";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script language="javascript">
+
+    angular.module('myapp', [])
+        .controller('DateController', ['$scope', function ($scope) {
+            $scope.value2 = new Date("@ViewBag.dauthang");
+            $scope.value1 = new Date("@ViewBag.cuoithang");
+        }]);
+
+</script>
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div ng-app="myapp" class="container">
+        <div class="col-md-4 col-sm-4">
+            @Html.Label("Tên nhà sản xuất", new { @class = "control-label" })
+            <select id="id" name="id" class="form-control">
+                <option value="0">--Tất cả--</option>
+                @foreach (var i in ViewBag.NSX)
+                {
+                    <option value="@i.NSX_ID">@i.NSX_TEN</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-8 col-sm-8" name="myForm" ng-controller="DateController">
+            <div class="col-md-3 col-sm-3">
+                <label class="control-label">Ngày bắt đầu</label>
+                <input type="date" ng-model="value2" id="dau" name="dau" class="form-control" />
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <label class="control-label">Ngày kết thúc</label>
+                <input type="date" ng-model="value1" id="cuoi" name="cuoi" class="form-control" />
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <input type="submit" id="thongke1" style="margin-top:25px" class="btn btn-success" value="Thống kê" />
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DONHANG.KH_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SANPHAM.SP_TEN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTDH_DIACHIGIAO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SANPHAM.GIASP.GIA_GIA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DONHANG.DN_NGALAPDON)
+            </th>
+
+        </tr>
+
+        @if (Model == null)
+        {
+            <h2>Chọn khoảng thời gian thống kê</h2>
+        }
+        else
+        {
+            int sum = 0;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CTDH_DIACHIGIAO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SANPHAM.GIASP.GIA_GIA)
+                    </td>
+                     <td>
+                        @Html.DisplayFor(modelItem => item.DONHANG.DN_NGALAPDON)
+                    </td>
+
+                </tr>
+                sum = sum + Convert.ToInt32(item.SANPHAM.GIASP.GIA_GIA);
+            }
+            <div class="form-group">
+                <label class="control-label">Tổng</label>
+                <input type="text" disabled value="@sum" class="form-control" />
+            </div>
+        }
+    </table>
+}

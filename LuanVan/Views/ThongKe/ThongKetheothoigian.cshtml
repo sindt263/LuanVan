@@ -1,0 +1,58 @@
+﻿@model IEnumerable<LuanVan.Models.CHITIETNHAP>
+@{
+    ViewBag.Title = "ThongKetheothoigian";
+    Layout = "~/Views/Shared/_Layoutajax.cshtml";
+}
+
+<h2>ThongKetheothoigian</h2>
+@Html.Raw(ViewBag.dauthang)
+@Html.Raw(ViewBag.cuoithang)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PN_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTN_GIA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SANPHAM.SP_ID)
+            </th>
+        </tr>
+
+
+        @if (Model == null)
+        {
+            <h2>Chọn khoảng thời gian thống kê</h2>
+        }
+        else
+        {
+            int sum = 0;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PN_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CTN_GIA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SANPHAM.SP_ID)
+                    </td>
+
+                </tr>
+                sum = sum + Convert.ToInt32(item.CTN_GIA);
+            }
+            <label class="control-label">Tổng</label>
+            <input type="text" disabled value="@sum" class="form-control" />
+        }
+    </table>
+
+}

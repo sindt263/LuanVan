@@ -55,8 +55,7 @@ namespace LuanVan.Controllers
 
         // GET: KHUYENMAIs/Create
         public ActionResult Create()
-        {
-           
+        {           
             return View();
         }
 
@@ -77,7 +76,7 @@ namespace LuanVan.Controllers
 
             return View(kHUYENMAI);
         }
-
+       
         // GET: KHUYENMAIs/Edit/5
         public ActionResult Edit(string id)
         {

@@ -12,7 +12,7 @@
         <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
+        <button type="submit" class="btn btn-success hidden-xs">Click me !</button>
     </div>
 }
 
@@ -163,10 +163,30 @@
     <div class="row">
         <div class="col-md-12">
             <div class="brand-wrapper">
+                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Danh sách hãng</span>
                 <div class="brand-list">
                     @foreach (var item in ViewBag.NSX)
                     {
-                        <h3>@item.NSX_TEN</h3>
+                        <a class="btn btn-info" href="/SanPhams/SPbyNSX/@item.NSX_ID"><h3>@item.NSX_TEN</h3></a>
+                        @*<button class="btn-link" id="@item.NSX_TEN" value="@item.NSX_ID"><h4>@item.NSX_TEN</h4></button>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        var id = document.getElementById("@item.NSX_TEN")
+
+                        $('#@item.NSX_TEN').click(function () {
+                            alert(id.value)
+                            alert("a")
+                        $.ajax({
+                            type: "GET",
+                            url: '/SanPhams/SPbyNSX',
+                            data: { 'id': id.value },
+                            success: function (result) {
+                                $('#SPbyNSX').html(result)
+                            }
+                        })
+                    })
+                    })
+                </script>*@
                     }
                 </div>
             </div>
@@ -174,14 +194,14 @@
     </div>
 </div>
 <!-- End brands area -->
-
+<div class="container" id="SPbyNSX"></div>
 <div class="product-widget-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <div class="single-product-widget">
-                    <h2 class="product-wid-title clip-text clip-text_fourteen clip-text--cover text-center">Mua nhiều</h2>
+                    <span class="clip-text clip-text_fourteen clip-text--cover text-center">Mua nhiều</span>
                     @*<a href="" class="wid-view-more">View All</a>*@
                     @*@foreach (var item in ViewBag.Top)*@
                     @for (int i = 1; i <= 3; i++)
@@ -197,17 +217,38 @@
                                 </asp:Repeater>
                             </a>
                             <div class="single-wid-product">
-                                <a href="/ChiTietSanPhams/Details/@top"><h2 class="txtdeepshadow" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
-                                <h2 style="background-color:#0094ff; font-size:large">Số lượng bán: @count</h2>
+                                <a href="/ChiTietSanPhams/Details/@top"><h2 class="" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
+                                <h2>Số lượng bán: @count</h2>
+
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
                             </div>
-                            @*<div class="product-wid-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>*@
                             <div class="product-wid-price">
+                                @{
+                                    List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == top select p).Take(1).ToList();
+                                }
+
+                                @foreach (var item in SP)
+                                {
+                                    float newprice;
+                                    if (item.KM_ID != "0")
+                                    {
+                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToInt64(item.KHUYENMAI.KM_GIATRI);
+                                        newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
+                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
+                                    }
+                                    else
+                                    {
+                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                    }
+
+
+                                }
                                 <ins>@*$400.00*@</ins> @*<del>$425.00</del>*@
                             </div>
                         </div>
@@ -215,10 +256,10 @@
                     }
                 </div>
             </div>
-            <div class="col-md-4">
+            @*<div class="col-md-4">
                 <div class="single-product-widget">
                     <h2 class="product-wid-title clip-text clip-text_fourteen clip-text--cover text-center">Recently Viewed</h2>
-                    @*<a href="#" class="wid-view-more">View All</a>*@
+                    <a href="#" class="wid-view-more">View All</a>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
                         <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
@@ -262,11 +303,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
+            </div>*@
+            @*<div class="col-md-4">
                 <div class="single-product-widget">
                     <h2 class="product-wid-title clip-text clip-text_fourteen clip-text--cover text-center">Top New</h2>
-                    @*<a href="#" class="wid-view-more">View All</a>*@
+                   <a href="#" class="wid-view-more">View All</a>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="~/Content/LayoutKH/img/product-thumb-3.jpg" alt="" class="product-thumb"></a>
                         <h2><a href="single-product.html">Apple new i phone 6</a></h2>
@@ -310,7 +351,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>
 </div> <!-- End product widget area -->

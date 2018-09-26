@@ -208,6 +208,7 @@
     <Compile Include="Controllers\NHOMSANPHAMsController.cs" />
     <Compile Include="Controllers\PHIEUNHAPSPsController.cs" />
     <Compile Include="Controllers\SANPHAMsController.cs" />
+    <Compile Include="Controllers\ThongKeController.cs" />
     <Compile Include="Controllers\TRANGTHAIBHsController.cs" />
     <Compile Include="Controllers\TRANGTHAIDONHANGsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -4168,6 +4169,11 @@
     <Content Include="Views\Home\test.cshtml" />
     <Content Include="Views\Shared\_LayoutKHAjaxy.cshtml" />
     <Content Include="Views\Shared\_LayoutNV.cshtml" />
+    <Content Include="Views\SANPHAMs\SPbyNSX.cshtml" />
+    <Content Include="Views\ThongKe\IndexChi.cshtml" />
+    <Content Include="Views\ThongKe\ThongKetheothoigian.cshtml" />
+    <Content Include="Views\ThongKe\ThongKetheoNhapNSX.cshtml" />
+    <Content Include="Views\ThongKe\ThongKeBanTheoNSX.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,7 +50,7 @@ tr:nth-child(even) {
 
 body {
     background-image: url('../Images/wallpaper1.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 table{
     background-color:#8e5050;

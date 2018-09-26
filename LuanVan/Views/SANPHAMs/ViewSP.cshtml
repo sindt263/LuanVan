@@ -37,14 +37,14 @@
             <div class="col-md-12 col-sm-6">
                 <div class="latest-product">
                     <h4 class="text-center">
-                        <span class="clip-text clip-text_fourteen clip-text--cover text-center">Sản phẩm</span>
+                        <span class="clip-text clip-text_fourteen clip-text--cover text-center">Khung tìm kiếm</span>
                     </h4>
                     <div class="product-carousel">
                         @foreach (var i in Model)
                         {
                             string id = i.CTSP_ID;
                             //string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == id && p.SP_TRANGTHAI ==1 select p).Take(1).ToList();
+                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == id && p.SP_TRANGTHAI == 1 select p).Take(1).ToList();
                             foreach (var item in SP)
                             {
 
@@ -77,18 +77,20 @@
                                     <div class="product-carousel-price">
                                         @{
                                             float newprice;
-                                            if (item.KHUYENMAI.KM_GIATRI > 1)
+                                            if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
                                             {
-                                                newprice = cHITIETSANPHA.GetGia(item.CTSP_ID) / i.KM_GIATRI;
+                                                float giamgia = cHITIETSANPHA.GetGia(item.CTSP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
+                                                newprice = cHITIETSANPHA.GetGia(item.CTSP_ID) - giamgia;
+                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPHA.GetGia(item.CTSP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @item.KHUYENMAI.KM_TEN</h4>
                                             }
                                             else
                                             {
-                                                float giamgia = cHITIETSANPHA.GetGia(item.CTSP_ID) * Convert.ToInt64(item.KHUYENMAI.KM_GIATRI);
-                                                newprice = cHITIETSANPHA.GetGia(item.CTSP_ID) - giamgia;
+                                                <ins>@cHITIETSANPHA.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
                                             }
 
                                         }
-                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPHA.GetGia(item.CTSP_ID).ToString("###,###") VND</del> Khuyến Mãi : @item.KHUYENMAI.KM_TEN
+
+
                                     </div>
                                 </div>
                             }
@@ -96,50 +98,72 @@
                     </div>
                     @foreach (var item in ViewBag.nsx)
                     {
-                    <div class="text-center"> <span class="clip-text clip-text_fourteen clip-text--cover">@item.NSX_TEN</span></div>
-                    <div class="product-carousel">
+                        <div class="text-center"> <span class="clip-text clip-text_fourteen clip-text--cover">@item.NSX_TEN</span></div>
+                        <div class="product-carousel">
 
-                        @foreach (var ii in ViewData[item.NSX_TEN])
-                        {
-                            foreach (var i in ViewData[ii])
+                            @foreach (var ii in ViewData[item.NSX_TEN])
                             {
-                                <div class="single-product">
-                                    <div class="product-f-image">
+                                foreach (var i in ViewData[ii])
+                                {
+                                    <div class="single-product">
+                                        <div class="product-f-image">
 
-                                        <asp:Repeater runat="server" id="myRepeater">
-                                            <ItemTemplate>
-                                                <img src="/HinhAnhSPs/getImage/@i.CTSP_ID" alt="Hình sản phẩm" />
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                        <div class="product-hover">
-                                            @if (sANPHAMs.KTKho(i.CTSP_ID) == 0)
-                                            {
-                                                <h4 class="text-danger">Hết hàng</h4>
+                                            <asp:Repeater runat="server" id="myRepeater">
+                                                <ItemTemplate>
+                                                    <img src="/HinhAnhSPs/getImage/@i.CTSP_ID" alt="Hình sản phẩm" />
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                            <div class="product-hover">
+                                                @if (sANPHAMs.KTKho(i.CTSP_ID) == 0)
+                                                {
+                                                    <h4 class="text-danger">Hết hàng</h4>
 
-                                            }
-                                            else
-                                            {
-                                                <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPHA.GetSP_ID(i.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
-                                            }
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPHA.GetSP_ID(i.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                }
 
-                                            <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                            </div>
                                         </div>
+
+
+
+                                        <h2><a href="single-product.html">@i.CTSP_TEN</a></h2>
+
+                                        <div class="product-carousel-price">
+                                            @{
+                                                string ctsp_id = i.CTSP_ID;
+
+                                                var km = (from p in db.SANPHAMs
+                                                          where p.CTSP_ID == ctsp_id
+                                                          select p).Take(1);
+                                                foreach (var iii in km)
+                                                {
+                                                    float newprice;
+                                                    if (iii.KHUYENMAI.KM_GIATRI != 0 && iii.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                                    {
+                                                        float giamgia = cHITIETSANPHA.GetGia(i.CTSP_ID) * Convert.ToSingle(iii.KHUYENMAI.KM_GIATRI);
+                                                        newprice = cHITIETSANPHA.GetGia(i.CTSP_ID) - giamgia;
+                                                        <ins> @newprice.ToString("###,###") VND </ins><del> @cHITIETSANPHA.GetGia(i.CTSP_ID).ToString("###,###") VND </del> <h4> Khuyến Mãi: @iii.KHUYENMAI.KM_TEN </h4>
+                                                    }
+                                                    else
+                                                    {
+                                                        <ins> @cHITIETSANPHA.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+                                                    }
+                                                }
+                                            }
+
+                                        </div>
+
+
                                     </div>
-
-
-
-                                    <h2><a href="single-product.html">@i.CTSP_TEN</a></h2>
-
-                                    <div class="product-carousel-price">
-
-                                        <ins>@cHITIETSANPHA.GetGia(i.CTSP_ID).ToString("###,###") VND</ins> Khuyến Mãi
-                                    </div>
-
-                                </div>
+                                }
                             }
-                        }
 
-                    </div>}
+                        </div>
+                    }
                 </div>
             </div>
         </div>
