@@ -7,9 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using Newtonsoft.Json;
 using LuanVan.Controllers;
 using PagedList;
 using PagedList.Mvc;
+using System.Web.Services;
+using System.Web.Script.Services;
 
 namespace LuanVan.Controllers
 {
@@ -19,12 +22,50 @@ namespace LuanVan.Controllers
         // GET: ThongKe
         public ActionResult Index()
         {
+            var data = db.CHITIETDONHANGs.OrderBy(n=>n.DONHANG.DN_NGALAPDON);
+          
+            List<DataPoint> dataPoints = new List<DataPoint>();
+           
+
+
+            foreach (var i in data)
+            {
+                DateTime a = Convert.ToDateTime(i.DONHANG.DN_NGALAPDON);
+                DataPoint dataPoint = new DataPoint()
+                {
+                    X = " new Date("+String.Format("{0:yyyy,MM-1,d}", a)+")", 
+                    Y = Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA),
+                };
+                dataPoints.Add(dataPoint);
+            }
+            
+           ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+           
             return View();
         }
 
+        public ViewResult ThongkeNhap()
+        {
+            var ctn = db.CHITIETNHAPs.OrderBy(n=>n.PHIEUNHAPSP.PN_NGAY);
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            foreach (var i in ctn)
+            {
+                DateTime a = Convert.ToDateTime(i.PHIEUNHAPSP.PN_NGAY);
+                DataPoint dataPoint = new DataPoint()
+                {
+                    X = " new Date(" + String.Format("{0:yyyy,MM-1,d}", a) + ")",
+                    Y = Convert.ToDouble(i.CTN_GIA),
+                };
+                dataPoints.Add(dataPoint);
+            }
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
+            return View();
+        }
         public ViewResult IndexChi()
         {
             laygiatritrongthang();
+
             return View();
         }
 
@@ -116,6 +157,19 @@ namespace LuanVan.Controllers
             }
         }
 
+        public JsonResult GetJsonData()
+        {
+            Random r = new Random();
+            var list = new List<CHITIETDONHANG>();
+            for (int i = 1; i <= 12; i++)
+            {
+                list.Add(new CHITIETDONHANG { DN_ID = "DN_ID " + i });
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        
+
         private void laygiatritrongthang()
         {
             ViewBag.NSX = db.NHASANXUATs.ToList();
@@ -127,5 +181,12 @@ namespace LuanVan.Controllers
             DateTime dauthang = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             ViewBag.dauthang = dauthang;
         }
+
+        public List<string> gettest()
+        {
+            List<string> a = (from p in db.CHITIETDONHANGs select p.SP_ID).ToList();
+            return a;
+        }
+        
     }
 }

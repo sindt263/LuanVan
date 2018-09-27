@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <title>Thống kê nhập</title>
+</head>
+<body>
+    <div id="chartContainer"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    title: {
+                        text: "Thống kê nhập"
+                    },
+
+                    data: [
+                        {
+                            type: "area",
+
+                            dataPoints:
+                                @Html.Raw(ViewBag.DataPoints.Replace("\"", ""))
+
+
+/**/
+                                }
+                        ]
+                    });
+
+                chart.render();
+            };
+    </script>
+</body>
+</html>

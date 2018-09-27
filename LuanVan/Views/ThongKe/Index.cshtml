@@ -1,0 +1,306 @@
+﻿@model IEnumerable<LuanVan.Models.DataPoint>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <title>Thống kê bán</title>
+</head>
+<body>
+
+    <div id="chartContainer"></div>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    title: {
+                        text: "Thống kê bán"
+                    },
+
+                    data: [
+                        {
+                            type: "area",
+                            dataPoints:
+                                @Html.Raw(ViewBag.DataPoints.Replace("\"", ""))
+                               
+
+/**/
+                                }
+                        ]
+                    });
+
+                chart.render();
+            };
+   
+    </script>
+
+</body>
+</html>
+@*<html>
+
+    <head>
+        <title>Pie Chart</title>
+        <script src="~/Content/Chart/Chart.js/Chart.min.js"></script>
+        <script src="~/Content/Chart/Chart.js/samples/utils.js"></script>
+        <script src="@Url.Content("~/Content/js/jquery-1.11.3.min.js")"></script>
+    </head>
+
+    <body>
+        <div id="canvas-holder" style="width:40%">
+            <canvas id="chart-area"></canvas>
+        </div>
+        <button id="randomizeData">Randomize Data</button>
+        <button id="addDataset">Add Dataset</button>
+        <button id="removeDataset">Remove Dataset</button>
+
+
+        <div id="view"></div>
+
+
+        <script type="text/javascript">
+
+            function jsonThongKeTheoLop(handleData) {
+
+                $.ajax({
+                    url: '/ThongKe/GetJsonData/',
+                    //data: JSON.stringify(dto),
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function (result) {
+                        $('#view').html(result)
+                    },
+                    error: function (errormessage) {
+                        alert("Không thế lấy json");
+                    }
+                });
+                return false;
+            }
+
+
+            var DN_ID = [];
+            var SP_ID = [];
+            var datas;
+            jsonThongKeTheoLop(function (data) {
+                $.each(data, function (i, item) {
+                    DN_ID.push([item.DN_ID].toString());
+                    datas = data; // Dành cho biểu đồ cột
+
+                });
+                google.setOnLoadCallback(drawChartSv);
+                google.setOnLoadCallback(drawChart);
+            });
+        </script>
+
+        @{
+            string[] arr = new string[Model.Count()];
+            int stt = 0;
+        }
+        @foreach (var i in Model)
+        {
+            arr[stt] = i.DN_ID;
+
+            stt++;
+
+            <script>
+                SP_ID.push(@i.DN_ID);
+            </script>
+
+        }
+
+        <script>
+            var randomScalingFactor = function () {
+                return Math.round(Math.random() * 100);
+            };
+            var dem = 0;
+            var dulieu = function () {
+                while (dem <= SP_ID.length) {
+                    dem++;
+                    return SP_ID[dem];
+                }
+
+            };
+
+            var config = {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: [
+                            dulieu(),
+                            //randomScalingFactor(),
+                            //randomScalingFactor(),
+                            //randomScalingFactor(),
+                            //randomScalingFactor(),
+                        ],
+                        backgroundColor: [
+                            window.chartColors.red,
+                            window.chartColors.orange,
+                            window.chartColors.yellow,
+                            window.chartColors.green,
+                            window.chartColors.blue,
+                        ],
+                        label: 'Dataset 1'
+                    }],
+                    labels: [
+                        'Red',
+                        'Orange',
+                        'Yellow',
+                        'Green',
+                        'Blue'
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            };
+
+            window.onload = function () {
+                var ctx = document.getElementById('chart-area').getContext('2d');
+                window.myPie = new Chart(ctx, config);
+            };
+
+            document.getElementById('randomizeData').addEventListener('click', function () {
+                config.data.datasets.forEach(function (dataset) {
+                    dataset.data = dataset.data.map(function () {
+                        return dulieu();
+                    });
+                });
+
+                window.myPie.update();
+            });
+
+            var colorNames = Object.keys(window.chartColors);
+            document.getElementById('addDataset').addEventListener('click', function () {
+                var newDataset = {
+                    backgroundColor: [],
+                    data: [],
+                    label: 'New dataset ' + config.data.datasets.length,
+                };
+
+                for (var index = 0; index < config.data.labels.length; ++index) {
+                    newDataset.data.push(randomScalingFactor());
+
+                    var colorName = colorNames[index % colorNames.length];
+                    var newColor = window.chartColors[colorName];
+                    newDataset.backgroundColor.push(newColor);
+                }
+
+                config.data.datasets.push(newDataset);
+                window.myPie.update();
+            });
+
+            document.getElementById('removeDataset').addEventListener('click', function () {
+                config.data.datasets.splice(0, 1);
+                window.myPie.update();
+            });
+        </script>
+    </body>
+    </html>*@
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+
+        <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+        <script type="text/javascript">
+            function jsonThongKeTheoLop(handleData) {
+                $.ajax({
+                    url: "/ThongKe/GetJsonData",
+                    //data: JSON.stringify(dto),
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function (result) {
+                            handleData(result);
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+                return false;
+            }
+        </script>
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", { packages: ["corechart"] });
+
+            var DN_ID = [];
+            var datas;
+            jsonThongKeTheoLop(function (data) {
+                $.each(data, function (i, item) {
+                    DN_ID.push([item.DN_ID].toString());
+                    datas = data; // Dành cho biểu đồ cột
+                });
+                google.setOnLoadCallback(drawChartSv);
+                google.setOnLoadCallback(drawChart);
+            });
+
+            function drawChartSv() {
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'DN_ID');
+
+                data.addRows(DN_ID.length);
+
+                for (var i = 0; i < DN_ID.length; i++) {
+                    data.setCell(i, 0, DN_ID[i] );
+                }
+                // Set chart options
+                var options = {
+                    'title': 'Thống kê số lượng SV',
+                    is3D: true
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+            function drawChart() {
+                var dataArray = [['DN_ID']];
+                $.each(datas, function (i, item) {
+                    dataArray.push([item.DN_ID]);
+                });
+
+                var data = new google.visualization.arrayToDataTable(dataArray);
+                var options = {
+                    title: 'So sánh số lượng SV',
+                    hAxis: { title: 'Lớp', titleTextStyle: { color: 'red' } }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+                chart.draw(data, options);
+
+            }
+
+        </script>
+    </head>
+    <body>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <h1>Tạo biểu đồ với Google chart trong MVC</h1>
+        <div id="piechart" style="width: 900px; height: 500px;"></div>
+        <div id="chart_div" style="width: 900px; height: 500px;"></div>
+        <charset>
+
+        </charset>
+        <Chart chartType="PieChart"
+               data={[['Age'], ['a'], ['b']]}
+               options={pieOption}
+               graph_id="PieChart"
+               width={'100%'}
+               height={'400px'}
+               legend_toggle />
+    </body>
+    </html>*@
