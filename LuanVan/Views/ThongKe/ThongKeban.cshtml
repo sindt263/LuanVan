@@ -2,7 +2,6 @@
 @{
     Layout = "~/Views/Shared/_Layoutajax.cshtml";
 }
-
 <!DOCTYPE html>
 
 <script language="javascript">
@@ -18,12 +17,12 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <title>Thống kê nhập</title>
-</head>
-@using (Html.BeginForm())
+    <title>Thống kê bán</title>
+</head> @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <body>
+
         <div ng-app="myapp" class="container">
             <div class="col-md-8 col-sm-8" name="myForm" ng-controller="DateController">
                 <div class="col-md-3 col-sm-3">
@@ -39,20 +38,22 @@
                 </div>
             </div>
         </div>
+        <br />
         <div class="row"></div>
         <div id="chartContainer" class="container"></div>
+
         <script type="text/javascript">
+
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer",
                 {
                     title: {
-                        text: "Thống kê nhập"
+                        text: "Thống kê bán"
                     },
 
                     data: [
                         {
                             type: "area",
-
                             dataPoints:
                                 @Html.Raw(ViewBag.DataPoints.Replace("\"", ""))
 
@@ -64,7 +65,9 @@
 
                 chart.render();
             };
+
         </script>
+
     </body>
 
 }

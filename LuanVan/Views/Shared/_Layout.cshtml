@@ -28,33 +28,44 @@
 
                 @if (Session["NV_ID"] != null)
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        if (Convert.ToInt32(Session["LNV_ID"]) == 1)
-                        {
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    if (Convert.ToInt32(Session["LNV_ID"]) == 1)
+                    {
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quản lý<span class="caret"></span></a>
-                            <ul class="dropdown-menu nav" role="menu">
-                                <li>@Html.ActionLink("Chi Tiết sản phẩm", "", "Chitietsanphams")</li>
-                                <li>@Html.ActionLink("Nhập hàng", "", "PhieuNhapSps")</li>
-                                <li>@Html.ActionLink("Khuyến mãi", "", "KhuyenMais")</li>
-                                <li>@Html.ActionLink("Nhân viên", "", "NhanViens")</li>
-                                <li>@Html.ActionLink("Nhà cung cấp", "", "NhaCungCaps")</li>
-                                <li>@Html.ActionLink("Nhà sản xuất", "", "NhaSanXuats")</li>
-                                <li>@Html.ActionLink("Giá sản phẩm", "", "GiaSPs")</li>
-                                <li>@Html.ActionLink("Dòng sản phẩm", "", "DongSanPhams")</li>
-                                <li>@Html.ActionLink("Nhóm sản phẩm", "", "NhomSanPhams")</li>
-                                <li>@Html.ActionLink("Hình ảnh", "", "HinhAnhSPs")</li>
-                                <li><a href="#">Thống kê</a></li>
-                            </ul>
-                        </li>
-                        }
-                        <li>@Html.ActionLink("Đơn Hàng", "", "DonHangs")</li>
-                        <li>@Html.ActionLink("Khách hàng", "", "KhachHangs")</li>
-                        <li>@Html.ActionLink("Sản phẩm", "", "SanPhams")</li>
-                        <li>@Html.ActionLink("Bảo hành", "", "ChiTietBHs")</li>
-                    </ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quản lý<span class="caret"></span></a>
+                        <ul class="dropdown-menu nav" role="menu">
+                            <li>@Html.ActionLink("Chi Tiết sản phẩm", "", "Chitietsanphams")</li>
+                            <li>@Html.ActionLink("Nhập hàng", "", "PhieuNhapSps")</li>
+                            <li>@Html.ActionLink("Khuyến mãi", "", "KhuyenMais")</li>
+                            <li>@Html.ActionLink("Nhân viên", "", "NhanViens")</li>
+                            <li>@Html.ActionLink("Nhà cung cấp", "", "NhaCungCaps")</li>
+                            <li>@Html.ActionLink("Nhà sản xuất", "", "NhaSanXuats")</li>
+                            <li>@Html.ActionLink("Giá sản phẩm", "", "GiaSPs")</li>
+                            <li>@Html.ActionLink("Dòng sản phẩm", "", "DongSanPhams")</li>
+                            <li>@Html.ActionLink("Nhóm sản phẩm", "", "NhomSanPhams")</li>
+                            <li>@Html.ActionLink("Hình ảnh", "", "HinhAnhSPs")</li>
+                            <li>@Html.ActionLink("Thống kê nhập", "ThongKeNhap", "ThongKe")</li>
+                            <li>@Html.ActionLink("Thống kê bán", "ThongKeBan", "ThongKe")</li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Thống kê<span class="caret"></span></a>
+                        <ul class="dropdown-menu nav" role="menu">
+                          
+                            <li>@Html.ActionLink("Thống kê nhập", "ThongKeNhap", "ThongKe")</li>
+                            <li>@Html.ActionLink("Thống kê bán", "ThongKeBan", "ThongKe")</li>
+
+                        </ul>
+                    </li>
+                    }
+                    <li>@Html.ActionLink("Đơn Hàng", "", "DonHangs")</li>
+                    <li>@Html.ActionLink("Khách hàng", "", "KhachHangs")</li>
+                    <li>@Html.ActionLink("Sản phẩm", "", "SanPhams")</li>
+                    <li>@Html.ActionLink("Bảo hành", "", "ChiTietBHs")</li>
+                </ul>
 
                 }
 
