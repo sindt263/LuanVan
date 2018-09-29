@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<LuanVan.Models.DONHANG>
-
 @using PagedList
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "IndexKH";
+    ViewBag.Title = "IndexDH";
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
 
-<h2>Đơn hàng</h2>
-
-@using (Html.BeginForm("IndexKH", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+<h2>IndexDH</h2>
+@using (Html.BeginForm("IndexDH", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
 {
     <div class="form-group">
         <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
@@ -18,38 +16,37 @@
         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
     </div>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DN_SDT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DN_NGALAPDON)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DN_GHICHU)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DN_SL)
-        </th>
-        <th></th>
-    </tr>
-    @if (Model == null)
-    {
-        <h3>Nhập số điện thoại để tìm kiếm đơn hàng của bạn</h3>
-    }
-    else
-    {
-        foreach (var item in Model)
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NV_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DN_NGALAPDON)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DN_GHICHU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DN_SL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DN_SDT)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -62,7 +59,7 @@
                     @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DN_SDT)
+                    @Html.DisplayFor(modelItem => item.NV_ID)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
@@ -74,15 +71,14 @@
                     @Html.DisplayFor(modelItem => item.DN_SL)
                 </td>
                 <td>
-                    <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
-                    @if (item.TTDH_ID != 2)
-                    {
-                        <input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" onclick="return confirm('Xác nhận hủy !');" />
-                        @*<a  class="btn btn-default" href="@Url.Action("EditHuy", new { id = item.DN_ID})" onclick="return confirm('Xác nhận hủy !');">Hủy đơn</a>*@
-                    }
+                    @Html.DisplayFor(modelItem => item.DN_SDT)
                 </td>
-                <div id="Show" style="background-color:cornflowerblue"></div>
-                <script type="text/javascript">
+                <td>
+                    <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
+                </td>
+            </tr>
+            <div id="Show" style="background-color:cornflowerblue"></div>
+            <script type="text/javascript">
 
             $('#@item.DN_ID').click(function () {
                 $.ajax({
@@ -106,10 +102,7 @@
             })
 
 
-                </script>
-            </tr>
-
+            </script>
         }
-    }
 
-</table>
+    </table>

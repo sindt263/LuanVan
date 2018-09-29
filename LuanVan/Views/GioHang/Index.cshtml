@@ -44,7 +44,7 @@
                                 <td>
                                     <form action="@Url.Action("SuaSoLuong")" method="get">
                                         <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
-                                        <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" />
+                                        <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" disabled/>
                                         <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
                                     </form>
                                 </td>

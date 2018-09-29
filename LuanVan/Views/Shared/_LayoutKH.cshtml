@@ -90,6 +90,11 @@
                                         <li><a href="/DonHangs/IndexKH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
                                         <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
                                     }
+                                    else
+                                    {
+                                        <li><a href="/DonHangs/IndexDH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
+                                    }
+
                                     <li><a href="/GioHang/"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
                                     <li><a href="checkout.html">@*<i class="fa fa-user"></i> Checkout*@</a></li>
                                     @if (Session["KH_ID"] == null)
@@ -112,9 +117,9 @@
     <div class="site-branding-area" style="background-color:#fae710">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6" >
+                <div class="col-sm-6">
                     <div class="logo">
-                        <h5 >
+                        <h5>
                             <a href="/Home/">
                                 <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
                                 <h5>
@@ -160,7 +165,7 @@
         </div>
     </div> <!-- End site branding area -->
 
-    <div class="mainmenu-area" >
+    <div class="mainmenu-area">
         <div class="container">
             <div class="row">
                 <div class="navbar-header">

@@ -227,6 +227,7 @@
     <Compile Include="Models\GIASP.cs" />
     <Compile Include="Models\HINHANHSP.cs" />
     <Compile Include="Models\HINHTHUCTHANHTOAN.cs" />
+    <Compile Include="Models\Info.cs" />
     <Compile Include="Models\KHACHHANG.cs" />
     <Compile Include="Models\KHUYENMAI.cs" />
     <Compile Include="Models\LOAINV.cs" />
@@ -4244,6 +4245,7 @@
     <Content Include="Views\ThongKe\Index.cshtml" />
     <Content Include="Views\ThongKe\ThongkeNhap.cshtml" />
     <Content Include="Views\ThongKe\ThongKeban.cshtml" />
+    <Content Include="Views\DONHANGs\IndexDH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

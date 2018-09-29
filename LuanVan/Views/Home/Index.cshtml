@@ -206,7 +206,7 @@
                     @*@foreach (var item in ViewBag.Top)*@
                     @for (int i = 1; i <= 3; i++)
                     {
-                        string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID)  group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
+                        string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
                         int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID = '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
                         <div class="single-wid-product">
                             <a href="/ChiTietSanPhams/Details/@top">

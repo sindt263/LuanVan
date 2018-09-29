@@ -38,12 +38,36 @@ namespace LuanVan.Controllers
 
             return model.OrderByDescending(x => x.DN_NGALAPDON).ToPagedList(page, pageSize);
         }
+        
 
         public ActionResult IndexKH()
         {
             string kh_id = Session["KH_ID"].ToString();
             var dONHANGs = (from p in db.DONHANGs where p.KH_ID == kh_id select p).OrderByDescending(m => m.DN_NGALAPDON);
             return View(dONHANGs.ToList());
+        }
+
+        public IEnumerable<DONHANG> ListAllPaging1(string searchTerm, int page, int pageSize)
+        {
+
+            IQueryable<DONHANG> model = (from p in db.DONHANGs where p.DN_SDT == searchTerm select p).OrderByDescending(m => m.DN_NGALAPDON);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.DN_SDT.Contains(searchTerm) );
+
+            }
+
+            return model.OrderByDescending(x => x.DN_NGALAPDON).ToPagedList(page, pageSize);
+
+        }
+        public ActionResult IndexDH(string searchTerm, int page = 1, int pageSize = 11)
+        {
+
+            var SanPhams = new DONHANGsController();
+            var mode = SanPhams.ListAllPaging1(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
         }
 
         // GET: DONHANGs/Details/5
@@ -104,9 +128,11 @@ namespace LuanVan.Controllers
 
         public ActionResult CreateDH(string id1, string id2, string id3, string id4)
         {
-            if (Session["KH_ID"] == null && id4.Length <= 9)
+           
+            if (Session["KH_ID"] == null && id4.Length <= 9 || id3 == null)
             {
-                ModelState.AddModelError("", "Vui lòng nhập số điện thoại !");
+                ModelState.AddModelError("", "Vui lòng điền đầy đủ thông tin !");
+               
             }
             else
             {

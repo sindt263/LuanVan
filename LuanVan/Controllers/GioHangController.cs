@@ -36,7 +36,7 @@ namespace LuanVan.Controllers
                 CHITIETSANPHAMsController cHITIETSANPH = new CHITIETSANPHAMsController();
                 SANPHAM sp = db.SANPHAMs.Find(SanPhamID);  // tim sp theo sanPhamID
                 string GiaID = sp.GIA_ID;
-                string KM_ID = db.Database.SqlQuery<string>("select KM_ID from SanPham where SP_ID ='" + sp.CTSP_ID + "'").Take(1).SingleOrDefault();
+                string KM_ID = db.Database.SqlQuery<string>("select KM_ID from SanPham where CTSP_ID ='" + sp.CTSP_ID + "'").Take(1).SingleOrDefault();
                 float KM_GIATRI = db.Database.SqlQuery<float>("select KM_GIATRI from KhuyenMai where KM_ID ='" + KM_ID + "' and KM_NgayKetThuc >= GETDATE()").SingleOrDefault();
                 float giamgia = cHITIETSANPH.GetGia(sp.CTSP_ID)* KM_GIATRI;
                 float newprice = cHITIETSANPH.GetGia(sp.CTSP_ID) - giamgia;
@@ -61,7 +61,7 @@ namespace LuanVan.Controllers
             }
 
             // Action này sẽ chuyển hướng về trang chi tiết sp khi khách hàng đặt vào giỏ thành công. Bạn có thể chuyển về chính trang khách hàng vừa đứng bằng lệnh return Redirect(Request.UrlReferrer.ToString()); nếu muốn.
-            return RedirectToAction("");
+            return RedirectToAction("Index");
         }
 
         public RedirectToRouteResult SuaSoLuong(string SanPhamID, int soluongmoi)
