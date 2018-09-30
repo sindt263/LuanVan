@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="~/Content/LayoutKH/css/bootstrap.min.css">
     <Script src="~/Scripts/angular.js"></Script>
     <script src="@Url.Content("~/Content/js/jquery-1.11.3.min.js")"></script>
+    <script type="text/javascript" src="~/Content/css/Login/js/jquery-2.1.4.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/Content/LayoutKH/css/font-awesome.min.css">
 
@@ -42,17 +43,38 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link href="~/Content/css/Login/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="keywords" content="Existing Login Form Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+
+    @*<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>*@
+
+    <style>
+        .hide1 {
+            background-color: yellow;
+            padding: 20px;
+            display: none;
+        }
+
+        sin:hover + .hide1 {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="header-area ">
+    @*<div class="header-area ">
         <div class="container ">
             <div class="row">
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            @* <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> My Account</a></li>*@
-                            @*<li><a href="/KhuyenMais/IndexKH"><i class="fa fa-bomb"></i> Khuyến mãi</a></li>*@
+                             <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> My Account</a></li>
+                            <li><a href="/KhuyenMais/IndexKH"><i class="fa fa-bomb"></i> Khuyến mãi</a></li>
 
 
                         </ul>
@@ -62,23 +84,23 @@
                 <div class="col-md-4">
                     <div class="header-right">
                         <ul class="list-unstyled list-inline">
-                            @*<li class="dropdown dropdown-small">
+                            <li class="dropdown dropdown-small">
                                     <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">USD</a></li>
                                         <li><a href="#">INR</a></li>
                                         <li><a href="#">GBP</a></li>
                                     </ul>
-                                </li>*@
+                                </li>
 
-                            @*<li class="dropdown dropdown-small">
+                            <li class="dropdown dropdown-small">
                                     <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">English</a></li>
                                         <li><a href="#">French</a></li>
                                         <li><a href="#">German</a></li>
                                     </ul>
-                                </li>*@
+                                </li>
 
 
 
@@ -96,7 +118,7 @@
                                     }
 
                                     <li><a href="/GioHang/"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-                                    <li><a href="checkout.html">@*<i class="fa fa-user"></i> Checkout*@</a></li>
+                                    <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
                                     @if (Session["KH_ID"] == null)
                                     {
                                         <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
@@ -112,31 +134,23 @@
                 </div>
             </div>
         </div>
-    </div> <!-- End header area -->
+    </div> <!-- End header area -->*@
 
-    <div class="site-branding-area" style="background-color:#fae710">
+    <div class="site-branding-area" style="background-color:#fae710 ;height:65px">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="logo">
+                <div class="col-sm-6" >
+                    <div class="logo" >
                         <h5>
                             <a href="/Home/">
-                                <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
-                                <h5>
-                                    <em>S</em>
-                                    <em>S</em>
-                                    <em class="planet left">S</em>
-                                    <em>S</em>
-                                    <em>H</em>
-                                    <em class="planet right">O</em>
-                                    <em>P</em>
-                                </h5>
+
+                                <img src="~/Content/Images/logo.png" />
                             </a>
                         </h5>
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div >
                     <div class="shopping-item">
                         <a href="/GioHang/">
                             Cart - <span class="cart-amunt">
@@ -166,7 +180,7 @@
     </div> <!-- End site branding area -->
 
     <div class="mainmenu-area">
-        <div class="container">
+        <div class="">
             <div class="row">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -179,12 +193,35 @@
                 <div class="navbar-collapse collapse" style="background-color:#4adc0c; border-radius: 10px 10px;">
                     <ul class="nav navbar-nav">
                         <li> <b><a style="color:#000000;" class=" colortext fa fa-home" href="/">Home</a></b></li>
-                        <li>  <b><a style="color:#000000;" href="/SanPhams/ViewSP" class=" colortext fa fa-dashboard">Trang sản phẩm</a></b></li>
+                        @* <li>  <b><a style="color:#000000;" href="/SanPhams/ViewSP" class=" colortext fa fa-dashboard">Trang sản phẩm</a></b></li>*@
                         @*<li><a href="single-product.html">Single product</a></li>*@
                         <li>  <b><a style="color:#000000;" href="/GioHang/" class="colortext fa fa-shopping-cart">Giõ hàng</a></b></li>
-                        <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Category</a></b></li>
-                        <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Others</a></b></li>
-                        <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Contact</a></b></li>
+                        <li>  <b><a style="color:#000000;" href="/Donhangs/IndexDH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                        @*<li>  <b><a style="color:#000000;" href="#" class="colortext fa">Others</a></b></li>
+                        <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Contact</a></b></li>*@
+                       
+                            <li class="dropdown dropdown-small">
+                               
+                            <li class="dropdown dropdown-small" >
+                                <a data-toggle="dropdown" style="color:#000000;" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Khách hàng :</span><span class="value"> @Session["KH_TEN"]</span><b class="caret"></b></a>
+                                <ul class="dropdown-menu" >
+                                    @if (Session["KH_ID"] != null)
+                                    {
+                                        
+                                        <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
+                                    }
+                                   
+                                    @if (Session["KH_ID"] == null)
+                                    {
+                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        
 
                     </ul>
                 </div>
@@ -193,13 +230,13 @@
     </div> <!-- End mainmenu area -->
     @RenderBody()
 
-    @* <div class="footer-top-area">
+    <div class="footer-top-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
                         <div class="footer-about-us">
-                            <h2>u<span>Stora</span></h2>
+                            <h2><span>SSS-SHOP</span></h2>
                             <p>SSS - Shop là shop chuyên bán các sản phẩm smart phone mới và uy tính, sản phẩm gồm nhiều sản phẩm của các hãng điện thoại nổi tiếng nhất hiện nay.</p>
                             <div class="footer-social">
                                 <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
@@ -212,13 +249,13 @@
 
                     <div class="col-md-3 col-sm-6">
                         <div class="footer-menu">
-                            <h2 class="footer-wid-title">User Navigation </h2>
+                            <h2 class="footer-wid-title">Thông tin liên hệ </h2>
                             <ul>
-                                <li><a href="#">My account</a></li>
-                                <li><a href="#">Order history</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Vendor contact</a></li>
-                                <li><a href="#">Front page</a></li>
+                                <p><li class="fa fa-home"></li> Địa chỉ: Ninh Kiều - Cần Thơ</p>
+                                <p><li class="fa fa-mobile-phone"></li> SĐT: 0816666435</p>
+                                <p><li class="fa fa-phone"></li> Fax : xxxxxxxxxx</p>
+                                <p><li class="fa fa-user"></li> Liên hệ: Trương Đạt Vinh</p>
+                                
                             </ul>
                         </div>
                     </div>
@@ -251,13 +288,13 @@
         </div>
         </div>
         </div> <!-- End footer top area -->
-    *@
+    
     <div class="footer-bottom-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="copyright">
-                        <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com" target="_blank">freshDesignweb.com</a></p>
+                        <p>&copy; 2018 SSS_SHOP. Designed by SIN. All Rights Reserved. <a href="http://www.freshdesignweb.com" target="_blank" hidden>freshDesignweb.com</a></p>
                     </div>
                 </div>
 
@@ -295,5 +332,9 @@
     <!-- Slider -->
     <script type="text/javascript" src="~/Content/LayoutKH/js/bxslider.min.js"></script>
     <script type="text/javascript" src="~/Content/LayoutKH/js/script.slider.js"></script>
+
+    <!-- pop-up-box-js-file -->
+    <script src="~/Content/css/Login/js/jquery.magnific-popup.js" type="text/javascript"></script>
+    <!--//pop-up-box-js-file -->
 </body>
 </html>

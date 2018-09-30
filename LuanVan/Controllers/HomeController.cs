@@ -30,28 +30,51 @@ namespace LuanVan.Controllers
             return View();
         }
 
-        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 100)
         {
-            //ViewBag.Top = (from p in db.CHITIETSANPHAMs
-            //               join sp in db.SANPHAMs on p.CTSP_ID equals sp.CTSP_ID
-            //               join ctdn in db.CHITIETDONHANGs on sp.SP_ID equals ctdn.SP_ID
-            //               join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
-            //               orderby dn.DN_NGALAPDON descending
-            //               group p by p.CTSP_ID into g
-            //               select g.Key).Take(3);
+            //ViewSP
+            ViewBag.nsx = db.NHASANXUATs.ToList();
 
-            //var list = db.Database.SqlQuery("select  count(ctsp.CTSP_ID) as count, ctsp.CTSP_ID, ctsp.CTSP_TEN from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by count desc");
-            
+            var SanPhams = new SANPHAMsController();
+            var model = SanPhams.ListAllPaging1(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            foreach (var ii in ViewBag.nsx)
+            {
+                string id = ii.NSX_ID;
+
+                ViewData[ii.NSX_TEN] = (from p in db.SANPHAMs where p.NSX_ID == id select p.CTSP_ID).Distinct();
+                foreach (var iii in ViewData[ii.NSX_TEN])
+                {
+                    string ctsp_id = iii;
+                    ViewData[iii] = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == ctsp_id select p);
+                }
+
+            }
+
+            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
+
+            var PN_ID = (from p in db.PHIEUNHAPSPs select p).OrderByDescending(a => a.PN_NGAY);
+            string SP_ID = "";
+            foreach (var ix in PN_ID)
+            {
+                SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='" + ix.PN_ID + "'").DefaultIfEmpty();
+            }
+            ViewBag.MaSP = SP_ID;
+
+            //Home
             string i = db.Database.SqlQuery<string>("select top 1 ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID)  group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").FirstOrDefault();
             ViewBag.Top = i;
             ViewBag.NSX = db.NHASANXUATs.ToList();
             ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now select p).OrderByDescending(k => k.KM_NGAYBATDAU).Take(10);
             ViewBag.sp = db.SANPHAMs.ToList().Take(10);
             var ChiTietSanPham = new HomeController();
-            var mode = ChiTietSanPham.ListAllPaging(searchTerm, page, pageSize).Take(6);
+
+            //ViewBag.SPMoi = ChiTietSanPham.ListAllPaging(searchTerm, page, pageSize).Take(6);
+            ViewBag.SPMoi = db.CHITIETSANPHAMs.OrderByDescending(n => n.CTSP_NGAYTAO).Take(6);
             ViewBag.SearchTerm = searchTerm;
             //var sANPHAMs = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs);
-            return View(mode);
+            return View(model);
         }
 
         public IEnumerable<CHITIETSANPHAM> ListAllPaging(string searchTerm, int page, int pageSize)

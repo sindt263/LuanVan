@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<LuanVan.Models.DONHANG>
 @using PagedList
 @using PagedList.Mvc
+@using LuanVan.Models
 @{
+    DataContext db = new DataContext();
     ViewBag.Title = "IndexDH";
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
@@ -68,7 +70,10 @@
                     @Html.DisplayFor(modelItem => item.DN_GHICHU)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DN_SL)
+                    @{ 
+                        int count = (from p in db.CHITIETDONHANGs where p.DN_ID == item.DN_ID select p).Count();
+                    }
+                    @count
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DN_SDT)

@@ -9,7 +9,7 @@
 
 <h2>Danh sách</h2>
 
-@*@using (Html.BeginForm("Index", "HinhAnhSPs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+@using (Html.BeginForm("Index", "HinhAnhSPs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
 {
     <div class="form-group">
         <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
@@ -17,7 +17,7 @@
     <div class="form-group">
         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
     </div>
-}*@
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

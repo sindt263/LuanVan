@@ -59,7 +59,7 @@ em {
     font-size: 15vmin;
     position: relative;
     font-style: normal;
-    width: 20vmin;
+    width: 10vmin;
     text-align: center;
 }
 
@@ -75,8 +75,8 @@ em {
             top: -.5vmin;
             left: 3.5vmin;
             z-index: -1;
-            width: 13vmin;
-            height: 13vmin;
+            width: 5vmin;
+            height: 5vmin;
             border-radius: 50%;
             background: black;
         }

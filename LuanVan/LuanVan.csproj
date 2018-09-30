@@ -310,6 +310,7 @@
     <Content Include="Content\Chart\Chart.js\samples\tooltips\interactions.html" />
     <Content Include="Content\Chart\Chart.js\samples\tooltips\positioning.html" />
     <Content Include="Content\Chart\Chart.js\samples\utils.js" />
+    <Content Include="Content\Chart\Canvas.js" />
     <Content Include="Content\css\Login\css\popuo-box.css" />
     <Content Include="Content\css\Login\css\style.css" />
     <Content Include="Content\css\Login\images\b2.jpg" />
@@ -324,6 +325,7 @@
     <Content Include="Content\Images\background.jpg" />
     <Content Include="Content\Images\bg-top.jpg" />
     <Content Include="Content\Images\kt123.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\Screenshot %281%29.png" />
     <Content Include="Content\Images\wallpaper1.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />
