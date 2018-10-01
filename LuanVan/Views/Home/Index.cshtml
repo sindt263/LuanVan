@@ -17,12 +17,69 @@
         <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-success hidden-xs">Click me !</button>
+        <button type="submit" class="btn btn-success hidden-xs"> Tìm sản phẩm !</button>
     </div>
 }
+    <br />
+    <br />
 <div class="row">
     <div class="container">
         <br />
+        <div class="row">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+
+                <ol class="carousel-indicators">
+                    @{ int tang = 0;int tang2 = 0;}
+                    @foreach (var km in ViewBag.KM)
+                    {
+                            <li data-target="#myCarousel" data-slide-to="@tang"></li>
+                   
+                        tang++;
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var km in ViewBag.KM)
+                    {
+
+                        string km_id = km.KM_ID;
+                        string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                        var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
+                        foreach (var item in SP)
+                        {
+                            if (tang2 == 0)
+                            {
+
+                                <div class="item active">
+                                    <img style="height:450px;width:1197px" class="product-thumbSlider" src="/HinhAnhKMs/getImageHA/@km.KM_ID" alt="Hình sản phẩm" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="item ">
+                                    <img class="product-thumbSlider" style="height:450px;width:1197px" src="/HinhAnhKMs/getImageHA/@km.KM_ID" alt="Hình sản phẩm" />
+                                </div>
+                            }
+                            tang2++;
+                        }
+                    }
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+            </div>
+        </div>
+
+                <br />   
         <div class="col-xs-6 col-md-4">
             <div class="product-widget-area">
                 <div class="zigzag-bottom"></div>

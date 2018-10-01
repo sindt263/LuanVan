@@ -66,9 +66,19 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_GIATRI,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
         {
-            
+            string id = Request["KM_ID"];
+            HINHANHKM hINHANHKM = new HINHANHKM();
+            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
+                Int32 length = file.ContentLength;
+                byte[] tempImage = new byte[length];
+                file.InputStream.Read(tempImage, 0, length);
+                hINHANHKM.HAKM_ND = tempImage;
+                hINHANHKM.KM_ID = id;
+                hINHANHKM.HAKM_ID = db.autottang("HinhAnhKM", "HAKM_ID", db.HINHANHKMs.Count()).ToString();
+                db.HINHANHKMs.Add(hINHANHKM);
+
                 db.KHUYENMAIs.Add(kHUYENMAI);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -99,6 +109,7 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_GIATRI,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
         {
+           
             if (ModelState.IsValid)
             {
                 db.Entry(kHUYENMAI).State = EntityState.Modified;

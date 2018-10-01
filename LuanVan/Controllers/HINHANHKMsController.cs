@@ -50,8 +50,19 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "HAKM_ID,KM_ID,HAKM_ND")] HINHANHKM hINHANHKM)
         {
+            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+
+                    Int32 length = file.ContentLength;
+                    byte[] tempImage = new byte[length];
+                    file.InputStream.Read(tempImage, 0, length);
+                    hINHANHKM.HAKM_ND = tempImage;
+                    hINHANHKM.HAKM_ID = db.autottang("HinhAnhKM", "HAKM_ID", db.HINHANHKMs.Count()).ToString();
+
+                }
                 db.HINHANHKMs.Add(hINHANHKM);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,8 +95,17 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "HAKM_ID,KM_ID,HAKM_ND")] HINHANHKM hINHANHKM)
         {
+            HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+
+                    Int32 length = file.ContentLength;
+                    byte[] tempImage = new byte[length];
+                    file.InputStream.Read(tempImage, 0, length);
+                    hINHANHKM.HAKM_ND = tempImage;
+                }
                 db.Entry(hINHANHKM).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -120,6 +140,26 @@ namespace LuanVan.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult getImageHA(string id)
+        {
+            string strID = Request.QueryString["ID"];
+            if (id != null)
+            {
+                //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
+                var ha = (from p in db.HINHANHKMs where p.KM_ID == id select p);
+                foreach (var i in ha)
+                {
+                    if (i == null || i.HAKM_ND == null)
+                    {
+                        ModelState.AddModelError("", "Loi");
+                    }
+                    //Response.ContentType = "image/jpeg";
+                    Response.OutputStream.Write(i.HAKM_ND.ToArray(), 0, i.HAKM_ND.Length);
+                    Response.Flush();
+                }
+            }
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

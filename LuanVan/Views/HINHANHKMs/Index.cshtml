@@ -27,7 +27,11 @@
             @Html.DisplayFor(modelItem => item.KHUYENMAI.KM_TEN)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HAKM_ND)
+            <asp:Repeater runat="server" id="myRepeater">
+                <ItemTemplate>
+                    <img src="/HINHANHKMs/getImageHA/@item.KM_ID" alt="" width="600" height="300" style="float:left" />
+                </ItemTemplate>
+            </asp:Repeater>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.HAKM_ID }) |
