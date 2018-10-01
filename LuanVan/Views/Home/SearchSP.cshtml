@@ -1,0 +1,194 @@
+﻿@model IEnumerable<LuanVan.Models.CHITIETSANPHAM>
+
+@{
+    ViewBag.Title = "SearchSP";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
+    LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
+}
+@using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+{
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success hidden-xs">Click me !</button>
+    </div>
+}
+<div class="row">
+    <div class="maincontent-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="">
+                    <div class="latest-product">
+                        <h4 class="text-center">
+                            <span class="clip-text clip-text_fourteen clip-text--cover text-center">Sản phẩm @Html.Raw(ViewBag.SearchTerm)</span>
+                        </h4>
+                        <div class="product-carousel">
+                            @foreach (var item in Model)
+                            {
+
+                                <div class="single-product">
+                                    <div id="@item.CTSP_ID" class="product-f-image">
+                                        <asp:Repeater runat="server" id="myRepeater">
+                                            <ItemTemplate>
+                                                <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <div class="product-hover">
+
+                                            @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
+                                            {
+                                                <h4 class="text-danger">Hết hàng</h4>
+
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                            }
+
+                                            <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@item.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
+
+                                        </div>
+                                    </div>
+                                    <div id="small-dialog1_@item.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                                        <div class="contact-form1">
+                                            <div class="contact-w3-agileits">
+                                                <h3>Thông tin sản phẩm @item.CTSP_TEN</h3>
+                                                <form action="#" method="post" id="registerform">
+
+                                                    <div class="form-sub-w3ls">
+                                                        <p><label>Công nghệ màng hình: @item.CTSP_CNMANGHINH</label></p>
+                                                        <p><label>Độ phân giải: @item.CTSP_DOPHANGIAI</label></p>
+                                                        <p><label>Kích thước màn hình: @item.CTSP_MANHINH</label></p>
+                                                        <p><label>Camera trước: @item.CTSP_CAMERATRUOC</label></p>
+                                                        <p><label>Camera Sau: @item.CTSP_CAMERASAU</label></p>
+                                                        <p><label>Hệ điều hành: @item.CTSP_HEDIEUHANH</label></p>
+                                                        <p><label>Bộ nhơ RAM: @item.CTSP_RAM</label></p>
+                                                        <p><label>Bộ nhớ ROM: @item.CTSP_ROM</label></p>
+                                                        <p><label>Dung lượng PIN: @item.CTSP_DUNGLUONGPIN</label></p>
+                                                        <p><label>Số SIM: @item.CTSP_SOSIM</label></p>
+                                                    </div>
+
+                                                    <div class="submit-w3l">
+                                                        <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-carousel-price">
+                                        <a href="/ChiTietSanPhams/Details/@item.CTSP_ID"><h2 class="" style="font-size:large">@item.CTSP_TEN</h2></a>
+                                        @*@{
+                                                                float newprice;
+                                                                if (item.SANPHAMs.KM_GIATRI > 1)
+                                                                {
+                                                                    <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                                }
+                                                                else
+                                                                {
+                                                                    float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * km.KM_GIATRI;
+                                                newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
+                                                                    <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
+                                            }
+
+                                                            }*@
+
+
+                                    </div>
+                                </div>
+
+
+
+
+
+                                @*<a class="w3_play_icon1" href="#small-dialog1_@item.CTSP_ID"> Tại đây </a>*@
+
+                                <!-- for Details popup -->
+
+                            }
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+            type: 'inline',
+            fixedContentPos: false,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+    });
+</script>
+
+
+<style type="text/css">
+    .small-dialog, .small-dialog1, .small-dialog2 {
+        background: transparent;
+        padding: 0;
+        text-align: left;
+        max-width: 650px;
+        margin: 40px auto;
+        position: relative;
+        text-align: center;
+    }
+
+    .small-dialog-it, .small-dialog-in, .small-dialog-fr, .small-dialog-sh, .small-dialog-sf, .small-dialog-su, .small-dialog-me, .small-dialog-ch, .small-dialog-pi, .small-dialog-am {
+        background: white;
+        padding: 0px;
+        text-align: left;
+        max-width: 450px;
+        margin: 40px auto;
+        position: relative;
+        text-align: center;
+    }
+
+    a.play-icon.popup-with-zoom-anim img:hover {
+        opacity: 0.5;
+        transition: 0.5s all;
+        -webkit-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+    }
+
+    .portfolio-items {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+        .portfolio-items img {
+            width: 100%;
+        }
+
+        .portfolio-items h4 {
+            margin: 1em 0;
+            font-size: 25px;
+            color: #a63d56;
+        }
+
+        .portfolio-items p {
+            text-align: justify;
+        }
+</style>

@@ -19,6 +19,8 @@ namespace LuanVan.Controllers
         public ActionResult LoginKH()
         {
             Session["KH_ID"] = null;
+            Session["KH_Ten"] = null;
+            Session["KH_SDT"] = null;
             HttpCookie userInfo = Request.Cookies["LoginKH"];
             if(userInfo != null)
             {
@@ -67,6 +69,7 @@ namespace LuanVan.Controllers
         public ActionResult LoginNV()
         {
             Session["NV_ID"] = null;
+            Session["LNV_ID"] = null;
             return View();
         }
 

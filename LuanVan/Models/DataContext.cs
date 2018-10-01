@@ -20,6 +20,7 @@ namespace LuanVan.Models
         public virtual DbSet<DONGSANPHAM> DONGSANPHAMs { get; set; }
         public virtual DbSet<DONHANG> DONHANGs { get; set; }
         public virtual DbSet<GIASP> GIASPs { get; set; }
+        public virtual DbSet<HINHANHKM> HINHANHKMs { get; set; }
         public virtual DbSet<HINHANHSP> HINHANHSPs { get; set; }
         public virtual DbSet<HINHTHUCTHANHTOAN> HINHTHUCTHANHTOANs { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
@@ -94,6 +95,15 @@ namespace LuanVan.Models
 
             modelBuilder.Entity<GIASP>()
                 .Property(e => e.GIA_ID)
+                .IsUnicode(false);
+
+
+            modelBuilder.Entity<HINHANHKM>()
+                .Property(e => e.HAKM_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HINHANHKM>()
+                .Property(e => e.KM_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<HINHANHSP>()

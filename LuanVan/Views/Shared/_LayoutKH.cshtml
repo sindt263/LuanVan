@@ -196,32 +196,39 @@
                         @* <li>  <b><a style="color:#000000;" href="/SanPhams/ViewSP" class=" colortext fa fa-dashboard">Trang sản phẩm</a></b></li>*@
                         @*<li><a href="single-product.html">Single product</a></li>*@
                         <li>  <b><a style="color:#000000;" href="/GioHang/" class="colortext fa fa-shopping-cart">Giõ hàng</a></b></li>
-                        <li>  <b><a style="color:#000000;" href="/Donhangs/IndexDH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                        @if (Session["KH_ID"] == null)
+                        {
+                            <li>  <b><a style="color:#000000;" href="/Donhangs/IndexDH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                        }
+                        else
+                        {
+                            <li>  <b><a style="color:#000000;" href="/Donhangs/IndexKH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                        }
                         @*<li>  <b><a style="color:#000000;" href="#" class="colortext fa">Others</a></b></li>
-                        <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Contact</a></b></li>*@
-                       
-                            <li class="dropdown dropdown-small">
-                               
-                            <li class="dropdown dropdown-small" >
-                                <a data-toggle="dropdown" style="color:#000000;" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Khách hàng :</span><span class="value"> @Session["KH_TEN"]</span><b class="caret"></b></a>
-                                <ul class="dropdown-menu" >
-                                    @if (Session["KH_ID"] != null)
-                                    {
-                                        
-                                        <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
-                                    }
-                                   
-                                    @if (Session["KH_ID"] == null)
-                                    {
-                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
-                                    }
-                                </ul>
-                            </li>
-                        
+        <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Contact</a></b></li>*@
+
+                        <li class="dropdown dropdown-small">
+
+                        <li class="dropdown dropdown-small">
+                            <a data-toggle="dropdown" style="color:#000000;" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Khách hàng :</span><span class="value"> @Session["KH_TEN"]</span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                @if (Session["KH_ID"] != null)
+                                {
+
+                                    <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
+                                }
+
+                                @if (Session["KH_ID"] == null)
+                                {
+                                    <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
+                                }
+                            </ul>
+                        </li>
+
 
                     </ul>
                 </div>

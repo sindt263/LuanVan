@@ -195,6 +195,7 @@
     <Compile Include="Controllers\DONHANGsController.cs" />
     <Compile Include="Controllers\GIASPsController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
+    <Compile Include="Controllers\HINHANHKMsController.cs" />
     <Compile Include="Controllers\HINHANHSPsController.cs" />
     <Compile Include="Controllers\HINHTHUCTHANHTOANsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Models\DONGSANPHAM.cs" />
     <Compile Include="Models\DONHANG.cs" />
     <Compile Include="Models\GIASP.cs" />
+    <Compile Include="Models\HINHANHKM.cs" />
     <Compile Include="Models\HINHANHSP.cs" />
     <Compile Include="Models\HINHTHUCTHANHTOAN.cs" />
     <Compile Include="Models\Info.cs" />
@@ -4248,6 +4250,12 @@
     <Content Include="Views\ThongKe\ThongkeNhap.cshtml" />
     <Content Include="Views\ThongKe\ThongKeban.cshtml" />
     <Content Include="Views\DONHANGs\IndexDH.cshtml" />
+    <Content Include="Views\HINHANHKMs\Create.cshtml" />
+    <Content Include="Views\HINHANHKMs\Delete.cshtml" />
+    <Content Include="Views\HINHANHKMs\Details.cshtml" />
+    <Content Include="Views\HINHANHKMs\Edit.cshtml" />
+    <Content Include="Views\HINHANHKMs\Index.cshtml" />
+    <Content Include="Views\Home\SearchSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
