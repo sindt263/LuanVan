@@ -6,15 +6,6 @@
     LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
     LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
 }
-@using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
-{
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success hidden-xs">Click me !</button>
-    </div>
-}
 <div class="row">
     <div class="maincontent-area">
         <div class="zigzag-bottom"></div>
@@ -82,20 +73,21 @@
 
                                     <div class="product-carousel-price">
                                         <a href="/ChiTietSanPhams/Details/@item.CTSP_ID"><h2 class="" style="font-size:large">@item.CTSP_TEN</h2></a>
+                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
                                         @*@{
-                                                                float newprice;
-                                                                if (item.SANPHAMs.KM_GIATRI > 1)
-                                                                {
-                                                                    <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
-                                                }
-                                                                else
-                                                                {
-                                                                    float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * km.KM_GIATRI;
-                                                newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                                    <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
-                                            }
+                            float newprice;
+                            if (item.SANPHAMs.KM_GIATRI > 1)
+                            {
+                                <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+            }
+                            else
+                            {
+                                float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * km.KM_GIATRI;
+            newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
+                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
+        }
 
-                                                            }*@
+                        }*@
 
 
                                     </div>

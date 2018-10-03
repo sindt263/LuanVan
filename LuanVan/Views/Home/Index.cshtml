@@ -11,30 +11,21 @@
     LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
 }
 
-@using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
-{
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success hidden-xs"> Tìm sản phẩm !</button>
-    </div>
-}
-    <br />
-    <br />
-<div class="row">
-    <div class="container">
-        <br />
-        <div class="row">
+<br />
+<br />
+<div class="container">
+    <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="">
+            <br />
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
 
                 <ol class="carousel-indicators">
-                    @{ int tang = 0;int tang2 = 0;}
+                    @{ int tang = 0; int tang2 = 0;}
                     @foreach (var km in ViewBag.KM)
                     {
-                            <li data-target="#myCarousel" data-slide-to="@tang"></li>
-                   
+                        <li data-target="#myCarousel" data-slide-to="@tang"></li>
+
                         tang++;
                     }
                 </ol>
@@ -78,8 +69,75 @@
 
             </div>
         </div>
+    </div>
+    <div class="col-xs-6 col-md-4" style="margin-top:-40px">
+        <div class="product-widget-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="single-product-widget">
+                            <span class="clip-text clip-text_fourteen clip-text--cover text-center">Mua nhiều</span>
+                            @*<a href="" class="wid-view-more">View All</a>*@
+                            @*@foreach (var item in ViewBag.Top)*@
+                            @for (int i = 1; i <= 3; i++)
+                            {
+                                string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
+                                int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID = '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
+                                <div class="single-wid-product">
+                                    <a href="/ChiTietSanPhams/Details/@top">
+                                        <asp:Repeater runat="server" id="myRepeater">
+                                            <ItemTemplate>
+                                                <img class="product-thumb" src="/HinhAnhSPs/getImage/@top" alt="Hình sản phẩm" />
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </a>
+                                    <div class="single-wid-product">
+                                        <a href="/ChiTietSanPhams/Details/@top"><h2 class="" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
+                                        <h2>Số lượng bán: @count</h2>
 
-                <br />   
+                                        <div class="product-wid-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-wid-price">
+                                        @{
+                                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == top select p).Take(1).ToList();
+                                        }
+
+                                        @foreach (var item in SP)
+                                        {
+                                            float newprice;
+                                            if (item.KM_ID != "0")
+                                            {
+                                                float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToInt64(item.KHUYENMAI.KM_GIATRI);
+                                                newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
+                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
+                                            }
+                                            else
+                                            {
+                                                <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                            }
+
+
+                                        }
+                                        <ins>@*$400.00*@</ins> @*<del>$425.00</del>*@
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <br />
         <div class="col-xs-6 col-md-4">
             <div class="product-widget-area">
                 <div class="zigzag-bottom"></div>

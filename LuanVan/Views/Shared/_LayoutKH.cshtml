@@ -68,79 +68,79 @@
 <body>
 
     @*<div class="header-area ">
-        <div class="container ">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="user-menu">
-                        <ul>
-                             <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="/KhuyenMais/IndexKH"><i class="fa fa-bomb"></i> Khuyến mãi</a></li>
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="user-menu">
+                            <ul>
+                                 <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> My Account</a></li>
+                                <li><a href="/KhuyenMais/IndexKH"><i class="fa fa-bomb"></i> Khuyến mãi</a></li>
 
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="header-right">
-                        <ul class="list-unstyled list-inline">
-                            <li class="dropdown dropdown-small">
-                                    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
+                    <div class="col-md-4">
+                        <div class="header-right">
+                            <ul class="list-unstyled list-inline">
+                                <li class="dropdown dropdown-small">
+                                        <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">USD</a></li>
+                                            <li><a href="#">INR</a></li>
+                                            <li><a href="#">GBP</a></li>
+                                        </ul>
+                                    </li>
+
+                                <li class="dropdown dropdown-small">
+                                        <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">English</a></li>
+                                            <li><a href="#">French</a></li>
+                                            <li><a href="#">German</a></li>
+                                        </ul>
+                                    </li>
+
+
+
+                                <li class="dropdown dropdown-small">
+                                    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Khách hàng :</span><span class="value"> @Session["KH_TEN"]</span><b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">USD</a></li>
-                                        <li><a href="#">INR</a></li>
-                                        <li><a href="#">GBP</a></li>
+                                        @if (Session["KH_ID"] != null)
+                                        {
+                                            <li><a href="/DonHangs/IndexKH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
+                                            <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/DonHangs/IndexDH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
+                                        }
+
+                                        <li><a href="/GioHang/"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+                                        <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
+                                        @if (Session["KH_ID"] == null)
+                                        {
+                                            <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
+                                        }
                                     </ul>
                                 </li>
-
-                            <li class="dropdown dropdown-small">
-                                    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">English</a></li>
-                                        <li><a href="#">French</a></li>
-                                        <li><a href="#">German</a></li>
-                                    </ul>
-                                </li>
-
-
-
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Khách hàng :</span><span class="value"> @Session["KH_TEN"]</span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    @if (Session["KH_ID"] != null)
-                                    {
-                                        <li><a href="/DonHangs/IndexKH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
-                                        <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li><a href="/DonHangs/IndexDH"><i class="fa fa-heart"></i> Đơn hàng</a></li>
-                                    }
-
-                                    <li><a href="/GioHang/"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-                                    <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                                    @if (Session["KH_ID"] == null)
-                                    {
-                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
-                                    }
-                                </ul>
-                            </li>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> <!-- End header area -->*@
+        </div> <!-- End header area -->*@
 
     <div class="site-branding-area" style="background-color:#fae710 ;height:65px">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6" >
-                    <div class="logo" >
+                <div class="col-sm-6">
+                    <div class="logo">
                         <h5>
                             <a href="/Home/">
 
@@ -150,7 +150,7 @@
                     </div>
                 </div>
 
-                <div >
+                <div>
                     <div class="shopping-item">
                         <a href="/GioHang/">
                             Cart - <span class="cart-amunt">
@@ -205,7 +205,7 @@
                             <li>  <b><a style="color:#000000;" href="/Donhangs/IndexKH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
                         }
                         @*<li>  <b><a style="color:#000000;" href="#" class="colortext fa">Others</a></b></li>
-        <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Contact</a></b></li>*@
+                            <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Contact</a></b></li>*@
 
                         <li class="dropdown dropdown-small">
 
@@ -230,6 +230,22 @@
                         </li>
 
 
+                        @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+                        {
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Tên sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Từ" name="id" value="@ViewBag.id" id="search-box">
+                            </div>
+                            <p  class="form-group">Đến</p>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Đến" name="id2" value="@ViewBag.id2" id="search-box">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success hidden-xs">Click me !</button>
+                            </div>
+                        }
                     </ul>
                 </div>
             </div>
@@ -238,64 +254,68 @@
     @RenderBody()
 
     <div class="footer-top-area">
-            <div class="zigzag-bottom"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="footer-about-us">
-                            <h2><span>SSS-SHOP</span></h2>
-                            <p>SSS - Shop là shop chuyên bán các sản phẩm smart phone mới và uy tính, sản phẩm gồm nhiều sản phẩm của các hãng điện thoại nổi tiếng nhất hiện nay.</p>
-                            <div class="footer-social">
-                                <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                                <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                                <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
-                                <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </div>
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-about-us">
+                        <h2><span>SSS-SHOP</span></h2>
+                        <p>SSS - Shop là shop chuyên bán các sản phẩm smart phone mới và uy tính, sản phẩm gồm nhiều sản phẩm của các hãng điện thoại nổi tiếng nhất hiện nay.</p>
+                        <div class="footer-social">
+                            <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-3 col-sm-6">
-                        <div class="footer-menu">
-                            <h2 class="footer-wid-title">Thông tin liên hệ </h2>
-                            <ul>
-                                <p><li class="fa fa-home"></li> Địa chỉ: Ninh Kiều - Cần Thơ</p>
-                                <p><li class="fa fa-mobile-phone"></li> SĐT: 0816666435</p>
-                                <p><li class="fa fa-phone"></li> Fax : xxxxxxxxxx</p>
-                                <p><li class="fa fa-user"></li> Liên hệ: Trương Đạt Vinh</p>
-                                
-                            </ul>
-                        </div>
-                    </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu">
+                        <h2 class="footer-wid-title">Thông tin liên hệ </h2>
+                        <ul>
+                            <p>
+                            <li class="fa fa-home"></li> Địa chỉ: Ninh Kiều - Cần Thơ</p>
+                            <p>
+                            <li class="fa fa-mobile-phone"></li> SĐT: 0816666435</p>
+                            <p>
+                            <li class="fa fa-phone"></li> Fax : xxxxxxxxxx</p>
+                            <p>
+                            <li class="fa fa-user"></li> Liên hệ: Trương Đạt Vinh</p>
 
-                    <div class="col-md-3 col-sm-6">
-                        <div class="footer-menu">
-                            <h2 class="footer-wid-title">Categories</h2>
-                            <ul>
-                                <li><a href="#">Mobile Phone</a></li>
-                                <li><a href="#">Home accesseries</a></li>
-                                <li><a href="#">LED TV</a></li>
-                                <li><a href="#">Computer</a></li>
-                                <li><a href="#">Gadets</a></li>
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="col-md-3 col-sm-6">
-                        <div class="footer-newsletter">
-                            <h2 class="footer-wid-title">Newsletter</h2>
-                            <p>Sign up to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
-                            <div class="newsletter-form">
-                                <form action="#">
-                                    <input type="email" placeholder="Type your email">
-                                    <input type="submit" value="Subscribe">
-                                </form>
-                            </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu">
+                        <h2 class="footer-wid-title">Categories</h2>
+                        <ul>
+                            <li><a href="#">Mobile Phone</a></li>
+                            <li><a href="#">Home accesseries</a></li>
+                            <li><a href="#">LED TV</a></li>
+                            <li><a href="#">Computer</a></li>
+                            <li><a href="#">Gadets</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-newsletter">
+                        <h2 class="footer-wid-title">Newsletter</h2>
+                        <p>Sign up to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
+                        <div class="newsletter-form">
+                            <form action="#">
+                                <input type="email" placeholder="Type your email">
+                                <input type="submit" value="Subscribe">
+                            </form>
                         </div>
                     </div>
+                </div>
+            </div>
         </div>
-        </div>
-        </div> <!-- End footer top area -->
-    
+    </div> <!-- End footer top area -->
+
     <div class="footer-bottom-area">
         <div class="container">
             <div class="row">
