@@ -85,7 +85,7 @@ namespace LuanVan.Controllers
                             db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "',N'" + id3 + "')");
                             db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
 
-                            ModelState.AddModelError("", "Xạc nhận mua " + i.SanPhamID + " thành công");
+                            ModelState.AddModelError("", "Xạc nhận mua " + i.TenSanPham + " thành công");
                         }
                         //CartItem itemXoa = giohang.FirstOrDefault(m => m.SanPhamID == i.SanPhamID);
                         //giohang.Remove(itemXoa);

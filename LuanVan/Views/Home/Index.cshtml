@@ -12,64 +12,9 @@
 
 <br />
 <br />
+
 <div class="container">
-    <div class="col-xs-12 col-sm-6 col-md-8">
-        <div class="">
-            <br />
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-
-                <ol class="carousel-indicators">
-                    @{ int tang = 0; int tang2 = 0;}
-                    @foreach (var km in ViewBag.KM)
-                    {
-                        <li data-target="#myCarousel" data-slide-to="@tang"></li>
-
-                        tang++;
-                    }
-                </ol>
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    @foreach (var km in ViewBag.KM)
-                    {
-
-                        string km_id = km.KM_ID;
-                        string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                        var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
-                        foreach (var item in SP)
-                        {
-                            if (tang2 == 0)
-                            {
-
-                                <div class="item active">
-                                    <img style="height:450px;width:1197px" class="product-thumbSlider" src="/HinhAnhKMs/getImageHA/@km.KM_ID" alt="Hình sản phẩm" />
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="item ">
-                                    <img class="product-thumbSlider" style="height:450px;width:1197px" src="/HinhAnhKMs/getImageHA/@km.KM_ID" alt="Hình sản phẩm" />
-                                </div>
-                            }
-                            tang2++;
-                        }
-                    }
-                </div>
-
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-md-4" style="margin-top:-40px">
+    <div class="col-xs-8 col-md-4" style="margin-top:-40px">
         <div class="product-widget-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
@@ -136,8 +81,65 @@
             </div>
         </div>
     </div>
-        <br />
-        <div class="col-xs-6 col-md-4">
+    <div class="col-xs-12 col-sm-10 col-md-8" style="margin-top:-20px">
+        <div class="">
+            <br />
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+
+                <ol class="carousel-indicators">
+                    @{ int tang = 0; int tang2 = 0;}
+                    @foreach (var km in ViewBag.KM)
+                    {
+                        <li data-target="#myCarousel" data-slide-to="@tang"></li>
+
+                        tang++;
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var km in ViewBag.KM)
+                    {
+
+                        string km_id = km.KM_ID;
+                        string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                        var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
+                        foreach (var item in SP)
+                        {
+                            if (tang2 == 0)
+                            {
+
+                                <div class="item active">
+                                    <img style="height:400px;width:1197px" class="product-thumbSlider" src="/HinhAnhKMs/getImageHA/@km.KM_ID" alt="Hình sản phẩm" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="item ">
+                                    <img class="product-thumbSlider" style="height:450px;width:1197px" src="/HinhAnhKMs/getImageHA/@km.KM_ID" alt="Hình sản phẩm" />
+                                </div>
+                            }
+                            tang2++;
+                        }
+                    }
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container" >
+        <div class="col-xs-8 col-md-4" style="margin-top:-60px">
             <div class="product-widget-area">
                 <div class="zigzag-bottom"></div>
                 <div class="container">
@@ -149,8 +151,8 @@
                                 @*@foreach (var item in ViewBag.Top)*@
                                 @for (int i = 1; i <= 3; i++)
                                 {
-                                    string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
-                                    int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID = '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
+                                    string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
+                                    int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID = '" + top + "'").SingleOrDefault();
                                     <div class="single-wid-product">
                                         <a href="/ChiTietSanPhams/Details/@top">
                                             <asp:Repeater runat="server" id="myRepeater">
@@ -161,7 +163,7 @@
                                         </a>
                                         <div class="single-wid-product">
                                             <a href="/ChiTietSanPhams/Details/@top"><h2 class="" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
-                                            <h2>Số lượng bán: @count</h2>
+                                            @*<h2>Số lượng bán: @count</h2>*@
 
                                             <div class="product-wid-rating">
                                                 <i class="fa fa-star"></i>
@@ -204,7 +206,7 @@
                 </div>
             </div> <!-- End product widget area -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="col-xs-12 col-sm-10 col-md-8" style="margin-top:-20px">
             <h1 class="txtelegantshadow" style="background-color:#0094ff">Sản phẩm mới</h1>
             <div class="slider-area">
                 <!-- Slider -->
@@ -251,7 +253,6 @@
         </div>
 
     </div>
-</div>
 
 
 <div class="row">

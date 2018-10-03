@@ -129,7 +129,7 @@ namespace LuanVan.Controllers
         public ActionResult CreateDH(string id1, string id2, string id3, string id4)
         {
            
-            if (Session["KH_ID"] == null && id4.Length <= 9 || id3 == null)
+            if (id4.Length <= 9 || string.IsNullOrEmpty(id3))
             {
                 ModelState.AddModelError("", "Vui lòng điền đầy đủ thông tin !");
                
@@ -142,11 +142,10 @@ namespace LuanVan.Controllers
                 DONHANG dONHANG = new DONHANG();
                 if (ModelState.IsValid)
                 {
-                    if (Session["DN_ID"] == null)
-                    {
-                        Session["DN_ID"] = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
+                    
+                         
                         //dONHANG.NV_ID = Session["NV_ID"].ToString();
-                        dONHANG.DN_ID = Session["DN_ID"].ToString();
+                        dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
                         dONHANG.DN_SDT = id4;
                         dONHANG.TTDH_ID = 4;
                         if (Session["KH_ID"] != null)
@@ -161,9 +160,9 @@ namespace LuanVan.Controllers
                         dONHANG.DN_SL = Convert.ToInt32(id2);
                         db.DONHANGs.Add(dONHANG);
                         db.SaveChanges();
-                    }
+                    
                    
-                    string DN_ID = Session["DN_ID"].ToString();
+                    string DN_ID = dONHANG.DN_ID;
                     CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
                     var giohang = Session["giohang"] as List<CartItem>;
                     foreach (var i in giohang)
