@@ -1,6 +1,5 @@
 ﻿@using LuanVan.Models;
-@model IPagedList<LuanVan.Models.CHITIETSANPHAM>
-
+@model IEnumerable<LuanVan.Models.CHITIETSANPHAM>
 @using PagedList
 @using PagedList.Mvc
 @{
@@ -145,7 +144,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="single-product-widget">
-                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Mua nhiều</span>
+                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Nổi bật</span>
                                 @*<a href="" class="wid-view-more">View All</a>*@
                                 @*@foreach (var item in ViewBag.Top)*@
                                 @for (int i = 1; i <= 3; i++)
@@ -362,7 +361,7 @@
                     <div class="">
                         <div class="latest-product">
                             <h4 class="text-center">
-                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Sản phẩm</span>
+                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Tất cả sản phẩm</span>
                             </h4>
                             <div class="product-carousel">
                                 @foreach (var i in Model)
@@ -399,32 +398,32 @@
                                                 </div>
                                             </div>
                                             <!-- for Details popup -->
-                                            <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
-                                                <div class="contact-form1">
-                                                    <div class="contact-w3-agileits">
-                                                        <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
-                                                        <form action="#" method="post" id="registerform">
+                                            @*<div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                            <div class="contact-form1">
+                                <div class="contact-w3-agileits">
+                                    <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
+                                    <form action="#" method="post" id="registerform">
 
-                                                            <div class="form-sub-w3ls">
-                                                                <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
-                                                                <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
-                                                                <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
-                                                                <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
-                                                                <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
-                                                                <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
-                                                                <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
-                                                                <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
-                                                                <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
-                                                                <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
-                                                            </div>
+                                        <div class="form-sub-w3ls">
+                                            <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
+                                            <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
+                                            <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
+                                            <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
+                                            <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
+                                            <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
+                                            <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
+                                            <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
+                                            <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
+                                            <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
+                                        </div>
 
-                                                            <div class="submit-w3l">
-                                                                <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="submit-w3l">
+                                            <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>*@
                                             <!-- //for Details popup -->
 
                                             <h2><a href="single-product.html">@i.CTSP_TEN</a></h2>
@@ -446,24 +445,24 @@
                                                 }
 
                                                 @*<div data-role="main" class="ui-content">
-                                                        <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Open Dialog Popup</a>
+                                <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Open Dialog Popup</a>
 
-                                                        <div data-role="popup" id="myPopupDialog">
-                                                            <div data-role="header">
-                                                                <h1>Header Text</h1>
-                                                            </div>
+                                <div data-role="popup" id="myPopupDialog">
+                                    <div data-role="header">
+                                        <h1>Header Text</h1>
+                                    </div>
 
-                                                            <div data-role="main" class="ui-content">
-                                                                <h2>Welcome to my Popup Dialog!</h2>
-                                                                <p>jQuery Mobile is FUN!</p>
-                                                                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-back ui-btn-icon-left" data-rel="back">Go Back</a>
-                                                            </div>
+                                    <div data-role="main" class="ui-content">
+                                        <h2>Welcome to my Popup Dialog!</h2>
+                                        <p>jQuery Mobile is FUN!</p>
+                                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-back ui-btn-icon-left" data-rel="back">Go Back</a>
+                                    </div>
 
-                                                            <div data-role="footer">
-                                                                <h1>Footer Text</h1>
-                                                            </div>
-                                                        </div>
-                                                    </div>*@
+                                    <div data-role="footer">
+                                        <h1>Footer Text</h1>
+                                    </div>
+                                </div>
+                            </div>*@
                                             </div>
                                         </div>
 
@@ -473,46 +472,56 @@
                                     }
                                     @*<a class="w3_play_icon1" href="#small-dialog1_@i.CTSP_ID"> Tại đây </a>
 
-                                        <!-- for Details popup -->
-                                        <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
-                                            <div class="contact-form1">
-                                                <div class="contact-w3-agileits">
-                                                    <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
-                                                    <form action="#" method="post" id="registerform">
+                <!-- for Details popup -->
+                <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                    <div class="contact-form1">
+                        <div class="contact-w3-agileits">
+                            <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
+                            <form action="#" method="post" id="registerform">
 
-                                                        <div class="form-sub-w3ls">
-                                                            <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
-                                                            <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
-                                                            <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
-                                                            <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
-                                                            <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
-                                                            <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
-                                                            <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
-                                                            <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
-                                                            <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
-                                                            <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
-                                                        </div>
+                                <div class="form-sub-w3ls">
+                                    <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
+                                    <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
+                                    <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
+                                    <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
+                                    <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
+                                    <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
+                                    <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
+                                    <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
+                                    <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
+                                    <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
+                                </div>
 
-                                                        <div class="submit-w3l">
-                                                            <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- //for Details popup -->*@
+                                <div class="submit-w3l">
+                                    <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- //for Details popup -->*@
                                 }
                             </div>
-
-                            @foreach (var item in ViewBag.nsx)
-                            {
-                                string id = item.NSX_ID;
-                                var TenNSX = (from p in db.SANPHAMs where p.NSX_ID == id select p);
-                                <div class="text-center"> <span class="clip-text clip-text_fourteen clip-text--cover">@item.NSX_TEN</span></div>
+                            <div class="">
+                                <h3>Danh sách hãng</h3>
+                                <div class="view-details-link">
+                                    @foreach (var item in ViewBag.NSX)
+                                    {
+                                        <a href="/SanPhams/SPbyNSX/@item.NSX_ID">@item.NSX_TEN | </a>
+                                    }
+                                    </div>
+                                    <!-- End brands area -->
+                                </div>
+                                @foreach (var item in ViewBag.nsx)
+                                {
+                                    string id = item.NSX_ID;
+                                    var TenNSX = (from ctsp in db.CHITIETSANPHAMs join sp in db.SANPHAMs on ctsp.CTSP_ID equals sp.CTSP_ID where sp.NSX_ID == id select ctsp).Distinct();
+                            <div class="text-center">
+                                <h5> @item.NSX_TEN</h5>
+                            </div>
                                 <div class="product-carousel">
                                     @foreach (var i in TenNSX)
                                     {
-
                                         <div class="single-product">
                                             <div class="product-f-image">
 
@@ -534,55 +543,56 @@
 
                                                     <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
                                                     <!-- for Details popup -->
-                                                    @*<div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
-                                                            <div class="contact-form1">
-                                                                <div class="contact-w3-agileits">
-                                                                    <h3>Thông tin sản phẩm i.CHITIETSANPHAM.CTSP_TEN</h3>
-                                                                    <form action="#" method="post" id="registerform">
+                                                    <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                                                        <div class="contact-form1">
+                                                            <div class="contact-w3-agileits">
+                                                                <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
+                                                                <form action="#" method="post" id="registerform">
 
-                                                                        <div class="form-sub-w3ls">
-                                                                            <p><label>Công nghệ màng hình: @i.CHITIETSANPHAM.CTSP_CNMANGHINH</label></p>
-                                                                            <p><label>Độ phân giải: @i.CHITIETSANPHAM.CTSP_DOPHANGIAI</label></p>
-                                                                            <p><label>Kích thước màn hình: @i.CHITIETSANPHAM.CTSP_MANHINH</label></p>
-                                                                            <p><label>Camera trước: @i.CHITIETSANPHAM.CTSP_CAMERATRUOC</label></p>
-                                                                            <p><label>Camera Sau: @i.CHITIETSANPHAM.CTSP_CAMERASAU</label></p>
-                                                                            <p><label>Hệ điều hành: @i.CHITIETSANPHAM.CTSP_HEDIEUHANH</label></p>
-                                                                            <p><label>Bộ nhơ RAM: @i.CHITIETSANPHAM.CTSP_RAM</label></p>
-                                                                            <p><label>Bộ nhớ ROM: @i.CHITIETSANPHAM.CTSP_ROM</label></p>
-                                                                            <p><label>Dung lượng PIN: @i.CHITIETSANPHAM.CTSP_DUNGLUONGPIN</label></p>
-                                                                            <p><label>Số SIM: @i.CHITIETSANPHAM.CTSP_SOSIM</label></p>
-                                                                        </div>
+                                                                    <div class="form-sub-w3ls">
+                                                                        <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
+                                                                        <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
+                                                                        <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
+                                                                        <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
+                                                                        <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
+                                                                        <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
+                                                                        <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
+                                                                        <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
+                                                                        <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
+                                                                        <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
+                                                                    </div>
 
-                                                                        <div class="submit-w3l">
-                                                                            <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                                                                    <div class="submit-w3l">
+                                                                        <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                                    </div>
+                                                                </form>
                                                             </div>
-                                                        </div>*@
+                                                        </div>
+                                                    </div>
                                                     <!-- //for Details popup -->
                                                 </div>
                                             </div>
 
 
 
-                                            <h2><a href="single-product.html">@i.SP_TEN</a></h2>
-
+                                            @*<h2><a href="single-product.html">@i.CTSP_TEN</a></h2>*@
                                             <div class="product-carousel-price">
-                                                @{
-                                                    float newprice;
-                                                    if (i.KHUYENMAI.KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
-                                                    {
-                                                        float giamgia = cHITIETSANPH.GetGia(i.CTSP_ID) * Convert.ToSingle(i.KHUYENMAI.KM_GIATRI);
-                                                        newprice = cHITIETSANPH.GetGia(i.CTSP_ID) - giamgia;
-                                                        <ins> @newprice.ToString("###,###") VND </ins><del> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </del> <h4> Khuyến Mãi: @i.KHUYENMAI.KM_TEN </h4>
-                                                    }
-                                                    else
-                                                    {
-                                                        <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
-                                                    }
+                                                <h3> @i.CTSP_TEN</h3>
+                                                <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+                                                @*@{
+                            float newprice;
+                            if (i..KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                            {
+                                float giamgia = cHITIETSANPH.GetGia(i.CTSP_ID) * Convert.ToSingle(i.KHUYENMAI.KM_GIATRI);
+                                newprice = cHITIETSANPH.GetGia(i.CTSP_ID) - giamgia;
+                                <ins> @newprice.ToString("###,###") VND </ins><del> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </del> <h4> Khuyến Mãi: @i.KHUYENMAI.KM_TEN </h4>
+                            }
+                            else
+                            {
+                                <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+                            }
 
-                                                }
+                        }*@
 
                                             </div>
 
@@ -592,8 +602,8 @@
 
 
                                 </div>
-                            }
-                        </div>
+                                }
+                            </div>
                     </div>
                 </div>
             </div>
@@ -673,24 +683,6 @@
         </div>
     </div> <!-- End main content area -->
 *@
-<div class="zigzag-bottom"></div>
-<div class="container">
-    <div class="row">
-        <div class="">
-            <div class="brand-wrapper">
-                <span style="margin-left:30%" class="clip-text clip-text_fourteen clip-text--cover text-center">Danh sách hãng</span>
-                <div class="brand-list">
-                    @foreach (var item in ViewBag.NSX)
-                    {
-                        <a style="max-width:50px" href="/SanPhams/SPbyNSX/@item.NSX_ID"><h3>@item.NSX_TEN</h3></a>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End brands area -->
-
 <div class="promo-area">
     <div class="zigzag-bottom"></div>
     <div class="container">

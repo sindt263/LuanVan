@@ -118,6 +118,41 @@ namespace LuanVan.Controllers
             }
             return View(kHUYENMAI);
         }
+         public ActionResult EditMany(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KHUYENMAI kHUYENMAI = db.KHUYENMAIs.Find(id);
+            if (kHUYENMAI == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
+            return View(kHUYENMAI);
+        }
+
+        // POST: KHUYENMAIs/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditMany([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_GIATRI,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
+        {
+            string ctsp_id = Request["CTSP_ID"];  
+            if (ModelState.IsValid)
+            {
+                db.Entry(kHUYENMAI).State = EntityState.Modified;
+                db.SaveChanges();
+                db.Database.ExecuteSqlCommand("update sanpham set KM_ID ='"+kHUYENMAI.KM_ID+"' where CTSP_ID ='" + ctsp_id + "'");
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
+            return View(kHUYENMAI);
+        }
 
         // GET: KHUYENMAIs/Delete/5
         public ActionResult Delete(string id)

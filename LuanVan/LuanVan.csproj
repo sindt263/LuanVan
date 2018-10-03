@@ -4256,6 +4256,7 @@
     <Content Include="Views\HINHANHKMs\Edit.cshtml" />
     <Content Include="Views\HINHANHKMs\Index.cshtml" />
     <Content Include="Views\Home\SearchSP.cshtml" />
+    <Content Include="Views\KHUYENMAIs\EditMany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

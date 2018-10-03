@@ -314,18 +314,6 @@ namespace LuanVan.Controllers
             }
            
         }
-
-        public ActionResult PrintProductByProducer(string id)
-        {
-            var product = (from p in db.SANPHAMs where p.NSX_ID == id select p).OrderByDescending(p => p.SP_TRANGTHAI);
-            return View(product.ToList());
-        }
-
-      
-        public ViewResult GetCTSPbyCTSPID(string id)
-        {
-            ViewBag.id = from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p;
-            return View();
-        }
+        
     }
 }
