@@ -1,4 +1,4 @@
-﻿namespace LuanVan.Models
+namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,18 +17,12 @@
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Display(Name = "Mã số")]
-        
         public short HTTT_ID { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "Cách thanh toán")]
-        
         public string HTTT_TEN { get; set; }
 
         [StringLength(255)]
-        [Display(Name = "Mô tả")]
-        
         public string HTTT_MOTA { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

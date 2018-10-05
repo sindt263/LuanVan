@@ -1,4 +1,4 @@
-﻿namespace LuanVan.Models
+namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,18 +17,12 @@
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Display(Name = "Mã số")]
-        
         public short LNV_ID { get; set; }
 
-        [StringLength(20)]        
-        
-        [Display(Name = "Tên quyền")]
+        [StringLength(20)]
         public string LNV_TEN { get; set; }
 
         [StringLength(200)]
-        
-        [Display(Name = "Mô tả")]
         public string LNV_MOTA { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

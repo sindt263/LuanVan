@@ -1,4 +1,4 @@
-﻿namespace LuanVan.Models
+namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,42 +19,27 @@
 
         [Key]
         [StringLength(20)]
-        [Display(Name = "Mã sản phẩm")]
         public string SP_ID { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "Mã chi tiết")]
         public string CTSP_ID { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Mã nhóm")]
-        public string NSP_ID { get; set; }
-
-        [StringLength(10)]
-        [Display(Name = "Mã khuyến mãi")]
         public string KM_ID { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Mã giá")]
         public string GIA_ID { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Mã dòng")]
         public string DSP_ID { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Mã nhà sản xuất")]
         public string NSX_ID { get; set; }
 
         [StringLength(255)]
-        [Display(Name = "Tên sản phẩm")]
         public string SP_TEN { get; set; }
 
-        
-        [Display(Name = "Trạng thái")]
-        public short SP_TRANGTHAI { get; set; }
-        
-      
+        public short? SP_TRANGTHAI { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETBH> CHITIETBHs { get; set; }
@@ -74,7 +59,5 @@
         public virtual KHUYENMAI KHUYENMAI { get; set; }
 
         public virtual NHASANXUAT NHASANXUAT { get; set; }
-
-        public virtual NHOMSANPHAM NHOMSANPHAM { get; set; }
     }
 }

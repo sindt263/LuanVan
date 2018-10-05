@@ -29,7 +29,7 @@ namespace LuanVan.Controllers
       
         public IEnumerable<SANPHAM> ListAllPaging(string searchTerm, int page, int pageSize)
         {
-            IQueryable<SANPHAM> model = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs);
+            IQueryable<SANPHAM> model = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(n => n.CHITIETNHAPs);
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 model = model.Where(x => x.DONGSANPHAM.DSP_TEN.Contains(searchTerm) || x.SP_TEN.Contains(searchTerm));
@@ -117,7 +117,6 @@ namespace LuanVan.Controllers
             ViewBag.KM_ID = new SelectList(db.KHUYENMAIs, "KM_ID", "KM_TEN");
             ViewBag.NSX_ID = new SelectList(db.NHASANXUATs, "NSX_ID", "NSX_TEN");
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
-            ViewBag.NSP_ID = new SelectList(db.NHOMSANPHAMs, "NSP_ID", "NSP_TEN");
             return View();
         }
 
@@ -155,7 +154,6 @@ namespace LuanVan.Controllers
             ViewBag.GIA_ID = new SelectList(db.GIASPs, "GIA_ID", "GIA_ID", sANPHAM.GIA_ID);
             ViewBag.KM_ID = new SelectList(db.KHUYENMAIs, "KM_ID", "KM_TEN", sANPHAM.KM_ID);
             ViewBag.NSX_ID = new SelectList(db.NHASANXUATs, "NSX_ID", "NSX_TEN", sANPHAM.NSX_ID);
-            ViewBag.NSP_ID = new SelectList(db.NHOMSANPHAMs, "NSP_ID", "NSP_TEN", sANPHAM.NSP_ID);
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", sANPHAM.CTSP_ID);
             return View(sANPHAM);
         }
@@ -166,7 +164,6 @@ namespace LuanVan.Controllers
             if (ModelState.IsValid)
             {
                 sANPHAM.SP_ID = id1;
-                sANPHAM.NSP_ID = id2;
                 sANPHAM.KM_ID = id3;
                 sANPHAM.GIA_ID = id4;
                 sANPHAM.DSP_ID = id5;
@@ -200,7 +197,6 @@ namespace LuanVan.Controllers
             ViewBag.KM_ID = new SelectList(db.KHUYENMAIs, "KM_ID", "KM_TEN", sANPHAM.KM_ID);
             ViewBag.NSX_ID = new SelectList(db.NHASANXUATs, "NSX_ID", "NSX_TEN", sANPHAM.NSX_ID);
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", sANPHAM.CTSP_ID);
-            ViewBag.NSP_ID = new SelectList(db.NHOMSANPHAMs, "NSP_ID", "NSP_TEN", sANPHAM.NSP_ID);
             return View(sANPHAM);
         }
 
@@ -222,7 +218,6 @@ namespace LuanVan.Controllers
             ViewBag.KM_ID = new SelectList(db.KHUYENMAIs, "KM_ID", "KM_TEN", sANPHAM.KM_ID);
             ViewBag.NSX_ID = new SelectList(db.NHASANXUATs, "NSX_ID", "NSX_TEN", sANPHAM.NSX_ID);
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", sANPHAM.CTSP_ID);
-            ViewBag.NSP_ID = new SelectList(db.NHOMSANPHAMs, "NSP_ID", "NSP_TEN", sANPHAM.NSP_ID);
             return View(sANPHAM);
         }
 

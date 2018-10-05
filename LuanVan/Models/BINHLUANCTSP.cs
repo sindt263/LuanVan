@@ -6,19 +6,22 @@ namespace LuanVan.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("HINHANHSP")]
-    public partial class HINHANHSP
+    [Table("BINHLUANCTSP")]
+    public partial class BINHLUANCTSP
     {
         [Key]
-        [StringLength(10)]
-        public string HA_ID { get; set; }
+        [StringLength(20)]
+        public string BL_ID { get; set; }
 
         [StringLength(20)]
         public string CTSP_ID { get; set; }
 
-        [Column(TypeName = "image")]
-        public byte[] HA_ND { get; set; }
+        [StringLength(10)]
+        public string KH_ID { get; set; }
 
-        public virtual CHITIETSANPHAM CHITIETSANPHAM { get; set; }
+        [StringLength(255)]
+        public string BL_ND { get; set; }
+
+        public DateTime? BL_THOIGIAN { get; set; }
     }
 }

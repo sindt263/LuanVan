@@ -207,27 +207,23 @@
                         @*<li>  <b><a style="color:#000000;" href="#" class="colortext fa">Others</a></b></li>
         <li>  <b><a style="color:#000000;" href="#" class="colortext fa">Contact</a></b></li>*@
 
-                        <li class="dropdown dropdown-small">
+                        
 
-                        <li class="dropdown dropdown-small">
-                            <a data-toggle="dropdown" style="color:#000000;" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Khách hàng :</span><span class="value"> @Session["KH_TEN"]</span><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                @if (Session["KH_ID"] != null)
-                                {
+                         
+                                    @if (Session["KH_ID"] != null)
+                                    {
 
-                                    <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
-                                }
+                                        <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
+                                    }
 
-                                @if (Session["KH_ID"] == null)
-                                {
-                                    <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
-                                }
-                                else
-                                {
-                                    <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
-                                }
-                            </ul>
-                        </li>
+                                    @if (Session["KH_ID"] == null)
+                                    {
+                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
+                                    }
 
 
                         @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))

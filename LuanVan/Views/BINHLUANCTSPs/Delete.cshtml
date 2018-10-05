@@ -1,0 +1,57 @@
+﻿@model LuanVan.Models.BINHLUANCTSP
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>BINHLUANCTSP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CTSP_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CTSP_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KH_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BL_ND)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BL_ND)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BL_THOIGIAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BL_THOIGIAN)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

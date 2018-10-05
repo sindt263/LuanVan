@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LuanVan.Models.BINHLUANCTSP>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CTSP_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KH_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BL_ND)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BL_THOIGIAN)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTSP_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KH_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BL_ND)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BL_THOIGIAN)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BL_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BL_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BL_ID })
+        </td>
+    </tr>
+}
+
+</table>

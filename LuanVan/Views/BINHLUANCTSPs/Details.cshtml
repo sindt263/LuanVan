@@ -1,0 +1,51 @@
+﻿@model LuanVan.Models.BINHLUANCTSP
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BINHLUANCTSP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CTSP_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CTSP_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KH_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KH_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BL_ND)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BL_ND)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BL_THOIGIAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BL_THOIGIAN)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BL_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

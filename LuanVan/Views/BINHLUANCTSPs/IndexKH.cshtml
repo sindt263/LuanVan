@@ -1,0 +1,20 @@
+﻿@model IEnumerable<LuanVan.Models.BINHLUANCTSP>
+
+@{
+    ViewBag.Title = "IndexKH";
+    Layout = "~/Views/Shared/_LayoutKHAjaxy.cshtml";
+    LuanVan.Controllers.BINHLUANCTSPsController bINHLUANCTSPs = new LuanVan.Controllers.BINHLUANCTSPsController();
+}
+
+@foreach (var item in Model)
+{
+    @Html.Hidden(item.BL_ID)
+        <div class="text-1">
+            <span>@bINHLUANCTSPs.GetTenKH(item.KH_ID)</span>
+       
+            <p>
+                <i>@item.BL_ND</i> <br /> @item.BL_THOIGIAN
+            </p>
+        </div>
+
+}
