@@ -16,7 +16,7 @@ namespace LuanVan.Controllers
 
         public ActionResult IndexKH(string id)
         {
-            return View(db.BINHLUANCTSPs.Where(a => a.CTSP_ID == id).Where(a=>a.BL_TL == null).ToList());
+            return View(db.BINHLUANCTSPs.Where(a => a.CTSP_ID == id).Where(a=>a.BL_TL == null).OrderBy(a=>a.BL_THOIGIAN).ToList());
         }
 
         public ActionResult CreateKH(string id, string id2)
@@ -83,23 +83,30 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string id, string id2,string id3,[Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN")] BINHLUANCTSP bINHLUANCTSP)
+        public ActionResult Create(string id2,string id3,[Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN")] BINHLUANCTSP bINHLUANCTSP)
         {
             if (ModelState.IsValid)
             {
                 bINHLUANCTSP.BL_ID = db.autottang("BinhLuanCTSP", "BL_ID", db.BINHLUANCTSPs.Count()).ToString();
-                if(Session["NV_ID"] != null)
+                if (Session["NV_ID"] != null)
                 {
                     bINHLUANCTSP.NV_ID = Session["NV_ID"].ToString();
-                    bINHLUANCTSP.KH_ID = "0";
                 }
-                if(Session["KH_ID"] != null)
+                else
                 {
-                    bINHLUANCTSP.KH_ID = Session["KH_ID"].ToString();
                     bINHLUANCTSP.NV_ID = "0";
                 }
-                
-                bINHLUANCTSP.KH_ID = id;
+                if (Session["KH_ID"] != null)
+                {
+                    bINHLUANCTSP.KH_ID = Session["KH_ID"].ToString();
+
+                }
+                else
+                {
+                    bINHLUANCTSP.KH_ID = "0";
+                }
+
+                //bINHLUANCTSP.KH_ID = id;
                 bINHLUANCTSP.CTSP_ID = id2;
                 bINHLUANCTSP.BL_TL = id3;
                 bINHLUANCTSP.BL_THOIGIAN = DateTime.Now;
@@ -112,6 +119,42 @@ namespace LuanVan.Controllers
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", bINHLUANCTSP.KH_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", bINHLUANCTSP.NV_ID);
             return View(bINHLUANCTSP);
+        }
+
+        public RedirectToRouteResult CreateTL(string id2,string id3,string id4)
+        {
+            BINHLUANCTSP bINHLUANCTSP = new BINHLUANCTSP();
+            if (ModelState.IsValid)
+            {
+                bINHLUANCTSP.BL_ID = db.autottang("BinhLuanCTSP", "BL_ID", db.BINHLUANCTSPs.Count()).ToString();
+                if(Session["NV_ID"] != null)
+                {
+                    bINHLUANCTSP.NV_ID = Session["NV_ID"].ToString();
+                }
+                else
+                {
+                    bINHLUANCTSP.NV_ID = "0";
+                }
+                if(Session["KH_ID"] != null)
+                {
+                    bINHLUANCTSP.KH_ID = Session["KH_ID"].ToString();
+
+                }else
+                {
+                    bINHLUANCTSP.KH_ID = "0";
+                }
+                
+                bINHLUANCTSP.CTSP_ID = id2;
+                bINHLUANCTSP.BL_TL = id3;
+                bINHLUANCTSP.BL_ND = id4;
+                bINHLUANCTSP.BL_THOIGIAN = DateTime.Now;
+                db.BINHLUANCTSPs.Add(bINHLUANCTSP);
+                db.SaveChanges();
+                return RedirectToAction("details/"+id2,"chitietsanphams");
+            }
+
+           
+            return RedirectToAction("details/" + id2, "chitietsanphams");
         }
 
         // GET: BINHLUANCTSPs/Edit/5

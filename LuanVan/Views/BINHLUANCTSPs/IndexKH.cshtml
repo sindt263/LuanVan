@@ -6,44 +6,71 @@
     LuanVan.Controllers.BINHLUANCTSPsController bINHLUANCTSPs = new LuanVan.Controllers.BINHLUANCTSPsController();
     DataContext db = new DataContext();
 }
-
-@foreach (var item in Model)
-{
-    @Html.Hidden(item.BL_ID)
-<div class="text-1">
-    <span>@item.KHACHHANG.KH_TEN</span>
-
-    <p>
-        <i>@item.BL_ND</i> <br /> @item.BL_THOIGIAN
-    </p>
-    <div style="margin-left:2%" class="text-1">
-        @{
-            var result = (from p in db.BINHLUANCTSPs where p.BL_TL == item.BL_ID select p);
-        }
-        @if (result != null)
-        {
-            foreach (var i in result)
-            {
-                if (i.KHACHHANG.KH_TEN != "0")
-                {
-
-                    <span>@i.KHACHHANG.KH_TEN</span>
-                }
-                if (i.NHANVIEN.NV_TEN != "0")
-                {
-
-                    <span>@i.NHANVIEN.NV_TEN</span>
-                }
-                <p>
-                    <i>@i.BL_ND</i> <br /> @i.BL_THOIGIAN
-                </p>
-            }
-        }
-    </div>
-    <br />
-    </div>
-    if (Session["NV_ID"] != null || Session["KH_ID"] !=null)
+<div class="container">
+    @foreach (var item in Model)
     {
-        @Html.ActionLink("Trả lời", "Create", new { id = item.KH_ID, id2 = item.CTSP_ID, id3 = item.BL_ID })
+        @Html.Hidden(item.BL_ID)
+        <div class="text-1">
+            <span style="color:dodgerblue">@item.KHACHHANG.KH_TEN</span>
+
+            <p>
+                <i>@item.BL_ND</i> <br /> @item.BL_THOIGIAN
+            </p>
+            <div style="margin-left:2%" class="text-1">
+                @{
+                    var result = (from p in db.BINHLUANCTSPs where p.BL_TL == item.BL_ID select p).OrderBy(a => a.BL_THOIGIAN);
+                }
+                @if (result != null)
+                {
+                    foreach (var i in result)
+                    {
+                        if (i.KH_ID != "0")
+                        {
+                <span style="color:dodgerblue">@i.KHACHHANG.KH_TEN đã trả lời lúc @i.BL_THOIGIAN</span>
+                        }
+                        if (i.NV_ID != "0")
+                        {
+                            <span style="color:orangered">@i.NHANVIEN.NV_TEN đã trả lời lúc @i.BL_THOIGIAN</span>
+
+                        }
+                        <p>
+                            <i>@i.BL_ND</i> <br /> 
+                        </p>
+
+                    }
+
+                    if (Session["KH_ID"] != null || Session["NV_ID"] != null)
+                    {
+                        <input type="button" id="@item.BL_ID" value="Trả lời" />
+                    }
+                    <div id="View_@item.BL_ID" hidden>
+                        @*<input type="text" id="txt_@item.BL_ID" />*@
+                        <script type="text/javascript">
+                        </script>
+                        <form action="/BinhLuanCTSPs/CreateTL" method="post">
+                            <input type="text" name="id2" value="@item.CTSP_ID" hidden />
+                            <input type="text" name="id3" value="@item.BL_ID" hidden />
+                            <input type="text" name="id4" />
+                            <input type="submit" />
+                        </form>
+                        @*<a href="~/BinhLuanCTSPs/CreateTL/@item.KH_ID?id2=@item.CTSP_ID&id3=@item.BL_ID&id4='test'">Gửi</a>*@
+
+                    </div>
+                    <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('#@item.BL_ID').click(function () {
+                                        $('#View_@item.BL_ID').show()
+                                    })
+                        })
+
+                    </script>
+                }
+            </div>
+            <br />
+        </div>
+        if (Session["NV_ID"] != null || Session["KH_ID"] != null)
+        {
+            @*@Html.ActionLink("Trả lời", "Create", new { id = item.KH_ID, id2 = item.CTSP_ID, id3 = item.BL_ID })*@
+        }
     }
-}
+    </div>

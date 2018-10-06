@@ -41,7 +41,7 @@ namespace LuanVan.Controllers
         // GET: CHITIETSANPHAMs/Details/5
         public ActionResult Details(string id)
         {
-           
+            ViewBag.BL = db.BINHLUANCTSPs.Where(a => a.CTSP_ID == id).Where(a => a.BL_TL == null).ToList();
             ViewBag.HAID = (from p in db.HINHANHSPs where p.CTSP_ID == id select p).Take(2);
             if (id == null)
             {
