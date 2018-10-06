@@ -1,4 +1,4 @@
-namespace LuanVan.Models
+﻿namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,17 +17,23 @@ namespace LuanVan.Models
 
         [Key]
         [StringLength(10)]
+        [Display(Name = "Mã phiếu nhập")]
         public string PN_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã nhân viên")]
         public string NV_ID { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Mã nhà cung cấp")]
         public string NCC_ID { get; set; }
 
+        [Display(Name = "Ngày nhập")]
+        [DataType(DataType.Date)]
         public DateTime? PN_NGAY { get; set; }
 
         [StringLength(500)]
+        [Display(Name = "Ghi chú")]
         public string PN_GHICHU { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

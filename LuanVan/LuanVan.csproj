@@ -348,9 +348,11 @@
     <Content Include="Content\Images\0857865d08639a2.jpg" />
     <Content Include="Content\Images\background.jpg" />
     <Content Include="Content\Images\bg-top.jpg" />
+    <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\kt123.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\Screenshot %281%29.png" />
+    <Content Include="Content\Images\Untitled.png" />
     <Content Include="Content\Images\wallpaper1.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\JavaScript.js" />
