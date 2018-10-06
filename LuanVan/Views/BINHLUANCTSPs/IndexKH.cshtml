@@ -1,20 +1,49 @@
 ﻿@model IEnumerable<LuanVan.Models.BINHLUANCTSP>
-
+@using LuanVan.Models
 @{
     ViewBag.Title = "IndexKH";
     Layout = "~/Views/Shared/_LayoutKHAjaxy.cshtml";
     LuanVan.Controllers.BINHLUANCTSPsController bINHLUANCTSPs = new LuanVan.Controllers.BINHLUANCTSPsController();
+    DataContext db = new DataContext();
 }
 
 @foreach (var item in Model)
 {
     @Html.Hidden(item.BL_ID)
-        <div class="text-1">
-            <span>@bINHLUANCTSPs.GetTenKH(item.KH_ID)</span>
-       
-            <p>
-                <i>@item.BL_ND</i> <br /> @item.BL_THOIGIAN
-            </p>
-        </div>
+<div class="text-1">
+    <span>@item.KHACHHANG.KH_TEN</span>
 
+    <p>
+        <i>@item.BL_ND</i> <br /> @item.BL_THOIGIAN
+    </p>
+    <div style="margin-left:2%" class="text-1">
+        @{
+            var result = (from p in db.BINHLUANCTSPs where p.BL_TL == item.BL_ID select p);
+        }
+        @if (result != null)
+        {
+            foreach (var i in result)
+            {
+                if (i.KHACHHANG.KH_TEN != "0")
+                {
+
+                    <span>@i.KHACHHANG.KH_TEN</span>
+                }
+                if (i.NHANVIEN.NV_TEN != "0")
+                {
+
+                    <span>@i.NHANVIEN.NV_TEN</span>
+                }
+                <p>
+                    <i>@i.BL_ND</i> <br /> @i.BL_THOIGIAN
+                </p>
+            }
+        }
+    </div>
+    <br />
+    </div>
+    if (Session["NV_ID"] != null || Session["KH_ID"] !=null)
+    {
+        @Html.ActionLink("Trả lời", "Create", new { id = item.KH_ID, id2 = item.CTSP_ID, id3 = item.BL_ID })
+    }
 }

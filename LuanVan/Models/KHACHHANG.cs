@@ -12,6 +12,7 @@ namespace LuanVan.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHACHHANG()
         {
+            BINHLUANCTSPs = new HashSet<BINHLUANCTSP>();
             DONHANGs = new HashSet<DONHANG>();
         }
 
@@ -41,6 +42,9 @@ namespace LuanVan.Models
 
         [StringLength(200)]
         public string KH_MATKHAU { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BINHLUANCTSP> BINHLUANCTSPs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DONHANG> DONHANGs { get; set; }

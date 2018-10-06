@@ -4280,8 +4280,8 @@
     <Content Include="Views\BINHLUANCTSPs\Details.cshtml" />
     <Content Include="Views\BINHLUANCTSPs\Edit.cshtml" />
     <Content Include="Views\BINHLUANCTSPs\Index.cshtml" />
-    <Content Include="Views\BINHLUANCTSPs\IndexKH.cshtml" />
     <Content Include="Views\BINHLUANCTSPs\CreateKH.cshtml" />
+    <Content Include="Views\BINHLUANCTSPs\IndexKH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

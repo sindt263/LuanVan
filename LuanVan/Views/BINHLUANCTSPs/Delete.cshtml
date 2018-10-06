@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    Layout = "~/Views/Shared/_LayoutKHAjaxy.cshtml";
 }
 
 <h2>Delete</h2>
@@ -13,19 +13,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_ID)
+            @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_ID)
+            @Html.DisplayFor(model => model.CHITIETSANPHAM.CTSP_TEN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.KH_ID)
+            @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.KH_ID)
+            @Html.DisplayFor(model => model.KHACHHANG.KH_TEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NHANVIEN.NV_TEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NHANVIEN.NV_TEN)
         </dd>
 
         <dt>

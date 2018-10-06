@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    Layout = "~/Views/Shared/_LayoutKHAjaxy.cshtml";
 }
 
 <h2>Edit</h2>
@@ -18,17 +18,25 @@
         @Html.HiddenFor(model => model.BL_ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CTSP_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CTSP_ID, "CTSP_ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CTSP_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("CTSP_ID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CTSP_ID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.KH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NV_ID, "NV_ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.KH_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("NV_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NV_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KH_ID, "KH_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("KH_ID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.KH_ID, "", new { @class = "text-danger" })
             </div>
         </div>

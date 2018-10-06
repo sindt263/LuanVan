@@ -47,6 +47,10 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<BINHLUANCTSP>()
+                .Property(e => e.NV_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BINHLUANCTSP>()
                 .Property(e => e.KH_ID)
                 .IsUnicode(false);
 
@@ -226,6 +230,7 @@ namespace LuanVan.Models
                 .Property(e => e.NSX_ID)
                 .IsUnicode(false);
         }
+
         public int autottang(string namettable, string namerow, int sl)
         {
             DataContext a = new DataContext();
@@ -246,5 +251,6 @@ namespace LuanVan.Models
             string result = a.Database.SqlQuery<string>("select " + id + " from " + nametable + " where " + namerow + " = '" + id + "'").SingleOrDefault();
             return result;
         }
+
     }
 }

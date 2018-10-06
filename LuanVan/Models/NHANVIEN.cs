@@ -12,6 +12,7 @@ namespace LuanVan.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NHANVIEN()
         {
+            BINHLUANCTSPs = new HashSet<BINHLUANCTSP>();
             CHITIETBHs = new HashSet<CHITIETBH>();
             DONHANGs = new HashSet<DONHANG>();
             PHIEUNHAPSPs = new HashSet<PHIEUNHAPSP>();
@@ -52,6 +53,9 @@ namespace LuanVan.Models
 
         [StringLength(15)]
         public string NV_SDT { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BINHLUANCTSP> BINHLUANCTSPs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETBH> CHITIETBHs { get; set; }

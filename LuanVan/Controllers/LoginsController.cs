@@ -21,6 +21,7 @@ namespace LuanVan.Controllers
             Session["KH_ID"] = null;
             Session["KH_Ten"] = null;
             Session["KH_SDT"] = null;
+            Session["NV_ID"] = null;
             HttpCookie userInfo = Request.Cookies["LoginKH"];
             if(userInfo != null)
             {
@@ -38,17 +39,20 @@ namespace LuanVan.Controllers
             
             string TK = Request["TK"];
             string MK = Request["MK"];
-            
+            string remember = Request["remember"];
             var result = (from p in db.KHACHHANGs where p.KH_TAIKHOAN == TK && p.KH_MATKHAU == MK select p);
             if (result.Count() >= 1)
             {
-                HttpCookie userInfo = new HttpCookie("LoginKH");
-                userInfo["KH_TaiKhoan"] = TK;
-                userInfo["KH_MatKhau"] = MK;
-                userInfo.Expires.Add(new TimeSpan(0, 1, 0));
-                Response.Cookies.Add(userInfo);
-                ViewBag.TK = userInfo["KH_TaiKhoan"];
-                ViewBag.MK = userInfo["KH_MatKhau"];
+                if (remember =="1")
+                {
+                    HttpCookie userInfo = new HttpCookie("LoginKH");
+                    userInfo["KH_TaiKhoan"] = TK;
+                    userInfo["KH_MatKhau"] = MK;
+                    userInfo.Expires.Add(new TimeSpan(0, 1, 0));
+                    Response.Cookies.Add(userInfo);
+                    ViewBag.TK = userInfo["KH_TaiKhoan"];
+                    ViewBag.MK = userInfo["KH_MatKhau"];
+                }
                 foreach (var item in result)
                 {
                     Session["KH_ID"] = item.KH_ID;
@@ -69,6 +73,7 @@ namespace LuanVan.Controllers
         public ActionResult LoginNV()
         {
             Session["NV_ID"] = null;
+            Session["KH_ID"] = null;
             Session["LNV_ID"] = null;
             return View();
         }
