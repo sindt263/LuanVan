@@ -8,82 +8,82 @@
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
 
-<h2>IndexDH</h2>
 @using (Html.BeginForm("IndexDH", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
 {
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+        <input type="text" class="form-control" placeholder="Tìm kiếm theo SĐT" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
     </div>
 }
-    <table class="table" style="min-height:500px">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NV_ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DN_NGALAPDON)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DN_GHICHU)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DN_SL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DN_SDT)
-            </th>
-
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <div class="container">
+        <table class="table" style="min-height:500px">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NV_ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DN_GHICHU)
-                </td>
-                <td>
-                    @{ 
-                        int count = (from p in db.CHITIETDONHANGs where p.DN_ID == item.DN_ID select p).Count();
-                    }
-                    @count
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DN_SDT)
-                </td>
-                <td>
-                    <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NV_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DN_NGALAPDON)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DN_GHICHU)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DN_SL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DN_SDT)
+                </th>
+
+                <th></th>
             </tr>
-            <div id="Show" style="background-color:cornflowerblue"></div>
-            <script type="text/javascript">
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NV_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DN_GHICHU)
+                    </td>
+                    <td>
+                        @{
+                            int count = (from p in db.CHITIETDONHANGs where p.DN_ID == item.DN_ID select p).Count();
+                        }
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DN_SDT)
+                    </td>
+                    <td>
+                        <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
+                    </td>
+                </tr>
+                <div id="Show" style="background-color:cornflowerblue"></div>
+                <script type="text/javascript">
 
             $('#@item.DN_ID').click(function () {
                 $.ajax({
@@ -107,7 +107,8 @@
             })
 
 
-            </script>
-        }
+                </script>
+            }
 
-    </table>
+        </table>
+    </div>
