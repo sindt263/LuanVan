@@ -258,6 +258,7 @@
     <Compile Include="Models\NHASANXUAT.cs" />
     <Compile Include="Models\PHIEUNHAPSP.cs" />
     <Compile Include="Models\SANPHAM.cs" />
+    <Compile Include="Models\SoSanhSP.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\TRANGTHAIBH.cs" />
     <Compile Include="Models\TRANGTHAIDONHANG.cs" />
@@ -4161,6 +4162,7 @@
     <Content Include="Views\BINHLUANCTSPs\Index.cshtml" />
     <Content Include="Views\BINHLUANCTSPs\CreateKH.cshtml" />
     <Content Include="Views\BINHLUANCTSPs\IndexKH.cshtml" />
+    <Content Include="Views\Home\HienSoSanh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

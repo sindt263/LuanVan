@@ -48,12 +48,64 @@ namespace LuanVan.Controllers
 
         public ActionResult SearchSP(string searchTerm,int id=0, int id2= 0, int page = 1, int pageSize = 100)
         {
+            List<SoSanhSP> sosanh = Session["sosanh"] as List<SoSanhSP>;
+            ViewBag.sosanh = sosanh;
+
             var SanPhams = new HomeController();
             var mode = SanPhams.ListAllPaging(searchTerm,id,id2, page, pageSize);
             ViewBag.SearchTerm = searchTerm;
            
             return View(mode);
         }
+
+        public ViewResult HienSoSanh(string id)
+        {
+            CHITIETSANPHAM ctsp = db.CHITIETSANPHAMs.Find(id);
+            return View(ctsp);
+        }
+        public RedirectToRouteResult ThemSoSanh(string CTSP_ID)
+        {
+            if (Session["sosanh"] == null) // Nếu sản phẩm  chưa được khởi tạo
+            {
+                Session["sosanh"] = new List<SoSanhSP>();  // Khởi tạo Session là 1 List<SoSanh>
+            }
+
+            List<SoSanhSP> sosanh = Session["sosanh"] as List<SoSanhSP>;  // Gán qua biến sosanh dễ code
+
+            // Kiểm tra xem sản phẩm khách đang chọn đã có trong giỏ hàng chưa
+           
+            if (sosanh.FirstOrDefault(m => m.CTSP_ID == CTSP_ID) == null) // ko co sp nay trong gio hang
+            {
+                if (sosanh.Count >= 2)
+                {
+                    sosanh.Remove(sosanh.LastOrDefault());
+                }
+                CHITIETSANPHAMsController cHITIETSANPH = new CHITIETSANPHAMsController();
+                CHITIETSANPHAM sp = db.CHITIETSANPHAMs.Find(CTSP_ID);  // tim sp theo id
+                SoSanhSP ss = new SoSanhSP()
+                {
+                    CTSP_ID = CTSP_ID,
+
+                };  // Tạo ra 1 CartItem mới
+
+                sosanh.Add(ss);  // Thêm CartItem vào giỏ 
+            }
+            // Action này sẽ chuyển hướng về trang chi tiết sp khi khách hàng đặt vào giỏ thành công. Bạn có thể chuyển về chính trang khách hàng vừa đứng bằng lệnh return Redirect(Request.UrlReferrer.ToString()); nếu muốn.
+            return RedirectToAction("SearchSP");
+        }
+
+        public RedirectToRouteResult XoaDoiTuong(string CTSP_ID)
+        {
+            List<SoSanhSP> sosanh = Session["sosanh"] as List<SoSanhSP>;
+            SoSanhSP itemXoa = sosanh.FirstOrDefault(m => m.CTSP_ID == CTSP_ID);
+            if (itemXoa != null)
+            {
+                sosanh.Remove(itemXoa);
+            }
+            return RedirectToAction("SearchSP");
+        }
+
+
         public IEnumerable<CHITIETSANPHAM> ListAllPaging(string searchTerm,int id, int id2, int page, int pageSize)
         {
             IQueryable<CHITIETSANPHAM> model = db.CHITIETSANPHAMs;

@@ -57,6 +57,7 @@
         [Display(Name = "Bộ nhớ ROM")]
         public string CTSP_ROM { get; set; }
 
+        [Display(Name = "Dung lượng PIN")]
         public int? CTSP_DUNGLUONGPIN { get; set; }
 
         [StringLength(50)]
