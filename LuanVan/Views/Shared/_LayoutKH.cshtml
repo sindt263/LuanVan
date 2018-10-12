@@ -68,192 +68,239 @@
 </head>
 <body>
 
-    @*<div class="header-area ">
-            <div class="container ">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="user-menu">
-                            <ul>
-                                <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> My Account</a></li>
-                                <li><a href="/KhuyenMais/IndexKH"><i class="fa fa-bomb"></i> Khuyến mãi</a></li>
-
-
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="header-right">
-                            <ul class="list-unstyled list-inline">
-                                <a href="/Home/SearchSP?SearchTerm=&id=0&id2=2000000">dưới 2tr | </a>
-
-                                <a href="/Home/SearchSP?SearchTerm=&id=2000000&id2=4000000">2tr-4tr | </a>
-
-                                <a href="/Home/SearchSP?SearchTerm=&id=4000000&id2=7000000">4tr-7tr | </a>
-
-                                <a href="/Home/SearchSP?SearchTerm=&id=7000000&id2=10000000">7tr-10tr | </a>
-
-                                <a href="/Home/SearchSP?SearchTerm=&id=10000000&id2=0">>10tr |</a>
-                                <li class="dropdown dropdown-small">
-                                    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">English</a></li>
-                                        <li><a href="#">French</a></li>
-                                        <li><a href="#">German</a></li>
-                                    </ul>
-                                </li>
-
-
-
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End header area -->
-
-        <div class="site-branding-area" style="background-color:#fae710 ;height:65px; max-height:65px">
-
-            @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
-            {
-                <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Tên sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success hidden-xs"> Click me !</button>
-                </div>
-
-
-            }
+    <div class="header-area " id="menu">
+        <div class="mainmenu-area">
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="logo">
-                            <h5>
-                                <a href="/Home/">
-
-                                    <img src="~/Content/Images/logo.png" />
-                                </a>
-                            </h5>
-                        </div>
+                <div class="row" >
+                    <div class="navbar-header" style="background-color:yellow; border-radius:10px 10px">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                       
                     </div>
+                    <div class="navbar-collapse collapse" style="background-color:yellow; border-radius:10px 10px">
+                        <ul class="nav navbar-nav  col-md-12 col-lg-12" role="menu">
+                            <li></li>
+                            <li> <b><a style="color:#000000;" class=" colortext fa fa-home" href="/">Home</a></b></li>
 
-                    <div>
-                            <div class="shopping-item">
+                            <li>
                                 <a href="/GioHang/">
-                                    Cart - <span class="cart-amunt">
+                                    <b>
+                                        Cart - <span class="cart-amunt">
+                                            @if (giohang != null)
+                                            {
+                                                <b>@giohang.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </b>
+                                            }
+                                            else
+                                            {
+                                                <b>0 VNĐ</b>
+                                            }
+                                        </span>
+                                    </b> <i class="fa fa-shopping-cart"></i> <span class="product-count" style="margin-top:10px">
                                         @if (giohang != null)
                                         {
-                                            <td>@giohang.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </td>
+                                            <b>@giohang.Sum(m => m.SoLuong) </b>
                                         }
                                         else
                                         {
-                                            <td>0 VNĐ</td>
-                                        }
-                                    </span> <i class="fa fa-shopping-cart"></i> <span class="product-count">
-                                        @if (giohang != null)
-                                        {
-                                            <td>@giohang.Sum(m => m.SoLuong) </td>
-                                        }
-                                        else
-                                        {
-                                            <td>0</td>
+                                            <b>0</b>
                                         }
                                     </span>
                                 </a>
-                            </div>
-                        </div>
-    </div>
-    </div>
-    </div> <!-- End site branding area -->
-    *@
-    <div class="mainmenu-area">
-        <div class="">
-            <div class="row">
+                            </li>
+                            @if (Session["KH_ID"] == null)
+                            {
+                                <li>  <b><a style="color:#000000;" href="/Donhangs/IndexDH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                            }
+                            else
+                            {
+                                <li>  <b><a style="color:#000000;" href="/Donhangs/IndexKH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                            }
+                            @if (Session["KH_ID"] != null)
+                            {
 
-                <div class="navbar-collapse collapse" style="background-color:yellow; border-radius:10px 10px">
-                    <ul class="nav navbar-nav">
-                        <li></li>
-                        <li> <b><a style="color:#000000;" class=" colortext fa fa-home" href="/">Home</a></b></li>
-                        @*<li>  <b><a style="color:#000000;" href="/GioHang/" class="colortext fa fa-shopping-cart">Giõ hàng</a></b></li>*@
-                        <li >
-                            <a href="/GioHang/">
-                                <b>
-                                    Cart - <span class="cart-amunt">
-                                        @if (giohang != null)
-                                        {
-                                            <b>@giohang.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </b>
-                                        }
-                                        else
-                                        {
-                                            <b>0 VNĐ</b>
-                                        }
-                                    </span>
-                                </b> <i class="fa fa-shopping-cart"></i> <span class="product-count" style="margin-top:10px">
-                                    @if (giohang != null)
-                                    {
-                                        <b>@giohang.Sum(m => m.SoLuong) </b>
-                                    }
-                                    else
-                                    {
-                                        <b>0</b>
-                                    }
-                                </span>
-                            </a>
-                        </li>
-                        @if (Session["KH_ID"] == null)
-                        {
-                            <li>  <b><a style="color:#000000;" href="/Donhangs/IndexDH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
-                        }
-                        else
-                        {
-                            <li>  <b><a style="color:#000000;" href="/Donhangs/IndexKH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
-                        }
-                        @if (Session["KH_ID"] != null)
-                        {
+                                <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
+                            }
+                            @if (Session["KH_ID"] == null)
+                            {
+                                <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
+                            }
 
-                            <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
-                        }
-                        @if (Session["KH_ID"] == null)
-                        {
-                            <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
-                        }
-                        else
-                        {
-                            <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
-                        }
+                            @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+                            {
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Tên sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success hidden-xs"> Click me !</button>
+                                </div>
+                                <div class="form-group">
+                                    <a href="/Home/SearchSP?SearchTerm=&id=0&id2=2000000"> | dưới 2tr | </a>
 
-                        @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
-                        {
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Tên sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success hidden-xs"> Click me !</button>
-                            </div>
-                            <div class="form-group">
-                                <a href="/Home/SearchSP?SearchTerm=&id=0&id2=2000000"> | dưới 2tr | </a>
+                                    <a href="/Home/SearchSP?SearchTerm=&id=2000000&id2=4000000">2tr-4tr | </a>
 
-                                <a href="/Home/SearchSP?SearchTerm=&id=2000000&id2=4000000">2tr-4tr | </a>
+                                    <a href="/Home/SearchSP?SearchTerm=&id=4000000&id2=7000000">4tr-7tr | </a>
 
-                                <a href="/Home/SearchSP?SearchTerm=&id=4000000&id2=7000000">4tr-7tr | </a>
+                                    <a href="/Home/SearchSP?SearchTerm=&id=7000000&id2=10000000">7tr-10tr | </a>
 
-                                <a href="/Home/SearchSP?SearchTerm=&id=7000000&id2=10000000">7tr-10tr | </a>
+                                    <a href="/Home/SearchSP?SearchTerm=&id=10000000&id2=0">>10tr |</a>
+                                </div>
 
-                                <a href="/Home/SearchSP?SearchTerm=&id=10000000&id2=0">>10tr |</a>
-                            </div>
+                            }
 
-                        }
+                        </ul>
 
-                    </ul>
-
+                    </div>
                 </div>
             </div>
         </div>
-    </div> <!-- End mainmenu area -->
-    
+    </div> <!-- End header area -->
+    @*<div class="site-branding-area" style="background-color:#fae710 ;height:65px; max-height:65px">
+
+                @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+                {
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" placeholder="Tên sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success hidden-xs"> Click me !</button>
+                    </div>
+
+
+                }
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="logo">
+                                <h5>
+                                    <a href="/Home/">
+
+                                        <img src="~/Content/Images/logo.png" />
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div>
+                                <div class="shopping-item">
+                                    <a href="/GioHang/">
+                                        Cart - <span class="cart-amunt">
+                                            @if (giohang != null)
+                                            {
+                                                <td>@giohang.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </td>
+                                            }
+                                            else
+                                            {
+                                                <td>0 VNĐ</td>
+                                            }
+                                        </span> <i class="fa fa-shopping-cart"></i> <span class="product-count">
+                                            @if (giohang != null)
+                                            {
+                                                <td>@giohang.Sum(m => m.SoLuong) </td>
+                                            }
+                                            else
+                                            {
+                                                <td>0</td>
+                                            }
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+        </div>
+        </div>
+        </div>*@ <!-- End site branding area -->
+    @*<div class="mainmenu-area">
+            <div class="">
+                <div class="row">
+
+                    <div class="navbar-collapse collapse" style="background-color:yellow; border-radius:10px 10px">
+                        <ul class="nav navbar-nav">
+                            <li></li>
+                            <li> <b><a style="color:#000000;" class=" colortext fa fa-home" href="/">Home</a></b></li>
+                            <li>  <b><a style="color:#000000;" href="/GioHang/" class="colortext fa fa-shopping-cart">Giõ hàng</a></b></li>
+                            <li >
+                                <a href="/GioHang/">
+                                    <b>
+                                        Cart - <span class="cart-amunt">
+                                            @if (giohang != null)
+                                            {
+                                                <b>@giohang.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </b>
+                                            }
+                                            else
+                                            {
+                                                <b>0 VNĐ</b>
+                                            }
+                                        </span>
+                                    </b> <i class="fa fa-shopping-cart"></i> <span class="product-count" style="margin-top:10px">
+                                        @if (giohang != null)
+                                        {
+                                            <b>@giohang.Sum(m => m.SoLuong) </b>
+                                        }
+                                        else
+                                        {
+                                            <b>0</b>
+                                        }
+                                    </span>
+                                </a>
+                            </li>
+                            @if (Session["KH_ID"] == null)
+                            {
+                                <li>  <b><a style="color:#000000;" href="/Donhangs/IndexDH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                            }
+                            else
+                            {
+                                <li>  <b><a style="color:#000000;" href="/Donhangs/IndexKH" class="colortext fa fa-mail-reply">Đơn hàng</a></b></li>
+                            }
+                            @if (Session["KH_ID"] != null)
+                            {
+
+                                <li><a href="/KhachHangs/IndexKH"><i class="fa fa-user"></i> Tài khoản</a></li>
+                            }
+                            @if (Session["KH_ID"] == null)
+                            {
+                                <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
+                            }
+
+                            @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+                            {
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Tên sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success hidden-xs"> Click me !</button>
+                                </div>
+                                <div class="form-group">
+                                    <a href="/Home/SearchSP?SearchTerm=&id=0&id2=2000000"> | dưới 2tr | </a>
+
+                                    <a href="/Home/SearchSP?SearchTerm=&id=2000000&id2=4000000">2tr-4tr | </a>
+
+                                    <a href="/Home/SearchSP?SearchTerm=&id=4000000&id2=7000000">4tr-7tr | </a>
+
+                                    <a href="/Home/SearchSP?SearchTerm=&id=7000000&id2=10000000">7tr-10tr | </a>
+
+                                    <a href="/Home/SearchSP?SearchTerm=&id=10000000&id2=0">>10tr |</a>
+                                </div>
+
+                            }
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>*@ <!-- End mainmenu area -->
+
 
     @RenderBody()
 

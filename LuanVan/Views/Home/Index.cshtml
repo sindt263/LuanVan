@@ -16,7 +16,6 @@
 <div class="container">
     <div class="col-xs-8 col-md-4" style="margin-top:-40px">
         <div class="product-widget-area">
-            <div class="zigzag-bottom"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
@@ -141,9 +140,9 @@
     </div>
 </div>
 <div class="container">
-    <div class="col-xs-8 col-md-4" style="margin-top:-60px">
+    <div class="col-xs-8 col-md-4">
         <div class="product-widget-area">
-            <div class="zigzag-bottom"></div>
+            <div></div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
@@ -260,104 +259,7 @@
 
 
 <div class="row">
-    <div class="maincontent-area">
-        <div class="zigzag-bottom"></div>
-        <div class="container">
-            <div class="row">
-                <div class="">
-                    <div class="latest-product">
-                        <h4 class="text-center">
-                            <span class="clip-text clip-text_fourteen clip-text--cover text-center">Khuyến mãi mới</span>
-                        </h4>
-                        <div class="product-carousel">
-                            @foreach (var km in ViewBag.KM)
-                            {
-                                string km_id = km.KM_ID;
-                                string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                                var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
-                                foreach (var item in SP)
-                                {
-                                    <div class="single-product">
-                                        <div id="@item.CTSP_ID" class="product-f-image">
-                                            <asp:Repeater runat="server" id="myRepeater">
-                                                <ItemTemplate>
-                                                    <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                            <div class="product-hover">
-                                                @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
-                                                {
-                                                    <h4 class="text-danger">Hết hàng</h4>
-
-                                                }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
-                                                }
-
-
-                                                <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@item.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="product-carousel-price">
-                                            <a href="/ChiTietSanPhams/Details/@item.CTSP_ID"><h2 class="" style="font-size:large">@item.CTSP_TEN</h2></a>
-                                            @{
-                                                float newprice;
-                                                if (km.KM_GIATRI > 1)
-                                                {
-                                                    <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
-                                                }
-                                                else
-                                                {
-                                                    float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * km.KM_GIATRI;
-                                                    newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                    <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
-                                                }
-
-                                            }
-
-
-                                        </div>
-                                    </div>
-
-
-
-
-                                }
-                                @*<a class="w3_play_icon1" href="#small-dialog1_@i.CTSP_ID"> Tại đây </a>*@
-
-                                <!-- for Details popup -->
-
-                            }
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row">
     <div class="col-xs-10 col-sm-12 col-md-12" id="ViewSP">
-
-        <div class="product-big-title-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="product-bit-title text-center">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <div class="maincontent-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
@@ -365,15 +267,14 @@
                     <div class="">
                         <div class="latest-product">
                             <h4 class="text-center">
-                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Tất cả sản phẩm</span>
+                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Khuyến mãi mới</span>
                             </h4>
                             <div class="product-carousel">
-                                @foreach (var i in Model)
+                                @foreach (var km in ViewBag.KM)
                                 {
-
-                                    string id = i.CTSP_ID;
-                                    //string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                                    List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == id && p.SP_TRANGTHAI == 1 select p).Take(1).ToList();
+                                    string km_id = km.KM_ID;
+                                    string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                                    var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
                                     foreach (var item in SP)
                                     {
                                         <div class="single-product">
@@ -381,11 +282,10 @@
                                                 <asp:Repeater runat="server" id="myRepeater">
                                                     <ItemTemplate>
                                                         <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
-
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                                 <div class="product-hover">
-                                                    @if (item.SP_TRANGTHAI == 0)
+                                                    @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
                                                     {
                                                         <h4 class="text-danger">Hết hàng</h4>
 
@@ -396,77 +296,30 @@
                                                     }
 
 
-                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
-
+                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@item.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
 
                                                 </div>
                                             </div>
-                                            <!-- for Details popup -->
-                                            @*<div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
-                                                    <div class="contact-form1">
-                                                        <div class="contact-w3-agileits">
-                                                            <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
-                                                            <form action="#" method="post" id="registerform">
 
-                                                                <div class="form-sub-w3ls">
-                                                                    <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
-                                                                    <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
-                                                                    <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
-                                                                    <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
-                                                                    <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
-                                                                    <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
-                                                                    <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
-                                                                    <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
-                                                                    <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
-                                                                    <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
-                                                                </div>
-
-                                                                <div class="submit-w3l">
-                                                                    <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
-                                            <!-- //for Details popup -->
-
-                                            <h2><a href="single-product.html">@i.CTSP_TEN</a></h2>
 
                                             <div class="product-carousel-price">
+                                                <a href="/ChiTietSanPhams/Details/@item.CTSP_ID"><h2 class="" style="font-size:large">@item.CTSP_TEN</h2></a>
                                                 @{
                                                     float newprice;
-                                                    if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                                    if (km.KM_GIATRI > 1)
                                                     {
-                                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
-                                                        newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @item.KHUYENMAI.KM_TEN</h4>
+                                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
                                                     }
                                                     else
                                                     {
-                                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * km.KM_GIATRI;
+                                                        newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
+                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
                                                     }
 
                                                 }
 
-                                                @*<div data-role="main" class="ui-content">
-                                                        <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Open Dialog Popup</a>
 
-                                                        <div data-role="popup" id="myPopupDialog">
-                                                            <div data-role="header">
-                                                                <h1>Header Text</h1>
-                                                            </div>
-
-                                                            <div data-role="main" class="ui-content">
-                                                                <h2>Welcome to my Popup Dialog!</h2>
-                                                                <p>jQuery Mobile is FUN!</p>
-                                                                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-back ui-btn-icon-left" data-rel="back">Go Back</a>
-                                                            </div>
-
-                                                            <div data-role="footer">
-                                                                <h1>Footer Text</h1>
-                                                            </div>
-                                                        </div>
-                                                    </div>*@
                                             </div>
                                         </div>
 
@@ -474,80 +327,83 @@
 
 
                                     }
-                                    @*<a class="w3_play_icon1" href="#small-dialog1_@i.CTSP_ID"> Tại đây </a>
+                                    @*<a class="w3_play_icon1" href="#small-dialog1_@i.CTSP_ID"> Tại đây </a>*@
 
-                                        <!-- for Details popup -->
-                                        <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
-                                            <div class="contact-form1">
-                                                <div class="contact-w3-agileits">
-                                                    <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
-                                                    <form action="#" method="post" id="registerform">
+                                    <!-- for Details popup -->
 
-                                                        <div class="form-sub-w3ls">
-                                                            <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
-                                                            <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
-                                                            <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
-                                                            <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
-                                                            <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
-                                                            <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
-                                                            <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
-                                                            <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
-                                                            <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
-                                                            <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
-                                                        </div>
-
-                                                        <div class="submit-w3l">
-                                                            <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- //for Details popup -->*@
                                 }
                             </div>
-                            <div class="">
-                                <h3>Danh sách hãng</h3>
-                                <div class="view-details-link">
-                                    @foreach (var item in ViewBag.NSX)
-                                    {
-                                        <a href="/SanPhams/SPbyNSX/@item.NSX_ID">@item.NSX_TEN | </a>
-                                    }
-                                </div>
-                                <!-- End brands area -->
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10 col-sm-12 col-md-12" id="ViewSP">
+
+            <div class="product-big-title-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="product-bit-title text-center">
                             </div>
-                            @foreach (var item in ViewBag.nsx)
-                            {
-                                string id = item.NSX_ID;
-                                var TenNSX = (from ctsp in db.CHITIETSANPHAMs join sp in db.SANPHAMs on ctsp.CTSP_ID equals sp.CTSP_ID where sp.NSX_ID == id select ctsp).Distinct();
-                                <div class="text-center">
-                                    <h3><b style="color:firebrick"> @item.NSX_TEN</b></h3>
-                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="maincontent-area">
+                <div class="zigzag-bottom"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="">
+                            <div class="latest-product">
+                                <h4 class="text-center">
+                                    <span class="clip-text clip-text_fourteen clip-text--cover text-center">Tất cả sản phẩm</span>
+                                </h4>
                                 <div class="product-carousel">
-                                    @foreach (var i in TenNSX)
+                                    @foreach (var i in Model)
                                     {
-                                        <div class="single-product">
-                                            <div class="product-f-image">
 
-                                                <asp:Repeater runat="server" id="myRepeater">
-                                                    <ItemTemplate>
-                                                        <img src="/HinhAnhSPs/getImage/@i.CTSP_ID" alt="Hình sản phẩm" />
-                                                    </ItemTemplate>
-                                                </asp:Repeater>
-                                                <div class="product-hover">
-                                                    @if (sANPHAMs.KTKho(i.CTSP_ID) == 0)
-                                                    {
-                                                        <h4 class="text-danger">Hết hàng</h4>
+                                        string id = i.CTSP_ID;
+                                        //string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                                        List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == id && p.SP_TRANGTHAI == 1 select p).Take(1).ToList();
+                                        foreach (var item in SP)
+                                        {
+                                            <div class="single-product">
+                                                <div id="@item.CTSP_ID" class="product-f-image">
+                                                    <asp:Repeater runat="server" id="myRepeater">
+                                                        <ItemTemplate>
+                                                            <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
 
-                                                    }
-                                                    else
-                                                    {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(i.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
-                                                    }
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                    <div class="product-hover">
+                                                        @if (item.SP_TRANGTHAI == 0)
+                                                        {
+                                                            <h4 class="text-danger">Hết hàng</h4>
 
-                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
-                                                    <!-- for Details popup -->
-                                                    <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        }
+
+
+                                                        <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
+
+
+                                                    </div>
+                                                </div>
+                                                <!-- for Details popup -->
+                                                @*<div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
                                                         <div class="contact-form1">
                                                             <div class="contact-w3-agileits">
                                                                 <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
@@ -567,157 +423,302 @@
                                                                     </div>
 
                                                                     <div class="submit-w3l">
-                                                                        <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                                        <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
                                                                     </div>
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!-- //for Details popup -->
+                                                    </div>*@
+                                                <!-- //for Details popup -->
+
+                                                <h2><a href="single-product.html">@i.CTSP_TEN</a></h2>
+
+                                                <div class="product-carousel-price">
+                                                    @{
+                                                        float newprice;
+                                                        if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                                        {
+                                                            float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
+                                                            newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
+                                                            <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @item.KHUYENMAI.KM_TEN</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                                        }
+
+                                                    }
+
+                                                    @*<div data-role="main" class="ui-content">
+                                                            <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Open Dialog Popup</a>
+
+                                                            <div data-role="popup" id="myPopupDialog">
+                                                                <div data-role="header">
+                                                                    <h1>Header Text</h1>
+                                                                </div>
+
+                                                                <div data-role="main" class="ui-content">
+                                                                    <h2>Welcome to my Popup Dialog!</h2>
+                                                                    <p>jQuery Mobile is FUN!</p>
+                                                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-back ui-btn-icon-left" data-rel="back">Go Back</a>
+                                                                </div>
+
+                                                                <div data-role="footer">
+                                                                    <h1>Footer Text</h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>*@
                                                 </div>
                                             </div>
 
 
 
-                                            @*<h2><a href="single-product.html">@i.CTSP_TEN</a></h2>*@
-                                            <div class="product-carousel-price">
-                                                <h3> @i.CTSP_TEN</h3>
-                                                <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
-                                                @*@{
-                                                        float newprice;
-                                                        if (i..KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+
+                                        }
+                                        @*<a class="w3_play_icon1" href="#small-dialog1_@i.CTSP_ID"> Tại đây </a>
+
+                                            <!-- for Details popup -->
+                                            <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                                                <div class="contact-form1">
+                                                    <div class="contact-w3-agileits">
+                                                        <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
+                                                        <form action="#" method="post" id="registerform">
+
+                                                            <div class="form-sub-w3ls">
+                                                                <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
+                                                                <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
+                                                                <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
+                                                                <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
+                                                                <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
+                                                                <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
+                                                                <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
+                                                                <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
+                                                                <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
+                                                                <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
+                                                            </div>
+
+                                                            <div class="submit-w3l">
+                                                                <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- //for Details popup -->*@
+                                    }
+                                </div>
+                                <div class="">
+                                    <h3>Danh sách hãng</h3>
+                                    <div class="view-details-link">
+                                        @foreach (var item in ViewBag.NSX)
+                                        {
+                                            <a href="/SanPhams/SPbyNSX/@item.NSX_ID">@item.NSX_TEN | </a>
+                                        }
+                                    </div>
+                                    <!-- End brands area -->
+                                </div>
+                                @foreach (var item in ViewBag.nsx)
+                                {
+                                    string id = item.NSX_ID;
+                                    var TenNSX = (from ctsp in db.CHITIETSANPHAMs join sp in db.SANPHAMs on ctsp.CTSP_ID equals sp.CTSP_ID where sp.NSX_ID == id select ctsp).Distinct();
+                                    <div class="text-center">
+                                        <h3><b style="color:firebrick"> @item.NSX_TEN</b></h3>
+                                    </div>
+                                    <div class="product-carousel">
+                                        @foreach (var i in TenNSX)
+                                        {
+                                            <div class="single-product">
+                                                <div class="product-f-image">
+
+                                                    <asp:Repeater runat="server" id="myRepeater">
+                                                        <ItemTemplate>
+                                                            <img src="/HinhAnhSPs/getImage/@i.CTSP_ID" alt="Hình sản phẩm" />
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                    <div class="product-hover">
+                                                        @if (sANPHAMs.KTKho(i.CTSP_ID) == 0)
                                                         {
-                                                            float giamgia = cHITIETSANPH.GetGia(i.CTSP_ID) * Convert.ToSingle(i.KHUYENMAI.KM_GIATRI);
-                                                            newprice = cHITIETSANPH.GetGia(i.CTSP_ID) - giamgia;
-                                                            <ins> @newprice.ToString("###,###") VND </ins><del> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </del> <h4> Khuyến Mãi: @i.KHUYENMAI.KM_TEN </h4>
+                                                            <h4 class="text-danger">Hết hàng</h4>
+
                                                         }
                                                         else
                                                         {
-                                                            <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+                                                            <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(i.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                         }
 
-                                                    }*@
+                                                        <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
+                                                        <!-- for Details popup -->
+                                                        <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                                                            <div class="contact-form1">
+                                                                <div class="contact-w3-agileits">
+                                                                    <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
+                                                                    <form action="#" method="post" id="registerform">
+
+                                                                        <div class="form-sub-w3ls">
+                                                                            <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
+                                                                            <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
+                                                                            <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
+                                                                            <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
+                                                                            <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
+                                                                            <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
+                                                                            <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
+                                                                            <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
+                                                                            <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
+                                                                            <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
+                                                                        </div>
+
+                                                                        <div class="submit-w3l">
+                                                                            <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- //for Details popup -->
+                                                    </div>
+                                                </div>
+
+
+
+                                                @*<h2><a href="single-product.html">@i.CTSP_TEN</a></h2>*@
+                                                <div class="product-carousel-price">
+                                                    <h3> @i.CTSP_TEN</h3>
+                                                    <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+                                                    @*@{
+                                                            float newprice;
+                                                            if (i..KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                                            {
+                                                                float giamgia = cHITIETSANPH.GetGia(i.CTSP_ID) * Convert.ToSingle(i.KHUYENMAI.KM_GIATRI);
+                                                                newprice = cHITIETSANPH.GetGia(i.CTSP_ID) - giamgia;
+                                                                <ins> @newprice.ToString("###,###") VND </ins><del> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </del> <h4> Khuyến Mãi: @i.KHUYENMAI.KM_TEN </h4>
+                                                            }
+                                                            else
+                                                            {
+                                                                <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+                                                            }
+
+                                                        }*@
+
+                                                </div>
+
 
                                             </div>
+                                        }
 
 
-                                        </div>
-                                    }
-
-
-                                </div>
-                            }
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-</div>
+    @*
+        <div class="maincontent-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-6 col-xs-12">
+                        <div class="latest-product">
+                            <h2 class="section-title">
+                                <span style="font-size:x-large" class="clip-text clip-text_fourteen clip-text--cover text-center">Khuyến mãi mới</span>
+                            </h2>
+                            <div class="product-carousel">
+                                @foreach (var i in ViewBag.KM)
+                                {
+                                    string km_id = i.KM_ID;
+                                    string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                                    List<CHITIETSANPHAM> SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p).ToList();
+                                    foreach (var item in SP)
+                                    {
 
-@*
-    <div class="maincontent-area">
+
+                                        <div class="single-product">
+                                            <div class="product-f-image">
+                                                <asp:Repeater runat="server" id="myRepeater">
+                                                    <ItemTemplate>
+                                                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                                    </ItemTemplate>
+                                                </asp:Repeater>
+                                                <div class="product-hover">
+                                                    @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
+                                                    {
+                                                        <h4 class="text-danger">Hết hàng</h4>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                    }
+
+                                                    <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                </div>
+                                            </div>
+
+
+                                            <h2><a href="single-product.html">@item.CTSP_TEN</a></h2>
+
+                                            <div class="product-carousel-price">
+                                                @{
+                                                    float newprice;
+                                                    if (i.KM_GIATRI > 1)
+                                                    {
+                                                        newprice = cHITIETSANPH.GetGia(item.CTSP_ID) / i.KM_GIATRI;
+                                                    }
+                                                    else
+                                                    {
+                                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * i.KM_GIATRI;
+                                                        newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
+                                                    }
+
+                                                }
+                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del> Khuyến Mãi : @i.KM_TEN
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End main content area -->
+    *@
+    <div class="promo-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-sm-6 col-xs-12">
-                    <div class="latest-product">
-                        <h2 class="section-title">
-                            <span style="font-size:x-large" class="clip-text clip-text_fourteen clip-text--cover text-center">Khuyến mãi mới</span>
-                        </h2>
-                        <div class="product-carousel">
-                            @foreach (var i in ViewBag.KM)
-                            {
-                                string km_id = i.KM_ID;
-                                string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                                List<CHITIETSANPHAM> SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p).ToList();
-                                foreach (var item in SP)
-                                {
-
-
-                                    <div class="single-product">
-                                        <div class="product-f-image">
-                                            <asp:Repeater runat="server" id="myRepeater">
-                                                <ItemTemplate>
-                                                    <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                            <div class="product-hover">
-                                                @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
-                                                {
-                                                    <h4 class="text-danger">Hết hàng</h4>
-
-                                                }
-                                                else
-                                                {
-                                                    <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
-                                                }
-
-                                                <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                            </div>
-                                        </div>
-
-
-                                        <h2><a href="single-product.html">@item.CTSP_TEN</a></h2>
-
-                                        <div class="product-carousel-price">
-                                            @{
-                                                float newprice;
-                                                if (i.KM_GIATRI > 1)
-                                                {
-                                                    newprice = cHITIETSANPH.GetGia(item.CTSP_ID) / i.KM_GIATRI;
-                                                }
-                                                else
-                                                {
-                                                    float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * i.KM_GIATRI;
-                                                    newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                }
-
-                                            }
-                                            <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del> Khuyến Mãi : @i.KM_TEN
-                                        </div>
-                                    </div>
-                                }
-                            }
-                        </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo1">
+                        <i class="fa fa-refresh"></i>
+                        <p>Trả lại nếu lỗi</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo2">
+                        <i class="fa fa-truck"></i>
+                        <p>Miễn phí vận chuyển</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo3">
+                        <i class="fa fa-lock"></i>
+                        <p>Thanh toán an toàn</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo4">
+                        <i class="fa fa-gift"></i>
+                        <p>Sản phẩm mới</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- End main content area -->
-*@
-<div class="promo-area">
-    <div class="zigzag-bottom"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="single-promo promo1">
-                    <i class="fa fa-refresh"></i>
-                    <p>Trả lại nếu lỗi</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-promo promo2">
-                    <i class="fa fa-truck"></i>
-                    <p>Miễn phí vận chuyển</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-promo promo3">
-                    <i class="fa fa-lock"></i>
-                    <p>Thanh toán an toàn</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-promo promo4">
-                    <i class="fa fa-gift"></i>
-                    <p>Sản phẩm mới</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> <!-- End promo area -->
+    </div> <!-- End promo area -->
 
 
 
@@ -727,70 +728,70 @@
 
 
 
-<script>
-    $(document).ready(function () {
-        $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
-            type: 'inline',
-            fixedContentPos: false,
-            fixedBgPos: true,
-            overflowY: 'auto',
-            closeBtnInside: true,
-            preloader: false,
-            midClick: true,
-            removalDelay: 300,
-            mainClass: 'my-mfp-zoom-in'
+    <script>
+        $(document).ready(function () {
+            $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+                type: 'inline',
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeBtnInside: true,
+                preloader: false,
+                midClick: true,
+                removalDelay: 300,
+                mainClass: 'my-mfp-zoom-in'
+            });
+
         });
-
-    });
-</script>
+    </script>
 
 
-<style type="text/css">
-    .small-dialog, .small-dialog1, .small-dialog2 {
-        background: transparent;
-        padding: 0;
-        text-align: left;
-        max-width: 650px;
-        margin: 40px auto;
-        position: relative;
-        text-align: center;
-    }
-
-    .small-dialog-it, .small-dialog-in, .small-dialog-fr, .small-dialog-sh, .small-dialog-sf, .small-dialog-su, .small-dialog-me, .small-dialog-ch, .small-dialog-pi, .small-dialog-am {
-        background: white;
-        padding: 0px;
-        text-align: left;
-        max-width: 450px;
-        margin: 40px auto;
-        position: relative;
-        text-align: center;
-    }
-
-    a.play-icon.popup-with-zoom-anim img:hover {
-        opacity: 0.5;
-        transition: 0.5s all;
-        -webkit-transition: 0.5s all;
-        -o-transition: 0.5s all;
-        -moz-transition: 0.5s all;
-        -ms-transition: 0.5s all;
-    }
-
-    .portfolio-items {
-        text-align: center;
-        margin: 0 auto;
-    }
-
-        .portfolio-items img {
-            width: 100%;
+    <style type="text/css">
+        .small-dialog, .small-dialog1, .small-dialog2 {
+            background: transparent;
+            padding: 0;
+            text-align: left;
+            max-width: 650px;
+            margin: 40px auto;
+            position: relative;
+            text-align: center;
         }
 
-        .portfolio-items h4 {
-            margin: 1em 0;
-            font-size: 25px;
-            color: #a63d56;
+        .small-dialog-it, .small-dialog-in, .small-dialog-fr, .small-dialog-sh, .small-dialog-sf, .small-dialog-su, .small-dialog-me, .small-dialog-ch, .small-dialog-pi, .small-dialog-am {
+            background: white;
+            padding: 0px;
+            text-align: left;
+            max-width: 450px;
+            margin: 40px auto;
+            position: relative;
+            text-align: center;
         }
 
-        .portfolio-items p {
-            text-align: justify;
+        a.play-icon.popup-with-zoom-anim img:hover {
+            opacity: 0.5;
+            transition: 0.5s all;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -ms-transition: 0.5s all;
         }
-</style>
+
+        .portfolio-items {
+            text-align: center;
+            margin: 0 auto;
+        }
+
+            .portfolio-items img {
+                width: 100%;
+            }
+
+            .portfolio-items h4 {
+                margin: 1em 0;
+                font-size: 25px;
+                color: #a63d56;
+            }
+
+            .portfolio-items p {
+                text-align: justify;
+            }
+    </style>

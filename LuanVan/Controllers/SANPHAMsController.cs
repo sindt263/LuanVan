@@ -53,38 +53,38 @@ namespace LuanVan.Controllers
         }
         public ActionResult ViewSP(string searchTerm, int page = 1, int pageSize =100)
         {
-            //var Model = db.NHASANXUATs.ToList();
-            ViewBag.nsx = db.NHASANXUATs.ToList();
+            return RedirectToAction("","");
+            //ViewBag.nsx = db.NHASANXUATs.ToList();
 
-            var SanPhams = new SANPHAMsController();
-            var mode = SanPhams.ListAllPaging1(searchTerm, page, pageSize);
-            ViewBag.SearchTerm = searchTerm;
+            //var SanPhams = new SANPHAMsController();
+            //var mode = SanPhams.ListAllPaging1(searchTerm, page, pageSize);
+            //ViewBag.SearchTerm = searchTerm;
 
-            foreach (var i in ViewBag.nsx)
-            {
-                string id = i.NSX_ID;
+            //foreach (var i in ViewBag.nsx)
+            //{
+            //    string id = i.NSX_ID;
                
-                ViewData[i.NSX_TEN] = (from p in db.SANPHAMs where p.NSX_ID == id select p.CTSP_ID).Distinct();
-                foreach(var ii in ViewData[i.NSX_TEN])
-                {
-                    string ctsp_id = ii;
-                    ViewData[ii] = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == ctsp_id select p);
-                }
+            //    ViewData[i.NSX_TEN] = (from p in db.SANPHAMs where p.NSX_ID == id select p.CTSP_ID).Distinct();
+            //    foreach(var ii in ViewData[i.NSX_TEN])
+            //    {
+            //        string ctsp_id = ii;
+            //        ViewData[ii] = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == ctsp_id select p);
+            //    }
                 
-            }
+            //}
            
-            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
+            //ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
             
-            var PN_ID = (from p in db.PHIEUNHAPSPs select p).OrderByDescending(a => a.PN_NGAY);
-            string SP_ID = "";
-            foreach (var i in PN_ID)
-            {
-                SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='"+i.PN_ID+"'").DefaultIfEmpty();
-            }
-            ViewBag.MaSP = SP_ID;
+            //var PN_ID = (from p in db.PHIEUNHAPSPs select p).OrderByDescending(a => a.PN_NGAY);
+            //string SP_ID = "";
+            //foreach (var i in PN_ID)
+            //{
+            //    SP_ID += db.Database.SqlQuery<string>("select SP_ID from ChiTietNhap where PN_ID ='"+i.PN_ID+"'").DefaultIfEmpty();
+            //}
+            //ViewBag.MaSP = SP_ID;
 
-            //var sANPHAMs = db.CHITIETSANPHAMs.ToList();
-            return View(mode);
+            ////var sANPHAMs = db.CHITIETSANPHAMs.ToList();
+            //return View(mode);
         }
 
         public ViewResult SPbyNSX(string id)
@@ -157,7 +157,7 @@ namespace LuanVan.Controllers
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", sANPHAM.CTSP_ID);
             return View(sANPHAM);
         }
-        public ActionResult CreateSP(string id1, string id2, string id3, string id4, string id5, string id6, string id7, string id10)
+        public ActionResult CreateSP(string id1,  string id3, string id4, string id5, string id6, string id7, string id10)
         {
             SANPHAM sANPHAM = new SANPHAM();
 

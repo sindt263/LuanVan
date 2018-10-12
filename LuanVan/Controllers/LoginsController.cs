@@ -61,7 +61,7 @@ namespace LuanVan.Controllers
 
                 }
 
-                return Redirect("~/SanPhams/ViewSP");
+                return Redirect("~/Home/");
             }
             else {
                 ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");
