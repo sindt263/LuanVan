@@ -70,7 +70,7 @@
 
     <div class="header-area " id="menu">
         <div class="mainmenu-area">
-            <div class="container">
+            <div class="">
                 <div class="row" >
                     <div class="navbar-header" style="background-color:yellow; border-radius:10px 10px">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -131,7 +131,10 @@
                             {
                                 <li><a href="/Logins/LoginKH"><i class="fa fa-user-md"></i> Đăng xuất</a></li>
                             }
-
+                            @if (Session["NV_ID"] != null)
+                            {
+                                <li><a href="/SanPhams/"><i class="fa fa-user"></i>Về quản lý</a></li>
+                            }
                             @using (Html.BeginForm("SearchSP", "Home", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
                             {
                                 <div class="form-group">

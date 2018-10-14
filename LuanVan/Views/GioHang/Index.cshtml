@@ -123,24 +123,27 @@
     </div>
 </div>
     }
-    @*<script type="text/javascript">
-            var HTTT_ID = document.getElementById("HTTT_ID")
-            var CTDH_DIACHIGIAO = document.getElementById("CTDH_DIACHIGIAO")
-            var DN_SDT = document.getElementById("DN_SDT")
-            var SL = document.getElementById("TXTSL")
-            var idkh = document.getElementById("idkh")
-            $("#btnsubmit").click(function () {
-                /**/
+    <script type="text/javascript">
+        //    var HTTT_ID = document.getElementById("HTTT_ID")
+        //    var CTDH_DIACHIGIAO = document.getElementById("CTDH_DIACHIGIAO")
+        //    var DN_SDT = document.getElementById("DN_SDT")
+        //    var SL = document.getElementById("TXTSL")
+        //    var idkh = document.getElementById("idkh")
+        //    $("#btnsubmit").click(function () {
+        //        /**/
 
-                $.ajax({
-                    type: "GET",
-                    url: "/DonHangs/CreateDH/",
-                    data: { 'id1': HTTT_ID.value, 'id2': SL.value, 'id3': CTDH_DIACHIGIAO.value, 'id4': DN_SDT.value },
-                    success: function (result) {
-                        $("#ViewDH").html(result)
-                    }
-                })
+        //        $.ajax({
+        //            type: "GET",
+        //            url: "/DonHangs/CreateDH/",
+        //            data: { 'id1': HTTT_ID.value, 'id2': SL.value, 'id3': CTDH_DIACHIGIAO.value, 'id4': DN_SDT.value },
+        //            success: function (result) {
+        //                $("#ViewDH").html(result)
+        //            }
+        //        })
 
-            })
-        /**/
-        </script>*@
+        //    })
+        ///**/
+        if (@Session["muathanhcong"] != null) {
+            confirm("Đã mua thành công !");
+        }
+        </script>

@@ -29,32 +29,48 @@ namespace LuanVan.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ViewResult test(string id)
+        {
+            int male = 0; ;
+            for (int i = 1; i <= 4; i++)
+            {
+                string YourRadioButton = Request.Form[i.ToString()];
+                if (YourRadioButton == "male")
+                {
+                    male++;
+                }
+            }
+            ViewBag.YourRadioButton = male;
+
+            return View();
+        }
 
         public ActionResult Index()
         {
             //ViewSP
             ViewBag.nsx = db.NHASANXUATs.ToList();
-            
+
 
 
             ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
 
-            
+
             ViewBag.SPMoi = db.CHITIETSANPHAMs.OrderByDescending(n => n.CTSP_NGAYTAO).Take(6);
 
 
             return View(db.CHITIETSANPHAMs.ToList());
         }
 
-        public ActionResult SearchSP(string searchTerm,int id=0, int id2= 0, int page = 1, int pageSize = 100)
+        public ActionResult SearchSP(string searchTerm, int id = 0, int id2 = 0, int page = 1, int pageSize = 100)
         {
             List<SoSanhSP> sosanh = Session["sosanh"] as List<SoSanhSP>;
             ViewBag.sosanh = sosanh;
 
             var SanPhams = new HomeController();
-            var mode = SanPhams.ListAllPaging(searchTerm,id,id2, page, pageSize);
+            var mode = SanPhams.ListAllPaging(searchTerm, id, id2, page, pageSize);
             ViewBag.SearchTerm = searchTerm;
-           
+
             return View(mode);
         }
 
@@ -73,7 +89,7 @@ namespace LuanVan.Controllers
             List<SoSanhSP> sosanh = Session["sosanh"] as List<SoSanhSP>;  // Gán qua biến sosanh dễ code
 
             // Kiểm tra xem sản phẩm khách đang chọn đã có trong giỏ hàng chưa
-           
+
             if (sosanh.FirstOrDefault(m => m.CTSP_ID == CTSP_ID) == null) // ko co sp nay trong gio hang
             {
                 if (sosanh.Count >= 2)
@@ -106,36 +122,36 @@ namespace LuanVan.Controllers
         }
 
 
-        public IEnumerable<CHITIETSANPHAM> ListAllPaging(string searchTerm,int id, int id2, int page, int pageSize)
+        public IEnumerable<CHITIETSANPHAM> ListAllPaging(string searchTerm, int id, int id2, int page, int pageSize)
         {
             IQueryable<CHITIETSANPHAM> model = db.CHITIETSANPHAMs;
 
-            if (id!=0 && id2!= 0 && string.IsNullOrEmpty(searchTerm))
+            if (id != 0 && id2 != 0 && string.IsNullOrEmpty(searchTerm))
             {
-                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA >=id &&  gia.GIA_GIA <= id2 select ctsp).Distinct();
+                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA >= id && gia.GIA_GIA <= id2 select ctsp).Distinct();
                 return result.OrderByDescending(x => x.CTSP_NGAYTAO).ToPagedList(page, pageSize);
             }
-            else if(id == 0 && id2 == 0 && !string.IsNullOrEmpty(searchTerm))
+            else if (id == 0 && id2 == 0 && !string.IsNullOrEmpty(searchTerm))
             {
                 var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where (ctsp.CTSP_TEN.Contains(searchTerm) || ctsp.CTSP_MOTA.Contains(searchTerm)) select ctsp).Distinct();
                 return result.OrderByDescending(x => x.CTSP_NGAYTAO).ToPagedList(page, pageSize);
-            }            
-            else if(id != 0 && id2 == 0 && string.IsNullOrEmpty(searchTerm))
+            }
+            else if (id != 0 && id2 == 0 && string.IsNullOrEmpty(searchTerm))
             {
-                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA >= id  select ctsp).Distinct();
+                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA >= id select ctsp).Distinct();
                 return result.OrderByDescending(x => x.CTSP_NGAYTAO).ToPagedList(page, pageSize);
             }
-            else if(id != 0 && id2 == 0 && !string.IsNullOrEmpty(searchTerm))
+            else if (id != 0 && id2 == 0 && !string.IsNullOrEmpty(searchTerm))
             {
-                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA >= id  && (ctsp.CTSP_TEN.Contains(searchTerm) || ctsp.CTSP_MOTA.Contains(searchTerm)) select ctsp).Distinct();
+                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA >= id && (ctsp.CTSP_TEN.Contains(searchTerm) || ctsp.CTSP_MOTA.Contains(searchTerm)) select ctsp).Distinct();
                 return result.OrderByDescending(x => x.CTSP_NGAYTAO).ToPagedList(page, pageSize);
             }
-            else if(id == 0 && id2 != 0 && string.IsNullOrEmpty(searchTerm))
+            else if (id == 0 && id2 != 0 && string.IsNullOrEmpty(searchTerm))
             {
-                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA <= id2  select ctsp).Distinct();
+                var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA <= id2 select ctsp).Distinct();
                 return result.OrderByDescending(x => x.CTSP_NGAYTAO).ToPagedList(page, pageSize);
             }
-            else if(id == 0 && id2 != 0 && !string.IsNullOrEmpty(searchTerm))
+            else if (id == 0 && id2 != 0 && !string.IsNullOrEmpty(searchTerm))
             {
                 var result = (from sp in db.SANPHAMs join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID where gia.GIA_GIA <= id2 && (ctsp.CTSP_TEN.Contains(searchTerm) || ctsp.CTSP_MOTA.Contains(searchTerm)) select ctsp).Distinct();
                 return result.OrderByDescending(x => x.CTSP_NGAYTAO).ToPagedList(page, pageSize);
@@ -144,9 +160,9 @@ namespace LuanVan.Controllers
             {
                 return model;
             }
-            
-           
-            
+
+
+
         }
         public ActionResult About()
         {
@@ -173,6 +189,6 @@ namespace LuanVan.Controllers
             return result;
         }
 
-      
+
     }
 }

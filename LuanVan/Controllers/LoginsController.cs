@@ -18,10 +18,7 @@ namespace LuanVan.Controllers
         [HttpGet]
         public ActionResult LoginKH()
         {
-            Session["KH_ID"] = null;
-            Session["KH_Ten"] = null;
-            Session["KH_SDT"] = null;
-            Session["NV_ID"] = null;
+            Session.Clear();
             HttpCookie userInfo = Request.Cookies["LoginKH"];
             if(userInfo != null)
             {
@@ -53,6 +50,14 @@ namespace LuanVan.Controllers
                     ViewBag.TK = userInfo["KH_TaiKhoan"];
                     ViewBag.MK = userInfo["KH_MatKhau"];
                 }
+                else
+                {
+                    HttpCookie userInfo = new HttpCookie("LoginKH");
+                    userInfo["KH_TaiKhoan"] = null;
+                    userInfo["KH_MatKhau"] = null;
+                    userInfo.Expires.Add(new TimeSpan(0, 1, 0));
+                    Response.Cookies.Add(userInfo);
+                }
                 foreach (var item in result)
                 {
                     Session["KH_ID"] = item.KH_ID;
@@ -72,9 +77,7 @@ namespace LuanVan.Controllers
 
         public ActionResult LoginNV()
         {
-            Session["NV_ID"] = null;
-            Session["KH_ID"] = null;
-            Session["LNV_ID"] = null;
+            Session.Clear();
             return View();
         }
 

@@ -91,7 +91,7 @@
 
 
 
-                    <div >
+                    <div>
                         <div class="product-inner">
                             <h2 class="product-name">@Model.CTSP_TEN</h2>
                             <div class="product-inner-price">
@@ -178,23 +178,26 @@
 
 
             </div>
+             @if (Session["KH_ID"] != null)
+            {
+                <label>Nhận xét:</label>
+                <div class="col-md-4">
+                    <div>
+                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field BL_ND must be a string with a maximum length of 255." data-val-length-max="255" id="BL_ND" name="BL_ND" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="BL_ND" data-valmsg-replace="true"></span> <input type="button" id="btnNX" value="Gửi" class="btn btn-success" />
+                    </div>
+                   
+                </div>
+            }
             <div class="col-md-4" id="ViewBL"></div>
+           
         </div>
         </div>
         
-        @if (Session["KH_ID"] != null)
-        {
-        <label>Nhận xét:</label>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="BL_ND">Nội dung</label>
-            <div class="col-md-6">
-                <input class="form-control text-box single-line" data-val="true" data-val-length="The field BL_ND must be a string with a maximum length of 255." data-val-length-max="255" id="BL_ND" name="BL_ND" type="text" value="" />
-                <span class="field-validation-valid text-danger" data-valmsg-for="BL_ND" data-valmsg-replace="true"></span>
-            </div>
-            <input type="button" id="btnNX" value="Gửi" class="btn btn-success" />
-        </div>
-        }
+     
     </div>
+
+
 <script type="text/javascript">
 
     $(document).ready(function () {

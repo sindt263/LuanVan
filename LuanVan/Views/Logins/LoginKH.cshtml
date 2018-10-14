@@ -16,7 +16,15 @@
             <input type="password" Name="MK" placeholder="PASSWORD" id="MK" required=""  value="@ViewBag.MK">
             <ul class="agileinfotickwthree">
                 <li>
-                    <input type="checkbox" id="brand1" name="remember" value="1">
+                    @if (string.IsNullOrEmpty(ViewBag.TK) && string.IsNullOrEmpty(ViewBag.MK))
+                    {
+                        <input type="checkbox" id="brand1" name="remember"  value="1">
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="brand1" name="remember" checked="checked" value="1">
+                    }
+
                     <label for="brand1"><span></span>Nhớ mật khẩu</label>
                     <a href="#">Quên mật khẩu?</a>
                 </li>

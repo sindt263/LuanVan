@@ -16,7 +16,7 @@ namespace LuanVan.Controllers
             ViewBag.HTTT_ID = new SelectList(db.HINHTHUCTHANHTOANs, "HTTT_ID", "HTTT_TEN");
             List<CartItem> giohang = Session["giohang"] as List<CartItem>;
             ViewBag.diachi = db.Database.SqlQuery<string>("select ctdn.CTDH_DIACHIGIAO from CHITIETDONHANG ctdn inner join DONHANG dn on ctdn.DN_ID = dn.DN_ID and dn.KH_ID ='" + Session["KH_ID"] + "' group by ctdn.CTDH_DIACHIGIAO").LastOrDefault();
-
+            Session["muathanhcong"] = null;
 
             return View(giohang);
 
@@ -35,7 +35,7 @@ namespace LuanVan.Controllers
 
             if (ModelState.IsValid)
             {
-                if (DN_SDT.Length <= 9 )
+                if (DN_SDT.Length <= 9 || !DN_SDT.StartsWith("09") && !DN_SDT.StartsWith("08") )
                 {
                     ModelState.AddModelError("", "Vui lòng điền nhập đúng SĐT !");
                 }
@@ -91,6 +91,7 @@ namespace LuanVan.Controllers
                         //giohang.Remove(itemXoa);
                     }
                     ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
+                    Session["muathanhcong"] = 1;
                     foreach (var i in XoaItem)
                     {
                         
