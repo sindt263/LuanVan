@@ -18,45 +18,46 @@
         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
     </div>
 }
-<p>
-    @Html.ActionLink("Thêm phiếu nhập", "Create")
-</p>
-<table class="table">
+    <p>
+        
+        <button class="btn btn-light">@Html.ActionLink("Thêm phiếu nhập", "Create")</button>
+    </p>
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Nhà cung cấp")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Nhân viên")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày nhập")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ghi chú")
         </th>
-        <th>Tùy chọn</th>
+        <th class="text-center"  style="min-width:200px">Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.NHACUNGCAP.NCC_TEN)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.NHANVIEN.NV_TEN)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.PN_NGAY)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.PN_GHICHU)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.PN_ID }) |
-                <a href="/ChiTietNhaps?SearchTerm=@item.PN_ID">Chi tiết</a> |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.PN_ID })
+            <td class="text-center">
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.PN_ID })</i></button>
+                <button class="btn btn-info"style="width:80px"><i class="fa fa-book"> <a href="/ChiTietNhaps?SearchTerm=@item.PN_ID">Chi tiết</a></i></button>
+                <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash"> @Html.ActionLink("Xóa", "Delete", new { id = item.PN_ID })</i></button>
             </td>
         </tr>
     }

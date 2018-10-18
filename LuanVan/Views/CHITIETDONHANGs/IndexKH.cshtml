@@ -16,6 +16,15 @@
         <th>
             @Html.DisplayNameFor(model => model.CTDH_DIACHIGIAO)
         </th>
+     <th>
+            @Html.DisplayNameFor(model => model.CTDH_MATHE)
+        </th>
+     <th>
+            @Html.DisplayNameFor(model => model.CTDH_CHUTHE)
+        </th>
+     <th>
+            @Html.DisplayNameFor(model => model.CTDH_NGAYCAP)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -28,6 +37,15 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CTDH_DIACHIGIAO)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.CTDH_MATHE)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.CTDH_CHUTHE)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.CTDH_NGAYCAP)
         </td>
         
     </tr>

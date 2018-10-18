@@ -19,51 +19,53 @@
     </div>
 }
 <p>
-    @Html.ActionLink("Thêm khuyến mãi mới", "Create")
+    <button class="btn btn-light">@Html.ActionLink("Thêm khuyến mãi mới", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Tên khuyến mãi")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày bắt đầu")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Giá trị")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày kết thúc")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Mô tả")
         </th>
-        <th>Tùy chọn</th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KM_TEN)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.KM_NGAYBATDAU)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.KM_GIATRI)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.KM_NGAYKETTHUC)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KM_MOTA)
             </td>
-            <td>
-                @Html.ActionLink("Sửa 1", "Edit", new { id = item.KM_ID }) |
-                @Html.ActionLink("Sửa 2", "EditMany", new { id = item.KM_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.KM_ID }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.KM_ID })
+            <td class="text-center">
+                <button class="btn btn-success">
+                    @Html.ActionLink("Sửa 1", "Edit", new { id = item.KM_ID })
+                </button>
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa All", "EditMany", new { id = item.KM_ID })</i> </button>
+                <button class="btn btn-info"style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.KM_ID })</i> </button>
+                <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.KM_ID })</i></button>
             </td>
         </tr>
     }

@@ -90,7 +90,7 @@ namespace LuanVan.Controllers
         public ViewResult SPbyNSX(string id)
         {
             ViewBag.NSX_ID = id;
-            var model = (from nsx in db.NHASANXUATs join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID where nsx.NSX_ID == id select ctsp.CTSP_ID).Distinct();
+            var model = (from nsx in db.NHASANXUATs join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID join ctsp in db.CHITIETSANPHAMs on sp.CTSP_ID equals ctsp.CTSP_ID where nsx.NSX_ID == id select ctsp).Distinct();
             
             return View(model);
         }

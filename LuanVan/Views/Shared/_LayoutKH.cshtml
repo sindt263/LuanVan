@@ -125,7 +125,8 @@
                             }
                             @if (Session["KH_ID"] == null)
                             {
-                                <li><a href="/Logins/LoginKH"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                                <li><a href="/logins/loginkh" id="DN"><i class="fa fa-user"></i><button id="te" class="btn-link">Đăng nhập</button></a></li>
+
                             }
                             else
                             {
@@ -304,7 +305,6 @@
             </div>
         </div>*@ <!-- End mainmenu area -->
 
-
     @RenderBody()
 
     <div class="footer-top-area">
@@ -419,3 +419,13 @@
     <!--//pop-up-box-js-file -->
 </body>
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#te").click(function () {
+             @{
+                 Session["link"] = HttpContext.Current.Request.Url.PathAndQuery;
+             } 
+        })
+    })
+</script>

@@ -83,7 +83,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string id2,string id3,[Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN")] BINHLUANCTSP bINHLUANCTSP)
+        public ActionResult Create(string id2,string id3,[Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN,BL_TL")] BINHLUANCTSP bINHLUANCTSP)
         {
             if (ModelState.IsValid)
             {
@@ -180,7 +180,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN")] BINHLUANCTSP bINHLUANCTSP)
+        public ActionResult Edit([Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN,BL_TL")] BINHLUANCTSP bINHLUANCTSP)
         {
             if (ModelState.IsValid)
             {

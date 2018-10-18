@@ -23,7 +23,7 @@ namespace LuanVan.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string HTTT_ID, string TXTSL, string CTDH_DIACHIGIAO, string DN_SDT)
+        public ActionResult Index(string HTTT_ID, string TXTSL, string CTDH_DIACHIGIAO, string DN_SDT,string CTDH_MATHE, string CTDH_CHUTHE, string CTDH_NGAYCAP)
         {
             ViewBag.sdt = DN_SDT;
             ViewBag.diachi = CTDH_DIACHIGIAO;
@@ -35,7 +35,7 @@ namespace LuanVan.Controllers
 
             if (ModelState.IsValid)
             {
-                if (DN_SDT.Length <= 9 || !DN_SDT.StartsWith("09") && !DN_SDT.StartsWith("08") )
+                if (DN_SDT.Length <= 9 || !DN_SDT.StartsWith("09") && !DN_SDT.StartsWith("08") && !DN_SDT.StartsWith("03") && !DN_SDT.StartsWith("05")&& !DN_SDT.StartsWith("07") )
                 {
                     ModelState.AddModelError("", "Vui lòng điền nhập đúng SĐT !");
                 }
@@ -50,8 +50,7 @@ namespace LuanVan.Controllers
 
                     DONHANG dONHANG = new DONHANG();
 
-                    if (Session["DN_ID"] == null)
-                    {
+                   
                         Session["DN_ID"] = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
                         //dONHANG.NV_ID = Session["NV_ID"].ToString();
                         dONHANG.DN_ID = Session["DN_ID"].ToString();
@@ -69,7 +68,6 @@ namespace LuanVan.Controllers
                         dONHANG.DN_SL = Convert.ToInt32(TXTSL);
                         db.DONHANGs.Add(dONHANG);
                         db.SaveChanges();
-                    }
 
                     string DN_ID = Session["DN_ID"].ToString();
                     CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
@@ -82,7 +80,14 @@ namespace LuanVan.Controllers
                         short TT = db.Database.SqlQuery<short>("select SP_TRANGTHAI from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
                         if (TT == 1)
                         {
-                            db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "',N'" + CTDH_DIACHIGIAO + "')");
+                            if(HTTT_ID == "1") {
+                                db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO,CTDH_MATHE,CTDH_CHUTHE,CTDH_NGAYCAP) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "',N'" + CTDH_DIACHIGIAO + "','" + CTDH_MATHE + "',N'" + CTDH_CHUTHE + "',N'" + CTDH_NGAYCAP + "')");
+                            }
+                            else
+                            {
+                                db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "',N'" + CTDH_DIACHIGIAO + "')");
+                            }
+                           
                             db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
 
                             ModelState.AddModelError("", "Xạc nhận mua " + i.TenSanPham + " thành công");

@@ -15,39 +15,57 @@
     </div>
 }
 <p>
-    @Html.ActionLink("Tạo mới", "Create")
+    <button class="btn btn-light"> @Html.ActionLink("Tạo mới", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.DONHANG.KH_ID)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.SANPHAM.SP_TEN)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.CTDH_DIACHIGIAO)
         </th>
-        <th>tùy chọn</th>
+         <th class="text-center">
+            @Html.DisplayNameFor(model => model.CTDH_MATHE)
+        </th>
+         <th class="text-center">
+            @Html.DisplayNameFor(model => model.CTDH_CHUTHE)
+        </th>
+         <th class="text-center">
+            @Html.DisplayNameFor(model => model.CTDH_NGAYCAP)
+        </th>
+        <th class="text-center">tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.CTDH_DIACHIGIAO)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.CTDH_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.CTDH_ID }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.CTDH_ID })
+             <td class="text-center">
+                @Html.DisplayFor(modelItem => item.CTDH_MATHE)
             </td>
+             <td class="text-left">
+                @Html.DisplayFor(modelItem => item.CTDH_CHUTHE)
+            </td>
+             <td class="text-right">
+                @Html.DisplayFor(modelItem => item.CTDH_NGAYCAP)
+            </td>
+             <td>
+                 <button class="btn btn-success"style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.CTDH_ID })</i> </button>
+                 <button class="btn btn-info"style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.CTDH_ID })</i> </button>
+                 <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.CTDH_ID })</i></button>
+             </td>
         </tr>
     }
 

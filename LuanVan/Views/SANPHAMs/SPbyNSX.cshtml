@@ -12,59 +12,30 @@
     <div class="zigzag-bottom"></div>
     <div class="container" style="min-height:500px">
         <div class="row">
-            <div class="col-md-12 col-sm-6">
-                <div class="latest-product">
-                    <h4 class="text-center">
-                        <span class="clip-text clip-text_fourteen clip-text--cover text-center">
-                            @{ string id = ViewBag.NSX_ID;
-                            string ten = db.Database.SqlQuery<string>("select NSX_TEN from NhaSanXuat where NSX_ID ='" + id+"'").SingleOrDefault();
-                            @Html.Raw(ten)
-                            }
-                        </span>
-                    </h4>
-                    <div class="product-carousel">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <asp:Repeater runat="server" id="myRepeater">
+                                <ItemTemplate>
+                                    <img style="max-height:200px; max-width:200px" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
 
-                        @foreach (var i in Model)
-                        {
-                            <div class="single-product">
-                                <div class="product-f-image">
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                        <h2><a href="~/ChiTietSanPhams/Details/@item.CTSP_ID">@item.CTSP_TEN</a></h2>
+                        <div class="product-carousel-price">
+                            <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                        </div>
 
-                                    <asp:Repeater runat="server" id="myRepeater">
-                                        <ItemTemplate>
-                                            <img src="/HinhAnhSPs/getImage/@i" alt="Hình sản phẩm" />
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                    <div class="product-hover">
-                                        @if (sANPHAMs.KTKho(i.ToString()) == 0)
-                                        {
-                                            <h4 class="text-danger">Hết hàng</h4>
-
-                                        }
-                                        else
-                                        {
-                                            <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(i.ToString()) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
-                                        }
-
-                                        <a href="~/ChiTietSanPhams/Details/@i" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
-                                    </div>
-                                </div>
-
-                                
-                               
-                                <h4> <div class="text-center">
-                                    @sANPHAMs.GetCTSP_TEN(i)
-                               </div></h4>
-
-                                <div class="product-carousel-price text-center">
-
-                                    <ins>@cHITIETSANPH.GetGia(i.ToString()).ToString("###,###") VND</ins>
-                                </div>
-
-                            </div>
-
-                        }
+                        <div class="product-option-shop">
+                            <a class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })"><li class="fa fa-shopping-cart"></li> Thêm vào giỏ</a>
+                            <a class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemSoSanh", "Home", new { CTSP_ID = item.CTSP_ID })"><li class="fa fa-compass"></li> So Sánh</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
+</div>

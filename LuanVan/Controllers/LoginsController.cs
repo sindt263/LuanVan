@@ -18,7 +18,12 @@ namespace LuanVan.Controllers
         [HttpGet]
         public ActionResult LoginKH()
         {
-            Session.Clear();
+            
+            Session["KH_ID"] = null;
+            Session["NV_ID"] = null;
+            Session["KH_Ten"] = null;
+            Session["KH_SDT"] = null;
+            Session["LNV_ID"] = null;
             HttpCookie userInfo = Request.Cookies["LoginKH"];
             if(userInfo != null)
             {
@@ -65,8 +70,8 @@ namespace LuanVan.Controllers
                     Session["KH_SDT"] = item.KH_SDT;
 
                 }
-
-                return Redirect("~/Home/");
+                
+                return Redirect("~/"+ Session["link"]);
             }
             else {
                 ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");

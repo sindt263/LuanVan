@@ -17,32 +17,32 @@
     </div>
 }
 <p>
-    @Html.ActionLink("Tạo mới", "Create")
+    <button class="btn btn-light"> @Html.ActionLink("Tạo mới", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.DSP_TEN)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.DSP_MOTA)
         </th>
-        <th>tùy chọn</th>
+        <th class="text-center">tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.DSP_TEN)
             </td>
-            <td>
+            <td  class="text-left">
                 @Html.DisplayFor(modelItem => item.DSP_MOTA)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.DSP_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.DSP_ID }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.DSP_ID })
+            <td  class="text-center">
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.DSP_ID })</i> </button>
+                <button class="btn btn-info"style="width:80px"><i class="fa fa-book"> @Html.ActionLink("Chi tiết", "Details", new { id = item.DSP_ID })</i> </button>
+                <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash"> @Html.ActionLink("Xóa", "Delete", new { id = item.DSP_ID })</i></button>
             </td>
         </tr>
     }

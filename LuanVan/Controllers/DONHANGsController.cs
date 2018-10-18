@@ -232,6 +232,7 @@ namespace LuanVan.Controllers
 
                 dONHANG.NV_ID = Session["NV_ID"].ToString();
                 dONHANG.TTDH_ID = Convert.ToInt16(id_ttdh);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

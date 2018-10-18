@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
 }
 
-<div>
+<div class="container" style="min-height:500px">
     <h4>Chi tiết khách hàng</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -69,16 +69,12 @@
             @Html.DisplayNameFor(model => model.KH_MATKHAU)
         </dt>
         <dd>
-            <a href="/KhachHangs/EditPass"><input type="button" class="btn btn-success" value="Đổi mật khẩu" /></a>
+            <i class="fa fa-edit"><a href="/KhachHangs/EditPass"><input type="button" class="btn btn-success" value="Đổi mật khẩu" /></a></i>
         </dd>
+            <dt>
+                <i class="fa fa-edit"><a href="/KHACHHANGs/EditKH/@Model.KH_ID" class="btn btn-info">Thay đổi thông tin</a></i>
 
+            </dt>
     </dl>
 </div>
-<p>
-
-    <td>
-        <a href="/KHACHHANGs/EditKH/@Model.KH_ID" class="btn btn-info">Thay đổi thông tin</a>
-
-    </td>
-</p>
 

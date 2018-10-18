@@ -19,42 +19,42 @@
     </div>
 }
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-light"> @Html.ActionLink("Create New", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
+        <th  class="text-center">
             @Html.DisplayName("ID")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Chi tiết sản phẩm")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Hình")
         </th>
-        <th>Tùy chọn</th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.HA_ID)
             </td>
-            <td>
+            <td  class="text-left">
                 @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
             </td>
-            <td>
+            <td class="text-center">
                 <asp:Repeater runat="server" id="myRepeater">
                     <ItemTemplate>
-                        <img src="/HINHANHSPs/getImageHA/@item.HA_ID" alt="" width="300" height="300" style="float:left" />
+                        <img src="/HINHANHSPs/getImageHA/@item.HA_ID" alt="Photo" width="300" height="300"/>
                     </ItemTemplate>
                 </asp:Repeater>
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.HA_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.HA_ID }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.HA_ID })
+            <td class="text-center">
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.HA_ID })</i> </button>
+                <button class="btn btn-info"style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.HA_ID })</i> </button>
+                <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash"> @Html.ActionLink("Xóa", "Delete", new { id = item.HA_ID })</i></button>
             </td>
         </tr>
     }

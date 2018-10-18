@@ -19,38 +19,38 @@
     </div>
 }
 <p>
-    @Html.ActionLink("thêm giá mới", "Create")
+    <button class="btn  btn-light"> @Html.ActionLink("thêm giá mới", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
-            @Html.DisplayName("ID")
+        <th class="text-center">
+            @Html.DisplayName("Mã giá")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Giá")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày cập nhật")
         </th>
-        <th>tùy chọn</th>
+        <th class="text-center">tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.GIA_ID)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.GIA_GIA)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.GIA_NGAYCAPNHAT)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.GIA_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.GIA_ID }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.GIA_ID })
+            <td class="text-center">
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.GIA_ID })</i> </button>
+                <button class="btn btn-info"style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.GIA_ID })</i> </button>
+                <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.GIA_ID })</i></button>
             </td>
         </tr>
     }

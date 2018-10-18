@@ -18,69 +18,69 @@
         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
     </div>
 }
-<p>
-    @Html.ActionLink("Thêm khách hàng mới", "Create")
-</p>
-<table class="table">
+    <p>
+        <button class="btn btn-light"> @Html.ActionLink("Thêm khách hàng mới", "Create")</button>
+    </p>
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Tên khách hàng")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Email")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("SĐT")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Địa chỉ")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày sinh")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Giới tính")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Tai khoản")
         </th>
         @*<th>
                 @Html.DisplayNameFor(model => model.KH_MATKHAU)
             </th>*@
-        <th>Tùy chọn</th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KH_TEN)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KH_EMAIL)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.KH_SDT)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KH_DIACHI)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.KH_NGAYSINH)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KH_GIOITINH)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KH_TAIKHOAN)
             </td>
             @*<td>
                     @Html.DisplayFor(modelItem => item.KH_MATKHAU)
                 </td>*@
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.KH_ID }) |
+            <td class="text-center">
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.KH_ID })</i> </button>
                 @*@Html.ActionLink("Chi tiết", "Details", new { id=item.KH_ID }) |*@
-                @Html.ActionLink("Xóa", "Delete", new { id = item.KH_ID })
+                <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.KH_ID })</i></button>
             </td>
         </tr>
     }

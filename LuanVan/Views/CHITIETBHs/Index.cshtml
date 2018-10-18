@@ -18,57 +18,57 @@
         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
     </div>
 }
-<p>
-    @Html.ActionLink("Tạo phiếu mới", "Create")
-</p>
-<table class="table">
+    <p>
+        <button class="btn btn-light"> @Html.ActionLink("Tạo phiếu mới", "Create")</button>
+    </p>
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Tên bảo hành")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Tên sản phẩm")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Trạng thái")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày bảo hành")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày trả")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ghi chú")
         </th>
-        <th>Tùy chọn</th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.BAOHANH.BH_TEN)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.TRANGTHAIBH.TTBH_TEN)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.CTBH_NGAYBH)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.CTBH_NGAYTRA)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.CTBH_GHICHU)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.CTBH_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.CTBH_ID }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.CTBH_ID })
+            <td class="text-center">
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.CTBH_ID })</i> </button>
+                <button class="btn btn-info"style="width:80px"><i class="fa fa-book"> @Html.ActionLink("Chi tiết", "Details", new { id = item.CTBH_ID })</i> </button>
+                <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.CTBH_ID })</i></button>
             </td>
         </tr>
     }

@@ -8,35 +8,37 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-light"> @Html.ActionLink("Create New", "Create")</button>
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.HAKM_ND)
         </th>
-        <th></th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td class="text-left">
             @Html.DisplayFor(modelItem => item.KHUYENMAI.KM_TEN)
         </td>
-        <td>
+        <td class="text-center">
             <asp:Repeater runat="server" id="myRepeater">
                 <ItemTemplate>
                     <img src="/HINHANHKMs/getImageHA/@item.KM_ID" alt="" width="600" height="300" style="float:left" />
                 </ItemTemplate>
             </asp:Repeater>
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.HAKM_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.HAKM_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.HAKM_ID })
+        <td  class="text-center">
+            <button class="btn btn-success"style="width:80px"><i class="fa fa-edit">  @Html.ActionLink("Edit", "Edit", new { id = item.HAKM_ID })</i> </button>
+            <br />
+            <button class="btn btn-info"style="width:80px"><i class="fa fa-book"> @Html.ActionLink("Details", "Details", new { id = item.HAKM_ID })</i></button>
+            <br />
+            <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash"> @Html.ActionLink("Delete", "Delete", new { id = item.HAKM_ID })</i></button>
         </td>
     </tr>
 }

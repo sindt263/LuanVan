@@ -2,63 +2,65 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutKHAjaxy.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container">
+    <h2>Index</h2>
 
-<h2>Index</h2>
+    <p>
+        <button class="btn btn-light"> @Html.ActionLink("Create New", "Create")</button>
+    </p>
+    <table class="table" border="1">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.NHANVIEN.NV_TEN)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.BL_ND)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.BL_THOIGIAN)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.BL_TL)
+            </th>
+            <th class="text-center">Tùy chọn</th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NHANVIEN.NV_TEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BL_ND)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BL_THOIGIAN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BL_TL)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.NHANVIEN.NV_TEN)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.BL_ND)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.BL_THOIGIAN)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.BL_TL)
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-success"style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Edit", "Edit", new { id = item.BL_ID })</i>  </button>
+                    <button class="btn btn-info"style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Details", "Details", new { id = item.BL_ID })</i> </button>
+                    <button class="btn btn-warning" style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Delete", "Delete", new { id = item.BL_ID })</i> </button>
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NHANVIEN.NV_TEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BL_ND)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BL_THOIGIAN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BL_TL)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BL_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BL_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BL_ID })
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+</div>

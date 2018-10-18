@@ -8,31 +8,31 @@
 <h2>Danh sách</h2>
 
 <p>
-    @Html.ActionLink("Thêm quyền mới", "Create")
+    <button class="btn btn-light">@Html.ActionLink("Thêm quyền mới", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.LNV_TEN)
         </th>
-        <th>
+        <th  class="text-center">
             @Html.DisplayNameFor(model => model.LNV_MOTA)
         </th>
-        <th>Tùy chọn</th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td class="text-left">
             @Html.DisplayFor(modelItem => item.LNV_TEN)
         </td>
-        <td>
+        <td class="text-left">
             @Html.DisplayFor(modelItem => item.LNV_MOTA)
         </td>
-        <td>
-            @Html.ActionLink("Sửa", "Edit", new { id=item.LNV_ID }) |
-            @Html.ActionLink("Chi tiết", "Details", new { id=item.LNV_ID }) |
-            @Html.ActionLink("Xóa", "Delete", new { id=item.LNV_ID })
+        <td class="text-center">
+            <button class="btn btn-success"style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.LNV_ID })</i> </button>
+            <button class="btn btn-info"style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.LNV_ID })</i> </button>
+            <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.LNV_ID })</i></button>
         </td>
     </tr>
 }

@@ -26,6 +26,18 @@
         [Display(Name = "Địa chỉ giao")]
         public string CTDH_DIACHIGIAO { get; set; }
 
+         [StringLength(20)]
+        [Display(Name = "Mã thẻ")]
+        public string CTDH_MATHE { get; set; }
+
+         [StringLength(50)]
+        [Display(Name = "Chủ thẻ")]
+        public string CTDH_CHUTHE { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Ngày cấp")]
+        public string CTDH_NGAYCAP { get; set; }
+
         public virtual DONHANG DONHANG { get; set; }
 
         public virtual SANPHAM SANPHAM { get; set; }

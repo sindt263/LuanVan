@@ -19,92 +19,92 @@
     </div>
 }
 <p>
-    @Html.ActionLink("Thêm chi tiết", "Create")
+    <button class="btn btn-light"> @Html.ActionLink("Thêm chi tiết", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Tên")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Công nghệ màn hình")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Độ phân giải")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Kích thước màn hình")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Camera trước")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Camera sau")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Hệ điều hành")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Bộ nhớ RAM")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Bộ nhớ ROM")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Dung lượng PIN")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Số SIM")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày tạo")
         </th>
-        <th>Tùy chọn</th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td  class="text-left">
                 @Html.DisplayFor(modelItem => item.CTSP_TEN)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.CTSP_CNMANGHINH)
             </td>
-            <td>
+            <td  class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_DOPHANGIAI)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_MANHINH)
             </td>
-            <td>
+            <td  class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_CAMERATRUOC)
             </td>
-            <td>
+            <td  class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_CAMERASAU)
             </td>
-            <td>
+            <td  class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_HEDIEUHANH)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_RAM)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_ROM)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_DUNGLUONGPIN)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.CTSP_SOSIM)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.CTSP_NGAYTAO)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.CTSP_ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.CTSP_ID }) |
-                @Html.ActionLink("Xóa", "Delete", new { id = item.CTSP_ID })
+            <td  class="text-center">
+                <button class="btn btn-success"  style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.CTSP_ID })</i> </button>
+                <button class="btn btn-info"  style="width:80px"> <i class="fa fa-book"> @Html.ActionLink("Chi tiết", "Details", new { id = item.CTSP_ID })</i></button>
+                <button class="btn btn-warning" style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.CTSP_ID })</i></button>
             </td>
         </tr>
     }

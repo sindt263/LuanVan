@@ -19,61 +19,61 @@
     </div>
 }
 <p>
-    @Html.ActionLink("Tạo phiếu mới", "Create")
+    <button class="btn  btn-light"> @Html.ActionLink("Tạo phiếu mới", "Create")</button>
 </p>
-<table class="table">
+<table class="table" border="1">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Các thanh toán")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Tên Khách hàng")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Trạng thái")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ngày lập đơn")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Ghi chú")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("Số lượng")
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayName("SĐT")
         </th>
-        <th>Tùy chọn</th>
+        <th class="text-center">Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td  class="text-left">
                 @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
             </td>
-            <td>
+            <td class="text-left">
                 @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
             </td>
-            <td>
+            <td class="text-right">
                 @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.DN_GHICHU)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.DN_SL)
             </td> 
-            <td>
+            <td  class="text-left">
                 @Html.DisplayFor(modelItem => item.DN_SDT)
             </td>
-            <td>
-                @Html.ActionLink("Sửa", "Edit", new { id = item.DN_ID }) |
-                <input type="button" class="btn-link" id="@item.DN_ID" value="Chi Tiết" />
+            <td class="text-center">
+                <button class="btn btn-success"style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.DN_ID })</i> </button>
+                <input type="button" class="btn btn-info" id="@item.DN_ID" value="Chi Tiết" />
 
                 @*@Html.ActionLink("Xóa", "Delete", new { id = item.DN_ID })*@
             </td>
