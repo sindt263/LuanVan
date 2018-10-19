@@ -32,7 +32,8 @@ namespace LuanVan.Controllers
             IQueryable<DONHANG> model = db.DONHANGs.Include(d => d.HINHTHUCTHANHTOAN).Include(d => d.KHACHHANG).Include(d => d.TRANGTHAIDONHANG);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.DN_ID.Contains(searchTerm) || x.KH_ID.Contains(searchTerm) || x.NV_ID.Contains(searchTerm));
+                model = model.Where(x => x.DN_ID.Contains(searchTerm) || x.KH_ID.Contains(searchTerm)
+                || x.NV_ID.Contains(searchTerm)|| x.KHACHHANG.KH_TEN.Contains(searchTerm));
 
             }
 

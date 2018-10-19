@@ -21,7 +21,7 @@
         public short TTDH_ID { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "Tên")]
+        [Display(Name = "Tên trạng thái")]
         public string TTDH_TEN { get; set; }
 
         [StringLength(255)]

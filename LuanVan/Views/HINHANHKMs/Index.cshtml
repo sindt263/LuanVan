@@ -4,43 +4,54 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button class="btn btn-light"><i class="fa fa-plus"></i>@Html.ActionLink("Tạo mới", "Create")</button>
 
-<h2>Index</h2>
+            </div>
+            <div class="container-fluid">
+                <div class="panel-body">
 
-<p>
-    <button class="btn btn-light"> @Html.ActionLink("Create New", "Create")</button>
-</p>
-<table class="table">
-    <tr>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
-        </th>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.HAKM_ND)
-        </th>
-        <th class="text-center">Tùy chọn</th>
-    </tr>
+                    <table class="table  table-striped table-bordered table-hover table-condensed">
+                        <tr>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.HAKM_ND)
+                            </th>
+                            <th class="text-center">Tùy chọn</th>
+                        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td class="text-left">
-            @Html.DisplayFor(modelItem => item.KHUYENMAI.KM_TEN)
-        </td>
-        <td class="text-center">
-            <asp:Repeater runat="server" id="myRepeater">
-                <ItemTemplate>
-                    <img src="/HINHANHKMs/getImageHA/@item.KM_ID" alt="" width="600" height="300" style="float:left" />
-                </ItemTemplate>
-            </asp:Repeater>
-        </td>
-        <td  class="text-center">
-            <button class="btn btn-success"style="width:80px"><i class="fa fa-edit">  @Html.ActionLink("Edit", "Edit", new { id = item.HAKM_ID })</i> </button>
-            <br />
-            <button class="btn btn-info"style="width:80px"><i class="fa fa-book"> @Html.ActionLink("Details", "Details", new { id = item.HAKM_ID })</i></button>
-            <br />
-            <button class="btn btn-warning"style="width:80px"><i class="fa fa-trash"> @Html.ActionLink("Delete", "Delete", new { id = item.HAKM_ID })</i></button>
-        </td>
-    </tr>
-}
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.KHUYENMAI.KM_TEN)
+                                </td>
+                                <td class="text-center">
+                                    <asp:Repeater runat="server" id="myRepeater">
+                                        <ItemTemplate>
+                                            <img src="/HINHANHKMs/getImageHA/@item.KM_ID" alt="" width="600" height="300" style="float:left" />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-success" style="width:80px"><i class="fa fa-edit">  @Html.ActionLink("Edit", "Edit", new { id = item.HAKM_ID })</i> </button>
+                                    <br />
+                                    <button class="btn btn-info" style="width:80px"><i class="fa fa-book"> @Html.ActionLink("Details", "Details", new { id = item.HAKM_ID })</i></button>
+                                    <br />
+                                    <button class="btn btn-warning" style="width:80px"><i class="fa fa-trash"> @Html.ActionLink("Delete", "Delete", new { id = item.HAKM_ID })</i></button>
+                                </td>
+                            </tr>
+                        }
 
-</table>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
