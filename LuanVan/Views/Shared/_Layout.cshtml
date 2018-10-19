@@ -55,8 +55,13 @@
 
                                     </div>
                                     <div class="navbar-collapse collapse">
+                                        @{ 
+                                            if (Session["NV_ID"] == null)
+                                            {
+                                                Response.Redirect("~/Logins/LoginNV");
+                                            }
 
-
+                                        }
                                         <ul class="nav navbar-nav">
                                             @if (Session["NV_ID"] != null)
                                             {
@@ -74,7 +79,7 @@
                                                             <li>@Html.ActionLink("Nhà sản xuất", "", "NhaSanXuats")</li>
                                                             <li>@Html.ActionLink("Giá sản phẩm", "", "GiaSPs")</li>
                                                             <li>@Html.ActionLink("Dòng sản phẩm", "", "DongSanPhams")</li>
-                                                            <li>@Html.ActionLink("Nhóm sản phẩm", "", "NhomSanPhams")</li>
+                                                            
                                                             <li>@Html.ActionLink("Hình ảnh", "", "HinhAnhSPs")</li>
 
                                                         </ul>
@@ -94,7 +99,9 @@
                                                 <li>@Html.ActionLink("Đơn Hàng", "", "DonHangs")</li>
                                                 <li>@Html.ActionLink("Khách hàng", "", "KhachHangs")</li>
                                                 <li>@Html.ActionLink("Sản phẩm", "", "SanPhams")</li>
-                                                <li>@Html.ActionLink("Bảo hành", "", "ChiTietBHs")</li>}
+                                                <li>@Html.ActionLink("Bảo hành", "", "ChiTietBHs")</li>
+                                            }
+
                                             @if (Session["NV_ID"] != null)
                                             {
                                                 <li>@Html.ActionLink("Đăng xuất", "LoginNV", "Logins")</li>
@@ -105,7 +112,7 @@
                                             }
                                         </ul>
 
-
+                                        
                                     </div>
                                 </div>
                                 </div>

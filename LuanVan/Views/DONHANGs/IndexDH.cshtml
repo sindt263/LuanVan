@@ -14,7 +14,7 @@
             <div class="panel-heading">
                 <button class="btn btn-light"><i class="fa fa-plus"></i>@Html.ActionLink("Tạo mới", "Create")</button>
 
-                @using (Html.BeginForm("Index", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+                @using (Html.BeginForm("IndexDH", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
                 {
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">

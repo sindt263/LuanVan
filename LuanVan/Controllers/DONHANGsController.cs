@@ -33,7 +33,7 @@ namespace LuanVan.Controllers
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 model = model.Where(x => x.DN_ID.Contains(searchTerm) || x.KH_ID.Contains(searchTerm)
-                || x.NV_ID.Contains(searchTerm)|| x.KHACHHANG.KH_TEN.Contains(searchTerm));
+                || x.NV_ID.Contains(searchTerm)|| x.KHACHHANG.KH_TEN.Contains(searchTerm)|| x.TRANGTHAIDONHANG.TTDH_TEN.Contains(searchTerm));
 
             }
 

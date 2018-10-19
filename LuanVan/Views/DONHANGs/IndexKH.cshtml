@@ -15,7 +15,7 @@
             <div class="panel-heading">
                 <button class="btn btn-light"><i class="fa fa-plus"></i>@Html.ActionLink("Tạo mới", "Create")</button>
 
-                @using (Html.BeginForm("Index", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+                @using (Html.BeginForm("IndexKH", "DonHangs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
                 {
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
@@ -85,9 +85,9 @@
                                     </td>
                                     <td>
                                         <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
-                                        @if (item.TTDH_ID != 2)
+                                        @if (item.TTDH_ID == 4)
                                         {
-                                            <input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" onclick="return confirm('Xác nhận hủy !');" />
+                                            <input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" />
                                             @*<a  class="btn btn-default" href="@Url.Action("EditHuy", new { id = item.DN_ID})" onclick="return confirm('Xác nhận hủy !');">Hủy đơn</a>*@
                                         }
                                     </td>
@@ -105,14 +105,20 @@
                 })
             })
             $('.@item.DN_ID').click(function () {
-                 $.ajax({
+                var a = confirm('Xác nhận hủy !')
+                if (a == true) {
+                    $.ajax({
                     type: "GET",
                     url: '/DonHangs/EditHuy/',
                     data: { 'id': @item.DN_ID},
                     success: function (result) {
                         $('#Show').html(result)
                     }
-                })
+                    })
+                    alert("Đã hủy đơn hàng !")
+                }
+                
+
             })
 
 
