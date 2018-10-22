@@ -65,7 +65,7 @@ namespace LuanVan.Controllers
                         dONHANG.DN_NGALAPDON = DateTime.Now;
                         dONHANG.DN_GHICHU = "Khách đặc Online";
                         dONHANG.HTTT_ID = Convert.ToInt16(HTTT_ID);
-                        dONHANG.DN_SL = Convert.ToInt32(TXTSL);
+                        //dONHANG.DN_SL = Convert.ToInt32(TXTSL);
                         db.DONHANGs.Add(dONHANG);
                         db.SaveChanges();
 

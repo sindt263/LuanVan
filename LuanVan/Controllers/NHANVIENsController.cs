@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -78,7 +79,42 @@ namespace LuanVan.Controllers
             ViewBag.LNV_ID = new SelectList(db.LOAINVs, "LNV_ID", "LNV_TEN", nHANVIEN.LNV_ID);
             return View(nHANVIEN);
         }
+         public ActionResult ThongBao()
+        {
+            return View();
+        }
 
+        // POST: NHANVIENs/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ThongBao(string ThongBao)
+        {
+            // Luu: 
+            string path = Server.MapPath("~/ThongBao.txt");
+            StreamReader r = new StreamReader(path);
+            string a = r.ReadToEnd();
+            r.Close();
+
+            StreamWriter w = new StreamWriter(path, false);
+            //true = ghi tiep vao file, false = ghi de le du lieu cu, neu file chua ton tai se dc tao ra, file test.txt cung cấp thư mục, nếu ko phai chi rõ duong dẫn
+            
+            w.WriteLine(ThongBao.ToString() +" lúc: "+ DateTime.Now +" Bởi: "+Session["NV_TEN"]);
+            w.WriteLine(a);
+            //Doc: 
+            //string s = "";
+            //StreamReader r = new StreamReader(@"S:\ThongBao.txt");
+            //while ((s = r.ReadLine()) != null)
+            //{
+                
+            //    Session["ThongBao"] = s;
+            //}
+            w.Close();
+            return View();
+        }
+
+        
         // GET: NHANVIENs/Edit/5
         public ActionResult Edit(string id)
         {

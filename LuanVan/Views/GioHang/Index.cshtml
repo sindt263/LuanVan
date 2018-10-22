@@ -34,7 +34,7 @@
                                 <tr>
                                     <th>Hình</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>Số lượng</th>
+                                    @*<th>Số lượng</th>*@
                                     <th>Đơn giá</th>
                                     <th>Thành tiền</th>
                                     <th></th>
@@ -50,13 +50,13 @@
                                             </asp:Repeater>
                                         </td>
                                         <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
-                                        <td>
+                                        @*<td>
                                             <form action="@Url.Action("SuaSoLuong")" method="get">
                                                 <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
                                                 <input type="number" min="1" step="1" name="soluongmoi" value="@item.SoLuong" disabled />
                                                 <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
                                             </form>
-                                        </td>
+                                        </td>*@
                                         <td> @item.DonGia.ToString("#,##0").Replace(',', '.') VNĐ </td>
 
                                         <td> @item.ThanhTien.ToString("#,##0").Replace(',', '.') VNĐ </td>
@@ -67,7 +67,7 @@
                                 <tr>
                                     <td></td>
                                     <td class="text-right">Tổng số lượng:</td>
-                                    <td><input type="text" name="TXTSL" disabled value="@Model.Sum(m => m.SoLuong)" id="TXTSL" /> </td>
+                                    @*<td><input type="text" name="TXTSL" disabled value="@Model.Sum(m => m.SoLuong)" id="TXTSL" /> </td>*@
                                     <td class="text-right">Tổng thành tiền:</td>
 
                                     <td>@Model.Sum(m => m.ThanhTien).ToString("#,##0").Replace(',', '.') VNĐ </td>

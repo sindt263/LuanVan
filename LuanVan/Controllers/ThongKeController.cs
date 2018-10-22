@@ -51,7 +51,7 @@ namespace LuanVan.Controllers
             @ViewBag.dauthang = dauthang;
             @ViewBag.cuoithang = cuoithang;
             var data = (from ctdn in db.CHITIETDONHANGs join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
-                        where dn.DN_NGALAPDON >= dauthang && dn.DN_NGALAPDON <= cuoithang select ctdn).OrderBy(n=>n.DONHANG.DN_NGALAPDON);
+                        where dn.DN_NGALAPDON >= dauthang && dn.DN_NGALAPDON <= cuoithang && dn.TTDH_ID !=2 select ctdn).OrderBy(n=>n.DONHANG.DN_NGALAPDON);
 
             List<DataPoint> dataPoints = new List<DataPoint>();
             foreach (var i in data)
@@ -94,7 +94,8 @@ namespace LuanVan.Controllers
             @ViewBag.dauthang = dauthang;
             @ViewBag.cuoithang = cuoithang;
             var data = (from ctn in db.CHITIETNHAPs join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
-                        where pn.PN_NGAY >= dauthang && pn.PN_NGAY <= cuoithang select ctn).OrderBy(n=>n.PHIEUNHAPSP.PN_NGAY);
+                        where pn.PN_NGAY >= dauthang && pn.PN_NGAY <= cuoithang 
+                        select ctn).OrderBy(n=>n.PHIEUNHAPSP.PN_NGAY);
             List<DataPoint> dataPoints = new List<DataPoint>();
             foreach (var i in data)
             {
@@ -149,7 +150,7 @@ namespace LuanVan.Controllers
                              join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID
                              join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.SP_ID
                              join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
-                             where pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
+                             where pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi 
                              select ctn);
                 return View(model);
             }
@@ -187,7 +188,7 @@ namespace LuanVan.Controllers
                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
                              join sp in db.SANPHAMs on ctdn.SP_ID equals sp.SP_ID
                              join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID
-                             where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                             where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi && dn.TTDH_ID != 2
                              select ctdn);
                 return View(model);
             }

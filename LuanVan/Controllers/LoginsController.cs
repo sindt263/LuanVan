@@ -98,6 +98,7 @@ namespace LuanVan.Controllers
                 foreach(var item in result)
                 {
                     Session["NV_ID"] = item.NV_ID;
+                    Session["NV_TEN"] = item.NV_TEN;
                     Session["LNV_ID"] = item.LNV_ID;
                 }
                 return Redirect("~/sanphams/");

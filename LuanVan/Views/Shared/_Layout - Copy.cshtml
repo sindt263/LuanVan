@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSS Shop Smart-Phone</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="~/Content/LayoutNV/css/iconfont.css">
+    <link rel="stylesheet" href="~/Content/LayoutNV/fonts/stylesheet.css">
+    <link rel="stylesheet" href="~/Content/LayoutNV/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/LayoutNV/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="~/Content/LayoutNV/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/LayoutNV/css/magnific-popup.css">
+    <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
+    <!--For Plugins external css-->
+    <link rel="stylesheet" href="~/Content/LayoutNV/css/plugins.css" />
+    <!--Theme custom css -->
+    @*<link rel="stylesheet" href="~/Content/LayoutNV/css/style.css">*@
+    <!--Theme Responsive css-->
+    <link rel="stylesheet" href="~/Content/LayoutNV/css/responsive.css" />
+    <script src="~/Content/LayoutNV/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <!--[if lt IE 7]>
+        <div style=' clear: both; text-align:center; position: relative;'>
+            <a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0"  alt="" /></a>
+        </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="js/html5.js"></script>
+        <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
+    <![endif]-->
+    @*<link href="~/Content/css/Style.css" rel="stylesheet" />*@
+    <Script src="~/Scripts/angular.js"></Script>
+    <Script src="~/Scripts/bootstrap.min.js"></Script>
+
+    <script src="@Url.Content("~/Content/js/jquery-1.11.3.min.js")"></script>
+</head>
+<body id="page1">
+    <header id="main_menu" class="header navbar-fixed-top" >
+        <div class="main_menu_bg">
+            <div class="container" >
+                <div class="row">
+                    <div class="nave_menu">
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header" >
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+
+                                    </div>
+                                    <div class="navbar-collapse collapse">
+                                        @{ 
+                                            if (Session["NV_ID"] == null)
+                                            {
+                                                Response.Redirect("~/Logins/LoginNV");
+                                            }
+
+                                        }
+                                        <ul class="nav navbar-nav">
+                                            @if (Session["NV_ID"] != null)
+                                            {
+                                                if (Convert.ToInt32(Session["LNV_ID"]) == 1)
+                                                {
+
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quản lý<span class="caret"></span></a>
+                                                        <ul class="dropdown-menu nav" role="menu">
+                                                            <li>@Html.ActionLink("Chi Tiết sản phẩm", "", "Chitietsanphams")</li>
+                                                            <li>@Html.ActionLink("Nhập hàng", "", "PhieuNhapSps")</li>
+                                                            <li>@Html.ActionLink("Khuyến mãi", "", "KhuyenMais")</li>
+                                                            <li>@Html.ActionLink("Nhân viên", "", "NhanViens")</li>
+                                                            <li>@Html.ActionLink("Nhà cung cấp", "", "NhaCungCaps")</li>
+                                                            <li>@Html.ActionLink("Nhà sản xuất", "", "NhaSanXuats")</li>
+                                                            <li>@Html.ActionLink("Giá sản phẩm", "", "GiaSPs")</li>
+                                                            <li>@Html.ActionLink("Dòng sản phẩm", "", "DongSanPhams")</li>
+                                                            
+                                                            <li>@Html.ActionLink("Hình ảnh", "", "HinhAnhSPs")</li>
+
+                                                        </ul>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Thống kê<span class="caret"></span></a>
+                                                        <ul class="dropdown-menu nav" role="menu">
+
+                                                            <li>@Html.ActionLink("Thống kê bán theo NSX", "ThongKeBanTheoNSX", "ThongKe")</li>
+                                                            <li>@Html.ActionLink("Thống kê nhập theo NSX", "ThongKetheoNhapNSX", "ThongKe")</li>
+                                                            <li>@Html.ActionLink("Biểu đồ nhập", "ThongKeNhap", "ThongKe")</li>
+                                                            <li>@Html.ActionLink("Biều đồ bán", "ThongKeBan", "ThongKe")</li>
+
+                                                        </ul>
+                                                    </li>
+                                                }
+                                                <li>@Html.ActionLink("Đơn Hàng", "", "DonHangs")</li>
+                                                <li>@Html.ActionLink("Khách hàng", "", "KhachHangs")</li>
+                                                <li>@Html.ActionLink("Sản phẩm", "", "SanPhams")</li>
+                                                <li>@Html.ActionLink("Bảo hành", "", "ChiTietBHs")</li>
+                                            }
+
+                                            @if (Session["NV_ID"] != null)
+                                            {
+                                                <li>@Html.ActionLink("Đăng xuất", "LoginNV", "Logins")</li>
+                                            }
+                                            else
+                                            {
+                                                <li>@Html.ActionLink("Đăng nhập", "LoginNV", "Logins")</li>
+                                            }
+                                        </ul>
+
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+
+    @*<marquee direction="right" style="background:orange" id="little"><h2>SSS - Shop</h2></marquee>*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            @*<p class="col-md-12">&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
