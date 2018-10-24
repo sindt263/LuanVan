@@ -68,8 +68,33 @@
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
+
+                    <div class="form-sub-w3ls">
+                        <input placeholder="Số điện thoại" type="text" data-val="true" data-val-length="The field Số điện thoại must be a string with a maximum length of 200." data-val-length-max="11" data-val-required="Số điện thoại không được rỗng" id="KH_SDT" name="KH_SDT" required="">
+                        <div class="icon-agile">
+                            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                     <div class="form-sub-w3ls">
+                         Giới tính :
+                        <input type="radio" checked="checked" id="KH_GIOITINH" name="KH_GIOITINH" value="Nam"/>Nam
+                        <input type="radio" id="KH_GIOITINH" name="KH_GIOITINH" value="Nữ"/>Nữ
+                        <input type="radio" id="KH_GIOITINH" name="KH_GIOITINH" value="Khác" />Khác
+                           
+                        <div class="icon-agile">
+                            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
                     <div class="form-sub-w3ls">
                         <input placeholder="Tài khoản" data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" data-val-required="Tài khoản không được rỗng" id="KH_TAIKHOAN" name="KH_TAIKHOAN" type="text" value="" required="">
+                        <div class="icon-agile">
+                            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                     <div class="form-sub-w3ls">
+                        <input placeholder="Ngày sinh (Tháng/Ngày/Năm)" data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" data-val-required="Ngày sinh không được rỗng" id="KH_NGAYSINH" name="KH_NGAYSINH" type="text" value="" required="">
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
@@ -90,11 +115,11 @@
                     </div>
                     <span class="field-validation-valid text-danger" id="ViewKTMK" data-valmsg-for="KH_MATKHAU" data-valmsg-replace="true"></span>
                     <div class="login-check">
-                        <label class="checkbox"><input type="checkbox" name="checkbox" checked="">I Accept Terms & Conditions</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked="checked">I Accept Terms & Conditions</label>
                     </div>
 
                     <div class="submit-w3l">
-                        <input type="button" class="btn btn-success" id="register" value="Register">
+                        <input type="submit" class="btn btn-success" id="register" value="Đăng ký">
                     </div>
                 </form>
             </div>
@@ -131,32 +156,45 @@
             var EMAIL = document.getElementById("KH_EMAIL")
             var DIACHI = document.getElementById("KH_DIACHI")
 
-            $('#register').click(function () {
 
-                if (TEN.value == "") {
-                    alert("Tên khách hàng không được rỗng !")
-                } else if (EMAIL.value == "") {
-                    alert("Email không được rỗng !")
-                } else if (DIACHI.value == "") {
-                    alert("Địa chỉ không được rỗng !")
-                } else if (TK.value == "") {
-                    alert("Tài khoản không được rỗng !")
-                } else if (MK.value == "") {
-                    alert("Mật khẩu không được rỗng !")
-                } else if (MK1.value == "") {
-                    alert("Mật khẩu không được rỗng !")
-                } else {
-                    $.ajax({
-                        type: "GET",
-                        url: '/KhachHangs/Createkh/',
-                        data: { 'id': TEN.value, 'id1': EMAIL.value, 'id2': DIACHI.value, 'id3': TK.value, 'id4': MK.value, 'id5': MK1.value },
-                        success: function (result) {
-                            $('#ViewKTMK').html(result)
-                        }
+            $('#KH_EMAIL').change(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '/KhachHangs/KTEMAIL/',
+                    data: { 'KH_EMAIL': EMAIL.value},
+                    success: function (result) {
+                        $('#ViewKTMK').html(result)
+                    }
 
-                    })
-                }
+                })
             })
+            
+            //$('#register').click(function () {
+
+            //    if (TEN.value == "") {
+            //        alert("Tên khách hàng không được rỗng !")
+            //    } else if (EMAIL.value == "") {
+            //        alert("Email không được rỗng !")
+            //    } else if (DIACHI.value == "") {
+            //        alert("Địa chỉ không được rỗng !")
+            //    } else if (TK.value == "") {
+            //        alert("Tài khoản không được rỗng !")
+            //    } else if (MK.value == "") {
+            //        alert("Mật khẩu không được rỗng !")
+            //    } else if (MK1.value == "") {
+            //        alert("Mật khẩu không được rỗng !")
+            //    } else {
+                    //$.ajax({
+                    //    type: "GET",
+                    //    url: '/KhachHangs/Createkh/',
+                    //    data: { 'KH_TEN': TEN.value, 'KH_EMAIL': EMAIL.value, 'KH_DIACHI': DIACHI.value, 'KH_TAIKHOAN': TK.value, 'KH_MATKHAU': MK.value, 'KH_MATKHAU1': MK1.value },
+                    //    success: function (result) {
+                    //        $('#ViewKTMK').html(result)
+                    //    }
+
+                    //})
+            //    }
+            //})
 
 
 
@@ -176,14 +214,16 @@
             $("#KH_TAIKHOAN").change(function () {
                 $.ajax({
                     type: "GET",
-                    url: '/KHACHHANGs/KTTK',
-                    data: { 'id': TK.value },
+                    url: '/KHACHHANGs/KTTK/',
+                    data: { 'KH_TAIKHOAN': TK.value },
                     success: function (result) {
                         $('#ViewKTMK').html(result)
                     }
                 })
             })
         });
+
+       
     </script>
 
 }

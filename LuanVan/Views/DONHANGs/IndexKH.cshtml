@@ -31,8 +31,12 @@
                     <table class="table table-striped table-bordered table-hover table-condensed" style="min-height:500px">
                         <tr>
                             <th>
+                                @Html.DisplayNameFor(model => model.DN_ID)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
                             </th>
+
                             <th>
                                 @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
                             </th>
@@ -62,6 +66,9 @@
                             foreach (var item in Model)
                             {
                                 <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DN_ID)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
                                     </td>
@@ -117,7 +124,7 @@
                     })
                     alert("Đã hủy đơn hàng !")
                 }
-                
+
 
             })
 

@@ -23,6 +23,7 @@ namespace LuanVan.Controllers
             Session["NV_ID"] = null;
             Session["KH_Ten"] = null;
             Session["KH_SDT"] = null;
+            Session["KH_EMAIL"] = null;
             Session["LNV_ID"] = null;
             HttpCookie userInfo = Request.Cookies["LoginKH"];
             if(userInfo != null)
@@ -68,6 +69,7 @@ namespace LuanVan.Controllers
                     Session["KH_ID"] = item.KH_ID;
                     Session["KH_Ten"] = item.KH_TEN;
                     Session["KH_SDT"] = item.KH_SDT;
+                    Session["KH_EMAIL"] = item.KH_EMAIL;
 
                 }
                 

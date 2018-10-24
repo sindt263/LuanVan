@@ -223,6 +223,7 @@
     <Compile Include="Controllers\KHUYENMAIsController.cs" />
     <Compile Include="Controllers\LOAINVsController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
+    <Compile Include="Controllers\Mail.cs" />
     <Compile Include="Controllers\NHACUNGCAPsController.cs" />
     <Compile Include="Controllers\NHANVIENsController.cs" />
     <Compile Include="Controllers\NHASANXUATsController.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Models\SANPHAM.cs" />
     <Compile Include="Models\SoSanhSP.cs" />
     <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Models\ThongKe.cs" />
     <Compile Include="Models\TRANGTHAIBH.cs" />
     <Compile Include="Models\TRANGTHAIDONHANG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4278,6 +4280,8 @@
     <Content Include="Views\Home\HienSoSanh.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\NHANVIENs\ThongBao.cshtml" />
+    <Content Include="Views\ThongKe\SPBanNhieuNhat.cshtml" />
+    <Content Include="Views\KHACHHANGs\KTEMAIL.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -138,6 +138,12 @@
                                             <li class="nav-item"> <a class="nav-link" href="/NhaCungCaps">Nhà cung cấp</a></li>
                                             <li class="nav-item"> <a class="nav-link" href="/NhaSanXuats">Nhà sản xuất</a></li>
                                             <li class="nav-item"> <a class="nav-link" href="/DongSanPhams">Dòng sản phẩm</a></li>
+                                            <li class="nav-item">
+                                                <a class="nav-link " href="/NhanViens/ThongBao">
+                                                    <i class="material-icons">error</i>
+                                                    <span>Thông báo</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -201,22 +207,16 @@
                                 <span>Errors</span>
                             </a>
                         </li>*@ 
-                        <li class="nav-item">
-                            <a class="nav-link " href="/NhanViens/ThongBao">
-                                <i class="material-icons">error</i>
-                                <span>Thông báo</span>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </aside>
             <!-- End Main Sidebar -->
             <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-                <span>Tài khoản đang sử dụng: @Session["NV_TEN"]</span>
-                @*<div class="main-navbar sticky-top bg-white">
+                <div class="main-navbar sticky-top bg-white">
                         <!-- Main Navbar -->
                         <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
-                            <form action="/SanPhams" onsubmit="return empty();" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+                            @*<form action="/SanPhams" onsubmit="return empty();" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
                                 <div class="input-group input-group-seamless ml-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -226,53 +226,62 @@
                                     <input class="navbar-search form-control" name="SearchTerm" type="text" placeholder="Tìm sản phẩm" aria-label="Search">
 
                                 </div>
-                            </form>
+                            </form>*@
                             <ul class="navbar-nav border-left flex-row ">
-                                <li class="nav-item border-right dropdown notifications">
-                                    <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <div class="nav-link-icon__wrapper">
-                                            <i class="material-icons">&#xE7F4;</i>
-                                            <span class="badge badge-pill badge-danger">2</span>
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">
-                                            <div class="notification__icon-wrapper">
-                                                <div class="notification__icon">
-                                                    <i class="material-icons">&#xE6E1;</i>
-                                                </div>
-                                            </div>
-                                            <div class="notification__content">
-                                                <span class="notification__category">Analytics</span>
-                                                <p>
-                                                    Your website’s active users count increased by
-                                                    <span class="text-success text-semibold">28%</span> in the last week. Great job!
-                                                </p>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="notification__icon-wrapper">
-                                                <div class="notification__icon">
-                                                    <i class="material-icons">&#xE8D1;</i>
-                                                </div>
-                                            </div>
-                                            <div class="notification__content">
-                                                <span class="notification__category">Sales</span>
-                                                <p>
-                                                    Last week your store’s sales count decreased by
-                                                    <span class="text-danger text-semibold">5.52%</span>. It could have been worse!
-                                                </p>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>
-                                    </div>
-                                </li>
+                                @*<li class="nav-item border-right dropdown notifications">
+            <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="nav-link-icon__wrapper">
+                    <i class="material-icons">&#xE7F4;</i>
+                    <span class="badge badge-pill badge-danger">2</span>
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">
+                    <div class="notification__icon-wrapper">
+                        <div class="notification__icon">
+                            <i class="material-icons">&#xE6E1;</i>
+                        </div>
+                    </div>
+                    <div class="notification__content">
+                        <span class="notification__category">Analytics</span>
+                        <p>
+                            Your website’s active users count increased by
+                            <span class="text-success text-semibold">28%</span> in the last week. Great job!
+                        </p>
+                    </div>
+                </a>
+                <a class="dropdown-item" href="#">
+                    <div class="notification__icon-wrapper">
+                        <div class="notification__icon">
+                            <i class="material-icons">&#xE8D1;</i>
+                        </div>
+                    </div>
+                    <div class="notification__content">
+                        <span class="notification__category">Sales</span>
+                        <p>
+                            Last week your store’s sales count decreased by
+                            <span class="text-danger text-semibold">5.52%</span>. It could have been worse!
+                        </p>
+                    </div>
+                </a>
+                <a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>
+            </div>
+        </li>*@
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <img class="user-avatar rounded-circle mr-2" src="~/Content/LayoutQL/images/avatars/0.jpg" alt="User Avatar">
+                                    @*<a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">*@
+                                        Tài khoản hiện hành 
+                                    @if(Session["LNV_ID"].ToString() == "1")
+                                    {
+                                        <b>Quản lý</b>
+                                    }
+                                    else
+                                    {
+                                        <b>Nhân viên</b>
+                                    }
+                                    @*<img class="user-avatar rounded-circle mr-2" src="~/Content/LayoutQL/images/avatars/0.jpg" alt="User Avatar">*@
                                         <span class="d-none d-md-inline-block">@Session["NV_TEN"]</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-small">
+                                    @*</a>*@
+                                    @*<div class="dropdown-menu dropdown-menu-small">
                                         <a class="dropdown-item" href="user-profile-lite.html">
                                             <i class="material-icons">&#xE7FD;</i> Profile
                                         </a>
@@ -287,7 +296,7 @@
                                             <i class="material-icons text-danger">&#xE879;</i>
 
                                         </a>
-                                    </div>
+                                    </div>*@
                                 </li>
                             </ul>
                             <nav class="nav">
@@ -296,7 +305,7 @@
                                 </a>
                             </nav>
                         </nav>
-                    </div>*@
+                    </div>
                 <!-- / .main-navbar -->
                 @*<div class="main-content-container container-fluid px-4">*@
                 <!-- Page Header -->
@@ -305,20 +314,9 @@
                 <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="~/SanPhams/">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
-                        </li>
+                       
                     </ul>
                     <span class="copyright ml-auto my-auto mr-2">
                         Copyright © 2018

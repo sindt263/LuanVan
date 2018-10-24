@@ -32,7 +32,7 @@ namespace LuanVan.Controllers
             IQueryable<KHACHHANG> model = db.KHACHHANGs;
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.KH_ID.Contains(searchTerm) || x.KH_TEN.Contains(searchTerm) || x.KH_SDT.ToString().Contains(searchTerm)|| x.KH_TAIKHOAN.ToString().Contains(searchTerm));
+                model = model.Where(x => x.KH_ID.Contains(searchTerm) || x.KH_TEN.Contains(searchTerm) || x.KH_SDT.ToString().Contains(searchTerm) || x.KH_TAIKHOAN.ToString().Contains(searchTerm));
 
             }
 
@@ -79,7 +79,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU")] KHACHHANG kHACHHANG)
+        public ActionResult Create([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU,KH_TRANGTHAI")] KHACHHANG kHACHHANG)
         {
             string MK = Request["KH_MATKHAU"];
             string MK1 = Request["KH_MATKHAU1"];
@@ -96,7 +96,7 @@ namespace LuanVan.Controllers
             if (ModelState.IsValid)
             {
                 kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
-
+                kHACHHANG.KH_TRANGTHAI = "Bình thường";
                 db.KHACHHANGs.Add(kHACHHANG);
                 db.SaveChanges();
                 return RedirectToAction("LoginKH", "Logins");
@@ -126,7 +126,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU")] KHACHHANG kHACHHANG)
+        public ActionResult Edit([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU,KH_TRANGTHAI")] KHACHHANG kHACHHANG)
         {
             if (ModelState.IsValid)
             {
@@ -157,7 +157,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditKH([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU")] KHACHHANG kHACHHANG)
+        public ActionResult EditKH([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU,KH_TRANGTHAI")] KHACHHANG kHACHHANG)
         {
             if (ModelState.IsValid)
             {
@@ -187,7 +187,7 @@ namespace LuanVan.Controllers
 
         public JsonResult TKEditPass(string id, string id1)
         {
-            
+
             if (id.Length <= 5)
             {
                 string output = "Mật khẩu phải dài hơn 6 ký tự !";
@@ -256,6 +256,11 @@ namespace LuanVan.Controllers
 
         public JsonResult KTMK(string id, string id1)
         {
+            if(id.Length<=5 || id1.Length <= 5)
+            {
+                string output = "Mật khẩu quá ngắn !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }else
             if (id != id1)
             {
                 string output = "Mật khẩu và mật khẩu xác nhận chưa trùng khớp !";
@@ -264,13 +269,15 @@ namespace LuanVan.Controllers
             else
             {
                 string output = "Chấp nhận !";
+                Session["MKOK"] = 1;
                 return Json(output, JsonRequestBehavior.AllowGet);
+                
             }
         }
 
-        public JsonResult KTTK(string id)
+        public JsonResult KTTK(string KH_TAIKHOAN)
         {
-            string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + id + "'").SingleOrDefault();
+            string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + KH_TAIKHOAN + "'").SingleOrDefault();
             if (result != null)
             {
                 string output = "Tài khoản đã tồn tại !";
@@ -279,44 +286,60 @@ namespace LuanVan.Controllers
             else
             {
                 string output = "Có thể sử dụng !";
+                Session["TKOK"] = 1;
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult CreateKH(string id,string id1,string id2,string id3,string id4,string id5)
+        public JsonResult CreateKH(string KH_TEN, string KH_EMAIL, string KH_DIACHI,string KH_NGAYSINH, string KH_TAIKHOAN, string KH_MATKHAU, string KH_MATKHAU1,string KH_GIOITINH,string KH_SDT)
         {
-            string MK = id4;
-            string MK1 = id5;
-            string TK = id3;
-           
 
-                string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + TK + "'").SingleOrDefault();
-                if (result != null)
-                {
-                    string output = "Tài khoản đã tồn tại !";
-                    return Json(output, JsonRequestBehavior.AllowGet);
-                }
-                else if (MK != MK1)
-                {
+            string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + KH_TAIKHOAN + "'").SingleOrDefault();
+            if (result != null)
+            {
+                string output = "Tài khoản đã tồn tại !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+            else if (KH_MATKHAU != KH_MATKHAU1 || KH_MATKHAU.Length <= 5)
+            {
 
-                    string output = "Nhập mật khẩu chưa đúng !";
-                    return Json(output, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    KHACHHANG kHACHHANG = new KHACHHANG();
-                    kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
-                    kHACHHANG.KH_TEN = id;
-                    kHACHHANG.KH_EMAIL = id1;
-                    kHACHHANG.KH_DIACHI = id2;
-                    kHACHHANG.KH_TAIKHOAN = id3;
-                    kHACHHANG.KH_MATKHAU = MK;
-                    db.KHACHHANGs.Add(kHACHHANG);
-                    db.SaveChanges();
-                    string output = "Đăng ký thành công !";
-                    return Json(output, JsonRequestBehavior.AllowGet);
-                }
-            //}
+                string output = "Nhập mật khẩu chưa đúng !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                KHACHHANG kHACHHANG = new KHACHHANG();
+                kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
+                kHACHHANG.KH_TEN = KH_TEN;
+                kHACHHANG.KH_EMAIL = KH_EMAIL;
+                kHACHHANG.KH_DIACHI = KH_DIACHI;
+                kHACHHANG.KH_TAIKHOAN = KH_TAIKHOAN;
+                kHACHHANG.KH_MATKHAU = KH_MATKHAU;
+                kHACHHANG.KH_GIOITINH = KH_GIOITINH;
+                kHACHHANG.KH_SDT = KH_SDT;
+                kHACHHANG.KH_TRANGTHAI = "Bình thường";
+                kHACHHANG.KH_NGAYSINH = Convert.ToDateTime(KH_NGAYSINH);
+                db.KHACHHANGs.Add(kHACHHANG);
+                db.SaveChanges();
+                string output = "Đăng ký thành công !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult KTEMAIL(string KH_EMAIL)
+        {
+            var result = db.Database.SqlQuery<string>("select KH_EMAIL from KhachHang where KH_EMAIL = '"+KH_EMAIL+"'").FirstOrDefault();
+            if (result == null)
+            {
+                string output = "Có thể sử dụng email này !";
+                Session["EMAILOK"] = 1;
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string output = "Email đã tồn tại !";
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

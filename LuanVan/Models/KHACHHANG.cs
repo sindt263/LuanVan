@@ -52,6 +52,9 @@
         [StringLength(200)]
         [Display(Name = "Mật khẩu")]
         public string KH_MATKHAU { get; set; }
+        [StringLength(20)]
+        [Display(Name = "Trạng thái")]
+        public string KH_TRANGTHAI { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BINHLUANCTSP> BINHLUANCTSPs { get; set; }

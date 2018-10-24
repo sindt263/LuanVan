@@ -29,6 +29,9 @@
                     <table class="table table-striped table-bordered table-hover table-condensed" border="1">
                         <tr>
                             <th class="text-center">
+                                @Html.DisplayName("Mã đơn hàng")
+                            </th> 
+                            <th class="text-center">
                                 @Html.DisplayName("Các thanh toán")
                             </th>
                             <th class="text-center">
@@ -55,6 +58,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.DN_ID)
+                                </td>
                                 <td class="text-left">
                                     @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
                                 </td>

@@ -92,12 +92,26 @@
                                             <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="DN_SDT">Email</label>
+                                        <div class="col-md-5">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_EMAIL" name="DN_EMAIL" type="text" value="@ViewBag.email" />
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
                                 }
                                 else
                                 { <div class="form-group">
                                         <label class="control-label col-md-2" for="DN_SDT">Số điện thoại</label>
                                         <div class="col-md-5">
                                             <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="@Session["KH_SDT"]" />
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="DN_SDT">Email</label>
+                                        <div class="col-md-5">
+                                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_EMAIL" name="DN_EMAIL" type="text" value="@Session["KH_EMAIL"]" />
                                             <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
                                         </div>
                                     </div>
@@ -195,6 +209,7 @@
         ///**/
         if (@Session["muathanhcong"] != null) {
             confirm("Đã mua thành công !");
+            @Session["muathanhcong"] = null;
         }
 
 

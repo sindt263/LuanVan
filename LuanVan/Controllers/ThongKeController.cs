@@ -22,15 +22,16 @@ namespace LuanVan.Controllers
         // GET: ThongKe
         public ActionResult Index()
         {
-           
-           
+
+
             return View();
         }
         public ViewResult ThongKeban()
         {
             laygiatritrongthang();
-            var data = db.CHITIETDONHANGs.OrderBy(n=>n.DONHANG.DN_NGALAPDON);
+            var data = (from dn in db.DONHANGs join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID where dn.TTDH_ID != 2 select ctdn);
             List<DataPoint> dataPoints = new List<DataPoint>();
+
             foreach (var i in data)
             {
                 DateTime a = Convert.ToDateTime(i.DONHANG.DN_NGALAPDON);
@@ -50,28 +51,40 @@ namespace LuanVan.Controllers
         {
             @ViewBag.dauthang = dauthang;
             @ViewBag.cuoithang = cuoithang;
-            var data = (from ctdn in db.CHITIETDONHANGs join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
-                        where dn.DN_NGALAPDON >= dauthang && dn.DN_NGALAPDON <= cuoithang && dn.TTDH_ID !=2 select ctdn).OrderBy(n=>n.DONHANG.DN_NGALAPDON);
+            var ngay = (from dn in db.DONHANGs
+                        where dn.DN_NGALAPDON >= dauthang && dn.DN_NGALAPDON <= cuoithang && dn.TTDH_ID != 2
+                        select dn);
 
             List<DataPoint> dataPoints = new List<DataPoint>();
-            foreach (var i in data)
+
+            foreach (var item in ngay)
             {
-                DateTime a = Convert.ToDateTime(i.DONHANG.DN_NGALAPDON);
+                var data = (from ctdn in db.CHITIETDONHANGs
+                            join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
+                            where dn.DN_NGALAPDON == item.DN_NGALAPDON && dn.TTDH_ID != 2
+                            select ctdn);
+
+                double gia = 0;
+                foreach (var i in data)
+                {
+                    gia = gia + Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA);
+                }
+                DateTime a = Convert.ToDateTime(item.DN_NGALAPDON);
                 DataPoint dataPoint = new DataPoint()
                 {
                     X = " new Date(" + String.Format("{0:yyyy,MM-1,d}", a) + ")",
-                    Y = Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA),
+                    Y = gia,
                 };
                 dataPoints.Add(dataPoint);
-            }
 
-            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            }
             return View();
         }
         public ViewResult ThongKeNhap()
         {
             laygiatritrongthang();
-            var data = db.CHITIETNHAPs.OrderBy(n=>n.PHIEUNHAPSP.PN_NGAY);
+            var data = db.CHITIETNHAPs.OrderBy(n => n.PHIEUNHAPSP.PN_NGAY);
             List<DataPoint> dataPoints = new List<DataPoint>();
             foreach (var i in data)
             {
@@ -93,9 +106,10 @@ namespace LuanVan.Controllers
         {
             @ViewBag.dauthang = dauthang;
             @ViewBag.cuoithang = cuoithang;
-            var data = (from ctn in db.CHITIETNHAPs join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
-                        where pn.PN_NGAY >= dauthang && pn.PN_NGAY <= cuoithang 
-                        select ctn).OrderBy(n=>n.PHIEUNHAPSP.PN_NGAY);
+            var data = (from ctn in db.CHITIETNHAPs
+                        join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
+                        where pn.PN_NGAY >= dauthang && pn.PN_NGAY <= cuoithang
+                        select ctn).OrderBy(n => n.PHIEUNHAPSP.PN_NGAY);
             List<DataPoint> dataPoints = new List<DataPoint>();
             foreach (var i in data)
             {
@@ -150,7 +164,7 @@ namespace LuanVan.Controllers
                              join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID
                              join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.SP_ID
                              join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
-                             where pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi 
+                             where pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
                              select ctn);
                 return View(model);
             }
@@ -199,7 +213,7 @@ namespace LuanVan.Controllers
                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
                              join sp in db.SANPHAMs on ctdn.SP_ID equals sp.SP_ID
                              join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID
-                             where sp.NSX_ID == id && dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                             where sp.NSX_ID == id && dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi && dn.TTDH_ID != 2
                              select ctdn);
 
                 return View(model);
@@ -217,7 +231,7 @@ namespace LuanVan.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        
+
 
         private void laygiatritrongthang()
         {
@@ -236,6 +250,43 @@ namespace LuanVan.Controllers
             List<string> a = (from p in db.CHITIETDONHANGs select p.SP_ID).ToList();
             return a;
         }
-        
+
+        public ActionResult SPBanNhieuNhat()
+        {
+            laygiatritrongthang();
+            ViewBag.NSX = db.NHASANXUATs.ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SPBanNhieuNhat(DateTime dau, DateTime cuoi)
+        {
+            laygiatritrongthang();
+            var nsx = db.NHASANXUATs.ToList();
+            foreach (var i in nsx)
+            {
+                a(i.NSX_TEN, dau, cuoi);
+            }
+            List<ThongKe> li = Session["thongke"] as List<ThongKe>;
+            return View(li.OrderByDescending(a => a.SL));
+        }
+
+        public int a(string id, DateTime dau, DateTime cuoi)
+        {
+            if (Session["thongke"] == null) // Nếu giỏ hàng chưa được khởi tạo
+            {
+                Session["thongke"] = new List<ThongKe>();  // Khởi tạo Session["giohang"] là 1 List<CartItem>
+            }
+            List<ThongKe> thongKes = Session["thongke"] as List<ThongKe>;
+
+            int i = db.Database.SqlQuery<int>("select  COUNT(sp.SP_ID) from SANPHAM sp inner join NHASANXUAT nsx on sp.NSX_ID = nsx.NSX_ID inner join CHITIETDONHANG ctdn on ctdn.SP_ID = sp.SP_ID inner join DONHANG dn on ctdn.DN_ID = dn.DN_ID where nsx.NSX_TEN = N'" + id + "' and dn.DN_NGALAPDON >= N'" + dau + "' and dn.DN_NGALAPDON <= N'" + cuoi + "'").FirstOrDefault();
+
+            ThongKe thongKe = new ThongKe()
+            {
+                SL = i,
+                TenNSX = id
+            };
+            thongKes.Add(thongKe);
+            return i;
+        }
     }
 }

@@ -71,12 +71,13 @@
         @if (Model == null)
         {
             <h2>Chọn khoảng thời gian thống kê</h2>
-        }
-        else
-        {
-            int sum = 0;
-            foreach (var item in Model)
-            {
+                }
+                else
+                {
+                    int sum = 0;
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
@@ -99,10 +100,12 @@
 
                 </tr>
                 sum = sum + Convert.ToInt32(item.SANPHAM.GIASP.GIA_GIA);
-            }
+                i++;
+                    }
             <div class="form-group">
                 <label class="control-label">Tổng</label>
                 <input type="text" disabled value="@sum.ToString("###,###,###")" class="form-control" />
+                <input type="text" disabled value="Tổng cộng: @i" class="form-control" />
             </div>
         }
     </table>
