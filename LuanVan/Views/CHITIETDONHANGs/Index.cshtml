@@ -49,31 +49,39 @@
 
                         @foreach (var item in Model)
                         {
-                            <tr>
+                        <tr>
+                            @if (item.DONHANG.KH_ID == null)
+                            {
+                                <td class="text-center">Khách không dùng tài khoản</td>
+                            }
+                            else
+                            {
                                 <td class="text-center">
                                     @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
                                 </td>
-                                <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
-                                </td>
-                                <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.CTDH_DIACHIGIAO)
-                                </td>
-                                <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.CTDH_MATHE)
-                                </td>
-                                <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.CTDH_CHUTHE)
-                                </td>
-                                <td class="text-right">
-                                    @Html.DisplayFor(modelItem => item.CTDH_NGAYCAP)
-                                </td>
-                                <td>
-                                    <button class="btn btn-success" style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.CTDH_ID })</i> </button>
-                                    <button class="btn btn-info" style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.CTDH_ID })</i> </button>
-                                    <button class="btn btn-warning" style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.CTDH_ID })</i></button>
-                                </td>
-                            </tr>
+                            }
+                           
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.CTDH_DIACHIGIAO)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.CTDH_MATHE)
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.CTDH_CHUTHE)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.CTDH_NGAYCAP)
+                            </td>
+                            <td>
+                                <button class="btn btn-success" style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.CTDH_ID })</i> </button>
+                                <button class="btn btn-info" style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.CTDH_ID })</i> </button>
+                                <button class="btn btn-warning" style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.CTDH_ID })</i></button>
+                            </td>
+                        </tr>
                         }
 
                     </table>

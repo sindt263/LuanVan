@@ -2,7 +2,7 @@
 <!doctype html>
 <html class="no-js h-100" lang="en">
 <head>
-
+    <link rel="shortcut icon" href="~/Content/Images/shopping-cart.png">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <Script src="~/Scripts/angular.js"></Script>
@@ -88,7 +88,7 @@
                     <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
                         <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
                             <div class="d-table m-auto">
-                                <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="~/Content/LayoutQL/images/shards-dashboards-logo.svg" alt="Shards Dashboard">
+                                <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="~/Content/Images/shopping-cart.png" alt="Shards Dashboard">
                                 <span class="d-none d-md-inline ml-1">SSS -Shop</span>
                             </div>
                         </a>
@@ -159,16 +159,33 @@
                                             <li class="nav-item"> <a class="nav-link" href="/ThongKe/ThongKetheoNhapNSX">Thống kê nhập</a></li>
                                             <li class="nav-item"> <a class="nav-link" href="/ThongKe/ThongKeNhap">Biểu đồ nhập</a></li>
                                             <li class="nav-item"> <a class="nav-link" href="/ThongKe/ThongKeBan">Biểu đồ bán</a></li>
+                                            <li class="nav-item"> <a class="nav-link" href="/ThongKe/ThongKeKhachHang">Thống kê khách hàng</a></li>
                                         </ul>
                                     </div>
                                 </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic">
+                                        <span class="material-icons">edit</span>
+                                        <span>Trạng thái</span>
+                                        <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                                    </a>
+                                    <div class="collapse" id="ui-basic2">
+                                        <ul class="nav flex-column sub-menu">
+                                            <li class="nav-item"> <a class="nav-link" href="/TRANGTHAIDONHANGs">Trạng thái đơn hàng</a></li>
+                                            <li class="nav-item"> <a class="nav-link" href="/TRANGTHAIBhS">Trạng thái bảo hành </a></li>
+                                            <li class="nav-item"> <a class="nav-link" href="/HINHTHUCTHANHTOANs">Hình thức thanh toán</a></li>
+                                            </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/DonHangs">
+                                        <i class="material-icons">vertical_split</i>
+                                        <span>Đơn hàng</span>
+                                    </a>
+                                </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link" href="/DonHangs">
-                                    <i class="material-icons">vertical_split</i>
-                                    <span>Đơn hàng</span>
-                                </a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link " href="/SanPhams">
                                     <i class="material-icons">view_module</i>
@@ -202,12 +219,12 @@
                             </a>
                         </li>
                         @*<li class="nav-item">
-                            <a class="nav-link " href="errors.html">
-                                <i class="material-icons">error</i>
-                                <span>Errors</span>
-                            </a>
-                        </li>*@ 
-                        
+            <a class="nav-link " href="errors.html">
+                <i class="material-icons">error</i>
+                <span>Errors</span>
+            </a>
+        </li>*@
+
                     </ul>
                 </div>
             </aside>
@@ -267,16 +284,18 @@
                 <a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>
             </div>
         </li>*@
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown" style="font-size:30px">
                                     @*<a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">*@
-                                        Tài khoản hiện hành 
-                                    @if(Session["LNV_ID"].ToString() == "1")
+                                    @if(Session["LNV_ID"] != null) { 
+                                    <b>Tài khoản hiện hành</b>
+                                    if(Session["LNV_ID"].ToString() == "1")
                                     {
                                         <b>Quản lý</b>
                                     }
                                     else
                                     {
                                         <b>Nhân viên</b>
+                                    }
                                     }
                                     @*<img class="user-avatar rounded-circle mr-2" src="~/Content/LayoutQL/images/avatars/0.jpg" alt="User Avatar">*@
                                         <span class="d-none d-md-inline-block">@Session["NV_TEN"]</span>

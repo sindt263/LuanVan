@@ -51,21 +51,38 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.DN_GHICHU)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DN_SL)
-                                </th>
+                                <th>Số lượng</th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.DN_SDT)
+                                </th> 
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DN_EMAIL)
+                                </th>
+                                  <th>
+                                    @Html.DisplayNameFor(model => model.DN_DIACHI)
+                                </th>
+                                  <th>
+                                    @Html.DisplayNameFor(model => model.DN_MATHE)
+                                </th>
+                                  <th>
+                                    @Html.DisplayNameFor(model => model.DN_CHUTHE)
+                                </th>
+                                  <th>
+                                    @Html.DisplayNameFor(model => model.DN_NGAYCAP)
                                 </th>
 
-                                <th></th>
+                                <th>Tùy chọn</th>
                             </tr>
 
                             @foreach (var item in Model)
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.DN_ID)</td>
+                                        @Html.DisplayFor(modelItem => item.DN_ID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
                                     </td>
@@ -90,6 +107,22 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DN_SDT)
                                     </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DN_EMAIL)
+                                    </td>
+                                      <td>
+                                        @Html.DisplayFor(modelItem => item.DN_DIACHI)
+                                    </td>
+                                      <td>
+                                        @Html.DisplayFor(modelItem => item.DN_MATHE)
+                                    </td>
+                                      <td>
+                                        @Html.DisplayFor(modelItem => item.DN_CHUTHE)
+                                    </td>
+                                      <td>
+                                        @Html.DisplayFor(modelItem => item.DN_NGAYCAP)
+                                    </td>
+
                                     <td>
                                         <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
                                     </td>

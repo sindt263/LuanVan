@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<LuanVan.Models.DONHANG>
-
+@using LuanVan.Models
 @using PagedList
 @using PagedList.Mvc
 @{
     ViewBag.Title = "IndexKH";
     Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    DataContext db = new DataContext();
 }
 
 <h2>Đơn hàng</h2>
@@ -45,6 +46,9 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.DN_SDT)
+                            </th> 
+                            <th>
+                                @Html.DisplayNameFor(model => model.DN_EMAIL)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.DN_NGALAPDON)
@@ -53,9 +57,19 @@
                                 @Html.DisplayNameFor(model => model.DN_GHICHU)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DN_SL)
+                                Số lượng
                             </th>
-                            <th></th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DN_MATHE)
+                            </th>
+                             <th>
+                                @Html.DisplayNameFor(model => model.DN_CHUTHE)
+                            </th>
+                             <th>
+                                @Html.DisplayNameFor(model => model.DN_NGAYCAP)
+                            </th>
+
+                            <th>Tùy chọn</th>
                         </tr>
                         @if (Model == null)
                         {
@@ -65,41 +79,57 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DN_ID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DN_SDT)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DN_GHICHU)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DN_SL)
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
-                                        @if (item.TTDH_ID == 4)
-                                        {
-                                            <input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" />
-                                            @*<a  class="btn btn-default" href="@Url.Action("EditHuy", new { id = item.DN_ID})" onclick="return confirm('Xác nhận hủy !');">Hủy đơn</a>*@
-                                        }
-                                    </td>
-                                    <div id="Show" style="background-color:cornflowerblue"></div>
-                                    <script type="text/javascript">
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_SDT)
+                                </td> 
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_EMAIL)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_GHICHU)
+                                </td>
+                                <td>
+                                    @{
+                                        int count = (from p in db.CHITIETDONHANGs where p.DN_ID == item.DN_ID select p).Count();
+                                    }
+                                    @count
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_MATHE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_CHUTHE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DN_NGAYCAP)
+                                </td>
+
+                                <td>
+                                    <input type="button" class="btn-info btn" id="@item.DN_ID" value="Chi Tiết" />
+                                    @if (item.TTDH_ID == 4)
+                                    {
+                                        <input type="button" class="@item.DN_ID btn btn-default" value="Hủy đơn" />
+                                        @*<a  class="btn btn-default" href="@Url.Action("EditHuy", new { id = item.DN_ID})" onclick="return confirm('Xác nhận hủy !');">Hủy đơn</a>*@
+                                    }
+                                </td>
+                                <div id="Show" style="background-color:cornflowerblue"></div>
+                                <script type="text/javascript">
 
             $('#@item.DN_ID').click(function () {
                 $.ajax({
@@ -129,8 +159,8 @@
             })
 
 
-                                    </script>
-                                </tr>
+                                </script>
+                            </tr>
 
                             }
                         }

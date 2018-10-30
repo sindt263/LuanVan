@@ -1,10 +1,11 @@
 ﻿@model IPagedList<LuanVan.Models.DONHANG>
-
+@using LuanVan.Models
 @using PagedList
 @using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    DataContext db = new DataContext();
 }
 
 <div class="row">
@@ -30,7 +31,7 @@
                         <tr>
                             <th class="text-center">
                                 @Html.DisplayName("Mã đơn hàng")
-                            </th> 
+                            </th>
                             <th class="text-center">
                                 @Html.DisplayName("Các thanh toán")
                             </th>
@@ -52,44 +53,78 @@
                             <th class="text-center">
                                 @Html.DisplayName("SĐT")
                             </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Email")
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Địa chỉ")
+                            </th>
+                             <th class="text-center">
+                                @Html.DisplayName("Mã thẻ")
+                            </th>
+                             <th class="text-center">
+                                @Html.DisplayName("Chủ thẻ")
+                            </th>
+                             <th class="text-center">
+                                @Html.DisplayName("Ngày cấp")
+                            </th>
+
                             <th class="text-center">Tùy chọn</th>
                         </tr>
 
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.DN_ID)
-                                </td>
-                                <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
-                                </td>
-                                <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
-                                </td>
-                                <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
-                                </td>
-                                <td class="text-right">
-                                    @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
-                                </td>
-                                <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.DN_GHICHU)
-                                </td>
-                                <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.DN_SL)
-                                </td>
-                                <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.DN_SDT)
-                                </td>
-                                <td class="text-center">
-                                    <button class="btn btn-success" style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.DN_ID })</i> </button>
-                                    <input type="button" class="btn btn-info" id="@item.DN_ID" value="Chi Tiết" />
+                        <tr>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.DN_ID)
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.HINHTHUCTHANHTOAN.HTTT_TEN)
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.KHACHHANG.KH_TEN)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.TRANGTHAIDONHANG.TTDH_TEN)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.DN_NGALAPDON)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DN_GHICHU)
+                            </td>
+                            <td class="text-center">
+                                @{
+                                    int count = (from p in db.CHITIETDONHANGs where p.DN_ID == item.DN_ID select p).Count();
+                                }
+                                @count
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.DN_SDT)
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.DN_EMAIL)
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.DN_DIACHI)
+                            </td>
+                            <td class="text-left">
+                                @Html.DisplayFor(modelItem => item.DN_MATHE)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DN_CHUTHE)
+                            </td>
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.DN_NGAYCAP)
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-default" style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.DN_ID })</i> </button>
+                                <input type="button" class="btn btn-info" id="@item.DN_ID" value="Chi Tiết" />
 
-                                    @*@Html.ActionLink("Xóa", "Delete", new { id = item.DN_ID })*@
-                                </td>
-                                <div id="Show"></div>
-                                <script type="text/javascript">
+                                @*@Html.ActionLink("Xóa", "Delete", new { id = item.DN_ID })*@
+                            </td>
+                            <div id="Show"></div>
+                            <script type="text/javascript">
 
             $('#@item.DN_ID').click(function () {
                 $.ajax({
@@ -113,8 +148,8 @@
             })
 
 
-                                </script>
-                            </tr>
+                            </script>
+                        </tr>
                         }
 
                     </table>

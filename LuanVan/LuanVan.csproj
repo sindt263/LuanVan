@@ -355,6 +355,7 @@
     <Content Include="Content\Images\kt123.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\Screenshot %281%29.png" />
+    <Content Include="Content\Images\shopping-cart.png" />
     <Content Include="Content\Images\Untitled.png" />
     <Content Include="Content\Images\wallpaper1.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />

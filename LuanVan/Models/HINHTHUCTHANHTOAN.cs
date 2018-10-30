@@ -21,7 +21,7 @@
         public short HTTT_ID { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "Tên")]
+        [Display(Name = "Tên HTTT")]
         public string HTTT_TEN { get; set; }
 
         [StringLength(255)]

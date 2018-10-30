@@ -22,7 +22,7 @@
         public string KH_ID { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Tên")]
+        [Display(Name = "Tên khách hàng")]
         public string KH_TEN { get; set; }
 
         [StringLength(100)]

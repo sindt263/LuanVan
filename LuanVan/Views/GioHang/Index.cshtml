@@ -111,8 +111,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2" for="DN_SDT">Email</label>
                                         <div class="col-md-5">
-                                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_EMAIL" name="DN_EMAIL" type="text" value="@Session["KH_EMAIL"]" />
-                                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
+                                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_EMAIL must be a string with a maximum length of 20." data-val-length-max="20" id="DN_EMAIL" name="DN_EMAIL" type="email" value="@Session["KH_EMAIL"]" />
+                                            <span class="field-validation-valid text-danger" data-valmsg-for="DN_EMAIL" data-valmsg-replace="true"></span>
                                         </div>
                                     </div>
                                 }
@@ -120,7 +120,7 @@
                                 <div class="form-group" id="mathe" hidden>
                                     <label class="control-label col-md-2" for="CTDH_MATHE">Mã thẻ</label>
                                     <div class="col-md-5">
-                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field must be a string with a maximum length of 20." data-val-length-max="20" id="CTDH_MATHE" name="CTDH_MATHE" type="number" value="" />
+                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field must be a string with a maximum length of 20." data-val-length-max="20" id="DN_MATHE" name="DN_MATHE" type="number" min="0" value="" />
                                         <span class="field-validation-valid text-danger" data-valmsg-for="CTDH_MATHE" data-valmsg-replace="true"></span>
 
                                     </div>
@@ -129,25 +129,26 @@
                                 <div class="form-group" id="chuthe" hidden>
                                     <label class="control-label col-md-2" for="CTDH_HOTEN">Họ tên chủ thẻ</label>
                                     <div class="col-md-5">
-                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field must be a string with a maximum length of 50." data-val-length-max="50" id="CTDH_CHUTHE" name="CTDH_CHUTHE" type="text" value="" />
-                                        <span class="field-validation-valid text-danger" data-valmsg-for="CTDH_CHUTHE" data-valmsg-replace="true"></span>
+                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field must be a string with a maximum length of 50." data-val-length-max="50" id="DN_CHUTHE" name="DN_CHUTHE" type="text" value="" />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="DN_CHUTHE" data-valmsg-replace="true"></span>
 
                                     </div>
 
                                 </div>
                                 <div class="form-group" id="ngaycap" hidden>
-                                    <label class="control-label col-md-2" for="CTDH_NGAYCAP">Ngày cấp</label>
+                                    <label class="control-label col-md-2" for="DN_NGAYCAP">Ngày cấp</label>
                                     <div class="col-md-5">
-                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field must be a string with a maximum length of 10." data-val-length-max="10" id="CTDH_NGAYCAP" name="CTDH_NGAYCAP" type="text" value="" />
-                                        <span class="field-validation-valid text-danger" data-valmsg-for="CTDH_NGAYCAP" data-valmsg-replace="true"></span>
+                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field must be a string with a maximum length of 10." data-val-length-max="10" id="DN_NGAYCAP" name="DN_NGAYCAP" type="text" value="" />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="DN_NGAYCAP" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
-
+                                
                                 <div class="form-group">
-                                    <label class="control-label col-md-2" for="CTDH_DIACHIGIAO">Địa chỉ giao hàng</label>
+                                    <label class="control-label col-md-2" for="DN_DIACHI">Địa chỉ giao hàng</label>
                                     <div class="col-md-5">
-                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field CTDH_DIACHIGIAO must be a string with a maximum length of 200." data-val-length-max="200" id="CTDH_DIACHIGIAO" name="CTDH_DIACHIGIAO" type="text" value="@ViewBag.diachi" />
-                                        <span class="field-validation-valid text-danger" data-valmsg-for="CTDH_DIACHIGIAO" data-valmsg-replace="true"></span>
+                                        
+                                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_DIACHI must be a string with a maximum length of 200." data-val-length-max="200" id="DN_DIACHI" name="DN_DIACHI" type="text" value="@Session["KH_DIACHI"]" />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="DN_DIACHI" data-valmsg-replace="true"></span>
                                         <br />
                                         <input type="submit" value="Xác nhận" id="btnsubmit" class="form-control btn-success" />
 
@@ -209,7 +210,6 @@
         ///**/
         if (@Session["muathanhcong"] != null) {
             confirm("Đã mua thành công !");
-            @Session["muathanhcong"] = null;
         }
 
 

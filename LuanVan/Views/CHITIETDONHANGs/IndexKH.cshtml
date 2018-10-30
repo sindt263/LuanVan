@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "IndexKH";
-    Layout = "~/Views/Shared/_Layoutsecond.cshtml";
+    Layout = null;
 }
 
 <div class="row">
@@ -22,41 +22,26 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.SANPHAM.SP_TEN)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CTDH_DIACHIGIAO)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CTDH_MATHE)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CTDH_CHUTHE)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CTDH_NGAYCAP)
-                            </th>
+
                         </tr>
 
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
-                                </td>
+                                @if (item.DONHANG.KH_ID == null)
+                                {
+                                    <td>Khách không dùng tài khoản</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
+                                    </td>
+                                }
                                 <td>
                                     @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CTDH_DIACHIGIAO)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CTDH_MATHE)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CTDH_CHUTHE)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CTDH_NGAYCAP)
-                                </td>
+
 
                             </tr>
                         }

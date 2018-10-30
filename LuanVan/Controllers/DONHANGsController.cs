@@ -37,7 +37,7 @@ namespace LuanVan.Controllers
 
             }
 
-            return model.OrderByDescending(x => x.DN_NGALAPDON).ToPagedList(page, pageSize);
+            return model.OrderByDescending(x=>x.DN_ID).OrderByDescending(x => x.DN_NGALAPDON).ToPagedList(page, pageSize);
         }
         
 
@@ -158,7 +158,7 @@ namespace LuanVan.Controllers
                         dONHANG.DN_NGALAPDON = DateTime.Now;
                         dONHANG.DN_GHICHU = "Khách đặc Online";
                         dONHANG.HTTT_ID = Convert.ToInt16(id1);
-                        dONHANG.DN_SL = Convert.ToInt32(id2);
+                        //dONHANG.DN_SL = Convert.ToInt32(id2);
                         db.DONHANGs.Add(dONHANG);
                         db.SaveChanges();
                     
@@ -212,44 +212,39 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit()
+        public ActionResult Edit([Bind(Include = "DN_ID,TTDH_ID,KH_ID,HTTT_ID,DN_NGALAPDON,DN_GHICHU,DN_SDT,DN_EMAIL,DN_DIACHI,DN_MATHE,DN_CHUTHE,DN_NGAYCAP")] DONHANG dONHANG)
         {
             Mail mail = new Mail();
-            string id_ttdh = Request["TTDH_ID"];
-            string id_dh = Request["DN_ID"];
-            string email = "";
-            DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id_dh);
-            var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == id_dh select p);
+            var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == dONHANG.DN_ID select p);
             CHITIETDONHANGsController cHITIETDONHANGs = new CHITIETDONHANGsController();
             if (dONHANG != null)
             {
-                if (!string.IsNullOrEmpty(dONHANG.KH_ID))
-                {
-                    KHACHHANG kHACHHANG = db.KHACHHANGs.Find(dONHANG.KH_ID);
-                    email = kHACHHANG.KH_EMAIL;
-                }
-                if (Convert.ToInt16(id_ttdh) == 2)
+               
+                if (Convert.ToInt16(dONHANG.TTDH_ID) == 2)
                 {
                     foreach (var i in SP_ID)
                     {
                         SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
                         cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
                     }
-                    string guimail =mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", "sindt263@gmail.com", "Đã hủy đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã bị hủy .", true);
-                }else if(Convert.ToInt16(id_ttdh) == 1)
+                    string guimail =mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã hủy đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã bị hủy .", true);
+                }else if(Convert.ToInt16(dONHANG.TTDH_ID) == 1)
                 {
-                    string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", "sindt263@gmail.com", "Đã duyệt đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã được duyệt thành công", true);
-                }else if(Convert.ToInt16(id_ttdh) == 3)
+                    string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã duyệt đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã được duyệt thành công", true);
+                }else if(Convert.ToInt16(dONHANG.TTDH_ID) == 3)
                 {
-                    string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", "sindt263@gmail.com", "Đã giao thành công", "Đơn hàng " + dONHANG.DN_ID + " đã được giao thành công", true);
+                    string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã giao thành công", "Đơn hàng " + dONHANG.DN_ID + " đã được giao thành công", true);
                 }
 
                 dONHANG.NV_ID = Session["NV_ID"].ToString();
-                dONHANG.TTDH_ID = Convert.ToInt16(id_ttdh);
-                
-    
+                dONHANG.TTDH_ID = dONHANG.TTDH_ID;
+                if (ModelState.IsValid)
+                {
+                    db.Entry(dONHANG).State = EntityState.Modified;
                     db.SaveChanges();
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                return View(dONHANG);
             }
            
             //if (ModelState.IsValid)

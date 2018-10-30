@@ -114,19 +114,26 @@
         var id6 = document.getElementById("NSX_ID");
         var id7 = document.getElementById("SP_TEN");
         var id10 = document.getElementById("CTSP_ID");
-       
+      
         $('#CreateSP').click(function () {
-            $.ajax({
-                type: "GET",
-                url: '/SanPhams/CreateSP/',
-                data: {
-                    'id1': id1.value,  'id3': id3.value, 'id4': id4.value, 'id5': id5.value
-                    , 'id6': id6.value, 'id7': id7.value,  'id10': id10.value
-                },
-                success: function (result) {
-                    $('#Viewss').html(result)
-                }
-            })
+            if (id1.value == "" || id1.value == null) {
+                alert("Mã sản phẩm không được rỗng !")
+            }else
+            if (id7.value == "") {
+                alert("Tên sản phẩm không được rỗng !")
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: '/SanPhams/CreateSP/',
+                    data: {
+                        'id1': id1.value, 'id3': id3.value, 'id4': id4.value, 'id5': id5.value
+                        , 'id6': id6.value, 'id7': id7.value, 'id10': id10.value
+                    },
+                    success: function (result) {
+                        $('#Viewss').html(result)
+                    }
+                })
+            }
         })
     })
 </script>

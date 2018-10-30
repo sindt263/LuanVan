@@ -43,9 +43,11 @@ namespace LuanVan.Controllers
                 dataPoints.Add(dataPoint);
             }
 
-            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            ViewBag.DataPoints = "";
             return View();
         }
+
+
         [HttpPost]
         public ViewResult ThongKeban(DateTime dauthang, DateTime cuoithang)
         {
@@ -81,23 +83,14 @@ namespace LuanVan.Controllers
             }
             return View();
         }
+
+
+
         public ViewResult ThongKeNhap()
         {
             laygiatritrongthang();
-            var data = db.CHITIETNHAPs.OrderBy(n => n.PHIEUNHAPSP.PN_NGAY);
-            List<DataPoint> dataPoints = new List<DataPoint>();
-            foreach (var i in data)
-            {
-                DateTime a = Convert.ToDateTime(i.PHIEUNHAPSP.PN_NGAY);
-                DataPoint dataPoint = new DataPoint()
-                {
-                    X = " new Date(" + String.Format("{0:yyyy,MM-1,d}", a) + ")",
-                    Y = Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA),
-                };
-                dataPoints.Add(dataPoint);
-            }
 
-            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            ViewBag.DataPoints = "";
             return View();
         }
 
@@ -106,23 +99,28 @@ namespace LuanVan.Controllers
         {
             @ViewBag.dauthang = dauthang;
             @ViewBag.cuoithang = cuoithang;
-            var data = (from ctn in db.CHITIETNHAPs
-                        join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
-                        where pn.PN_NGAY >= dauthang && pn.PN_NGAY <= cuoithang
-                        select ctn).OrderBy(n => n.PHIEUNHAPSP.PN_NGAY);
+            var ngay = (from pn in db.PHIEUNHAPSPs where pn.PN_NGAY >= dauthang && pn.PN_NGAY <= cuoithang select pn).OrderBy(n => n.PN_NGAY);
             List<DataPoint> dataPoints = new List<DataPoint>();
-            foreach (var i in data)
+            foreach (var item in ngay)
             {
-                DateTime a = Convert.ToDateTime(i.PHIEUNHAPSP.PN_NGAY);
+                var data = (from ctn in db.CHITIETNHAPs
+                            join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
+                            where pn.PN_NGAY == item.PN_NGAY
+                            select ctn);
+                double gia = 0;
+                foreach (var i in data)
+                {
+                    gia = gia + Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA);
+                }
+                DateTime a = Convert.ToDateTime(item.PN_NGAY);
                 DataPoint dataPoint = new DataPoint()
                 {
                     X = " new Date(" + String.Format("{0:yyyy,MM-1,d}", a) + ")",
-                    Y = Convert.ToDouble(i.CTN_GIA),
+                    Y = gia,
                 };
                 dataPoints.Add(dataPoint);
+                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
             }
-            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
-
             return View();
         }
         public ViewResult IndexChi()
@@ -288,5 +286,9 @@ namespace LuanVan.Controllers
             thongKes.Add(thongKe);
             return i;
         }
+
+       
+        
+
     }
 }

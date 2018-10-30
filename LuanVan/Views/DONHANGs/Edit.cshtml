@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string disabled = "";
+    
 }
 
 <script language="javascript">
@@ -50,7 +52,7 @@
     <div class="form-group" name="myForm" ng-controller="DateController">
         @Html.LabelFor(model => model.DN_NGALAPDON, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_NGALAPDON, new { htmlAttributes = new { @class = "form-control", ng_model = "value" } })
+            @Html.EditorFor(model => model.DN_NGALAPDON, new { htmlAttributes = new { @class = "form-control", ng_model = "value", @disabled  } })
             @Html.ValidationMessageFor(model => model.DN_NGALAPDON, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -58,25 +60,61 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DN_GHICHU, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_GHICHU, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.DN_GHICHU, new { htmlAttributes = new { @class = "form-control"  } })
             @Html.ValidationMessageFor(model => model.DN_GHICHU, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.DN_SL, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DN_SL, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DN_SL, "", new { @class = "text-danger" })
         </div>
-    </div>
+    </div>*@
     <div class="form-group">
         @Html.LabelFor(model => model.DN_SDT, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DN_SDT, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DN_SDT, "", new { @class = "text-danger" })
         </div>
+    </div> 
+    <div class="form-group">
+        @Html.LabelFor(model => model.DN_EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DN_EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DN_EMAIL, "", new { @class = "text-danger" })
+        </div>
     </div>
+     <div class="form-group">
+        @Html.LabelFor(model => model.DN_DIACHI, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DN_DIACHI, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DN_DIACHI, "", new { @class = "text-danger" })
+        </div>
+    </div>
+     <div class="form-group">
+        @Html.LabelFor(model => model.DN_MATHE, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DN_MATHE, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DN_MATHE, "", new { @class = "text-danger" })
+        </div>
+    </div>
+     <div class="form-group">
+        @Html.LabelFor(model => model.DN_CHUTHE, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DN_CHUTHE, new { htmlAttributes = new { @class = "form-control"  } })
+            @Html.ValidationMessageFor(model => model.DN_CHUTHE, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DN_NGAYCAP, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DN_NGAYCAP, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DN_NGAYCAP, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Lưu" class="btn btn-success" />
@@ -92,3 +130,30 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    if (@Model.TTDH_ID != 4) {
+        document.getElementById("HTTT_ID").disabled = true;
+        document.getElementById("DN_CHUTHE").disabled = true;
+        document.getElementById("DN_NGAYCAP").disabled = true;
+        document.getElementById("DN_MATHE").disabled = true;
+        document.getElementById("DN_DIACHI").disabled = true;
+        document.getElementById("DN_EMAIL").disabled = true;
+        document.getElementById("DN_SDT").disabled = true;
+        document.getElementById("DN_GHICHU").disabled = true;
+        document.getElementById("DN_NGALAPDON").disabled = true;
+        document.getElementById("TTDH_ID").disabled = true;
+    }
+    else {
+        document.getElementById("HTTT_ID").disabled = false;
+        document.getElementById("DN_CHUTHE").disabled = false;
+        document.getElementById("DN_NGAYCAP").disabled = false;
+        ocument.getElementById("DN_MATHE").disabled = false;
+        document.getElementById("DN_DIACHI").disabled = false;
+        document.getElementById("DN_EMAIL").disabled = false;
+        document.getElementById("DN_SDT").disabled = false;
+        document.getElementById("DN_GHICHU").disabled = false;
+        document.getElementById("DN_NGALAPDON").disabled = false;
+        document.getElementById("TTDH_ID").disabled = false;
+    }
+</script>
