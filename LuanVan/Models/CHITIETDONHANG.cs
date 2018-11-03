@@ -13,10 +13,9 @@
         [StringLength(10)]
         [Display(Name = "Mã đơn hàng")]
         public string CTDH_ID { get; set; }
-
-        [StringLength(10)]
+        
         [Display(Name = "Mã đơn hàng")]
-        public string DN_ID { get; set; }
+        public int? DN_ID { get; set; }
 
         [StringLength(20)]
         [Display(Name = "Mã sản phẩm")]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LuanVan.Models.DONHANG>
+﻿@model IPagedList<LuanVan.Models.DONHANG>
 @using PagedList
 @using PagedList.Mvc
 @using LuanVan.Models
@@ -31,44 +31,44 @@
                         <table class="table table-striped table-bordered table-hover table-condensed" style="min-height:500px">
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DN_ID)
-                                </th> 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.HINHTHUCTHANHTOAN.HTTT_TEN)
+                                    Mã đơn hàng
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.KHACHHANG.KH_TEN)
+                                    Hình thức thanh toán
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TRANGTHAIDONHANG.TTDH_TEN)
+                                    Tên khách hàng
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.NV_ID)
+                                    Trạng thái
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DN_NGALAPDON)
+                                    Mã nhân viên
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DN_GHICHU)
+                                    Ngày lập đơn
+                                </th>
+                                <th>
+                                    Ghi chú
                                 </th>
                                 <th>Số lượng</th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DN_SDT)
-                                </th> 
+                                    SĐT
+                                </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DN_EMAIL)
+                                    Email
                                 </th>
-                                  <th>
-                                    @Html.DisplayNameFor(model => model.DN_DIACHI)
+                                <th>
+                                    Địa chỉ
                                 </th>
-                                  <th>
-                                    @Html.DisplayNameFor(model => model.DN_MATHE)
+                                <th>
+                                    Mã thẻ
                                 </th>
-                                  <th>
-                                    @Html.DisplayNameFor(model => model.DN_CHUTHE)
+                                <th>
+                                    Chủ thẻ
                                 </th>
-                                  <th>
-                                    @Html.DisplayNameFor(model => model.DN_NGAYCAP)
+                                <th>
+                                    Ngày cấp
                                 </th>
 
                                 <th>Tùy chọn</th>
@@ -110,16 +110,16 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DN_EMAIL)
                                     </td>
-                                      <td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.DN_DIACHI)
                                     </td>
-                                      <td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.DN_MATHE)
                                     </td>
-                                      <td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.DN_CHUTHE)
                                     </td>
-                                      <td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.DN_NGAYCAP)
                                     </td>
 
@@ -153,9 +153,14 @@
 
 
                                 </script>
-                            }
 
+
+                            }
                         </table>
+                                <div class="col-md-12 text-center">
+                                    @Html.PagedListPager(Model, sotrang => Url.Action("IndexDH", new { SearchTerm = ViewBag.SearchTerm, page = sotrang }))
+                                </div>
+                          
                     </div>
                 </div>
             </div>

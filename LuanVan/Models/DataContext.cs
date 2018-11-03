@@ -70,9 +70,9 @@ namespace LuanVan.Models
                 .Property(e => e.CTDH_ID)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CHITIETDONHANG>()
-                .Property(e => e.DN_ID)
-                .IsUnicode(false);
+            //modelBuilder.Entity<CHITIETDONHANG>()
+            //    .Property(e => e.DN_ID)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<CHITIETDONHANG>()
                 .Property(e => e.SP_ID)
@@ -98,9 +98,9 @@ namespace LuanVan.Models
                 .Property(e => e.DSP_ID)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<DONHANG>()
-                .Property(e => e.DN_ID)
-                .IsUnicode(false);
+            //modelBuilder.Entity<DONHANG>()
+            //    .Property(e => e.DN_ID)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<DONHANG>()
                 .Property(e => e.KH_ID)

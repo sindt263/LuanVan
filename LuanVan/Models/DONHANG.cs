@@ -16,9 +16,9 @@
         }
 
         [Key]
-        [StringLength(10)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Mã đơn hàng")]
-        public string DN_ID { get; set; }
+        public int DN_ID { get; set; }
 
         [Display(Name = "Trạng thái")]
         public short? TTDH_ID { get; set; }

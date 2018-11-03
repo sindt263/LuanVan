@@ -218,16 +218,16 @@ namespace LuanVan.Controllers
             }
         }
 
-        public JsonResult GetJsonData()
-        {
-            Random r = new Random();
-            var list = new List<CHITIETDONHANG>();
-            for (int i = 1; i <= 12; i++)
-            {
-                list.Add(new CHITIETDONHANG { DN_ID = "DN_ID " + i });
-            }
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult GetJsonData()
+        //{
+        //    Random r = new Random();
+        //    var list = new List<CHITIETDONHANG>();
+        //    for (int i = 1; i <= 12; i++)
+        //    {
+        //        list.Add(new CHITIETDONHANG { DN_ID = "DN_ID " + i.ToString() });
+        //    }
+        //    return Json(list, JsonRequestBehavior.AllowGet);
+        //}
 
 
 

@@ -20,11 +20,11 @@ namespace LuanVan.Controllers
         {
             
             Session["KH_ID"] = null;
-            Session["NV_ID"] = null;
+            //Session["NV_ID"] = null;
             Session["KH_Ten"] = null;
             Session["KH_SDT"] = null;
             Session["KH_EMAIL"] = null;
-            Session["LNV_ID"] = null;
+            //Session["LNV_ID"] = null;
             Session["KH_DIACHI"] = null;
             HttpCookie userInfo = Request.Cookies["LoginKH"];
             if(userInfo != null)
@@ -85,7 +85,9 @@ namespace LuanVan.Controllers
 
         public ActionResult LoginNV()
         {
-            Session.Clear();
+            Session["NV_ID"] = null;
+            Session["LNV_ID"] = null;
+            Session["NV_TEN"] = null;
             return View();
         }
 

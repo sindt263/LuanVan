@@ -18,6 +18,7 @@
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name ="Mã bảo hành")]
+
         public short BH_ID { get; set; }
 
         [StringLength(20)]

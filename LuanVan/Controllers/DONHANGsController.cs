@@ -32,35 +32,56 @@ namespace LuanVan.Controllers
             IQueryable<DONHANG> model = db.DONHANGs.Include(d => d.HINHTHUCTHANHTOAN).Include(d => d.KHACHHANG).Include(d => d.TRANGTHAIDONHANG);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.DN_ID.Contains(searchTerm) || x.KH_ID.Contains(searchTerm)
-                || x.NV_ID.Contains(searchTerm)|| x.KHACHHANG.KH_TEN.Contains(searchTerm)|| x.TRANGTHAIDONHANG.TTDH_TEN.Contains(searchTerm));
+                model = model.Where(x => x.DN_ID.ToString().Contains(searchTerm) || x.KH_ID.Contains(searchTerm)
+                || x.NV_ID.Contains(searchTerm) || x.KHACHHANG.KH_TEN.Contains(searchTerm) || x.TRANGTHAIDONHANG.TTDH_TEN.Contains(searchTerm));
+            }
+            return model.OrderByDescending(x => x.DN_ID).ToPagedList(page, pageSize);
+        }
+
+
+        public ActionResult IndexKH(string searchTerm, int page = 1, int pageSize = 11)
+        {
+            if (Session["KH_ID"] != null)
+            {
+                string id = Session["KH_ID"].ToString();
+
+                var SanPhams = new DONHANGsController();
+                var mode = SanPhams.ListAllPaging2(id, searchTerm, page, pageSize);
+                ViewBag.SearchTerm = searchTerm;
+                return View(mode);
+            }
+            else
+            {
+                return RedirectToAction("LoginKH", "Logins");
+            }
+        }
+        public IEnumerable<DONHANG> ListAllPaging2(string id, string searchTerm, int page, int pageSize)
+        {
+
+            IQueryable<DONHANG> model = (from p in db.DONHANGs where p.KH_ID == id select p);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.DN_ID.ToString().Contains(searchTerm)
+               || x.KHACHHANG.KH_TEN.Contains(searchTerm)
+               || x.TRANGTHAIDONHANG.TTDH_TEN.Contains(searchTerm));
 
             }
-
-            return model.OrderByDescending(x=>x.DN_ID).OrderByDescending(x => x.DN_NGALAPDON).ToPagedList(page, pageSize);
+            return model.OrderByDescending(x => x.DN_ID).ToPagedList(page, pageSize);
         }
-        
-
-        public ActionResult IndexKH()
-        {
-            string kh_id = Session["KH_ID"].ToString();
-            var dONHANGs = (from p in db.DONHANGs where p.KH_ID == kh_id select p).OrderByDescending(m => m.DN_NGALAPDON);
-            return View(dONHANGs.ToList());
-        }
-
         public IEnumerable<DONHANG> ListAllPaging1(string searchTerm, int page, int pageSize)
         {
 
-            IQueryable<DONHANG> model = (from p in db.DONHANGs where p.DN_SDT == searchTerm select p).OrderByDescending(m => m.DN_NGALAPDON);
+            IQueryable<DONHANG> model = (from p in db.DONHANGs where p.DN_SDT == searchTerm select p);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.DN_SDT.Contains(searchTerm) );
+                model = model.Where(x => x.DN_SDT.Contains(searchTerm));
 
             }
 
-            return model.OrderByDescending(x => x.DN_NGALAPDON).ToPagedList(page, pageSize);
+            return model.OrderByDescending(x => x.DN_ID).ToPagedList(page, pageSize);
 
         }
+      
         public ActionResult IndexDH(string searchTerm, int page = 1, int pageSize = 11)
         {
 
@@ -110,7 +131,7 @@ namespace LuanVan.Controllers
                 if (ModelState.IsValid)
                 {
                     dONHANG.NV_ID = Session["NV_ID"].ToString();
-                    dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
+                    dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
                     db.DONHANGs.Add(dONHANG);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -129,41 +150,41 @@ namespace LuanVan.Controllers
 
         public ActionResult CreateDH(string id1, string id2, string id3, string id4)
         {
-           
+
             if (id4.Length <= 9 || string.IsNullOrEmpty(id3))
             {
                 ModelState.AddModelError("", "Vui lòng điền đầy đủ thông tin !");
-               
+
             }
             else
             {
-                
+
                 SANPHAMsController sANPHAM = new SANPHAMsController();
-               
+
                 DONHANG dONHANG = new DONHANG();
                 if (ModelState.IsValid)
                 {
-                    
-                         
-                        //dONHANG.NV_ID = Session["NV_ID"].ToString();
-                        dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count()).ToString();
-                        dONHANG.DN_SDT = id4;
-                        dONHANG.TTDH_ID = 4;
-                        if (Session["KH_ID"] != null)
-                        {
-                            string KH_ID = Session["KH_ID"].ToString();
-                            dONHANG.KH_ID = KH_ID;
-                        }
 
-                        dONHANG.DN_NGALAPDON = DateTime.Now;
-                        dONHANG.DN_GHICHU = "Khách đặc Online";
-                        dONHANG.HTTT_ID = Convert.ToInt16(id1);
-                        //dONHANG.DN_SL = Convert.ToInt32(id2);
-                        db.DONHANGs.Add(dONHANG);
-                        db.SaveChanges();
-                    
-                   
-                    string DN_ID = dONHANG.DN_ID;
+
+                    //dONHANG.NV_ID = Session["NV_ID"].ToString();
+                    dONHANG.DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
+                    dONHANG.DN_SDT = id4;
+                    dONHANG.TTDH_ID = 4;
+                    if (Session["KH_ID"] != null)
+                    {
+                        string KH_ID = Session["KH_ID"].ToString();
+                        dONHANG.KH_ID = KH_ID;
+                    }
+
+                    dONHANG.DN_NGALAPDON = DateTime.Now;
+                    dONHANG.DN_GHICHU = "Khách đặc Online";
+                    dONHANG.HTTT_ID = Convert.ToInt16(id1);
+                    //dONHANG.DN_SL = Convert.ToInt32(id2);
+                    db.DONHANGs.Add(dONHANG);
+                    db.SaveChanges();
+
+
+                    int DN_ID = Convert.ToInt32(dONHANG.DN_ID);
                     CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
                     var giohang = Session["giohang"] as List<CartItem>;
                     foreach (var i in giohang)
@@ -176,21 +197,21 @@ namespace LuanVan.Controllers
                         {
                             db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "',N'" + id3 + "')");
                             db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
-                                                        
+
                             ModelState.AddModelError("", "Xạc nhận mua " + i.SanPhamID + " thành công");
                         }
-                        CartItem itemXoa = giohang.FirstOrDefault(m => m.SanPhamID == i.SanPhamID);                        
-                            giohang.Remove(itemXoa);
+                        CartItem itemXoa = giohang.FirstOrDefault(m => m.SanPhamID == i.SanPhamID);
+                        giohang.Remove(itemXoa);
                     }
                     ModelState.AddModelError("", "Đã thêm chờ hàng vui lòng chờ duyệt đơn !");
                 }
-               
+
             }
             return View();
         }
 
         // GET: DONHANGs/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -219,7 +240,7 @@ namespace LuanVan.Controllers
             CHITIETDONHANGsController cHITIETDONHANGs = new CHITIETDONHANGsController();
             if (dONHANG != null)
             {
-               
+
                 if (Convert.ToInt16(dONHANG.TTDH_ID) == 2)
                 {
                     foreach (var i in SP_ID)
@@ -227,11 +248,13 @@ namespace LuanVan.Controllers
                         SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
                         cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
                     }
-                    string guimail =mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã hủy đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã bị hủy .", true);
-                }else if(Convert.ToInt16(dONHANG.TTDH_ID) == 1)
+                    string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã hủy đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã bị hủy .", true);
+                }
+                else if (Convert.ToInt16(dONHANG.TTDH_ID) == 1)
                 {
                     string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã duyệt đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã được duyệt thành công", true);
-                }else if(Convert.ToInt16(dONHANG.TTDH_ID) == 3)
+                }
+                else if (Convert.ToInt16(dONHANG.TTDH_ID) == 3)
                 {
                     string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã giao thành công", "Đơn hàng " + dONHANG.DN_ID + " đã được giao thành công", true);
                 }
@@ -246,7 +269,7 @@ namespace LuanVan.Controllers
                 }
                 return View(dONHANG);
             }
-           
+
             //if (ModelState.IsValid)
             //{
             //if (Convert.ToInt16(id_ttdh) == 2)
@@ -265,7 +288,7 @@ namespace LuanVan.Controllers
         }
 
         // GET: DONHANGs/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -282,7 +305,7 @@ namespace LuanVan.Controllers
         // POST: DONHANGs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             DONHANG dONHANG = db.DONHANGs.Find(id);
             db.DONHANGs.Remove(dONHANG);
@@ -314,7 +337,7 @@ namespace LuanVan.Controllers
             }
         }
 
-        public JsonResult EditHuy(string id)
+        public JsonResult EditHuy(int id)
         {
             Mail mail = new Mail();
             DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id);
@@ -334,7 +357,7 @@ namespace LuanVan.Controllers
             string a = "Đã hũy đơn hàng " + id;
             return Json(a, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult EditDuyet(string id)
+        public JsonResult EditDuyet(int id)
         {
             DONHANG dONHANG = db.DONHANGs.FirstOrDefault(m => m.DN_ID == id);
             var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == id select p);

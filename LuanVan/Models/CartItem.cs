@@ -15,6 +15,7 @@ namespace LuanVan.Models
         public int DonGia { get; set; }
         public float DonGiaKM { get; set; }
         public int SoLuong { get; set; }
+        
         public float ThanhTien
         {
             get

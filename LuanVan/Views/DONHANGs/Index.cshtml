@@ -119,7 +119,7 @@
                             </td>
                             <td class="text-center">
                                 <button class="btn btn-default" style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.DN_ID })</i> </button>
-                                <input type="button" class="btn btn-info" id="@item.DN_ID" value="Chi Tiết" />
+                                <input type="button" class="btn btn-info scrollup" id="@item.DN_ID" value="Chi Tiết" />
 
                                 @*@Html.ActionLink("Xóa", "Delete", new { id = item.DN_ID })*@
                             </td>
@@ -154,7 +154,7 @@
 
                     </table>
                     <div class="col-md-12 text-center">
-                        @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+                        @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { SearchTerm = ViewBag.SearchTerm, page = sotrang }))
                     </div>
                 </div>
             </div>

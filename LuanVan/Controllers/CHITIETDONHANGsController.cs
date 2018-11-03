@@ -33,14 +33,14 @@ namespace LuanVan.Controllers
             IQueryable<CHITIETDONHANG> model = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.SANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.DONHANG.DN_ID.Contains(searchTerm) || x.CTDH_ID.ToString().Contains(searchTerm) 
+                model = model.Where(x => x.DONHANG.DN_ID.ToString().Contains(searchTerm) || x.CTDH_ID.ToString().Contains(searchTerm) 
                 || x.SANPHAM.SP_TEN.Contains(searchTerm)|| x.DONHANG.KHACHHANG.KH_ID.Contains(searchTerm) );
 
             }
 
             return model.OrderByDescending(x => x.DONHANG.DN_NGALAPDON).ToPagedList(page, pageSize);
         }
-        public ActionResult IndexKH(string id)
+        public ActionResult IndexKH(int id)
         {
             ViewBag.DH_ID = id;
             var cHITIETDONHANGs = from p in db.CHITIETDONHANGs where p.DN_ID == id select p;

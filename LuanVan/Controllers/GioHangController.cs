@@ -54,9 +54,10 @@ namespace LuanVan.Controllers
                     DONHANG dONHANG = new DONHANG();
 
 
-                    Session["DN_ID"] = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
+                    //Session["DN_ID"] = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
                     //dONHANG.NV_ID = Session["NV_ID"].ToString();
-                    dONHANG.DN_ID = Session["DN_ID"].ToString();
+                    int DN_ID = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
+                    dONHANG.DN_ID = DN_ID;
                     dONHANG.DN_SDT = DN_SDT;
                     dONHANG.TTDH_ID = 4;
                     if (Session["KH_ID"] != null)
@@ -76,29 +77,34 @@ namespace LuanVan.Controllers
                     db.DONHANGs.Add(dONHANG);
                     db.SaveChanges();
 
-                    string DN_ID = Session["DN_ID"].ToString();
+                    //string DN_ID = Session["DN_ID"].ToString();
                     CHITIETDONHANG cHITIETDONHANG = new CHITIETDONHANG();
                     List<string> XoaItem = new List<string>();
                     foreach (var i in giohang)
                     {
-                        string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
+
+                       
                         XoaItem.Add(i.SanPhamID);
                         string SP_ID = i.SanPhamID;
-                        short TT = db.Database.SqlQuery<short>("select SP_TRANGTHAI from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
-                        if (TT == 1)
+                        for (int y = 1; y <= i.SoLuong; y++)
                         {
-                            if (HTTT_ID == "1")
+                            string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
+                            string TT = db.Database.SqlQuery<string>("select SP_ID from SanPham where CTSP_ID ='" + i.CTSP_ID + "' and SP_TRANGTHAI =1").FirstOrDefault();
+                            if (!string.IsNullOrEmpty(TT))
                             {
-                                db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "')");
-                            }
-                            else
-                            {
-                                db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + SP_ID + "')");
-                            }
+                                if (HTTT_ID == "1")
+                                {
+                                    db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + TT + "')");
+                                }
+                                else
+                                {
+                                    db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + TT + "')");
+                                }
 
-                            db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + SP_ID + "'");
+                                db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + TT + "'");
 
-                            ModelState.AddModelError("", "Xạc nhận mua " + i.TenSanPham + " thành công");
+                                ModelState.AddModelError("", "Xạc nhận mua " + i.TenSanPham + " thành công");
+                            }
                         }
                         //CartItem itemXoa = giohang.FirstOrDefault(m => m.SanPhamID == i.SanPhamID);
                         //giohang.Remove(itemXoa);

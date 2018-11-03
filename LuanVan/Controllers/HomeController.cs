@@ -26,7 +26,7 @@ namespace LuanVan.Controllers
 
         public ViewResult test()
         {
-
+            ViewBag.a = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
             return View();
         }
         [HttpPost]
