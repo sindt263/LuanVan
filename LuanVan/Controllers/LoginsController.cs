@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
@@ -43,8 +45,9 @@ namespace LuanVan.Controllers
             
             string TK = Request["TK"];
             string MK = Request["MK"];
+            string chuoimahoa = Encrypt(MK);
             string remember = Request["remember"];
-            var result = (from p in db.KHACHHANGs where p.KH_TAIKHOAN == TK && p.KH_MATKHAU == MK select p);
+            var result = (from p in db.KHACHHANGs where p.KH_TAIKHOAN == TK && p.KH_MATKHAU == chuoimahoa select p);
             if (result.Count() >= 1)
             {
                 if (remember =="1")
@@ -88,6 +91,13 @@ namespace LuanVan.Controllers
             Session["NV_ID"] = null;
             Session["LNV_ID"] = null;
             Session["NV_TEN"] = null;
+
+            HttpCookie userInfo = Request.Cookies["LoginNV"];
+            if (userInfo != null)
+            {
+                ViewBag.TKNV = userInfo["NV_TaiKhoan"];
+                ViewBag.MKNV = userInfo["NV_MatKhau"];
+            }
             return View();
         }
 
@@ -97,10 +107,30 @@ namespace LuanVan.Controllers
         {
             string TK = Request["NVTK"];
             string MK = Request["NVMK"];
-            var result = (from p in db.NHANVIENs where p.NV_TAIKHOAN == TK && p.NV_MATKHAU == MK select p);
+            string remember = Request["remember"];
+            string mahoa = Encrypt(MK);
+            var result = (from p in db.NHANVIENs where p.NV_TAIKHOAN == TK && p.NV_MATKHAU == mahoa select p);
                 if(result.Count() >= 1)
             {
-                foreach(var item in result)
+                if (remember == "1")
+                {
+                    HttpCookie userInfo = new HttpCookie("LoginNV");
+                    userInfo["NV_TaiKhoan"] = TK;
+                    userInfo["NV_MatKhau"] = MK;
+                    userInfo.Expires.Add(new TimeSpan(0, 1, 0));
+                    Response.Cookies.Add(userInfo);
+                    ViewBag.TKNV = userInfo["NV_TaiKhoan"];
+                    ViewBag.MKNV = userInfo["NV_MatKhau"];
+                }
+                else
+                {
+                    HttpCookie userInfo = new HttpCookie("LoginNV");
+                    userInfo["NV_TaiKhoan"] = null;
+                    userInfo["NV_MatKhau"] = null;
+                    userInfo.Expires.Add(new TimeSpan(0, 1, 0));
+                    Response.Cookies.Add(userInfo);
+                }
+                foreach (var item in result)
                 {
                     Session["NV_ID"] = item.NV_ID;
                     Session["NV_TEN"] = item.NV_TEN;
@@ -113,6 +143,69 @@ namespace LuanVan.Controllers
                 ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");
             }
             return View();
+        }
+
+
+        private string key = "SSSShop";
+
+        /// <summary>
+        /// Mã hóa chuỗi có mật khẩu
+        /// </summary>
+        /// <param name="toEncrypt">Chuỗi cần mã hóa</param>
+        /// <returns>Chuỗi đã mã hóa</returns>
+        public string Encrypt(string toEncrypt)
+        {
+            bool useHashing = true;
+            byte[] keyArray;
+            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+
+            if (useHashing)
+            {
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+            }
+            else
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+
+            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform = tdes.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        }
+
+        /// <summary>
+        /// Giản mã
+        /// </summary>
+        /// <param name="toDecrypt">Chuỗi đã mã hóa</param>
+        /// <returns>Chuỗi giản mã</returns>
+        public string Decrypt(string toDecrypt)
+        {
+            bool useHashing = true;
+            byte[] keyArray;
+            byte[] toEncryptArray = Convert.FromBase64String(toDecrypt);
+
+            if (useHashing)
+            {
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+            }
+            else
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+
+            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform = tdes.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            return UTF8Encoding.UTF8.GetString(resultArray);
         }
     }
 }

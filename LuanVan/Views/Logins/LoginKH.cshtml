@@ -16,7 +16,7 @@
         <form action="#" method="post">
             @Html.ValidationSummary(true, "", new { @class = "text-alert" })
             <input type="text" Name="TK" placeholder="Tài khoản" id="TK" required="" value="@ViewBag.TK">
-            <input type="password" Name="MK" placeholder="PASSWORD" id="MK" required="" value="@ViewBag.MK">
+            <input type="password" Name="MK" placeholder="Mật khẩu" id="MK" required="" value="@ViewBag.MK">
             <ul class="agileinfotickwthree">
                 <li>
                     @if (string.IsNullOrEmpty(ViewBag.TK) && string.IsNullOrEmpty(ViewBag.MK))
@@ -36,7 +36,8 @@
                 <input type="submit" value="Đăng nhập">
 
 
-                <p>Nhấn để tạo tài khoản mới <span>→</span> <a class="w3_play_icon1" href="#small-dialog1"> Tại đây </a></p>
+                <p>Nhấn để tạo tài khoản mới <span>→</span> <a class="btn btn-success" href="~/KhachHangs/CreateKH"> Tại đây </a></p>
+                @*<p>Nhấn để tạo tài khoản mới <span>→</span> <a class="w3_play_icon1" href="#small-dialog1"> Tại đây </a></p>*@
                 <div class="clear"></div>
             </div>
 
@@ -49,71 +50,72 @@
             <div class="contact-w3-agileits">
                 <h3>From đăng ký</h3>
                 <form action="~/KhachHangs/CreateKH" method="post" id="registerform">
+                    <span class="field-validation-valid text-danger" id="ViewKTMK" data-valmsg-for="KH_MATKHAU" data-valmsg-replace="true"></span>
+
                     <div class="form-sub-w3ls">
-                        <input placeholder="Tên khách hàng" type="text" required="" data-val="true" data-val-length="The field Tên khách hàng must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Tên không được rỗng" id="KH_TEN" name="KH_TEN">
+                        <input placeholder="Tên khách hàng" type="text" required="" oninvalid="this.setCustomValidity('Không được để trống Tên')" oninput="setCustomValidity('')" data-val="true" data-val-length="The field Tên khách hàng must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Tên không được rỗng" id="KH_TEN" name="KH_TEN">
                         <div class="icon-agile">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="form-sub-w3ls">
-                        <input placeholder="Email" class="mail" data-val="true" data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Email không được rỗng" id="KH_EMAIL" name="KH_EMAIL" type="email" required="">
+                        <input placeholder="Email" class="mail" data-val="true" data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Email không được rỗng" id="KH_EMAIL" name="KH_EMAIL" type="email" required="" oninvalid="this.setCustomValidity('Email không được rỗng')" oninput="setCustomValidity('')">
                         <div class="icon-agile">
                             <i class="fa fa-envelope-o" aria-hidden="true"></i>
                         </div>
                     </div>
 
                     <div class="form-sub-w3ls">
-                        <input placeholder="Địa chỉ" type="text" data-val="true" data-val-length="The field Địa chỉ must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Địa chỉ không được rỗng" id="KH_DIACHI" name="KH_DIACHI" required="">
+                        <input placeholder="Địa chỉ"  oninvalid="this.setCustomValidity('Địa chỉ không được rỗng')" oninput="setCustomValidity('')"  type="text" data-val="true" data-val-length="The field Địa chỉ must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Địa chỉ không được rỗng" id="KH_DIACHI" name="KH_DIACHI" required="">
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
 
                     <div class="form-sub-w3ls">
-                        <input placeholder="Số điện thoại" type="text" data-val="true" data-val-length="The field Số điện thoại must be a string with a maximum length of 200." data-val-length-max="11" data-val-required="Số điện thoại không được rỗng" id="KH_SDT" name="KH_SDT" required="">
+                        <input placeholder="Số điện thoại"  oninvalid="this.setCustomValidity('SĐT không được rỗng')" oninput="setCustomValidity('')"  type="text" data-val="true" data-val-length="The field Số điện thoại must be a string with a maximum length of 200." data-val-length-max="11" data-val-required="Số điện thoại không được rỗng" id="KH_SDT" name="KH_SDT" required="">
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
 
-                     <div class="form-sub-w3ls">
-                         Giới tính :
-                        <input type="radio" checked="checked" id="KH_GIOITINH" name="KH_GIOITINH" value="Nam"/>Nam
-                        <input type="radio" id="KH_GIOITINH" name="KH_GIOITINH" value="Nữ"/>Nữ
+                    <div class="form-sub-w3ls">
+                        Giới tính :
+                        <input type="radio" checked="checked" id="KH_GIOITINH" name="KH_GIOITINH" value="Nam" />Nam
+                        <input type="radio" id="KH_GIOITINH" name="KH_GIOITINH" value="Nữ" />Nữ
                         <input type="radio" id="KH_GIOITINH" name="KH_GIOITINH" value="Khác" />Khác
-                           
+
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
 
                     <div class="form-sub-w3ls">
-                        <input placeholder="Tài khoản" data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" data-val-required="Tài khoản không được rỗng" id="KH_TAIKHOAN" name="KH_TAIKHOAN" type="text" value="" required="">
+                        <input placeholder="Tài khoản"  oninvalid="this.setCustomValidity('Tài khoản không được rỗng')" oninput="setCustomValidity('')"  data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" data-val-required="Tài khoản không được rỗng" id="KH_TAIKHOAN" name="KH_TAIKHOAN" type="text" value="" required="">
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
-                     <div class="form-sub-w3ls">
-                        <input placeholder="Ngày sinh (Tháng/Ngày/Năm)" data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" data-val-required="Ngày sinh không được rỗng" id="KH_NGAYSINH" name="KH_NGAYSINH" type="text" value="" required="">
+                    <div class="form-sub-w3ls">
+                        <input  placeholder="Ngày sinh (Tháng/Ngày/Năm)" oninvalid="this.setCustomValidity('Ngày sinh không được rỗng')" oninput="setCustomValidity('')" data-val="true" data-val-length="The field Tài khoản must be a string with a maximum length of 16." data-val-length-max="16" data-val-required="Ngày sinh không được rỗng" id="KH_NGAYSINH" name="KH_NGAYSINH" type="text" value="" required="">
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
 
                     <div class="form-sub-w3ls">
-                        <input placeholder="Mật khẩu" data-val="true" data-val-length="The field Mật khẩu must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Mật khẩu không được rỗng" id="KH_MATKHAU" name="KH_MATKHAU" type="password" value="" required="">
+                        <input placeholder="Mật khẩu"  oninvalid="this.setCustomValidity('Mật khẩu không được rỗng')" oninput="setCustomValidity('')" data-val="true" data-val-length="The field Mật khẩu must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Mật khẩu không được rỗng" id="KH_MATKHAU" name="KH_MATKHAU" type="password" value="" required="">
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
 
                     <div class="form-sub-w3ls">
-                        <input placeholder="Mật khẩu xác nhận" type="password" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU1" name="KH_MATKHAU1" value="" required="">
+                        <input placeholder="Mật khẩu xác nhận"  oninvalid="this.setCustomValidity('Mật khẩu xác nhận không được rỗng')" oninput="setCustomValidity('')" type="password" data-val="true" data-val-length="The field KH_MATKHAU must be a string with a maximum length of 200." data-val-length-max="200" id="KH_MATKHAU1" name="KH_MATKHAU1" value="" required="">
                         <div class="icon-agile">
                             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <span class="field-validation-valid text-danger" id="ViewKTMK" data-valmsg-for="KH_MATKHAU" data-valmsg-replace="true"></span>
                     <div class="login-check">
                         <label class="checkbox"><input type="checkbox" name="checkbox" checked="checked">I Accept Terms & Conditions</label>
                     </div>
@@ -137,6 +139,7 @@
     <!--//pop-up-box-js-file -->
     <script>
         $(document).ready(function () {
+
             $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
                 type: 'inline',
                 fixedContentPos: false,
@@ -170,7 +173,6 @@
             })
             
             //$('#register').click(function () {
-
             //    if (TEN.value == "") {
             //        alert("Tên khách hàng không được rỗng !")
             //    } else if (EMAIL.value == "") {
@@ -225,5 +227,5 @@
 
        
     </script>
-
+    
 }

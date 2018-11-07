@@ -13,11 +13,18 @@
         <h2>Trang đang nhập</h2>
         <form action="#" method="post">
             @Html.ValidationSummary(true, "", new { @class = "text-alert" })
-            <input type="text" Name="NVTK" placeholder="Tài khoản" id="NVTK" required="">
-            <input type="password" Name="NVMK" placeholder="PASSWORD" id="NVMK" required="">
+            <input type="text" Name="NVTK" placeholder="Tài khoản" id="NVTK" required="" value="@ViewBag.TKNV">
+            <input type="password" Name="NVMK" placeholder="Mật khẩu" id="NVMK" required="" value="@ViewBag.MKNV">
             <ul class="agileinfotickwthree">
                 <li>
-                    <input type="checkbox" id="brand1" value="">
+                    @if (string.IsNullOrEmpty(ViewBag.TKNV) && string.IsNullOrEmpty(ViewBag.MKNV))
+                    {
+                        <input type="checkbox" id="brand1" name="remember" value="1">
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="brand1" name="remember" checked="checked" value="1">
+                    }
                     <label for="brand1"><span></span>Nhớ mật khẩu</label>
                     <a href="#">Quên mật khẩu?</a>
                 </li>

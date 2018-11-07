@@ -53,7 +53,7 @@
                                     <td>
                                         <form action="@Url.Action("SuaSoLuong")" method="get">
                                             <input type="hidden" name="SanPhamID" id="SanPhamID" value="@item.SanPhamID" />
-                                            <input type="number" min="1" step="1" max="@max.Count()" name="soluongmoi" value="@item.SoLuong"  />
+                                            <input type="number" min="1" step="1" max="@max.Count()" oninvalid="this.setCustomValidity('Sản phẩm chỉ còn @max.Count()')" oninput="setCustomValidity('')" name="soluongmoi" value="@item.SoLuong"  />
                                             <button type="submit" class="btn btn-primary btn-sm"> Cập nhật </button>
                                         </form>
                                     </td>
@@ -93,7 +93,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2" for="DN_SDT">Số điện thoại</label>
                                         <div class="col-md-5">
-                                            <input class="form-control text-box single-line" data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="@ViewBag.sdt" />
+                                            <input class="form-control text-box single-line"  data-val="true" data-val-length="The field DN_SDT must be a string with a maximum length of 20." data-val-length-max="20" id="DN_SDT" name="DN_SDT" type="text" value="@ViewBag.sdt" />
                                             <span class="field-validation-valid text-danger" data-valmsg-for="DN_SDT" data-valmsg-replace="true"></span>
                                         </div>
                                     </div>

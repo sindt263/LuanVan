@@ -10,6 +10,8 @@ using LuanVan.Models;
 using LuanVan.Controllers;
 using PagedList;
 using PagedList.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace LuanVan.Controllers
 {
@@ -23,10 +25,40 @@ namespace LuanVan.Controllers
         //    var sp = db.SANPHAMs.Include(s => s.DONGSANPHAM).Include(s => s.GIASP).Include(s => s.KHUYENMAI).Include(s => s.NHASANXUAT).Include(s => s.NHOMSANPHAM).Include(n => n.CHITIETNHAPs).OrderByDescending(s => s.CTSP_ID);
         //    return View(sp);
         //}
+        private string key = "SSSShop";
 
+        /// <summary>
+        /// Mã hóa chuỗi có mật khẩu
+        /// </summary>
+        /// <param name="toEncrypt">Chuỗi cần mã hóa</param>
+        /// <returns>Chuỗi đã mã hóa</returns>
+        public string Encrypt(string toEncrypt)
+        {
+            bool useHashing = true;
+            byte[] keyArray;
+            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+
+            if (useHashing)
+            {
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+            }
+            else
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+
+            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform = tdes.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        }
         public ViewResult test()
         {
-            ViewBag.a = db.autottang("DonHang", "DN_ID", db.DONHANGs.Count());
+            ViewBag.a =Encrypt("123456");
             return View();
         }
         [HttpPost]

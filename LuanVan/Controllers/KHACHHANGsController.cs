@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
@@ -81,6 +83,7 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU,KH_TRANGTHAI")] KHACHHANG kHACHHANG)
         {
+          
             string MK = Request["KH_MATKHAU"];
             string MK1 = Request["KH_MATKHAU1"];
             string TK = Request["KH_TAIKHOAN"];
@@ -97,12 +100,45 @@ namespace LuanVan.Controllers
             {
                 kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
                 kHACHHANG.KH_TRANGTHAI = "Bình thường";
+                kHACHHANG.KH_MATKHAU = Encrypt(MK);
                 db.KHACHHANGs.Add(kHACHHANG);
                 db.SaveChanges();
                 return RedirectToAction("LoginKH", "Logins");
             }
 
             return View();
+        }
+
+        private string key = "SSSShop";
+
+        /// <summary>
+        /// Mã hóa chuỗi có mật khẩu
+        /// </summary>
+        /// <param name="toEncrypt">Chuỗi cần mã hóa</param>
+        /// <returns>Chuỗi đã mã hóa</returns>
+        public string Encrypt(string toEncrypt)
+        {
+            bool useHashing = true;
+            byte[] keyArray;
+            byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+
+            if (useHashing)
+            {
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+            }
+            else
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+
+            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform = tdes.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
 
 
@@ -285,45 +321,64 @@ namespace LuanVan.Controllers
             }
             else
             {
-                string output = "Có thể sử dụng !";
+                string output = "Có thể sử dụng tài khoản này!";
                 Session["TKOK"] = 1;
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult CreateKH(string KH_TEN, string KH_EMAIL, string KH_DIACHI,string KH_NGAYSINH, string KH_TAIKHOAN, string KH_MATKHAU, string KH_MATKHAU1,string KH_GIOITINH,string KH_SDT)
+        public ViewResult CreateKH()
         {
+            return View();
+        }
 
-            string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + KH_TAIKHOAN + "'").SingleOrDefault();
-            if (result != null)
+        [HttpPost, ActionName("CreateKH")]
+        [ValidateAntiForgeryToken]
+        public ActionResult  CreateKH(string KH_TEN, string KH_EMAIL, string KH_DIACHI,string KH_NGAYSINH, string KH_TAIKHOAN, string KH_MATKHAU, string KH_MATKHAU1,string KH_GIOITINH,string KH_SDT)
+        {
+            try
             {
-                string output = "Tài khoản đã tồn tại !";
-                return Json(output, JsonRequestBehavior.AllowGet);
+                string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + KH_TAIKHOAN + "'").SingleOrDefault();
+                if (result != null)
+                {
+                    ModelState.AddModelError("", "Tài khoản đã tồn tại ");
+                    //string output = "Tài khoản đã tồn tại !";
+                    //return Json(output, JsonRequestBehavior.AllowGet);
+                }
+                else if (KH_MATKHAU != KH_MATKHAU1 || KH_MATKHAU.Length <= 5)
+                {
+                    ModelState.AddModelError("", "Mật khảu chưa đúng");
+                    //string output = "Nhập mật khẩu chưa đúng !";
+                    //return Json(output, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    KHACHHANG kHACHHANG = new KHACHHANG();
+                    kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
+                    kHACHHANG.KH_TEN = KH_TEN;
+                    kHACHHANG.KH_EMAIL = KH_EMAIL;
+                    kHACHHANG.KH_DIACHI = KH_DIACHI;
+                    kHACHHANG.KH_TAIKHOAN = KH_TAIKHOAN;
+                    kHACHHANG.KH_MATKHAU = Encrypt(KH_MATKHAU);
+                    kHACHHANG.KH_GIOITINH = KH_GIOITINH;
+                    kHACHHANG.KH_SDT = KH_SDT;
+                    kHACHHANG.KH_TRANGTHAI = "Bình thường";
+                    kHACHHANG.KH_NGAYSINH = Convert.ToDateTime(KH_NGAYSINH);
+                    db.KHACHHANGs.Add(kHACHHANG);
+                    db.SaveChanges();
+                    //Session["success"] = "1";
+                    //string output = "Đăng ký thành công !";
+                    //return Json(output, JsonRequestBehavior.AllowGet);
+                    ModelState.AddModelError("", "Đăng ký thành công");
+                }
             }
-            else if (KH_MATKHAU != KH_MATKHAU1 || KH_MATKHAU.Length <= 5)
+            catch
             {
-
-                string output = "Nhập mật khẩu chưa đúng !";
-                return Json(output, JsonRequestBehavior.AllowGet);
+                ModelState.AddModelError("", "Có lỗi tròn lúc nhập dữ liệu, vui lòng điền đúng theo yêu cầu");
+                //string output = "Có lỗi trong quá trình nhập dữ liệu !";
+                //return Json(output, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                KHACHHANG kHACHHANG = new KHACHHANG();
-                kHACHHANG.KH_ID = db.autottang("KhachHang", "KH_ID", db.KHACHHANGs.Count()).ToString();
-                kHACHHANG.KH_TEN = KH_TEN;
-                kHACHHANG.KH_EMAIL = KH_EMAIL;
-                kHACHHANG.KH_DIACHI = KH_DIACHI;
-                kHACHHANG.KH_TAIKHOAN = KH_TAIKHOAN;
-                kHACHHANG.KH_MATKHAU = KH_MATKHAU;
-                kHACHHANG.KH_GIOITINH = KH_GIOITINH;
-                kHACHHANG.KH_SDT = KH_SDT;
-                kHACHHANG.KH_TRANGTHAI = "Bình thường";
-                kHACHHANG.KH_NGAYSINH = Convert.ToDateTime(KH_NGAYSINH);
-                db.KHACHHANGs.Add(kHACHHANG);
-                db.SaveChanges();
-                string output = "Đăng ký thành công !";
-                return Json(output, JsonRequestBehavior.AllowGet);
-            }
+            return View();
         }
 
         public JsonResult KTEMAIL(string KH_EMAIL)
