@@ -1,4 +1,4 @@
-﻿namespace LuanVan.Models
+namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,54 +17,39 @@
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Display(Name = "Mã đơn hàng")]
         public int DN_ID { get; set; }
 
-        [Display(Name = "Trạng thái")]
+        [StringLength(10)]
+        public string NV_ID { get; set; }
+
         public short? TTDH_ID { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Mã khách hàng")]
         public string KH_ID { get; set; }
 
-        [Display(Name = "Hình thức thanh toán")]
         public short? HTTT_ID { get; set; }
 
-        [Display(Name = "Ngày lập đơn")]
-        [DataType(DataType.Date)]
         public DateTime? DN_NGALAPDON { get; set; }
 
         [StringLength(255)]
-        [Display(Name = "Ghi chú")]
         public string DN_GHICHU { get; set; }
 
+        [StringLength(20)]
+        public string DN_SDT { get; set; }
+
         [StringLength(200)]
-        [Display(Name = "Địa chỉ giao")]
         public string DN_DIACHI { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "Mã thẻ")]
         public string DN_MATHE { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Chủ thẻ")]
         public string DN_CHUTHE { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Ngày cấp")]
         public string DN_NGAYCAP { get; set; }
-        
-        [StringLength(10)]
-        [Display(Name = "Mã nhân viên")]
-        public string NV_ID { get; set; }
 
-        [StringLength(20)]
-        [Display(Name = "Số điện thoại")]
-        public string DN_SDT { get; set; }
-
-         [StringLength(100)]
-        [Display(Name = "EMAIL")]
-        [DataType(DataType.EmailAddress)]
+        [StringLength(100)]
         public string DN_EMAIL { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

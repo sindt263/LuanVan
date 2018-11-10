@@ -338,8 +338,13 @@ namespace LuanVan.Controllers
         {
             try
             {
+                var KHEMAIL = db.Database.SqlQuery<string>("select KH_EMAIL from KhachHang where KH_EMAIL = '" + KH_EMAIL + "'").FirstOrDefault();
                 string result = db.Database.SqlQuery<string>("select KH_TAIKHOAN from KHACHHANG where KH_TAIKHOAN='" + KH_TAIKHOAN + "'").SingleOrDefault();
-                if (result != null)
+                if (KHEMAIL != null)
+                {
+                    ModelState.AddModelError("", "Email này đã được sử dụng !");
+                }
+                else if (result != null)
                 {
                     ModelState.AddModelError("", "Tài khoản đã tồn tại ");
                     //string output = "Tài khoản đã tồn tại !";
@@ -347,7 +352,7 @@ namespace LuanVan.Controllers
                 }
                 else if (KH_MATKHAU != KH_MATKHAU1 || KH_MATKHAU.Length <= 5)
                 {
-                    ModelState.AddModelError("", "Mật khảu chưa đúng");
+                    ModelState.AddModelError("", "Mật khẩu chưa đúng");
                     //string output = "Nhập mật khẩu chưa đúng !";
                     //return Json(output, JsonRequestBehavior.AllowGet);
                 }

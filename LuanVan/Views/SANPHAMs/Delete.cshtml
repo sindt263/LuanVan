@@ -5,89 +5,105 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Bạn thật sự muốn xóa ?</h3>
+<h3>Bạn thật sự muốn xóa?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DONGSANPHAM.DSP_TEN)
+        @*<dt>
+            @Html.DisplayNameFor(model => model.CTSP_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DONGSANPHAM.DSP_TEN)
+            @Html.DisplayFor(model => model.CTSP_TEN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.GIASP.GIA_ID)
+            @Html.DisplayNameFor(model => model.CTSP_CNMANGHINH)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.GIASP.GIA_ID)
+            @Html.DisplayFor(model => model.CTSP_CNMANGHINH)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
+            @Html.DisplayNameFor(model => model.CTSP_DOPHANGIAI)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.KHUYENMAI.KM_TEN)
+            @Html.DisplayFor(model => model.CTSP_DOPHANGIAI)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NHASANXUAT.NSX_TEN)
+            @Html.DisplayNameFor(model => model.CTSP_MANHINH)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NHASANXUAT.NSX_TEN)
+            @Html.DisplayFor(model => model.CTSP_MANHINH)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NHOMSANPHAM.NSP_TEN)
+            @Html.DisplayNameFor(model => model.CTSP_CAMERATRUOC)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NHOMSANPHAM.NSP_TEN)
+            @Html.DisplayFor(model => model.CTSP_CAMERATRUOC)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SP_TEN)
+            @Html.DisplayNameFor(model => model.CTSP_CAMERASAU)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SP_TEN)
+            @Html.DisplayFor(model => model.CTSP_CAMERASAU)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SP_TRANGTHAI)
+            @Html.DisplayNameFor(model => model.CTSP_HEDIEUHANH)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SP_TRANGTHAI)
+            @Html.DisplayFor(model => model.CTSP_HEDIEUHANH)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SP_MOTANGAN)
+            @Html.DisplayNameFor(model => model.CTSP_RAM)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SP_MOTANGAN)
+            @Html.DisplayFor(model => model.CTSP_RAM)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SP_MOTACHITIET)
+            @Html.DisplayNameFor(model => model.CTSP_ROM)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SP_MOTACHITIET)
+            @Html.DisplayFor(model => model.CTSP_ROM)
         </dd>
 
-    </dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.CTSP_DUNGLUONGPIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CTSP_DUNGLUONGPIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CTSP_SOSIM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CTSP_SOSIM)
+        </dd>
+
+    </dl>*@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <input type="submit" value="Delete" class="btn btn-success" /> |
         @Html.ActionLink("Về trang danh sách", "Index")
     </div>
     }

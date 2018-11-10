@@ -16,7 +16,7 @@ namespace LuanVan.Controllers
 
         public ActionResult IndexKH(string id)
         {
-            return View(db.BINHLUANCTSPs.Where(a => a.CTSP_ID == id).Where(a=>a.BL_TL == null).OrderBy(a=>a.BL_THOIGIAN).ToList());
+            return View(db.BINHLUANCTSPs.Where(a => a.SP_ID == id).Where(a=>a.BL_TL == null).OrderByDescending(a=>a.BL_THOIGIAN).ToList());
         }
 
         public ActionResult CreateKH(string id, string id2)
@@ -26,7 +26,7 @@ namespace LuanVan.Controllers
             {
                 bINHLUANCTSP.BL_ID = db.autottang("BinhLuanCTSP", "BL_ID", db.BINHLUANCTSPs.Count()).ToString();
                 bINHLUANCTSP.BL_ND = id;
-                bINHLUANCTSP.CTSP_ID = id2;
+                bINHLUANCTSP.SP_ID = id2;
                 bINHLUANCTSP.BL_THOIGIAN = DateTime.Now;
                 if(Session["KH_ID"] != null)
                 {
@@ -50,7 +50,7 @@ namespace LuanVan.Controllers
         // GET: BINHLUANCTSPs
         public ActionResult Index()
         {
-            var bINHLUANCTSPs = db.BINHLUANCTSPs.Include(b => b.CHITIETSANPHAM).Include(b => b.KHACHHANG).Include(b => b.NHANVIEN);
+            var bINHLUANCTSPs = db.BINHLUANCTSPs.Include(b => b.SANPHAM).Include(b => b.KHACHHANG).Include(b => b.NHANVIEN);
             return View(bINHLUANCTSPs.ToList());
         }
 
@@ -107,7 +107,7 @@ namespace LuanVan.Controllers
                 }
 
                 //bINHLUANCTSP.KH_ID = id;
-                bINHLUANCTSP.CTSP_ID = id2;
+                bINHLUANCTSP.SP_ID = id2;
                 bINHLUANCTSP.BL_TL = id3;
                 bINHLUANCTSP.BL_THOIGIAN = DateTime.Now;
                 db.BINHLUANCTSPs.Add(bINHLUANCTSP);
@@ -115,7 +115,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("details/"+id2,"chitietsanphams");
             }
 
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.SP_ID);
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", bINHLUANCTSP.KH_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", bINHLUANCTSP.NV_ID);
             return View(bINHLUANCTSP);
@@ -144,7 +144,7 @@ namespace LuanVan.Controllers
                     bINHLUANCTSP.KH_ID = "0";
                 }
                 
-                bINHLUANCTSP.CTSP_ID = id2;
+                bINHLUANCTSP.SP_ID = id2;
                 bINHLUANCTSP.BL_TL = id3;
                 bINHLUANCTSP.BL_ND = id4;
                 bINHLUANCTSP.BL_THOIGIAN = DateTime.Now;
@@ -169,7 +169,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.SP_ID);
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", bINHLUANCTSP.KH_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", bINHLUANCTSP.NV_ID);
             return View(bINHLUANCTSP);
@@ -188,7 +188,7 @@ namespace LuanVan.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.SP_ID);
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", bINHLUANCTSP.KH_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", bINHLUANCTSP.NV_ID);
             return View(bINHLUANCTSP);

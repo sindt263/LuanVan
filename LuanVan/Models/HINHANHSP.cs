@@ -1,4 +1,4 @@
-﻿namespace LuanVan.Models
+namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -10,18 +10,15 @@
     public partial class HINHANHSP
     {
         [Key]
-        [StringLength(10)]
-        [Display(Name = "Mã hình")]
+        [StringLength(30)]
         public string HA_ID { get; set; }
 
-        [StringLength(20)]
-        [Display(Name = "Mã chi tiết")]
-        public string CTSP_ID { get; set; }
+        [StringLength(30)]
+        public string SP_ID { get; set; }
 
         [Column(TypeName = "image")]
-        [Display(Name = "Nội dung")]
         public byte[] HA_ND { get; set; }
 
-        public virtual CHITIETSANPHAM CHITIETSANPHAM { get; set; }
+        public virtual SANPHAM SANPHAM { get; set; }
     }
 }

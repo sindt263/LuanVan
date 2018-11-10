@@ -138,14 +138,14 @@ namespace LuanVan.Controllers
                 CHITIETSANPHAMsController cHITIETSANPH = new CHITIETSANPHAMsController();
                 SANPHAM sp = db.SANPHAMs.Find(SanPhamID);  // tim sp theo sanPhamID
                 string GiaID = sp.GIA_ID;
-                string KM_ID = db.Database.SqlQuery<string>("select KM_ID from SanPham where CTSP_ID ='" + sp.CTSP_ID + "'").Take(1).SingleOrDefault();
+                string KM_ID = db.Database.SqlQuery<string>("select KM_ID from SanPham where CTSP_ID ='" + sp.SP_ID + "'").Take(1).SingleOrDefault();
                 float KM_GIATRI = db.Database.SqlQuery<float>("select KM_GIATRI from KhuyenMai where KM_ID ='" + KM_ID + "' and KM_NgayKetThuc >= GETDATE()").SingleOrDefault();
-                float giamgia = cHITIETSANPH.GetGia(sp.CTSP_ID) * KM_GIATRI;
-                float newprice = cHITIETSANPH.GetGia(sp.CTSP_ID) - giamgia;
+                float giamgia = cHITIETSANPH.GetGia(sp.SP_ID) * KM_GIATRI;
+                float newprice = cHITIETSANPH.GetGia(sp.SP_ID) - giamgia;
                 CartItem newItem = new CartItem()
                 {
                     SanPhamID = SanPhamID,
-                    CTSP_ID = sp.CTSP_ID,
+                    CTSP_ID = sp.SP_ID,
                     TenSanPham = sp.SP_TEN,
                     DonGia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID='" + GiaID + "'").SingleOrDefault(),
                     DonGiaKM = newprice,

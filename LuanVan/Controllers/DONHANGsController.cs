@@ -33,7 +33,8 @@ namespace LuanVan.Controllers
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 model = model.Where(x => x.DN_ID.ToString().Contains(searchTerm) || x.KH_ID.Contains(searchTerm)
-                || x.NV_ID.Contains(searchTerm) || x.KHACHHANG.KH_TEN.Contains(searchTerm) || x.TRANGTHAIDONHANG.TTDH_TEN.Contains(searchTerm));
+                || x.NV_ID.Contains(searchTerm) || x.KHACHHANG.KH_TEN.Contains(searchTerm) || x.TRANGTHAIDONHANG.TTDH_TEN.Contains(searchTerm)
+                 || x.DN_NGALAPDON.ToString().Contains(searchTerm));
             }
             return model.OrderByDescending(x => x.DN_ID).ToPagedList(page, pageSize);
         }
@@ -121,7 +122,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DN_ID,TTDH_ID,KH_ID,HTTT_ID,DN_NGALAPDON,DN_GHICHU,DN_SL,DN_SDT")] DONHANG dONHANG)
+        public ActionResult Create([Bind(Include = "DN_ID,TTDH_ID,KH_ID,HTTT_ID,DN_NGALAPDON,DN_GHICHU,DN_SL,DN_SDT,DN_DIACHI,DN_MATHE,DN_CHUTHE,DN_NGAYCAP,DN_EMAIL")] DONHANG dONHANG)
         {
             string KH_ID = Request["KH_ID"];
             string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
@@ -245,7 +246,7 @@ namespace LuanVan.Controllers
                 {
                     foreach (var i in SP_ID)
                     {
-                        SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
+                        SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.CTSP_ID);
                         cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
                     }
                     string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã hủy đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã bị hủy .", true);
@@ -347,7 +348,7 @@ namespace LuanVan.Controllers
             {
                 foreach (var i in SP_ID)
                 {
-                    SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
+                    SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.CTSP_ID);
                     cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
                 }
                 dONHANG.TTDH_ID = 2;
@@ -366,7 +367,7 @@ namespace LuanVan.Controllers
             {
                 foreach (var i in SP_ID)
                 {
-                    SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.SP_ID);
+                    SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.CTSP_ID);
                     cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
                 }
                 dONHANG.TTDH_ID = 2;

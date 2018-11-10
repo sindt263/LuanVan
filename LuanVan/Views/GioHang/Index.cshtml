@@ -47,7 +47,7 @@
                                         </asp:Repeater>
                                     </td>
                                     @{
-                                        var max = (from p in db.SANPHAMs where p.CTSP_ID == item.CTSP_ID select p);
+                                        var max = (from p in db.SANPHAMs where p.CTSP_ID == item.CTSP_ID && p.SP_TRANGTHAI ==1 select p);
                                     }
                                     <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
                                     <td>

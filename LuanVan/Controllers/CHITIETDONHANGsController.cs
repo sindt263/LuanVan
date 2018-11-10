@@ -30,11 +30,11 @@ namespace LuanVan.Controllers
 
         public IEnumerable<CHITIETDONHANG> ListAllPaging(string searchTerm, int page, int pageSize)
         {
-            IQueryable<CHITIETDONHANG> model = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.SANPHAM);
+            IQueryable<CHITIETDONHANG> model = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.CHITIETSANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 model = model.Where(x => x.DONHANG.DN_ID.ToString().Contains(searchTerm) || x.CTDH_ID.ToString().Contains(searchTerm) 
-                || x.SANPHAM.SP_TEN.Contains(searchTerm)|| x.DONHANG.KHACHHANG.KH_ID.Contains(searchTerm) );
+                || x.CHITIETSANPHAM.CTSP_TEN.ToString().Contains(searchTerm)|| x.DONHANG.KHACHHANG.KH_ID.Contains(searchTerm) );
 
             }
 
@@ -86,7 +86,7 @@ namespace LuanVan.Controllers
             }
 
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }
 
@@ -103,7 +103,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }
 
@@ -121,7 +121,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }
 
@@ -146,9 +146,10 @@ namespace LuanVan.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             CHITIETDONHANG cHITIETDONHANG = db.CHITIETDONHANGs.Find(id);
+            
             db.CHITIETDONHANGs.Remove(cHITIETDONHANG);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","DonHang");
         }
 
         protected override void Dispose(bool disposing)
@@ -162,10 +163,10 @@ namespace LuanVan.Controllers
 
         public void EditHuy(string id)
         {
-            SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == id);
+            CHITIETSANPHAM sANPHAM = db.CHITIETSANPHAMs.FirstOrDefault(sp => sp.SP_ID == id);
             if (sANPHAM != null)
             {
-                sANPHAM.SP_TRANGTHAI = 1;
+                sANPHAM.CTSP_TRANGTHAI = 1;
                 db.SaveChanges();
             }
            

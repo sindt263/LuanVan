@@ -29,11 +29,11 @@ namespace LuanVan.Controllers
 
         public IEnumerable<CHITIETNHAP> ListAllPaging(string searchTerm, int page, int pageSize)
         {
-            IQueryable<CHITIETNHAP> model = db.CHITIETNHAPs.Include(c => c.PHIEUNHAPSP).Include(c => c.SANPHAM);
+            IQueryable<CHITIETNHAP> model = db.CHITIETNHAPs.Include(c => c.PHIEUNHAPSP).Include(c => c.CHITIETSANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.SP_ID.Contains(searchTerm) || x.PN_ID.ToString().Contains(searchTerm)
-                || x.CTN_ID.ToString().Contains(searchTerm)|| x.SANPHAM.SP_TEN.ToString().Contains(searchTerm));
+                model = model.Where(x => x.CTSP_ID.Contains(searchTerm) || x.PN_ID.ToString().Contains(searchTerm)
+                || x.CTN_ID.ToString().Contains(searchTerm)|| x.CHITIETSANPHAM.CTSP_TEN.ToString().Contains(searchTerm));
 
             }
 
@@ -58,7 +58,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID");
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID");
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_ID");
             return View();
         }
 
@@ -81,7 +81,7 @@ namespace LuanVan.Controllers
             }
 
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", cHITIETNHAP.SP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_ID", cHITIETNHAP.CTSP_ID);
             return View(cHITIETNHAP);
         }
         public ActionResult CreateCTN(string id1, string id2,int id3)
@@ -93,7 +93,7 @@ namespace LuanVan.Controllers
                 cHITIETNHAP.CTN_ID = db.autottang("CHITIETNHAP", "CTN_ID", db.CHITIETNHAPs.Count()).ToString();
                 //cHITIETNHAP.PN_ID = Session["PNSP"].ToString();
                 cHITIETNHAP.PN_ID = id1;
-                cHITIETNHAP.SP_ID = id2;
+                cHITIETNHAP.CTSP_ID = id2;
                 cHITIETNHAP.CTN_GIA = id3;
                 db.CHITIETNHAPs.Add(cHITIETNHAP);
                 db.SaveChanges();
@@ -117,7 +117,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.CTSP_ID);
             return View(cHITIETNHAP);
         }
 
@@ -136,7 +136,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETNHAP.CTSP_ID);
             return View(cHITIETNHAP);
         }
 

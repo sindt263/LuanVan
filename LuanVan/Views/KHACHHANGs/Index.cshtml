@@ -48,6 +48,9 @@
                             </th>
                             <th class="text-center">
                                 @Html.DisplayName("Tai khoản")
+                            </th> 
+                            <th class="text-center">
+                                @Html.DisplayName("Trạng thái")
                             </th>
                             @*<th>
                     @Html.DisplayNameFor(model => model.KH_MATKHAU)
@@ -78,6 +81,9 @@
                                 </td>
                                 <td class="text-left">
                                     @Html.DisplayFor(modelItem => item.KH_TAIKHOAN)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.KH_TRANGTHAI)
                                 </td>
                                 @*<td>
                         @Html.DisplayFor(modelItem => item.KH_MATKHAU)

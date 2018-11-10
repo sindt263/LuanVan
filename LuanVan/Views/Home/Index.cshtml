@@ -1,5 +1,5 @@
 ﻿@using LuanVan.Models;
-@model IEnumerable<LuanVan.Models.CHITIETSANPHAM>
+@model IEnumerable<LuanVan.Models.SANPHAM>
 @using PagedList
 @using PagedList.Mvc
 @{
@@ -33,8 +33,8 @@
                             @*@foreach (var item in ViewBag.Top)*@
                             @for (int i = 1; i <= 3; i++)
                             {
-                                string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
-                                int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID = '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
+                                string top = db.Database.SqlQuery<string>("select top " +i+ " sp.SP_ID from ((SANPHAM sp inner join CHITIETSANPHAM ctsp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.ctSP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by sp.SP_ID, sp.SP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
+                                int count = db.Database.SqlQuery<int>("select Count(sp.SP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID= '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
                                 <div class="single-wid-product">
                                     <a href="/ChiTietSanPhams/Details/@top">
                                         <asp:Repeater runat="server" id="myRepeater">
@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="product-wid-price">
                                         @{
-                                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == top select p).Take(1).ToList();
+                                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.SP_ID == top select p).Take(1).ToList();
                                         }
 
                                         @foreach (var item in SP)
@@ -65,14 +65,14 @@
                                             float newprice;
                                             if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
                                             {
-                                                float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
-                                                newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
+                                                float giamgia = cHITIETSANPH.GetGia(item.SP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
+                                                newprice = cHITIETSANPH.GetGia(item.SP_ID) - giamgia;
+                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</del>
 
                                             }
                                             else
                                             {
-                                                <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                                <ins>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</ins>
                                             }
 
 
@@ -160,8 +160,8 @@
                             @*@foreach (var item in ViewBag.Top)*@
                             @for (int i = 1; i <= 3; i++)
                             {
-                                string top = db.Database.SqlQuery<string>("select top " + i + " ctsp.CTSP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) group by ctsp.CTSP_ID, ctsp.CTSP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
-                                int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.CTSP_ID = ctsp.CTSP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.SP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID = '" + top + "'").SingleOrDefault();
+                                string top = db.Database.SqlQuery<string>("select top " + i + " sp.SP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) group by sp.SP_ID, sp.SP_TEN order by Count(sp.SP_ID) desc ").LastOrDefault();
+                                int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID= '" + top + "'").SingleOrDefault();
                                 <div class="single-wid-product">
                                     <a href="/ChiTietSanPhams/Details/@top">
                                         <asp:Repeater runat="server" id="myRepeater">
@@ -184,7 +184,7 @@
                                     </div>
                                     <div class="product-wid-price">
                                         @{
-                                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == top select p).Take(1).ToList();
+                                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.SP_ID == top select p).Take(1).ToList();
                                         }
 
                                         @foreach (var item in SP)
@@ -192,14 +192,14 @@
                                             float newprice;
                                             if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
                                             {
-                                                float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
-                                                newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
+                                                float giamgia = cHITIETSANPH.GetGia(item.SP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
+                                                newprice = cHITIETSANPH.GetGia(item.SP_ID) - giamgia;
+                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</del>
 
                                             }
                                             else
                                             {
-                                                <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                                <ins>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</ins>
                                             }
 
 
@@ -292,14 +292,14 @@
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                                 <div class="product-hover">
-                                                    @if (sANPHAMs.KTKho(item.CTSP_ID) == 0)
+                                                    @if (cHITIETSANPH.KTKho(item.CTSP_ID) == 0)
                                                     {
                                                         <h4 class="text-danger">Hết hàng</h4>
 
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                     }
 
 
@@ -373,15 +373,15 @@
                     <div class="">
                         <div class="latest-product">
                             <h4 class="text-center">
-                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Tất cả sản phẩm</span>
+                                <span class="clip-text clip-text_fourteen clip-text--cover text-center">Sản phẩm</span>
                             </h4>
                             <div class="product-carousel">
                                 @foreach (var i in Model)
                                 {
 
-                                    string id = i.CTSP_ID;
+                                    string id = i.SP_ID;
                                     //string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                                    List<SANPHAM> SP = (from p in db.SANPHAMs where p.CTSP_ID == id && p.SP_TRANGTHAI == 1 select p).Take(1).ToList();
+                                    List<CHITIETSANPHAM> SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id && p.CTSP_TRANGTHAI == 1 select p).Take(1).ToList();
                                     foreach (var item in SP)
                                     {
                                         <div class="single-product">
@@ -393,18 +393,18 @@
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                                 <div class="product-hover">
-                                                    @if (item.SP_TRANGTHAI == 0)
+                                                    @if (item.CTSP_TRANGTHAI == 0)
                                                     {
                                                         <h4 class="text-danger">Hết hàng</h4>
 
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                     }
 
 
-                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
+                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.SP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
 
 
                                                 </div>
@@ -438,16 +438,16 @@
                                                 </div>*@
                                             <!-- //for Details popup -->
 
-                                            <h2><a href="single-product.html">@i.CTSP_TEN</a></h2>
+                                            <h2><a href="single-product.html">@i.SP_ID</a></h2>
 
                                             <div class="product-carousel-price">
                                                 @{
                                                     float newprice;
-                                                    if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                                    if (item.SANPHAM.KHUYENMAI.KM_GIATRI != 0 && item.SANPHAM.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
                                                     {
-                                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
+                                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToSingle(item.SANPHAM.KHUYENMAI.KM_GIATRI);
                                                         newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @item.KHUYENMAI.KM_TEN</h4>
+                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @item.SANPHAM.KHUYENMAI.KM_TEN</h4>
                                                     }
                                                     else
                                                     {
@@ -518,7 +518,7 @@
                             @foreach (var item in ViewBag.nsx)
                             {
                                 string id = item.NSX_ID;
-                                var TenNSX = (from ctsp in db.CHITIETSANPHAMs join sp in db.SANPHAMs on ctsp.CTSP_ID equals sp.CTSP_ID where sp.NSX_ID == id select ctsp).Distinct();
+                                var TenNSX = (from ctsp in db.CHITIETSANPHAMs join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID where sp.NSX_ID == id select sp).Distinct();
                                 <div class="text-center">
                                     <h3><b style="color:firebrick"> @item.NSX_TEN</b></h3>
                                 </div>
@@ -530,43 +530,43 @@
 
                                                 <asp:Repeater runat="server" id="myRepeater">
                                                     <ItemTemplate>
-                                                        <img src="/HinhAnhSPs/getImage/@i.CTSP_ID" alt="Hình sản phẩm" />
+                                                        <img src="/HinhAnhSPs/getImage/@i.SP_ID" alt="Hình sản phẩm" />
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                                 <div class="product-hover">
-                                                    @if (sANPHAMs.KTKho(i.CTSP_ID) == 0)
+                                                    @if (cHITIETSANPH.KTKho(i.SP_ID) == 0)
                                                     {
                                                         <h4 class="text-danger">Hết hàng</h4>
 
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(i.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(i.SP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                     }
 
-                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
+                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.SP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
                                                     <!-- for Details popup -->
-                                                    <div id="small-dialog1_@i.CTSP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
+                                                    <div id="small-dialog1_@i.SP_ID" class="mfp-hide small-dialog1" style="background-color:#0094ff">
                                                         <div class="contact-form1">
                                                             <div class="contact-w3-agileits">
-                                                                <h3>Thông tin sản phẩm @i.CTSP_TEN</h3>
+                                                                <h3>Thông tin sản phẩm @i.SP_TEN</h3>
                                                                 <form action="#" method="post" id="registerform">
 
                                                                     <div class="form-sub-w3ls">
-                                                                        <p><label>Công nghệ màng hình: @i.CTSP_CNMANGHINH</label></p>
-                                                                        <p><label>Độ phân giải: @i.CTSP_DOPHANGIAI</label></p>
-                                                                        <p><label>Kích thước màn hình: @i.CTSP_MANHINH</label></p>
-                                                                        <p><label>Camera trước: @i.CTSP_CAMERATRUOC</label></p>
-                                                                        <p><label>Camera Sau: @i.CTSP_CAMERASAU</label></p>
-                                                                        <p><label>Hệ điều hành: @i.CTSP_HEDIEUHANH</label></p>
-                                                                        <p><label>Bộ nhơ RAM: @i.CTSP_RAM</label></p>
-                                                                        <p><label>Bộ nhớ ROM: @i.CTSP_ROM</label></p>
-                                                                        <p><label>Dung lượng PIN: @i.CTSP_DUNGLUONGPIN</label></p>
-                                                                        <p><label>Số SIM: @i.CTSP_SOSIM</label></p>
+                                                                        <p><label>Công nghệ màng hình: @i.SP_CNMANGHINH</label></p>
+                                                                        <p><label>Độ phân giải: @i.SP_DOPHANGIAI</label></p>
+                                                                        <p><label>Kích thước màn hình: @i.SP_MANHINH</label></p>
+                                                                        <p><label>Camera trước: @i.SP_CAMERATRUOC</label></p>
+                                                                        <p><label>Camera Sau: @i.SP_CAMERASAU</label></p>
+                                                                        <p><label>Hệ điều hành: @i.SP_HEDIEUHANH</label></p>
+                                                                        <p><label>Bộ nhơ RAM: @i.SP_RAM</label></p>
+                                                                        <p><label>Bộ nhớ ROM: @i.SP_ROM</label></p>
+                                                                        <p><label>Dung lượng PIN: @i.SP_DUNGLUONGPIN</label></p>
+                                                                        <p><label>Số SIM: @i.SP_SOSIM</label></p>
                                                                     </div>
 
                                                                     <div class="submit-w3l">
-                                                                        <a href="~/ChiTietSanPhams/Details/@i.CTSP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                                        <a href="~/ChiTietSanPhams/Details/@i.SP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -580,8 +580,8 @@
 
                                             @*<h2><a href="single-product.html">@i.CTSP_TEN</a></h2>*@
                                             <div class="product-carousel-price">
-                                                <h3> @i.CTSP_TEN</h3>
-                                                <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+                                                <h3> @i.SP_TEN</h3>
+                                                <ins> @cHITIETSANPH.GetGia(i.SP_ID).ToString("###,###") VND </ins>
                                                 @*@{
                                                         float newprice;
                                                         if (i..KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)

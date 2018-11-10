@@ -32,7 +32,6 @@ namespace LuanVan.Models
         public virtual DbSet<NHASANXUAT> NHASANXUATs { get; set; }
         public virtual DbSet<PHIEUNHAPSP> PHIEUNHAPSPs { get; set; }
         public virtual DbSet<SANPHAM> SANPHAMs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TRANGTHAIBH> TRANGTHAIBHs { get; set; }
         public virtual DbSet<TRANGTHAIDONHANG> TRANGTHAIDONHANGs { get; set; }
 
@@ -43,15 +42,19 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<BINHLUANCTSP>()
-                .Property(e => e.CTSP_ID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BINHLUANCTSP>()
                 .Property(e => e.NV_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<BINHLUANCTSP>()
+                .Property(e => e.SP_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BINHLUANCTSP>()
                 .Property(e => e.KH_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BINHLUANCTSP>()
+                .Property(e => e.BL_TL)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CHITIETBH>()
@@ -59,7 +62,11 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<CHITIETBH>()
-                .Property(e => e.SP_ID)
+                .Property(e => e.KH_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CHITIETBH>()
+                .Property(e => e.CTSP_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CHITIETBH>()
@@ -70,12 +77,8 @@ namespace LuanVan.Models
                 .Property(e => e.CTDH_ID)
                 .IsUnicode(false);
 
-            //modelBuilder.Entity<CHITIETDONHANG>()
-            //    .Property(e => e.DN_ID)
-            //    .IsUnicode(false);
-
             modelBuilder.Entity<CHITIETDONHANG>()
-                .Property(e => e.SP_ID)
+                .Property(e => e.CTSP_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CHITIETNHAP>()
@@ -87,23 +90,19 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<CHITIETNHAP>()
-                .Property(e => e.SP_ID)
+                .Property(e => e.CTSP_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CHITIETSANPHAM>()
                 .Property(e => e.CTSP_ID)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<DONGSANPHAM>()
-                .Property(e => e.DSP_ID)
+            modelBuilder.Entity<CHITIETSANPHAM>()
+                .Property(e => e.SP_ID)
                 .IsUnicode(false);
 
-            //modelBuilder.Entity<DONHANG>()
-            //    .Property(e => e.DN_ID)
-            //    .IsUnicode(false);
-
-            modelBuilder.Entity<DONHANG>()
-                .Property(e => e.KH_ID)
+            modelBuilder.Entity<DONGSANPHAM>()
+                .Property(e => e.DSP_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DONHANG>()
@@ -111,7 +110,23 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<DONHANG>()
+                .Property(e => e.KH_ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DONHANG>()
                 .Property(e => e.DN_SDT)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DONHANG>()
+                .Property(e => e.DN_MATHE)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DONHANG>()
+                .Property(e => e.DN_NGAYCAP)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DONHANG>()
+                .Property(e => e.DN_EMAIL)
                 .IsUnicode(false);
 
             modelBuilder.Entity<GIASP>()
@@ -131,7 +146,7 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<HINHANHSP>()
-                .Property(e => e.CTSP_ID)
+                .Property(e => e.SP_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<KHACHHANG>()
@@ -211,10 +226,6 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<SANPHAM>()
-                .Property(e => e.CTSP_ID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SANPHAM>()
                 .Property(e => e.KM_ID)
                 .IsUnicode(false);
 
@@ -223,11 +234,11 @@ namespace LuanVan.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<SANPHAM>()
-                .Property(e => e.DSP_ID)
+                .Property(e => e.NSX_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<SANPHAM>()
-                .Property(e => e.NSX_ID)
+                .Property(e => e.DSP_ID)
                 .IsUnicode(false);
         }
 
@@ -251,6 +262,5 @@ namespace LuanVan.Models
             string result = a.Database.SqlQuery<string>("select " + id + " from " + nametable + " where " + namerow + " = '" + id + "'").SingleOrDefault();
             return result;
         }
-
     }
 }

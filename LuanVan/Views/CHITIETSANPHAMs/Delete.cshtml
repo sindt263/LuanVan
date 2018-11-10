@@ -1,109 +1,93 @@
-﻿@model LuanVan.Models.CHITIETSANPHAM
+﻿@model LuanVan.Models.SANPHAM
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Bạn thật sự muốn xóa?</h3>
+<h3>Bạn thật sự muốn xóa ?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_TEN)
+        @*<dt>
+            @Html.DisplayNameFor(model => model.DONGSANPHAM.DSP_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_TEN)
+            @Html.DisplayFor(model => model.DONGSANPHAM.DSP_TEN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_CNMANGHINH)
+            @Html.DisplayNameFor(model => model.GIASP.GIA_ID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_CNMANGHINH)
+            @Html.DisplayFor(model => model.GIASP.GIA_ID)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_DOPHANGIAI)
+            @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_DOPHANGIAI)
+            @Html.DisplayFor(model => model.KHUYENMAI.KM_TEN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_MANHINH)
+            @Html.DisplayNameFor(model => model.NHASANXUAT.NSX_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_MANHINH)
+            @Html.DisplayFor(model => model.NHASANXUAT.NSX_TEN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_CAMERATRUOC)
+            @Html.DisplayNameFor(model => model.NHOMSANPHAM.NSP_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_CAMERATRUOC)
+            @Html.DisplayFor(model => model.NHOMSANPHAM.NSP_TEN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_CAMERASAU)
+            @Html.DisplayNameFor(model => model.SP_TEN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_CAMERASAU)
+            @Html.DisplayFor(model => model.SP_TEN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_HEDIEUHANH)
+            @Html.DisplayNameFor(model => model.SP_TRANGTHAI)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_HEDIEUHANH)
+            @Html.DisplayFor(model => model.SP_TRANGTHAI)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_RAM)
+            @Html.DisplayNameFor(model => model.SP_MOTANGAN)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_RAM)
+            @Html.DisplayFor(model => model.SP_MOTANGAN)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CTSP_ROM)
+            @Html.DisplayNameFor(model => model.SP_MOTACHITIET)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CTSP_ROM)
+            @Html.DisplayFor(model => model.SP_MOTACHITIET)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_DUNGLUONGPIN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_DUNGLUONGPIN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CTSP_SOSIM)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CTSP_SOSIM)
-        </dd>
-
-    </dl>
+    </dl>*@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-success" /> |
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
         @Html.ActionLink("Về trang danh sách", "Index")
     </div>
     }

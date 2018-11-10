@@ -22,28 +22,27 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.SANPHAM.SP_TEN)
                             </th>
-
+                           
                         </tr>
 
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                @if (item.DONHANG.KH_ID == null)
-                                {
-                                    <td>Khách không dùng tài khoản</td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
-                                    </td>
-                                }
+                        <tr>
+                            @if (item.DONHANG.KH_ID == null)
+                            {
+                                <td>Khách không dùng tài khoản</td>
+                            }
+                            else
+                            {
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
+                                    @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
                                 </td>
-
-
-                            </tr>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
+                            </td>
+                          
+                        </tr>
                         }
 
                     </table>

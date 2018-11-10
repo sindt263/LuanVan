@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "CreateSP";
+    Layout = null;
+
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}

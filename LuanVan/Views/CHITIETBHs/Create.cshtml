@@ -30,15 +30,15 @@
         </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SP_ID, "SP_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CTSP_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SP_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SP_ID, "", new { @class = "text-danger" , @id = "ViewSP_ID" })
+                @Html.EditorFor(model => model.CTSP_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CTSP_ID, "", new { @class = "text-danger" , @id = "ViewSP_ID" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BH_ID, "BH_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("BH_ID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BH_ID, "", new { @class = "text-danger" })
@@ -46,7 +46,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TTBH_ID, "TTBH_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TTBH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("TTBH_ID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TTBH_ID, "", new { @class = "text-danger" })

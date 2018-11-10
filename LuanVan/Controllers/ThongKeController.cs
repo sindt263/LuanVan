@@ -38,7 +38,7 @@ namespace LuanVan.Controllers
                 DataPoint dataPoint = new DataPoint()
                 {
                     X = " new Date(" + String.Format("{0:yyyy,MM-1,d}", a) + ")",
-                    Y = Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA),
+                    Y = Convert.ToDouble(i.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA),
                 };
                 dataPoints.Add(dataPoint);
             }
@@ -69,7 +69,7 @@ namespace LuanVan.Controllers
                 double gia = 0;
                 foreach (var i in data)
                 {
-                    gia = gia + Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA);
+                    gia = gia + Convert.ToDouble(i.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA);
                 }
                 DateTime a = Convert.ToDateTime(item.DN_NGALAPDON);
                 DataPoint dataPoint = new DataPoint()
@@ -78,8 +78,8 @@ namespace LuanVan.Controllers
                     Y = gia,
                 };
                 dataPoints.Add(dataPoint);
-
-                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+                string da = JsonConvert.SerializeObject(dataPoints);
+                ViewBag.DataPoints = da.Replace("\"", "");
             }
             return View();
         }
@@ -110,7 +110,7 @@ namespace LuanVan.Controllers
                 double gia = 0;
                 foreach (var i in data)
                 {
-                    gia = gia + Convert.ToDouble(i.SANPHAM.GIASP.GIA_GIA);
+                    gia = gia + Convert.ToDouble(i.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA);
                 }
                 DateTime a = Convert.ToDateTime(item.PN_NGAY);
                 DataPoint dataPoint = new DataPoint()
@@ -119,7 +119,10 @@ namespace LuanVan.Controllers
                     Y = gia,
                 };
                 dataPoints.Add(dataPoint);
-                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+                string da = JsonConvert.SerializeObject(dataPoints);
+                ViewBag.DataPoints = da.Replace("\"", "");
+
+
             }
             return View();
         }
@@ -160,7 +163,7 @@ namespace LuanVan.Controllers
             {
                 var model = (from nsx in db.NHASANXUATs
                              join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID
-                             join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.SP_ID
+                             join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.CTSP_ID
                              join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
                              where pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
                              select ctn);
@@ -171,7 +174,7 @@ namespace LuanVan.Controllers
 
                 var model = (from nsx in db.NHASANXUATs
                              join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID
-                             join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.SP_ID
+                             join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.CTSP_ID
                              join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
                              where nsx.NSX_ID == id && pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
                              select ctn);
@@ -198,7 +201,7 @@ namespace LuanVan.Controllers
             {
                 var model = (from dn in db.DONHANGs
                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
-                             join sp in db.SANPHAMs on ctdn.SP_ID equals sp.SP_ID
+                             join sp in db.SANPHAMs on ctdn.CTSP_ID equals sp.SP_ID
                              join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID
                              where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi && dn.TTDH_ID != 2
                              select ctdn);
@@ -209,7 +212,7 @@ namespace LuanVan.Controllers
 
                 var model = (from dn in db.DONHANGs
                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
-                             join sp in db.SANPHAMs on ctdn.SP_ID equals sp.SP_ID
+                             join sp in db.SANPHAMs on ctdn.CTSP_ID equals sp.SP_ID
                              join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID
                              where sp.NSX_ID == id && dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi && dn.TTDH_ID != 2
                              select ctdn);
@@ -245,7 +248,7 @@ namespace LuanVan.Controllers
 
         public List<string> gettest()
         {
-            List<string> a = (from p in db.CHITIETDONHANGs select p.SP_ID).ToList();
+            List<string> a = (from p in db.CHITIETDONHANGs select p.CTSP_ID).ToList();
             return a;
         }
 
@@ -287,8 +290,8 @@ namespace LuanVan.Controllers
             return i;
         }
 
-       
-        
+
+
 
     }
 }

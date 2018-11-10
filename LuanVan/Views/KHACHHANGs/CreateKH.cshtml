@@ -14,9 +14,6 @@
 <div class="form-horizontal">
     <hr />
 
-    <div>
-        <button class="btn btn-default"> @Html.ActionLink("Về trang đăng nhập", "LoginKH", "Logins")</button>
-    </div>
     <div style="background-color: red">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     </div>
@@ -79,7 +76,7 @@
                 </div>
 
                 <div class="form-sub-w3ls">
-                    <input placeholder="Mật khẩu" oninvalid="this.setCustomValidity('Mật khẩu không được rỗng')" oninput="setCustomValidity('')" data-val="true" data-val-length="The field Mật khẩu must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Mật khẩu không được rỗng" id="KH_MATKHAU" name="KH_MATKHAU" type="password" value="" required="">
+                    <input placeholder="Mật khẩu từ 6 ký tự" oninvalid="this.setCustomValidity('Mật khẩu không được rỗng')" oninput="setCustomValidity('')" data-val="true" data-val-length="The field Mật khẩu must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="Mật khẩu không được rỗng" id="KH_MATKHAU" name="KH_MATKHAU" type="password" value="" required="">
                     <div class="icon-agile">
                         <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                     </div>
@@ -97,6 +94,7 @@
 
                 <div class="submit-w3l">
                     <input type="submit" class="btn btn-success" id="register" value="Đăng ký">
+                    <a href="~/Logins/LoginKH">Về đăng nhập</a>
                 </div>
             </form>
         </div>

@@ -30,10 +30,10 @@ namespace LuanVan.Controllers
 
         public IEnumerable<HINHANHSP> ListAllPaging(string searchTerm, int page, int pageSize)
         {
-            IQueryable<HINHANHSP> model = db.HINHANHSPs.Include(h => h.CHITIETSANPHAM);
+            IQueryable<HINHANHSP> model = db.HINHANHSPs.Include(h => h.SANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.HA_ID.Contains(searchTerm) || x.CHITIETSANPHAM.CTSP_TEN.Contains(searchTerm)|| x.CTSP_ID.ToString().Contains(searchTerm));
+                model = model.Where(x => x.HA_ID.Contains(searchTerm) || x.SANPHAM.SP_TEN.Contains(searchTerm)|| x.SP_ID.ToString().Contains(searchTerm));
 
             }
 
@@ -85,7 +85,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -101,7 +101,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -127,7 +127,7 @@ namespace LuanVan.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -204,7 +204,7 @@ namespace LuanVan.Controllers
             if (id != null)
             {
                 //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
-                var ha = (from p in db.HINHANHSPs where p.CTSP_ID == id  select p);
+                var ha = (from p in db.HINHANHSPs where p.SP_ID == id  select p);
                 foreach (var i in ha)
                 {
                     if (i == null || i.HA_ND == null)

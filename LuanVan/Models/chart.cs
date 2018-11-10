@@ -28,6 +28,9 @@ namespace LuanVan.Models
         [DataMember(Name = "y")]
         public Nullable<double> Y = null;
 
-       
+        public static implicit operator List<object>(DataPoint v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

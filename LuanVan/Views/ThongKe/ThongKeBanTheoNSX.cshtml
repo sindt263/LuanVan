@@ -51,11 +51,11 @@
                 @Html.DisplayNameFor(model => model.DONHANG.KH_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SANPHAM.SP_TEN)
+                @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
             </th>
             
             <th>
-                @Html.DisplayNameFor(model => model.SANPHAM.GIASP.GIA_GIA)
+                @Html.DisplayNameFor(model => model.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DONHANG.DN_NGALAPDON)
@@ -81,11 +81,11 @@
                         @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
+                        @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
                     </td>
                     
                     <td>
-                        @Html.DisplayFor(modelItem => item.SANPHAM.GIASP.GIA_GIA)
+                        @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA)
                     </td>
                      <td>
                         @Html.DisplayFor(modelItem => item.DONHANG.DN_NGALAPDON)
@@ -95,7 +95,7 @@
                     </td>
 
                 </tr>
-                    sum = sum + Convert.ToInt32(item.SANPHAM.GIASP.GIA_GIA);
+                    sum = sum + Convert.ToInt32(item.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA);
                     i++;
                 }
             <div class="form-group">

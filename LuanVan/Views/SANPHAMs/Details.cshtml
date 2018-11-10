@@ -1,85 +1,239 @@
 ﻿@model LuanVan.Models.SANPHAM
-
+@using LuanVan.Models;
 @{
+    DataContext db = new DataContext();
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutKH.cshtml";
+    LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
+    LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
 }
-
-<div>
-    <h4>Sản Phẩm</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DONGSANPHAM.DSP_TEN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DONGSANPHAM.DSP_TEN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GIASP.GIA_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GIASP.GIA_ID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.KHUYENMAI.KM_TEN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.KHUYENMAI.KM_TEN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NHASANXUAT.NSX_TEN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NHASANXUAT.NSX_TEN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NHOMSANPHAM.NSP_TEN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NHOMSANPHAM.NSP_TEN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SP_TEN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SP_TEN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SP_TRANGTHAI)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SP_TRANGTHAI)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SP_MOTANGAN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SP_MOTANGAN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SP_MOTACHITIET)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SP_MOTACHITIET)
-        </dd>
-
-    </dl>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Sản phẩm @Model.SP_TEN</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                @*<div class="single-sidebar">
+                <h2 class="sidebar-title">Tìm kiếm sản phẩm</h2>
+                <form action="">
+                    <input type="text" placeholder="Search products...">
+                    <input type="submit" value="Search">
+                </form>
+            </div>*@
+
+                <div class="single-sidebar">
+                    <h2 class="clip-text clip-text_fourteen clip-text--cover">@Model.SP_TEN</h2>
+                    <div class="thubmnail-recent">
+                        <div class="col-md-12">
+                            @foreach (var item in ViewBag.HAID)
+                            {
+                                <img src="/HinhAnhSPs/getImageHA/@item.HA_ID" class="ecent-thumb" alt="Card image ca" style="float:left" />
+                            }
+                        </div>
+                        <div class="product-sidebar-price">
+
+                            <h2>@*@cHITIETSANPH.GetGia(Model.CTSP_ID).ToString("###,###") VND*@</h2> @* <del>$100.00</del>*@
+                        </div>
+                    </div>
+                    @*<div class="thubmnail-recent">
+                    <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                    <h2><a href="">Sony Smart TV - 2015</a></h2>
+                    <div class="product-sidebar-price">
+                        <ins>$700.00</ins> <del>$100.00</del>
+                    </div>
+                </div>
+                <div class="thubmnail-recent">
+                    <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                    <h2><a href="">Sony Smart TV - 2015</a></h2>
+                    <div class="product-sidebar-price">
+                        <ins>$700.00</ins> <del>$100.00</del>
+                    </div>
+                </div>
+                <div class="thubmnail-recent">
+                    <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
+                    <h2><a href="">Sony Smart TV - 2015</a></h2>
+                    <div class="product-sidebar-price">
+                        <ins>$700.00</ins> <del>$100.00</del>
+                    </div>
+                </div>*@
+                </div>
+
+                <div class="single-sidebar">
+                    @*<h2 class="sidebar-title">Recent Posts</h2>
+                <ul>
+                    <li><a href="">Sony Smart TV - 2015</a></li>
+                    <li><a href="">Sony Smart TV - 2015</a></li>
+                    <li><a href="">Sony Smart TV - 2015</a></li>
+                    <li><a href="">Sony Smart TV - 2015</a></li>
+                    <li><a href="">Sony Smart TV - 2015</a></li>
+                </ul>*@
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="product-content-right">
+                    <div class="product-breadcroumb">
+                        @*<a href="">Home</a>
+                    <a href="">Category Name</a>
+                    <a href="">Sony Smart TV - 2015</a>*@
+                    </div>
+
+
+
+                    <div>
+                        <div class="product-inner">
+                            <h2 class="product-name">@Model.SP_TEN</h2>
+                            <div class="product-inner-price">
+                                @{
+                                    string KM_ID = db.Database.SqlQuery<string>("select KM_ID from SanPham where SP_ID ='" + Model.SP_ID + "'").Take(1).SingleOrDefault();
+                                    float KM_GIATRI = db.Database.SqlQuery<float>("select KM_GIATRI from KhuyenMai where KM_ID ='" + KM_ID + "' and KM_NgayKetThuc >= GETDATE()").SingleOrDefault();
+                                }
+                                @if (KM_GIATRI > 0)
+                                {
+
+
+                                    float giamgia = cHITIETSANPH.GetGia(Model.SP_ID) * KM_GIATRI;
+                                    float newprice = cHITIETSANPH.GetGia(Model.SP_ID) - giamgia;
+                                    <ins><h3>@newprice.ToString("###,###") VND</h3></ins>
+                                    <del><h3>@cHITIETSANPH.GetGia(Model.SP_ID).ToString("###,###") VND</h3></del>
+                                }
+                                else
+                                {
+                                    <ins><h3>@cHITIETSANPH.GetGia(Model.SP_ID).ToString("###,###") VND</h3></ins>
+                                }
+                            </div>
+
+                            <form action="" class="cart">
+                                @if (cHITIETSANPH.KTKho(Model.SP_ID) == 0)
+                                {
+                                    <h4 class="text-danger">Hết hàng</h4>
+
+                                }
+                                else
+                                {
+                                    <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(Model.SP_ID) })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
+                                }
+                            </form>
+
+                            @*<div class="product-inner-category">
+                            <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+                        </div>*@
+
+                            <div role="tabpanel">
+                                <ul class="product-tab" role="tablist">
+                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mô tả</a></li>
+                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Cấu hình</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                        <h2>Mô tả sản phẩm</h2>
+                                        <p>@Model.SP_MOTA</p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                                        <h2>Cấu Hình</h2>
+                                        <div class="submit-review">
+                                            <p><label>Công nghệ màng hình: @Model.SP_CNMANGHINH</label></p>
+                                            <p><label>Độ phân giải: @Model.SP_DOPHANGIAI</label></p>
+                                            <p><label>Kích thước màn hình: @Model.SP_MANHINH</label></p>
+                                            <p><label>Camera trước: @Model.SP_CAMERATRUOC</label></p>
+                                            <p><label>Camera Sau: @Model.SP_CAMERASAU</label></p>
+                                            <p><label>Hệ điều hành: @Model.SP_HEDIEUHANH</label></p>
+                                            <p><label>Bộ nhơ RAM: @Model.SP_RAM</label></p>
+                                            <p><label>Bộ nhớ ROM: @Model.SP_ROM</label></p>
+                                            <p><label>Dung lượng PIN: @Model.SP_DUNGLUONGPIN</label></p>
+                                            <p><label>Số SIM: @Model.SP_SOSIM</label></p>
+                                            @*<div class="rating-chooser">
+                                            <p>Your rating</p>
+
+                                            <div class="rating-wrap-post">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                        <p><input type="submit" value="Submit"></p>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+             @if (Session["KH_ID"] != null)
+            {
+                <label>Nhận xét:</label>
+                <div class="col-md-4">
+                    <div>
+                        <input class="form-control text-box single-line" data-val="true" data-val-length="The field BL_ND must be a string with a maximum length of 255." data-val-length-max="255" id="BL_ND" name="BL_ND" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="BL_ND" data-valmsg-replace="true"></span> <input type="button" id="btnNX" value="Gửi" class="btn btn-success" />
+                    </div>
+                   
+                </div>
+            }
+            <div class="col-md-4" id="ViewBL"></div>
+           
+        </div>
+        </div>
+        
+     
+    </div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var ND = document.getElementById("BL_ND")
+
+        $.ajax({
+
+            type: "get",
+            url: '/BinhLuanCTSPs/IndexKH/',
+                data: {
+                    'id': @Model.SP_ID
+                },
+            success: function (result) {
+                $('#ViewBL').html(result)
+            }
+        })
+
+
+        $('#btnNX').click(function () {
+
+            $.ajax({
+
+                type: "post",
+                url: '/BinhLuanCTSPs/CreateKH/',
+                data: {
+                    'id': ND.value, 'id2': @Model.SP_ID
+                },
+                success: function (result) {
+                    $('#ViewBL').html(result)
+                }
+            })
+            $('#BL_ND').value = null;
+        })
+
+
+
+    })
+
+</script>

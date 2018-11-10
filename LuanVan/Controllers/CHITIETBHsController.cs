@@ -34,10 +34,10 @@ namespace LuanVan.Controllers
 
         public IEnumerable<CHITIETBH> ListAllPaging(string searchTerm, int page, int pageSize)
         {
-            IQueryable<CHITIETBH> model = db.CHITIETBHs.Include(c => c.BAOHANH).Include(c => c.SANPHAM).Include(c => c.TRANGTHAIBH);
+            IQueryable<CHITIETBH> model = db.CHITIETBHs.Include(c => c.BAOHANH).Include(c => c.CHITIETSANPHAM).Include(c => c.TRANGTHAIBH);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.SANPHAM.CHITIETSANPHAM.CTSP_TEN.Contains(searchTerm) || x.BH_ID.ToString().Contains(searchTerm) || x.SP_ID.ToString().Contains(searchTerm));
+                model = model.Where(x => x.CHITIETSANPHAM.CTSP_TEN.Contains(searchTerm) || x.BH_ID.ToString().Contains(searchTerm) || x.CTSP_ID.ToString().Contains(searchTerm));
             }
 
             return model.OrderByDescending(x => x.CTBH_NGAYBH).ToPagedList(page, pageSize);
@@ -90,7 +90,7 @@ namespace LuanVan.Controllers
                 ModelState.AddModelError("", "Lỗi !");
             }
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN", cHITIETBH.BH_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.CTSP_ID);
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN", cHITIETBH.TTBH_ID);
             return View(cHITIETBH);
         }
@@ -108,7 +108,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN", cHITIETBH.BH_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.CTSP_ID);
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN", cHITIETBH.TTBH_ID);
             return View(cHITIETBH);
         }
@@ -127,7 +127,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN", cHITIETBH.BH_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.CTSP_ID);
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN", cHITIETBH.TTBH_ID);
             return View(cHITIETBH);
         }
