@@ -32,7 +32,7 @@
                                 @Html.DisplayName("ID")
                             </th>
                             <th class="text-center">
-                                @Html.DisplayName("Chi tiết sản phẩm")
+                                @Html.DisplayName("Tên sản phẩm")
                             </th>
                             <th class="text-center">
                                 @Html.DisplayName("Hình")
@@ -47,7 +47,7 @@
                                     @Html.DisplayFor(modelItem => item.HA_ID)
                                 </td>
                                 <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
+                                    @Html.DisplayFor(modelItem => item.SANPHAM.SP_TEN)
                                 </td>
                                 <td class="text-center">
                                     <asp:Repeater runat="server" id="myRepeater">

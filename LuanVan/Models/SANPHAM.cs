@@ -69,6 +69,7 @@ namespace LuanVan.Models
         [StringLength(3500)]
         public string SP_MOTA { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? SP_NGAYTAO { get; set; }
 
         public int? SP_THOIGIANBH { get; set; }

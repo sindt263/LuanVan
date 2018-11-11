@@ -67,7 +67,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CTN_ID,PN_ID,SP_ID,CTN_GIA")] CHITIETNHAP cHITIETNHAP)
+        public ActionResult Create([Bind(Include = "CTN_ID,PN_ID,CTSP_ID,CTN_GIA")] CHITIETNHAP cHITIETNHAP)
         {
 
 

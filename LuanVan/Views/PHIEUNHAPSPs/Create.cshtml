@@ -6,7 +6,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-   
+
 }
 <script language="javascript">
     angular.module('myapp', [])
@@ -80,21 +80,21 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-lg-6">
         <input type="button" value="Nhập sản phẩm" id="ShowViewSP" class="btn btn-info text-center" height="20" width="20" />
         <input type="button" value="Ẩn khung" id="HideViewSP" class="btn btn-info text-center" height="20" width="20" />
     </div>
     <div class="col-lg-6">
-        <input type="button" value="Nhập chi tiết phiếu nhập" id="ShowViewCTN" class="btn btn-info text-center" height="20" width="20"  />
+        <input type="button" value="Nhập chi tiết phiếu nhập" id="ShowViewCTN" class="btn btn-info text-center" height="20" width="20" />
         <input type="button" value="Ẩn khung" id="HideViewCTN" class="btn btn-info text-center" height="20" width="20" />
     </div>
-     <div class="col-lg-6" id="Views">
+    <div class="col-lg-6" id="Views">
     </div>
     <div class="col-lg-6" id="ViewCTN">
     </div>
 
-
+    <div class="row"></div>
 }
 
 <div class="col-md-12">
@@ -127,7 +127,7 @@
         $('#CreatePN').click(function () {
             $('#ViewShow').hide()
             $('#ViewHide').show()
-       
+
             $.ajax({
 
                 type: "Post",
@@ -154,12 +154,12 @@
                     $('#Views').html(result)
                 }
             })
-            })
+        })
 
         $('#ShowViewCTN').click(function () {
             $('#HideViewCTN').show()
             $('#ShowViewCTN').hide()
-            
+
             $.ajax({
                 type: "GET",
                 url: '/CHITIETNHAPs/Create/',
@@ -168,7 +168,7 @@
                     $('#ViewCTN').html(result)
                 }
             })
-            })
+        })
         $('#HideViewCTN').click(function () {
             $('#HideViewCTN').hide()
             $('#ShowViewCTN').show()

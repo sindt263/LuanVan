@@ -57,7 +57,7 @@ namespace LuanVan.Controllers
         // GET: HINHANHSPs/Create
         public ActionResult Create()
         {
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HA_ID,CTSP_ID,HA_ND")] HINHANHSP hINHANHSP)
+        public ActionResult Create([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
             HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
@@ -85,7 +85,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -101,7 +101,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 
@@ -110,7 +110,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HA_ID,CTSP_ID,HA_ND")] HINHANHSP hINHANHSP)
+        public ActionResult Edit([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
             HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
@@ -127,7 +127,7 @@ namespace LuanVan.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", hINHANHSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", hINHANHSP.SP_ID);
             return View(hINHANHSP);
         }
 

@@ -7,6 +7,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style type="text/css">
+    .scroll {
+        display: block;
+        padding: 5px;
+        margin-top: 5px;
+       
+        overflow: scroll;
+    }
+
+    .auto {
+        display: block;
+        padding: 5px;
+        margin-top: 5px;
+       
+        overflow: auto;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">
@@ -23,7 +40,7 @@
                     </div>
                 }
             </div>
-            <div class="container-fluid">
+            <div class="container-fluid scroll">
                 <div class="panel-body">
 
                     <table class="table table-striped table-bordered table-hover table-condensed" border="1">
@@ -31,6 +48,19 @@
                             <th class="text-center">
                                 @Html.DisplayName("Tên")
                             </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Khuyến mãi")
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Giá")
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Nhà sản xuất")
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Dòng sản phẩm")
+                            </th>
+
                             <th class="text-center">
                                 @Html.DisplayName("Công nghệ màn hình")
                             </th>
@@ -64,6 +94,9 @@
                             <th class="text-center">
                                 @Html.DisplayName("Ngày tạo")
                             </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Thời gian bảo hành")
+                            </th>
                             <th class="text-center">Tùy chọn</th>
                         </tr>
 
@@ -73,6 +106,19 @@
                                 <td class="text-left">
                                     @Html.DisplayFor(modelItem => item.SP_TEN)
                                 </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.KM_ID)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.GIASP.GIA_GIA)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.NHASANXUAT.NSX_TEN)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.DONGSANPHAM.DSP_TEN)
+                                </td>
+
                                 <td class="text-left">
                                     @Html.DisplayFor(modelItem => item.SP_CNMANGHINH)
                                 </td>
@@ -105,6 +151,9 @@
                                 </td>
                                 <td class="text-right">
                                     @Html.DisplayFor(modelItem => item.SP_NGAYTAO)
+                                </td>
+                                <td class="text-right">
+                                    @Html.DisplayFor(modelItem => item.SP_THOIGIANBH)
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-success" style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.SP_ID })</i> </button>

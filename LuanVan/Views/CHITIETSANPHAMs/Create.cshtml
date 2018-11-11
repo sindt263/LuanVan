@@ -32,13 +32,13 @@
             </div>
         </div>
 
-       <div class="form-group">
+       @*<div class="form-group">
             @Html.LabelFor(model => model.CTSP_TRANGTHAI, htmlAttributes: new { @class = "control-label col-md-2" })
            <div class="col-md-10">
                @Html.EditorFor(model => model.CTSP_TRANGTHAI, new { htmlAttributes = new { @class = "form-control" } })
                @Html.ValidationMessageFor(model => model.CTSP_TRANGTHAI, "", new { @class = "text-danger" })
            </div>
-        </div>
+        </div>*@
 
        <div class="form-group">
             @Html.LabelFor(model => model.CTSP_TEN, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -64,27 +64,24 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var id1 = document.getElementById("SP_ID");
-        var id3 = document.getElementById("KM_ID");
-        var id4 = document.getElementById("GIA_ID");
-        var id5 = document.getElementById("DSP_ID");
-        var id6 = document.getElementById("NSX_ID");
-        var id7 = document.getElementById("SP_TEN");
-        var id10 = document.getElementById("CTSP_ID");
-      
+        var CTSP_ID = document.getElementById("CTSP_ID");
+        var SP_ID = document.getElementById("SP_ID");
+        var CTSP_TEN = document.getElementById("CTSP_TEN");
         $('#CreateSP').click(function () {
-            if (id1.value == "" || id1.value == null) {
+            if (CTSP_ID.value == "" || CTSP_ID.value == null) {
                 alert("Mã sản phẩm không được rỗng !")
             }else
-            if (id7.value == "") {
+                if (SP_ID.value == "") {
+                alert("Tên sản phẩm không được rỗng !")
+            } else
+                if (CTSP_TEN.value == "") {
                 alert("Tên sản phẩm không được rỗng !")
             } else {
                 $.ajax({
                     type: "GET",
-                    url: '/SanPhams/CreateSP/',
+                    url: '/ChiTietSanPhams/CreateSP/',
                     data: {
-                        'id1': id1.value, 'id3': id3.value, 'id4': id4.value, 'id5': id5.value
-                        , 'id6': id6.value, 'id7': id7.value, 'id10': id10.value
+                        'CTSP_ID': CTSP_ID.value, 'SP_ID': SP_ID.value, 'CTSP_TEN': CTSP_TEN.value
                     },
                     success: function (result) {
                         $('#Viewss').html(result)

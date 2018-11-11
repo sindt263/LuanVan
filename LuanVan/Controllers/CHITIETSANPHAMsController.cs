@@ -113,7 +113,7 @@ namespace LuanVan.Controllers
         // GET: CHITIETSANPHAMs/Create
         public ActionResult Create()
         {
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "KM_ID");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
             return View();
         }
 
@@ -126,12 +126,10 @@ namespace LuanVan.Controllers
         {
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
-            string CTSP = Request["CTSP_ID"];
             HttpPostedFileBase file = Request.Files["Image"];
             if (file != null)
             {
-                cHITIETSANPHAM.SP_ID = CTSP;
-                //sANPHAM.SP_TRANGTHAI = 1;
+                cHITIETSANPHAM.CTSP_TRANGTHAI = 1;
                 Int32 length = file.ContentLength;
                 byte[] tempImage = new byte[length];
                 file.InputStream.Read(tempImage, 0, length);
@@ -146,25 +144,22 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "KM_ID", cHITIETSANPHAM.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETSANPHAM.SP_ID);
             return View(cHITIETSANPHAM);
         }
 
 
-        public ActionResult CreateSP(string id1, string id3, string id4, string id5, string id6, string id7, string id10)
+        public ActionResult CreateSP(string CTSP_ID, string SP_ID, string CTSP_TEN)
         {
-            SANPHAM sANPHAM = new SANPHAM();
+            CHITIETSANPHAM sANPHAM = new CHITIETSANPHAM();
 
             if (ModelState.IsValid)
             {
-                sANPHAM.SP_ID = id1;
-                sANPHAM.KM_ID = id3;
-                sANPHAM.GIA_ID = id4;
-                sANPHAM.DSP_ID = id5;
-                sANPHAM.NSX_ID = id6;
-                sANPHAM.SP_TEN = id7;
+                sANPHAM.CTSP_ID = CTSP_ID;
+                sANPHAM.SP_ID = SP_ID;
+                sANPHAM.CTSP_TEN = CTSP_TEN;
                 //sANPHAM.SP_TRANGTHAI = 1;
-                db.SANPHAMs.Add(sANPHAM);
+                db.CHITIETSANPHAMs.Add(sANPHAM);
                 db.SaveChanges();
                 ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.SP_ID);
             }

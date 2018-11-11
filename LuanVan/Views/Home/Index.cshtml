@@ -111,7 +111,7 @@
                     {
 
                         string km_id = km.KM_ID;
-                        string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                        string id = db.Database.SqlQuery<string>("select top(1) SP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
                         var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
                         foreach (var item in SP)
                         {
@@ -226,11 +226,11 @@
                     @foreach (var item in ViewBag.SPMoi)
                     {
                         <li class="caption-group" style="background-image: url('../../Content/Images/bg-top.jpg');">
-                            <a href="~/ChiTietSanPhams/Details/@item.CTSP_ID">
+                            <a href="~/SanPham/Details/@item.SP_ID">
                                 <div>
                                     <asp:Repeater runat="server" id="myRepeater">
                                         <ItemTemplate>
-                                            <img style="height:300px; width:250px" class="product-thumbSlider" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                            <img style="height:300px; width:250px" class="product-thumbSlider" src="/HinhAnhSPs/getImage/@item.SP_ID" alt="Hình sản phẩm" />
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </div>
@@ -242,13 +242,13 @@
                             <br />
                             <div class="container" style="margin-left:20px">
                                 <h2>
-                                    <span style="font-size:30px" class="primary"><strong> @item.CTSP_TEN</strong></span>
+                                    <span style="font-size:30px" class="primary"><strong> @item.SP_TEN</strong></span>
                                     <br />
-                                    <span style="font-size:16px; color:yellow"> Camera trước <strong>@item.CTSP_CAMERATRUOC</strong></span>
+                                    <span style="font-size:16px; color:yellow"> Camera trước <strong>@item.SP_CAMERATRUOC</strong></span>
                                     <br />
-                                    <span style="font-size:16px ; color:yellow"> Camera sau <strong>@item.CTSP_CAMERASAU</strong></span>
+                                    <span style="font-size:16px ; color:yellow"> Camera sau <strong>@item.SP_CAMERASAU</strong></span>
                                     <br />
-                                    <ins><strong style="font-size:18px ; color:yellow">@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</strong></ins>
+                                    <ins><strong style="font-size:18px ; color:yellow">@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</strong></ins>
 
 
                                 </h2>
@@ -280,48 +280,48 @@
                                 @foreach (var km in ViewBag.KM)
                                 {
                                     string km_id = km.KM_ID;
-                                    string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                                    var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
+                                    string id = db.Database.SqlQuery<string>("select top(1) SP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                                    var SP = (from p in db.SANPHAMs where p.SP_ID == id select p);
                                     foreach (var item in SP)
                                     {
                                         <div class="single-product">
-                                            <div id="@item.CTSP_ID" class="product-f-image">
+                                            <div id="@item.SP_ID" class="product-f-image">
                                                 <asp:Repeater runat="server" id="myRepeater">
                                                     <ItemTemplate>
-                                                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                                        <img src="/HinhAnhSPs/getImage/@item.SP_ID" alt="Hình sản phẩm" />
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                                 <div class="product-hover">
-                                                    @if (cHITIETSANPH.KTKho(item.CTSP_ID) == 0)
+                                                    @if (cHITIETSANPH.KTKho(item.SP_ID) == 0)
                                                     {
                                                         <h4 class="text-danger">Hết hàng</h4>
 
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(item.SP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                     }
 
 
-                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@item.CTSP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
+                                                    <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@item.SP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
 
                                                 </div>
                                             </div>
 
 
                                             <div class="product-carousel-price">
-                                                <a href="/ChiTietSanPhams/Details/@item.CTSP_ID"><h2 class="" style="font-size:large">@item.CTSP_TEN</h2></a>
+                                                <a href="/ChiTietSanPhams/Details/@item.SP_ID"><h2 class="" style="font-size:large">@item.SP_TEN</h2></a>
                                                 @{
                                                     float newprice;
                                                     if (km.KM_GIATRI > 1)
                                                     {
-                                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                                        <ins>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</ins>
                                                     }
                                                     else
                                                     {
-                                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * km.KM_GIATRI;
-                                                        newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del>
+                                                        float giamgia = cHITIETSANPH.GetGia(item.SP_ID) * km.KM_GIATRI;
+                                                        newprice = cHITIETSANPH.GetGia(item.SP_ID) - giamgia;
+                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</del>
                                                     }
 
                                                 }

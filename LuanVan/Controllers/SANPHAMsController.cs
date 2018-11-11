@@ -69,7 +69,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SP_ID,KM_ID,GIA_ID,NSX_ID,DSP_ID,SP_TEN,SP_CNMANGHINH,SP_DOPHANGIAI,SP_MANHINH,SP_CAMERASAU,SP_CAMERATRUOC,SP_HEDIEUHANH,SP_RAM,SP_ROM,SP_DUNGLUONGPIN,SP_SODIM,SP_MOTA,SP_NGAYTAO,SP_THOIGIANBH")] SANPHAM sANPHAM)
+        public ActionResult Create([Bind(Include = "SP_ID,KM_ID,GIA_ID,NSX_ID,DSP_ID,SP_TEN,SP_CNMANGHINH,SP_DOPHANGIAI,SP_MANHINH,SP_CAMERASAU,SP_CAMERATRUOC,SP_HEDIEUHANH,SP_RAM,SP_ROM,SP_DUNGLUONGPIN,SP_SOSIM,SP_MOTA,SP_NGAYTAO,SP_THOIGIANBH")] SANPHAM sANPHAM)
         {
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
@@ -123,7 +123,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SP_ID,KM_ID,GIA_ID,NSX_ID,DSP_ID,SP_TEN,SP_CNMANGHINH,SP_DOPHANGIAI,SP_MANHINH,SP_CAMERASAU,SP_CAMERATRUOC,SP_HEDIEUHANH,SP_RAM,SP_ROM,SP_DUNGLUONGPIN,SP_SODIM,SP_MOTA,SP_NGAYTAO,SP_THOIGIANBH")] SANPHAM sANPHAM)
+        public ActionResult Edit([Bind(Include = "SP_ID,KM_ID,GIA_ID,NSX_ID,DSP_ID,SP_TEN,SP_CNMANGHINH,SP_DOPHANGIAI,SP_MANHINH,SP_CAMERASAU,SP_CAMERATRUOC,SP_HEDIEUHANH,SP_RAM,SP_ROM,SP_DUNGLUONGPIN,SP_SOSIM,SP_MOTA,SP_NGAYTAO,SP_THOIGIANBH")] SANPHAM sANPHAM)
         {
             if (ModelState.IsValid)
             {
