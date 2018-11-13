@@ -161,10 +161,10 @@ namespace LuanVan.Controllers
             ViewBag.dauthang = dau;
             if (id == "0")
             {
-                var model = (from nsx in db.NHASANXUATs
-                             join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID
-                             join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.CTSP_ID
-                             join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
+                var model = (from pn in db.PHIEUNHAPSPs 
+                             join ctn in db.CHITIETNHAPs on pn.PN_ID equals ctn.PN_ID
+                             join ctsp in db.CHITIETSANPHAMs on ctn.CTSP_ID equals ctsp.CTSP_ID
+                             join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
                              where pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
                              select ctn);
                 return View(model);
@@ -172,11 +172,11 @@ namespace LuanVan.Controllers
             else
             {
 
-                var model = (from nsx in db.NHASANXUATs
-                             join sp in db.SANPHAMs on nsx.NSX_ID equals sp.NSX_ID
-                             join ctn in db.CHITIETNHAPs on sp.SP_ID equals ctn.CTSP_ID
-                             join pn in db.PHIEUNHAPSPs on ctn.PN_ID equals pn.PN_ID
-                             where nsx.NSX_ID == id && pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
+                var model = (from pn in db.PHIEUNHAPSPs
+                             join ctn in db.CHITIETNHAPs on pn.PN_ID equals ctn.PN_ID
+                             join ctsp in db.CHITIETSANPHAMs on ctn.CTSP_ID equals ctsp.CTSP_ID
+                             join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
+                             where sp.NSX_ID == id && pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
                              select ctn);
                 return View(model);
             }
@@ -201,8 +201,8 @@ namespace LuanVan.Controllers
             {
                 var model = (from dn in db.DONHANGs
                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
-                             join sp in db.SANPHAMs on ctdn.CTSP_ID equals sp.SP_ID
-                             join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID
+                             join ctsp in db.CHITIETSANPHAMs on ctdn.CTSP_ID equals ctsp.CTSP_ID
+                             join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
                              where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi && dn.TTDH_ID != 2
                              select ctdn);
                 return View(model);
@@ -212,8 +212,8 @@ namespace LuanVan.Controllers
 
                 var model = (from dn in db.DONHANGs
                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
-                             join sp in db.SANPHAMs on ctdn.CTSP_ID equals sp.SP_ID
-                             join gia in db.GIASPs on sp.GIA_ID equals gia.GIA_ID
+                             join ctsp in db.CHITIETSANPHAMs on ctdn.CTSP_ID equals ctsp.CTSP_ID
+                             join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
                              where sp.NSX_ID == id && dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi && dn.TTDH_ID != 2
                              select ctdn);
 

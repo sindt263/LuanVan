@@ -77,9 +77,16 @@
                 foreach (var item in Model)
                 {
                 <tr>
-                    <td>
+                    @if (item.DONHANG.KH_ID == null)
+                    {
+                        <td>Khách không đăng nhập</td>
+                    }
+                    else
+                    {
+                        <td>
                         @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
                     </td>
+                    }
                     <td>
                         @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
                     </td>

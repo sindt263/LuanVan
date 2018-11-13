@@ -152,16 +152,20 @@ namespace LuanVan.Controllers
         public ActionResult CreateSP(string CTSP_ID, string SP_ID, string CTSP_TEN)
         {
             CHITIETSANPHAM sANPHAM = new CHITIETSANPHAM();
-
+            string a = db.KiemTraID("ChiTietSanPham", "CTSP_ID", CTSP_ID);
+            if (!string.IsNullOrEmpty(a))
+            {
+                ModelState.AddModelError("", "Mã sản phẩm đã tồn tại !");
+            }else
             if (ModelState.IsValid)
             {
                 sANPHAM.CTSP_ID = CTSP_ID;
                 sANPHAM.SP_ID = SP_ID;
                 sANPHAM.CTSP_TEN = CTSP_TEN;
-                //sANPHAM.SP_TRANGTHAI = 1;
+                sANPHAM.CTSP_TRANGTHAI = 1;
                 db.CHITIETSANPHAMs.Add(sANPHAM);
                 db.SaveChanges();
-                ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.SP_ID);
+                ModelState.AddModelError("", "Đã thêm sản phẩm " + sANPHAM.CTSP_ID);
             }
 
 
@@ -180,7 +184,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "KM_ID", cHITIETSANPHAM.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", cHITIETSANPHAM.SP_ID);
             return View(cHITIETSANPHAM);
         }
 
@@ -197,7 +201,7 @@ namespace LuanVan.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "KM_ID", cHITIETSANPHAM.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_ID", cHITIETSANPHAM.SP_ID);
             return View(cHITIETSANPHAM);
         }
 
@@ -278,7 +282,7 @@ namespace LuanVan.Controllers
 
         public short KTKho(string id)
         {
-            short TTSP = db.Database.SqlQuery<short>("select SP_TRANGTHAI from sanpham where CTSP_ID ='" + id + "' and SP_TRANGTHAI =1").Take(1).SingleOrDefault();
+            short TTSP = db.Database.SqlQuery<short>("select CTSP_TRANGTHAI from ChiTietSanPham where SP_ID ='" + id + "' and CTSP_TRANGTHAI =1").FirstOrDefault();
             if (TTSP == 1)
             {
                 return 1;

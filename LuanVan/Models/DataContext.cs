@@ -259,7 +259,7 @@ namespace LuanVan.Models
         public string KiemTraID(string nametable, string namerow, string id)
         {
             DataContext a = new DataContext();
-            string result = a.Database.SqlQuery<string>("select " + id + " from " + nametable + " where " + namerow + " = '" + id + "'").SingleOrDefault();
+            string result = a.Database.SqlQuery<string>("select " + namerow + " from " + nametable + " where " + namerow + " = '" + id + "'").FirstOrDefault();
             return result;
         }
     }

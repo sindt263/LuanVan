@@ -40,10 +40,17 @@ namespace LuanVan.Controllers
 
             return model.OrderByDescending(x => x.DONHANG.DN_NGALAPDON).ToPagedList(page, pageSize);
         }
-        public ActionResult IndexKH(int id)
+
+        public ActionResult IndexKH(string id)
         {
+           if(id == null)
+            {
+                return RedirectToAction("","Home");
+            }
             ViewBag.DH_ID = id;
-            var cHITIETDONHANGs = from p in db.CHITIETDONHANGs where p.DN_ID == id select p;
+            int DN_ID = Convert.ToInt32(id);
+            var cHITIETDONHANGs = from p in db.CHITIETDONHANGs where p.DN_ID == DN_ID select p;
+           
             return View(cHITIETDONHANGs.ToList());
         }
 

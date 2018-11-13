@@ -65,9 +65,9 @@
                                             float newprice;
                                             if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
                                             {
-                                                float giamgia = cHITIETSANPH.GetGia(item.SP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
-                                                newprice = cHITIETSANPH.GetGia(item.SP_ID) - giamgia;
-                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</del>
+                                                float giamgia = sANPHAMs.GetGia(item.SP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
+                                                newprice = sANPHAMs.GetGia(item.SP_ID) - giamgia;
+                                                <ins>@newprice.ToString("###,###") VND</ins><del>@sANPHAMs.GetGia(item.SP_ID).ToString("###,###") VND</del>
 
                                             }
                                             else
@@ -111,8 +111,8 @@
                     {
 
                         string km_id = km.KM_ID;
-                        string id = db.Database.SqlQuery<string>("select top(1) SP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                        var SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id select p);
+                        string id = db.Database.SqlQuery<string>("select SP_ID from SanPham where KM_ID ='" + km_id + "'").FirstOrDefault();
+                        var SP = (from p in db.SANPHAMs where p.SP_ID == id select p);
                         foreach (var item in SP)
                         {
                             if (tang2 == 0)
@@ -226,7 +226,7 @@
                     @foreach (var item in ViewBag.SPMoi)
                     {
                         <li class="caption-group" style="background-image: url('../../Content/Images/bg-top.jpg');">
-                            <a href="~/SanPham/Details/@item.SP_ID">
+                            <a href="~/SanPhams/Details/@item.SP_ID">
                                 <div>
                                     <asp:Repeater runat="server" id="myRepeater">
                                         <ItemTemplate>
@@ -280,7 +280,7 @@
                                 @foreach (var km in ViewBag.KM)
                                 {
                                     string km_id = km.KM_ID;
-                                    string id = db.Database.SqlQuery<string>("select top(1) SP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
+                                    string id = db.Database.SqlQuery<string>("select SP_ID from SanPham where KM_ID ='" + km_id + "'").FirstOrDefault();
                                     var SP = (from p in db.SANPHAMs where p.SP_ID == id select p);
                                     foreach (var item in SP)
                                     {
@@ -299,7 +299,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(item.SP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = item.SP_ID })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                     }
 
 
@@ -315,13 +315,13 @@
                                                     float newprice;
                                                     if (km.KM_GIATRI > 1)
                                                     {
-                                                        <ins>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</ins>
+                                                        <ins>@sANPHAMs.GetGia(item.SP_ID).ToString("###,###") VND</ins>
                                                     }
                                                     else
                                                     {
-                                                        float giamgia = cHITIETSANPH.GetGia(item.SP_ID) * km.KM_GIATRI;
-                                                        newprice = cHITIETSANPH.GetGia(item.SP_ID) - giamgia;
-                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</del>
+                                                        float giamgia = sANPHAMs.GetGia(item.SP_ID) * km.KM_GIATRI;
+                                                        newprice = sANPHAMs.GetGia(item.SP_ID) - giamgia;
+                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@sANPHAMs.GetGia(item.SP_ID).ToString("###,###") VND</del>
                                                     }
 
                                                 }
@@ -381,14 +381,14 @@
 
                                     string id = i.SP_ID;
                                     //string id = db.Database.SqlQuery<string>("select top(1) CTSP_ID from SanPham where KM_ID ='" + km_id + "'").SingleOrDefault();
-                                    List<CHITIETSANPHAM> SP = (from p in db.CHITIETSANPHAMs where p.CTSP_ID == id && p.CTSP_TRANGTHAI == 1 select p).Take(1).ToList();
+                                    List<CHITIETSANPHAM> SP = (from p in db.CHITIETSANPHAMs where p.SP_ID == id && p.CTSP_TRANGTHAI == 1 select p).Take(1).ToList();
                                     foreach (var item in SP)
                                     {
                                         <div class="single-product">
                                             <div id="@item.CTSP_ID" class="product-f-image">
                                                 <asp:Repeater runat="server" id="myRepeater">
                                                     <ItemTemplate>
-                                                        <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                                        <img src="/HinhAnhSPs/getImage/@i.SP_ID" alt="Hình sản phẩm" />
 
                                                     </ItemTemplate>
                                                 </asp:Repeater>
@@ -400,7 +400,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(item.CTSP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = item.SP_ID })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                     }
 
 
@@ -445,13 +445,13 @@
                                                     float newprice;
                                                     if (item.SANPHAM.KHUYENMAI.KM_GIATRI != 0 && item.SANPHAM.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
                                                     {
-                                                        float giamgia = cHITIETSANPH.GetGia(item.CTSP_ID) * Convert.ToSingle(item.SANPHAM.KHUYENMAI.KM_GIATRI);
-                                                        newprice = cHITIETSANPH.GetGia(item.CTSP_ID) - giamgia;
-                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @item.SANPHAM.KHUYENMAI.KM_TEN</h4>
+                                                        float giamgia = sANPHAMs.GetGia(item.SP_ID) * Convert.ToSingle(item.SANPHAM.KHUYENMAI.KM_GIATRI);
+                                                        newprice = sANPHAMs.GetGia(item.SP_ID) - giamgia;
+                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@sANPHAMs.GetGia(item.SP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @item.SANPHAM.KHUYENMAI.KM_TEN</h4>
                                                     }
                                                     else
                                                     {
-                                                        <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                                                        <ins>@sANPHAMs.GetGia(item.SP_ID).ToString("###,###") VND</ins>
                                                     }
 
                                                 }
@@ -518,12 +518,13 @@
                             @foreach (var item in ViewBag.nsx)
                             {
                                 string id = item.NSX_ID;
-                                var TenNSX = (from ctsp in db.CHITIETSANPHAMs join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID where sp.NSX_ID == id select sp).Distinct();
+                                var SP = (from sp in db.SANPHAMs where sp.NSX_ID == id select sp);
+                                //var SP = (from ctsp in db.CHITIETSANPHAMs join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID where sp.NSX_ID == id select ctsp).Distinct();
                                 <div class="text-center">
                                     <h3><b style="color:firebrick"> @item.NSX_TEN</b></h3>
                                 </div>
                                 <div class="product-carousel">
-                                    @foreach (var i in TenNSX)
+                                    @foreach (var i in SP)
                                     {
                                         <div class="single-product">
                                             <div class="product-f-image">
@@ -541,7 +542,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(i.SP_ID) })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = i.SP_ID })" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                     }
 
                                                     <a class="w3_play_icon1 view-details-link" href="#small-dialog1_@i.SP_ID"><li class="fa fa-android"></li> Cấu hình máy </a>
@@ -566,7 +567,7 @@
                                                                     </div>
 
                                                                     <div class="submit-w3l">
-                                                                        <a href="~/ChiTietSanPhams/Details/@i.SP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
+                                                                        <a href="~/SanPhams/Details/@i.SP_ID" class="view-details-link btn btn-success"><i class="fa fa-link"></i>Xem chi tiết</a>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -581,21 +582,34 @@
                                             @*<h2><a href="single-product.html">@i.CTSP_TEN</a></h2>*@
                                             <div class="product-carousel-price">
                                                 <h3> @i.SP_TEN</h3>
-                                                <ins> @cHITIETSANPH.GetGia(i.SP_ID).ToString("###,###") VND </ins>
-                                                @*@{
-                                                        float newprice;
-                                                        if (i..KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
-                                                        {
-                                                            float giamgia = cHITIETSANPH.GetGia(i.CTSP_ID) * Convert.ToSingle(i.KHUYENMAI.KM_GIATRI);
-                                                            newprice = cHITIETSANPH.GetGia(i.CTSP_ID) - giamgia;
-                                                            <ins> @newprice.ToString("###,###") VND </ins><del> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </del> <h4> Khuyến Mãi: @i.KHUYENMAI.KM_TEN </h4>
-                                                        }
-                                                        else
-                                                        {
-                                                            <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
-                                                        }
+                                                @{
+                                                    float newprice;
+                                                    if (i.KHUYENMAI.KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                                    {
+                                                        float giamgia = sANPHAMs.GetGia(i.SP_ID) * Convert.ToSingle(i.KHUYENMAI.KM_GIATRI);
+                                                        newprice = sANPHAMs.GetGia(i.SP_ID) - giamgia;
+                                                        <ins>@newprice.ToString("###,###") VND</ins><del>@sANPHAMs.GetGia(i.SP_ID).ToString("###,###") VND</del> <h4>Khuyến Mãi: @i.KHUYENMAI.KM_TEN</h4>
+                                                    }
+                                                    else
+                                                    {
+                                                        <ins>@sANPHAMs.GetGia(i.SP_ID).ToString("###,###") VND</ins>
+                                                    }
 
-                                                    }*@
+                                                }
+                                                @*@{
+            float newprice;
+            if (i..KM_GIATRI != 0 && i.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+            {
+                float giamgia = cHITIETSANPH.GetGia(i.CTSP_ID) * Convert.ToSingle(i.KHUYENMAI.KM_GIATRI);
+                newprice = cHITIETSANPH.GetGia(i.CTSP_ID) - giamgia;
+                <ins> @newprice.ToString("###,###") VND </ins><del> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </del> <h4> Khuyến Mãi: @i.KHUYENMAI.KM_TEN </h4>
+            }
+            else
+            {
+                <ins> @cHITIETSANPH.GetGia(i.CTSP_ID).ToString("###,###") VND </ins>
+            }
+
+        }*@
 
                                             </div>
 
@@ -726,7 +740,7 @@
 
 
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
             type: 'inline',
@@ -739,7 +753,7 @@
             removalDelay: 300,
             mainClass: 'my-mfp-zoom-in'
         });
-
+        
     });
 </script>
 

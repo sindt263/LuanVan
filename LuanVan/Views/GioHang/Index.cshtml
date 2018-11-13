@@ -18,13 +18,13 @@
         {
             <p class="text-info text-center">
                 Giỏ hàng của bạn rỗng!
-                <a href="~/sanphams/ViewSP"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
+                <a href="~/Home"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
             </p>
         }
         else
         {
             <div class="row">
-                <a href="~/sanphams/ViewSP"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
+                <a href="~/Home"><input type="button" value="Xem Sản phẩm" class="btn btn-info" /></a>
                 <div class="col-sm-12">
                     <div class="table-responsive">
                         <table class="table table-bordered  table-striped  table-hover table-condensed">
@@ -42,12 +42,12 @@
                                     <td>
                                         <asp:Repeater runat="server" id="myRepeater">
                                             <ItemTemplate>
-                                                <img src="/HinhAnhSPs/getImage/@item.CTSP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
+                                                <img src="/HinhAnhSPs/getImage/@item.SP_ID" class="card-img-right flex-auto d-none d-lg-block" alt="Card image nothing" width="70" height="60" style="float:left" />
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </td>
                                     @{
-                                        var max = (from p in db.SANPHAMs where p.CTSP_ID == item.CTSP_ID && p.SP_TRANGTHAI ==1 select p);
+                                        var max = (from p in db.CHITIETSANPHAMs where p.SP_ID == item.SP_ID && p.CTSP_TRANGTHAI == 1 select p);
                                     }
                                     <td><a target="_blank" href="@Url.Action("Details", "SanPhams", new { id = item.SanPhamID })"> @item.TenSanPham </a> </td>
                                     <td>
@@ -177,7 +177,9 @@
     $(document).ready(function () {
 
         var HTTT = document.getElementById("HTTT_ID")
-
+        if (document.getElementById("HTTT_ID") == 1) {
+            alert("Hệ thống vẩn trong giai đoạn phát triển ")
+        }
         $("#HTTT_ID").change(function () {
             if (HTTT.value == 1) {
                 $("#mathe").show()

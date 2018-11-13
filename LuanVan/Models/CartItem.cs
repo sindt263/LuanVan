@@ -10,7 +10,7 @@ namespace LuanVan.Models
         public string HinhID { get; set; }
        
         public string SanPhamID { get; set; }
-        public string CTSP_ID { get; set; }
+        public string SP_ID { get; set; }
         public string TenSanPham { get; set; }
         public int DonGia { get; set; }
         public float DonGiaKM { get; set; }

@@ -97,7 +97,7 @@ namespace LuanVan.Controllers
                 cHITIETNHAP.CTN_GIA = id3;
                 db.CHITIETNHAPs.Add(cHITIETNHAP);
                 db.SaveChanges();
-                ModelState.AddModelError("", "Đã thêm phiếu "+ cHITIETNHAP.CTN_ID);
+                ModelState.AddModelError("", "Đã thêm phiếu "+ cHITIETNHAP.CTSP_ID);
             }
 
            

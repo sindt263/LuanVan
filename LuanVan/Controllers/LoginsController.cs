@@ -136,7 +136,7 @@ namespace LuanVan.Controllers
                     Session["NV_TEN"] = item.NV_TEN;
                     Session["LNV_ID"] = item.LNV_ID;
                 }
-                return Redirect("~/sanphams/");
+                return Redirect("~/ChiTietSanPhams/");
             }
             else
             {

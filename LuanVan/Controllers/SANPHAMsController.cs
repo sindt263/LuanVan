@@ -175,21 +175,20 @@ namespace LuanVan.Controllers
 
         public int GetGia(string id)
         {
-            string sp_id = db.Database.SqlQuery<string>("select SP_ID from SanPham where CTSP_ID ='" + id + "'").Take(1).SingleOrDefault();
-            string gia_id = db.Database.SqlQuery<string>("select Gia_ID from SanPham where SP_ID ='" + sp_id + "'").Take(1).SingleOrDefault();
-            int gia = db.Database.SqlQuery<int>("select Gia_GIA from GIASP where GIA_ID ='" + gia_id + "'").Take(1).SingleOrDefault();
+            int gia = db.Database.SqlQuery<int>("select gia_gia from GIASP inner join SANPHAM on SANPHAM.GIA_ID = GIASP.GIA_ID  where  SANPHAM.SP_ID = '" + id + "'").FirstOrDefault();
+
             return gia;
 
         }
         public string GetSP_ID(string id)
         {
-            string sp_id = db.Database.SqlQuery<string>("select SP_ID from SanPham where CTSP_ID ='" + id + "' and SP_TRANGTHAI = 1").Take(1).SingleOrDefault();
+            string sp_id = db.Database.SqlQuery<string>("select CTSP_ID from ChiTietSanPham where CTSP_ID ='" + id + "' and CTSP_TRANGTHAI = 1").FirstOrDefault();
             return sp_id;
 
         }
         public string GetCTSP_TEN(string id)
         {
-            string sp_id = db.Database.SqlQuery<string>("select CTSP_TEN from ChiTietSanPham where CTSP_ID ='" + id + "'").Take(1).SingleOrDefault();
+            string sp_id = db.Database.SqlQuery<string>("select CTSP_TEN from ChiTietSanPham where CTSP_ID ='" + id + "'").FirstOrDefault();
             return sp_id;
 
         }

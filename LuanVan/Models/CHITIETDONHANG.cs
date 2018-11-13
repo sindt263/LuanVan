@@ -1,4 +1,4 @@
-namespace LuanVan.Models
+﻿namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,11 +11,14 @@ namespace LuanVan.Models
     {
         [Key]
         [StringLength(20)]
+        [Display(Name = "Mã chi tiết")]
         public string CTDH_ID { get; set; }
 
+        [Display(Name = "Mã đơn hàng")]
         public int? DN_ID { get; set; }
 
         [StringLength(30)]
+        [Display(Name = "Mã sản phẩm")]
         public string CTSP_ID { get; set; }
 
         public virtual CHITIETSANPHAM CHITIETSANPHAM { get; set; }

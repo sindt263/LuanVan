@@ -89,19 +89,19 @@ namespace LuanVan.Controllers
                         for (int y = 1; y <= i.SoLuong; y++)
                         {
                             string CTDH_ID = db.autottang("CHITIETDONHANG", "CTDH_ID", db.CHITIETDONHANGs.Count()).ToString();
-                            string TT = db.Database.SqlQuery<string>("select SP_ID from SanPham where CTSP_ID ='" + i.CTSP_ID + "' and SP_TRANGTHAI =1").FirstOrDefault();
+                            string TT = db.Database.SqlQuery<string>("select CTSP_ID from ChiTietSanPham where SP_ID ='" + i.SP_ID + "' and CTSP_TRANGTHAI =1").FirstOrDefault();
                             if (!string.IsNullOrEmpty(TT))
                             {
                                 if (HTTT_ID == "1")
                                 {
-                                    db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + TT + "')");
+                                    db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,CTSP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + TT + "')");
                                 }
                                 else
                                 {
-                                    db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,SP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + TT + "')");
+                                    db.Database.ExecuteSqlCommand("Insert into ChiTietDonHang (CTDH_ID,DN_ID,CTSP_ID) values('" + CTDH_ID + "','" + DN_ID + "','" + TT + "')");
                                 }
 
-                                db.Database.ExecuteSqlCommand("update sanpham set SP_TRANGTHAI =0 where SP_ID ='" + TT + "'");
+                                db.Database.ExecuteSqlCommand("update ChiTietSanPham set CTSP_TRANGTHAI = 0 where CTSP_ID ='" + TT + "'");
 
                                 ModelState.AddModelError("", "Xạc nhận mua " + i.TenSanPham + " thành công");
                             }
@@ -137,17 +137,15 @@ namespace LuanVan.Controllers
             {
                 CHITIETSANPHAMsController cHITIETSANPH = new CHITIETSANPHAMsController();
                 SANPHAM sp = db.SANPHAMs.Find(SanPhamID);  // tim sp theo sanPhamID
-                string GiaID = sp.GIA_ID;
-                string KM_ID = db.Database.SqlQuery<string>("select KM_ID from SanPham where CTSP_ID ='" + sp.SP_ID + "'").Take(1).SingleOrDefault();
-                float KM_GIATRI = db.Database.SqlQuery<float>("select KM_GIATRI from KhuyenMai where KM_ID ='" + KM_ID + "' and KM_NgayKetThuc >= GETDATE()").SingleOrDefault();
-                float giamgia = cHITIETSANPH.GetGia(sp.SP_ID) * KM_GIATRI;
-                float newprice = cHITIETSANPH.GetGia(sp.SP_ID) - giamgia;
+                float KM_GIATRI = db.Database.SqlQuery<float>("select KM_GIATRI from KHUYENMAI km inner join SANPHAM sp on sp.KM_ID = km.KM_ID where SP_ID ='" + sp.SP_ID + "' and KM_NgayKetThuc >= GETDATE()").FirstOrDefault();
+                float giamgia = Convert.ToSingle(sp.GIASP.GIA_GIA) * KM_GIATRI;
+                float newprice = Convert.ToSingle(sp.GIASP.GIA_GIA) - giamgia;
                 CartItem newItem = new CartItem()
                 {
                     SanPhamID = SanPhamID,
-                    CTSP_ID = sp.SP_ID,
+                    SP_ID = sp.SP_ID,
                     TenSanPham = sp.SP_TEN,
-                    DonGia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID='" + GiaID + "'").SingleOrDefault(),
+                    DonGia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID='" + sp.GIA_ID + "'").SingleOrDefault(),
                     DonGiaKM = newprice,
                     SoLuong = 1,
 

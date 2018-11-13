@@ -1,4 +1,4 @@
-namespace LuanVan.Models
+﻿namespace LuanVan.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,20 +19,27 @@ namespace LuanVan.Models
 
         [Key]
         [StringLength(10)]
+        [Display(Name = "Mã khách hàng")]
         public string KH_ID { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Tên khách hàng")]
         public string KH_TEN { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Email")]
         public string KH_EMAIL { get; set; }
 
         [StringLength(15)]
+        [Display(Name = "SĐT")]
         public string KH_SDT { get; set; }
 
         [StringLength(200)]
+        [Display(Name = "Địa chỉ")]
         public string KH_DIACHI { get; set; }
 
+        [Display(Name = "Ngày sinh")]
+        [DataType(DataType.Date)]
         public DateTime? KH_NGAYSINH { get; set; }
 
         [StringLength(10)]

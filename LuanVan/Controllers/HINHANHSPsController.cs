@@ -18,7 +18,7 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: HINHANHSPs
-       
+
         public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
             var SanPhams = new HINHANHSPsController();
@@ -33,7 +33,7 @@ namespace LuanVan.Controllers
             IQueryable<HINHANHSP> model = db.HINHANHSPs.Include(h => h.SANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.HA_ID.Contains(searchTerm) || x.SANPHAM.SP_TEN.Contains(searchTerm)|| x.SP_ID.ToString().Contains(searchTerm));
+                model = model.Where(x => x.HA_ID.Contains(searchTerm) || x.SANPHAM.SP_TEN.Contains(searchTerm) || x.SP_ID.ToString().Contains(searchTerm));
 
             }
 
@@ -73,7 +73,6 @@ namespace LuanVan.Controllers
             {
                 if (file != null)
                 {
-
                     Int32 length = file.ContentLength;
                     byte[] tempImage = new byte[length];
                     file.InputStream.Read(tempImage, 0, length);
@@ -113,16 +112,17 @@ namespace LuanVan.Controllers
         public ActionResult Edit([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
             HttpPostedFileBase file = Request.Files["Image"];
-            if (ModelState.IsValid)
-            {
-                if (file != null)
+             if (file != null && file.ContentLength >1)
                 {
-
                     Int32 length = file.ContentLength;
                     byte[] tempImage = new byte[length];
                     file.InputStream.Read(tempImage, 0, length);
                     hINHANHSP.HA_ND = tempImage;
                 }
+               
+            if (ModelState.IsValid)
+            {
+               
                 db.Entry(hINHANHSP).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -204,7 +204,7 @@ namespace LuanVan.Controllers
             if (id != null)
             {
                 //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
-                var ha = (from p in db.HINHANHSPs where p.SP_ID == id  select p);
+                var ha = (from p in db.HINHANHSPs where p.SP_ID == id select p);
                 foreach (var i in ha)
                 {
                     if (i == null || i.HA_ND == null)
@@ -225,7 +225,7 @@ namespace LuanVan.Controllers
             if (id != null)
             {
                 //var ha = db.HinhAnhHoatDongs.Where(h => h.HD_IDHoatDong == ID).FirstOrDefault();
-                var ha = (from p in db.HINHANHSPs where p.HA_ID == id  select p);
+                var ha = (from p in db.HINHANHSPs where p.HA_ID == id select p);
                 foreach (var i in ha)
                 {
                     if (i == null || i.HA_ND == null)
