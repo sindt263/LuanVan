@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LuanVan.Models.CHITIETSANPHAM>
+﻿@model IEnumerable<LuanVan.Models.SANPHAM>
 @using LuanVan.Models
 @{
     DataContext db = new DataContext();
@@ -17,7 +17,7 @@
             $.ajax({
                 type: "GET",
                 url: '/Home/HienSoSanh/',
-                data: {'id': @sosanh[0].CTSP_ID},
+                data: {'id': "@sosanh[0].SP_ID"},
                     success: function (result) {
                         $('#doi1').html(result)
                     }
@@ -31,7 +31,7 @@
             $.ajax({
                 type: "GET",
                 url: '/Home/HienSoSanh/',
-                data: {'id': @sosanh[1].CTSP_ID},
+                data: {'id': "@sosanh[1].SP_ID"},
                     success: function (result) {
                         $('#doi2').html(result)
                     }
@@ -55,19 +55,19 @@
                         <div class="product-upper">
                             <asp:Repeater runat="server" id="myRepeater">
                                 <ItemTemplate>
-                                    <img style="max-height:200px; max-width:200px" src="/HinhAnhSPs/getImage/@item.CTSP_ID" alt="Hình sản phẩm" />
+                                    <img style="max-height:200px; max-width:200px" src="/HinhAnhSPs/getImage/@item.SP_ID" alt="Hình sản phẩm" />
 
                                 </ItemTemplate>
                             </asp:Repeater>
                         </div>
-                        <h2><a href="~/ChiTietSanPhams/Details/@item.CTSP_ID">@item.CTSP_TEN</a></h2>
+                        <h2><a href="~/SanPhams/Details/@item.SP_ID">@item.SP_TEN</a></h2>
                         <div class="product-carousel-price">
-                            <ins>@cHITIETSANPH.GetGia(item.CTSP_ID).ToString("###,###") VND</ins>
+                            <ins>@Convert.ToInt32(item.GIASP.GIA_GIA).ToString("###,###") VND</ins>
                         </div>
 
                         <div class="product-option-shop">
-                            <a class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = cHITIETSANPH.GetSP_ID(item.CTSP_ID) })"><li class="fa fa-shopping-cart"></li> Thêm vào giỏ</a>
-                            <a class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemSoSanh", "Home", new { CTSP_ID = item.CTSP_ID })"><li class="fa fa-compass"></li> So Sánh</a>
+                            <a class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = item.SP_ID })"><li class="fa fa-shopping-cart"></li> Thêm vào giỏ</a>
+                            <a class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemSoSanh", "Home", new { SP_ID = item.SP_ID })"><li class="fa fa-compass"></li> So Sánh</a>
                         </div>
                     </div>
                 </div>

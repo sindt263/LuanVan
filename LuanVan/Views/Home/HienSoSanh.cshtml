@@ -1,99 +1,99 @@
-﻿@model LuanVan.Models.CHITIETSANPHAM
+﻿@model LuanVan.Models.SANPHAM
 
 @{
-    LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPHA = new LuanVan.Controllers.CHITIETSANPHAMsController();
+    
     ViewBag.Title = "HienSoSanh";
     Layout = "~/Views/Shared/_LayoutKHAjaxy.cshtml";
 }
 
-<a class="btn btn-danger" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("XoaDoiTuong", "Home", new { CTSP_ID = Model.CTSP_ID })"><li class="fa fa-remove"></li> Xóa</a>
+<a class="btn btn-danger" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("XoaDoiTuong", "Home", new { SP_ID = Model.SP_ID })"><li class="fa fa-remove"></li> Xóa</a>
 <dl class="dl-horizontal">
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_TEN)
+        @Html.DisplayNameFor(model => model.SP_TEN)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_TEN)
+        @Html.DisplayFor(model => model.SP_TEN)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_CNMANGHINH)
+        @Html.DisplayNameFor(model => model.SP_CNMANGHINH)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_CNMANGHINH)
+        @Html.DisplayFor(model => model.SP_CNMANGHINH)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_DOPHANGIAI)
+        @Html.DisplayNameFor(model => model.SP_DOPHANGIAI)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_DOPHANGIAI)
+        @Html.DisplayFor(model => model.SP_DOPHANGIAI)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_MANHINH)
+        @Html.DisplayNameFor(model => model.SP_MANHINH)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_MANHINH)
+        @Html.DisplayFor(model => model.SP_MANHINH)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_CAMERATRUOC)
+        @Html.DisplayNameFor(model => model.SP_CAMERATRUOC)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_CAMERATRUOC)
+        @Html.DisplayFor(model => model.SP_CAMERATRUOC)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_CAMERASAU)
+        @Html.DisplayNameFor(model => model.SP_CAMERASAU)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_CAMERASAU)
+        @Html.DisplayFor(model => model.SP_CAMERASAU)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_HEDIEUHANH)
+        @Html.DisplayNameFor(model => model.SP_HEDIEUHANH)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_HEDIEUHANH)
+        @Html.DisplayFor(model => model.SP_HEDIEUHANH)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_RAM)
+        @Html.DisplayNameFor(model => model.SP_RAM)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_RAM)
+        @Html.DisplayFor(model => model.SP_RAM)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_ROM)
+        @Html.DisplayNameFor(model => model.SP_ROM)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_ROM)
+        @Html.DisplayFor(model => model.SP_ROM)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_DUNGLUONGPIN)
+        @Html.DisplayNameFor(model => model.SP_DUNGLUONGPIN)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_DUNGLUONGPIN)
+        @Html.DisplayFor(model => model.SP_DUNGLUONGPIN)
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.CTSP_SOSIM)
+        @Html.DisplayNameFor(model => model.SP_SOSIM)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.CTSP_SOSIM)
+        @Html.DisplayFor(model => model.SP_SOSIM)
     </dd>
 </dl>
-<a style="margin-left:55%" class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = Model.CTSP_ID })"><li class="fa fa-shopping-cart"></li> Thêm vào giỏ @cHITIETSANPHA.GetGia(Model.CTSP_ID).ToString("###,###")</a>
+<a style="margin-left:55%" class="btn btn-info" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = Model.SP_ID })"><li class="fa fa-shopping-cart"></li> Thêm vào giỏ @Convert.ToInt32(Model.GIASP.GIA_GIA).ToString("###,###")</a>

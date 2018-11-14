@@ -43,15 +43,20 @@
         public DateTime? KH_NGAYSINH { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Giới tính")]
         public string KH_GIOITINH { get; set; }
 
         [StringLength(16)]
+        [Display(Name = "Tài khoản")]
         public string KH_TAIKHOAN { get; set; }
 
         [StringLength(200)]
+        [Display(Name = "Mật khẩu")]
+        [DataType(DataType.Password)]
         public string KH_MATKHAU { get; set; }
 
         [StringLength(20)]
+        [Display(Name = "Trạng thái")]
         public string KH_TRANGTHAI { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

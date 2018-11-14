@@ -98,7 +98,7 @@ namespace LuanVan.Controllers
             HttpPostedFileBase file = Request.Files["Image"];
             if (ModelState.IsValid)
             {
-                if (file != null)
+                if (file != null && file.ContentLength > 1)
                 {
 
                     Int32 length = file.ContentLength;

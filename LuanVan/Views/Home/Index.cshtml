@@ -9,8 +9,15 @@
     LuanVan.Controllers.SANPHAMsController sANPHAMs = new LuanVan.Controllers.SANPHAMsController();
     LuanVan.Controllers.CHITIETSANPHAMsController cHITIETSANPH = new LuanVan.Controllers.CHITIETSANPHAMsController();
 }
-
-
+<head>
+    <link href="~/Content/LayoutKH/loading.css" rel="stylesheet" />
+    <script src="~/Content/LayoutKH/js/loading.js"></script>
+</head>
+<body class="preloading">
+    <div id="preload" class="preload-container text-center">
+        <span class="glyphicon glyphicon-repeat preload-icon rotating"></span>
+    </div>
+</body>
 <div class="text-center">
     <h3>Danh sách hãng</h3>
     <div class="view-details-link">
@@ -33,8 +40,8 @@
                             @*@foreach (var item in ViewBag.Top)*@
                             @for (int i = 1; i <= 3; i++)
                             {
-                                string top = db.Database.SqlQuery<string>("select top " +i+ " sp.SP_ID from ((SANPHAM sp inner join CHITIETSANPHAM ctsp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on sp.SP_ID = ctdn.ctSP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by sp.SP_ID, sp.SP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
-                                int count = db.Database.SqlQuery<int>("select Count(sp.SP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID= '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
+                                string top = db.Database.SqlQuery<string>("select top " +i+ " sp.SP_ID from ((SANPHAM sp inner join CHITIETSANPHAM ctsp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.ctSP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by sp.SP_ID, sp.SP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
+                                int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where sp.SP_ID= '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
                                 <div class="single-wid-product">
                                     <a href="/ChiTietSanPhams/Details/@top">
                                         <asp:Repeater runat="server" id="myRepeater">
@@ -57,27 +64,25 @@
                                     </div>
                                     <div class="product-wid-price">
                                         @{
-                                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.SP_ID == top select p).Take(1).ToList();
-                                        }
-
-                                        @foreach (var item in SP)
-                                        {
+                                            var ii = db.SANPHAMs.Find(top);
                                             float newprice;
-                                            if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
-                                            {
-                                                float giamgia = sANPHAMs.GetGia(item.SP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
-                                                newprice = sANPHAMs.GetGia(item.SP_ID) - giamgia;
-                                                <ins>@newprice.ToString("###,###") VND</ins><del>@sANPHAMs.GetGia(item.SP_ID).ToString("###,###") VND</del>
+                                        }
 
-                                            }
-                                            else
-                                            {
-                                                <ins>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</ins>
-                                            }
-
-
+                                        @if (ii.KHUYENMAI.KM_GIATRI != 0 && ii.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                        {
+                                            float giamgia = Convert.ToInt32(ii.GIASP.GIA_GIA) * Convert.ToSingle(ii.KHUYENMAI.KM_GIATRI);
+                                            newprice = Convert.ToInt32(ii.GIASP.GIA_GIA) - giamgia;
+                                            <ins>@newprice.ToString("###,###") VND</ins><del>@Convert.ToInt32(ii.GIASP.GIA_GIA).ToString("###,###") VND</del>
 
                                         }
+                                        else
+                                        {
+                                            <ins>@Convert.ToInt32(ii.GIASP.GIA_GIA).ToString("###,###") VND</ins>
+                                        }
+
+
+
+                                        
                                         <ins>@*$400.00*@</ins> @*<del>$425.00</del>*@
                                     </div>
                                 </div>
@@ -161,7 +166,7 @@
                             @for (int i = 1; i <= 3; i++)
                             {
                                 string top = db.Database.SqlQuery<string>("select top " + i + " sp.SP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) group by sp.SP_ID, sp.SP_TEN order by Count(sp.SP_ID) desc ").LastOrDefault();
-                                int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where ctsp.CTSP_ID= '" + top + "'").SingleOrDefault();
+                                var ii = db.SANPHAMs.Find(top);
                                 <div class="single-wid-product">
                                     <a href="/ChiTietSanPhams/Details/@top">
                                         <asp:Repeater runat="server" id="myRepeater">
@@ -171,7 +176,7 @@
                                         </asp:Repeater>
                                     </a>
                                     <div class="single-wid-product">
-                                        <a href="/ChiTietSanPhams/Details/@top"><h2 class="" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
+                                        <a href="/ChiTietSanPhams/Details/@top"><h2 class="" style="font-size:large">@ii.SP_TEN</h2></a>
                                         @*<h2>Số lượng bán: @count</h2>*@
 
                                         <div class="product-wid-rating">
@@ -183,28 +188,24 @@
                                         </div>
                                     </div>
                                     <div class="product-wid-price">
-                                        @{
-                                            List<SANPHAM> SP = (from p in db.SANPHAMs where p.SP_ID == top select p).Take(1).ToList();
-                                        }
-
-                                        @foreach (var item in SP)
-                                        {
-                                            float newprice;
-                                            if (item.KHUYENMAI.KM_GIATRI != 0 && item.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
+                                       
+                                            @{float newprice;
+                                            }
+                                            @if (ii.KHUYENMAI.KM_GIATRI != 0 && ii.KHUYENMAI.KM_NGAYKETTHUC >= DateTime.Now)
                                             {
-                                                float giamgia = cHITIETSANPH.GetGia(item.SP_ID) * Convert.ToSingle(item.KHUYENMAI.KM_GIATRI);
-                                                newprice = cHITIETSANPH.GetGia(item.SP_ID) - giamgia;
-                                                <ins>@newprice.ToString("###,###") VND</ins><del>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</del>
+                                                float giamgia = Convert.ToInt32(ii.GIASP.GIA_GIA) * Convert.ToSingle(ii.KHUYENMAI.KM_GIATRI);
+                                                newprice = Convert.ToInt32(ii.GIASP.GIA_GIA)  - giamgia;
+                                                <ins>@newprice.ToString("###,###") VND</ins><del>@Convert.ToInt32(ii.GIASP.GIA_GIA).ToString("###,###") VND</del>
 
                                             }
                                             else
                                             {
-                                                <ins>@cHITIETSANPH.GetGia(item.SP_ID).ToString("###,###") VND</ins>
+                                                <ins>@Convert.ToInt32(ii.GIASP.GIA_GIA).ToString("###,###") VND</ins>
                                             }
 
 
 
-                                        }
+                                        
                                         <ins>@*$400.00*@</ins> @*<del>$425.00</del>*@
                                     </div>
                                 </div>

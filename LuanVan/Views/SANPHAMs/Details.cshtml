@@ -96,21 +96,21 @@
                             <h2 class="product-name">@Model.SP_TEN</h2>
                             <div class="product-inner-price">
                                 @{
-                                    string KM_ID = db.Database.SqlQuery<string>("select KM_ID from SanPham where SP_ID ='" + Model.SP_ID + "'").Take(1).SingleOrDefault();
-                                    float KM_GIATRI = db.Database.SqlQuery<float>("select KM_GIATRI from KhuyenMai where KM_ID ='" + KM_ID + "' and KM_NgayKetThuc >= GETDATE()").SingleOrDefault();
+                                    
+                                    float KM_GIATRI = db.Database.SqlQuery<float>("select KM_GIATRI from KhuyenMai km inner join SanPham sp on sp.KM_ID = km.KM_ID  where SP_ID ='" +Model.SP_ID+"' and km.KM_NgayKetThuc >= GETDATE()").FirstOrDefault();
                                 }
                                 @if (KM_GIATRI > 0)
                                 {
 
 
-                                    float giamgia = cHITIETSANPH.GetGia(Model.SP_ID) * KM_GIATRI;
-                                    float newprice = cHITIETSANPH.GetGia(Model.SP_ID) - giamgia;
+                                    float giamgia = Convert.ToInt32(Model.GIASP.GIA_GIA) * KM_GIATRI;
+                                    float newprice = Convert.ToInt32(Model.GIASP.GIA_GIA) - giamgia;
                                     <ins><h3>@newprice.ToString("###,###") VND</h3></ins>
-                                    <del><h3>@cHITIETSANPH.GetGia(Model.SP_ID).ToString("###,###") VND</h3></del>
+                                    <del><h3>@Convert.ToInt32(Model.GIASP.GIA_GIA).ToString("###,###") VND</h3></del>
                                 }
                                 else
                                 {
-                                    <ins><h3>@cHITIETSANPH.GetGia(Model.SP_ID).ToString("###,###") VND</h3></ins>
+                                    <ins><h3>@Convert.ToInt32(Model.GIASP.GIA_GIA).ToString("###,###") VND</h3></ins>
                                 }
                             </div>
 
@@ -122,7 +122,7 @@
                                 }
                                 else
                                 {
-                                    <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = sANPHAMs.GetSP_ID(Model.SP_ID) })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
+                                    <a id="GioHang" class="btn btn-success btn-sm" href="@Url.Action("ThemVaoGio", "GioHang", new { sanPhamID = Model.SP_ID })"> <span class="glyphicon glyphicon-shopping-cart"></span>  Thêm vào giỏ </a>
                                 }
                             </form>
 
@@ -202,13 +202,12 @@
 
     $(document).ready(function () {
         var ND = document.getElementById("BL_ND")
-
         $.ajax({
 
             type: "get",
             url: '/BinhLuanCTSPs/IndexKH/',
                 data: {
-                    'id': @Model.SP_ID
+                    'id': "@Model.SP_ID"
                 },
             success: function (result) {
                 $('#ViewBL').html(result)
@@ -217,13 +216,12 @@
 
 
         $('#btnNX').click(function () {
-
             $.ajax({
 
                 type: "post",
                 url: '/BinhLuanCTSPs/CreateKH/',
                 data: {
-                    'id': ND.value, 'id2': @Model.SP_ID
+                    'id': ND.value, 'id2': "@Model.SP_ID"
                 },
                 success: function (result) {
                     $('#ViewBL').html(result)

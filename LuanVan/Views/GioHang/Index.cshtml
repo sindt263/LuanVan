@@ -177,9 +177,13 @@
     $(document).ready(function () {
 
         var HTTT = document.getElementById("HTTT_ID")
-        if (document.getElementById("HTTT_ID") == 1) {
-            alert("Hệ thống vẩn trong giai đoạn phát triển ")
+        $("#HTTT_ID").change(function () {
+            if (HTTT.value == 1) {
+                alert("Hệ thống vẩn trong giai đoạn phát triển ")
+                document.getElementById("HTTT_ID").value = 0;
+            }
         }
+        )
         $("#HTTT_ID").change(function () {
             if (HTTT.value == 1) {
                 $("#mathe").show()

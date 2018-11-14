@@ -112,7 +112,7 @@ namespace LuanVan.Controllers
                 bINHLUANCTSP.BL_THOIGIAN = DateTime.Now;
                 db.BINHLUANCTSPs.Add(bINHLUANCTSP);
                 db.SaveChanges();
-                return RedirectToAction("details/"+id2,"chitietsanphams");
+                return RedirectToAction("details/"+id2, "SanPhams");
             }
 
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.SP_ID);
@@ -150,11 +150,11 @@ namespace LuanVan.Controllers
                 bINHLUANCTSP.BL_THOIGIAN = DateTime.Now;
                 db.BINHLUANCTSPs.Add(bINHLUANCTSP);
                 db.SaveChanges();
-                return RedirectToAction("details/"+id2,"chitietsanphams");
+                return RedirectToAction("details/"+id2,"SanPhams");
             }
 
            
-            return RedirectToAction("details/" + id2, "chitietsanphams");
+            return RedirectToAction("details/" + id2, "SanPhams");
         }
 
         // GET: BINHLUANCTSPs/Edit/5

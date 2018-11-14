@@ -7,6 +7,6 @@ namespace LuanVan.Models
 {
     public class SoSanhSP
     {
-        public string CTSP_ID { set; get; }
+        public string SP_ID { set; get; }
     }
 }

@@ -237,17 +237,17 @@ namespace LuanVan.Controllers
         public ActionResult Edit([Bind(Include = "DN_ID,TTDH_ID,KH_ID,HTTT_ID,DN_NGALAPDON,DN_GHICHU,DN_SDT,DN_EMAIL,DN_DIACHI,DN_MATHE,DN_CHUTHE,DN_NGAYCAP")] DONHANG dONHANG)
         {
             Mail mail = new Mail();
-            var SP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == dONHANG.DN_ID select p);
+            var CTSP_ID = (from p in db.CHITIETDONHANGs where p.DN_ID == dONHANG.DN_ID select p);
             CHITIETDONHANGsController cHITIETDONHANGs = new CHITIETDONHANGsController();
             if (dONHANG != null)
             {
 
                 if (Convert.ToInt16(dONHANG.TTDH_ID) == 2)
                 {
-                    foreach (var i in SP_ID)
+                    foreach (var i in CTSP_ID)
                     {
-                        SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.CTSP_ID);
-                        cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
+                        CHITIETSANPHAM cHITIETSANPHAM = db.CHITIETSANPHAMs.FirstOrDefault(sp => sp.CTSP_ID == i.CTSP_ID);
+                        cHITIETDONHANGs.EditHuy(cHITIETSANPHAM.CTSP_ID);
                     }
                     string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", dONHANG.DN_EMAIL, "Đã hủy đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã bị hủy .", true);
                 }
@@ -348,8 +348,8 @@ namespace LuanVan.Controllers
             {
                 foreach (var i in SP_ID)
                 {
-                    SANPHAM sANPHAM = db.SANPHAMs.FirstOrDefault(sp => sp.SP_ID == i.CTSP_ID);
-                    cHITIETDONHANGs.EditHuy(sANPHAM.SP_ID);
+                    CHITIETSANPHAM cHITIETSANPHAM = db.CHITIETSANPHAMs.FirstOrDefault(sp => sp.CTSP_ID == i.CTSP_ID);
+                    cHITIETDONHANGs.EditHuy(cHITIETSANPHAM.SP_ID);
                 }
                 dONHANG.TTDH_ID = 2;
                 string guimail = mail.SendMailFull("sindt264@gmail.com", "vinhvavinh", "SMTP.gmail.com", "587", Session["KH_EMAIL"].ToString(), "Đã hủy đơn hàng", "Đơn hàng " + dONHANG.DN_ID + " đã bị hủy .", true);

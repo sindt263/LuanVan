@@ -39,24 +39,31 @@
         public DateTime? DN_NGALAPDON { get; set; }
 
         [StringLength(255)]
+        [Display(Name = "Ghi chú")]
         public string DN_GHICHU { get; set; }
 
         [StringLength(20)]
+        [Display(Name = "SĐT")]
         public string DN_SDT { get; set; }
 
         [StringLength(200)]
+        [Display(Name = "Địa chỉ giao hàng")]
         public string DN_DIACHI { get; set; }
 
         [StringLength(20)]
+        [Display(Name = "Mã thẻ")]
         public string DN_MATHE { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Chủ thẻ")]
         public string DN_CHUTHE { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "Ngày cấp")]
         public string DN_NGAYCAP { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Email")]
         public string DN_EMAIL { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

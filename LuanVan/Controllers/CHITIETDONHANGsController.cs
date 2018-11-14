@@ -170,10 +170,10 @@ namespace LuanVan.Controllers
 
         public void EditHuy(string id)
         {
-            CHITIETSANPHAM sANPHAM = db.CHITIETSANPHAMs.FirstOrDefault(sp => sp.SP_ID == id);
-            if (sANPHAM != null)
+            CHITIETSANPHAM cHITIETSANPHAM = db.CHITIETSANPHAMs.FirstOrDefault(sp => sp.CTSP_ID == id);
+            if (cHITIETSANPHAM != null)
             {
-                sANPHAM.CTSP_TRANGTHAI = 1;
+                cHITIETSANPHAM.CTSP_TRANGTHAI = 1;
                 db.SaveChanges();
             }
            
