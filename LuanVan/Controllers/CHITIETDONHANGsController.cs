@@ -33,8 +33,7 @@ namespace LuanVan.Controllers
             IQueryable<CHITIETDONHANG> model = db.CHITIETDONHANGs.Include(c => c.DONHANG).Include(c => c.CHITIETSANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.DONHANG.DN_ID.ToString().Contains(searchTerm) || x.CTDH_ID.ToString().Contains(searchTerm) 
-                || x.CHITIETSANPHAM.CTSP_TEN.ToString().Contains(searchTerm)|| x.DONHANG.KHACHHANG.KH_ID.Contains(searchTerm) );
+                model = model.Where(x => x.DONHANG.DN_ID.ToString().Contains(searchTerm) );
 
             }
 

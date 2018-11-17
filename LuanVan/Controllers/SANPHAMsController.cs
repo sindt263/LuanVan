@@ -86,7 +86,7 @@ namespace LuanVan.Controllers
                     file.InputStream.Read(tempImage, 0, length);
                     hINHANHSP.HA_ND = tempImage;
                     hINHANHSP.HA_ID = db.autottang("HinhAnhSP", "HA_ID", db.HINHANHSPs.Count()).ToString();
-                    //hINHANHSP.CTSP_ID = cHITIETSANPHAM.CTSP_ID;
+                    hINHANHSP.SP_ID = sANPHAM.SP_ID;
                     hINHANHSPsController.addHA(hINHANHSP);
                 }
                 return RedirectToAction("Index");

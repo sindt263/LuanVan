@@ -18,7 +18,7 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: NHANVIENs
-       
+
 
         public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
@@ -79,7 +79,7 @@ namespace LuanVan.Controllers
             ViewBag.LNV_ID = new SelectList(db.LOAINVs, "LNV_ID", "LNV_TEN", nHANVIEN.LNV_ID);
             return View(nHANVIEN);
         }
-         public ActionResult ThongBao()
+        public ActionResult ThongBao()
         {
             return View();
         }
@@ -99,22 +99,22 @@ namespace LuanVan.Controllers
 
             StreamWriter w = new StreamWriter(path, false);
             //true = ghi tiep vao file, false = ghi de le du lieu cu, neu file chua ton tai se dc tao ra, file test.txt cung cấp thư mục, nếu ko phai chi rõ duong dẫn
-            
-            w.WriteLine(ThongBao.ToString() +" lúc: "+ DateTime.Now +" Bởi: "+Session["NV_TEN"]);
+
+            w.WriteLine(ThongBao.ToString() + " lúc: " + DateTime.Now + " Bởi: " + Session["NV_TEN"]);
             w.WriteLine(a);
             //Doc: 
             //string s = "";
             //StreamReader r = new StreamReader(@"S:\ThongBao.txt");
             //while ((s = r.ReadLine()) != null)
             //{
-                
+
             //    Session["ThongBao"] = s;
             //}
             w.Close();
             return View();
         }
 
-        
+
         // GET: NHANVIENs/Edit/5
         public ActionResult Edit(string id)
         {
@@ -123,6 +123,7 @@ namespace LuanVan.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             NHANVIEN nHANVIEN = db.NHANVIENs.Find(id);
+            Session["NV_MK"] = nHANVIEN.NV_MATKHAU;
             if (nHANVIEN == null)
             {
                 return HttpNotFound();
@@ -138,8 +139,14 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "NV_ID,LNV_ID,NV_TEN,NV_NGAYSINH,NV_QUEQUAN,NV_DIACHI,NV_GIOITINH,NV_NGAYKYHOPDONG,NV_NGAYKETTHUCHOPDONG,NV_EMAIL,NV_MATKHAU,NV_TAIKHOAN,NV_SDT")] NHANVIEN nHANVIEN)
         {
+            string MK = Request["NV_MATKHAU"].ToString();
+            LoginsController logins = new LoginsController();
+            
             if (ModelState.IsValid)
-            {
+            {               
+                if(Session["NV_MK"].ToString() != MK) { 
+                    nHANVIEN.NV_MATKHAU = logins.Encrypt(MK);
+               }
                 db.Entry(nHANVIEN).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

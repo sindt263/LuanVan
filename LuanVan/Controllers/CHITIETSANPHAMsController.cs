@@ -114,6 +114,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
+            ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID");
             return View();
         }
 
@@ -149,9 +150,11 @@ namespace LuanVan.Controllers
         }
 
 
-        public ActionResult CreateSP(string CTSP_ID, string SP_ID, string CTSP_TEN)
+        public ActionResult CreateSP(string CTSP_ID, string SP_ID, string CTSP_TEN,string PN_ID, string CTN_GIA)
         {
             CHITIETSANPHAM sANPHAM = new CHITIETSANPHAM();
+            CHITIETNHAP cHITIETNHAP = new CHITIETNHAP();
+            CHITIETNHAPsController cHITIETNHAPs = new CHITIETNHAPsController();
             string a = db.KiemTraID("ChiTietSanPham", "CTSP_ID", CTSP_ID);
             if (!string.IsNullOrEmpty(a))
             {
@@ -159,6 +162,13 @@ namespace LuanVan.Controllers
             }else
             if (ModelState.IsValid)
             {
+                
+                cHITIETNHAP.CTN_ID = db.autottang("CHITIETNHAP", "CTN_ID", db.CHITIETNHAPs.Count()).ToString();
+                //cHITIETNHAP.PN_ID = Session["PNSP"].ToString();
+                cHITIETNHAP.PN_ID = PN_ID;
+                cHITIETNHAP.CTSP_ID = CTSP_ID;
+                cHITIETNHAP.CTN_GIA = Convert.ToInt32(CTN_GIA);
+                db.CHITIETNHAPs.Add(cHITIETNHAP);
                 sANPHAM.CTSP_ID = CTSP_ID;
                 sANPHAM.SP_ID = SP_ID;
                 sANPHAM.CTSP_TEN = CTSP_TEN;

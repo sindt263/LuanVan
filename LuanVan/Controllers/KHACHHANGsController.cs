@@ -150,6 +150,7 @@ namespace LuanVan.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             KHACHHANG kHACHHANG = db.KHACHHANGs.Find(id);
+            Session["KH_ID"] = kHACHHANG.KH_MATKHAU;
             if (kHACHHANG == null)
             {
                 return HttpNotFound();
@@ -164,8 +165,14 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU,KH_TRANGTHAI")] KHACHHANG kHACHHANG)
         {
+            string mk = Request["KH_MATKHAU"].ToString();
+            LoginsController logins = new LoginsController();
             if (ModelState.IsValid)
             {
+                if (Session["KH_ID"].ToString() != mk)
+                {
+                    kHACHHANG.KH_MATKHAU = logins.Encrypt(mk);
+                }
                 db.Entry(kHACHHANG).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -195,8 +202,12 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditKH([Bind(Include = "KH_ID,KH_TEN,KH_EMAIL,KH_SDT,KH_DIACHI,KH_NGAYSINH,KH_GIOITINH,KH_TAIKHOAN,KH_MATKHAU,KH_TRANGTHAI")] KHACHHANG kHACHHANG)
         {
+           
+            LoginsController logins = new LoginsController();
             if (ModelState.IsValid)
             {
+              
+                 
                 db.Entry(kHACHHANG).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("IndexKH");
@@ -223,7 +234,8 @@ namespace LuanVan.Controllers
 
         public JsonResult TKEditPass(string id, string id1)
         {
-
+            LoginsController logins = new LoginsController();
+            
             if (id.Length <= 5)
             {
                 string output = "Mật khẩu phải dài hơn 6 ký tự !";
@@ -246,7 +258,7 @@ namespace LuanVan.Controllers
                 KHACHHANG kHACHHANG = db.KHACHHANGs.Find(kh_id);
                 if (kHACHHANG != null)
                 {
-                    kHACHHANG.KH_MATKHAU = id;
+                    kHACHHANG.KH_MATKHAU = logins.Encrypt(id);
                     db.SaveChanges();
 
                 }

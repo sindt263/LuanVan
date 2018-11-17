@@ -45,6 +45,7 @@ namespace LuanVan.Controllers
             
             string TK = Request["TK"];
             string MK = Request["MK"];
+            ViewBag.TK = TK;
             string chuoimahoa = Encrypt(MK);
             string remember = Request["remember"];
             var result = (from p in db.KHACHHANGs where p.KH_TAIKHOAN == TK && p.KH_MATKHAU == chuoimahoa select p);
@@ -109,7 +110,8 @@ namespace LuanVan.Controllers
             string MK = Request["NVMK"];
             string remember = Request["remember"];
             string mahoa = Encrypt(MK);
-            var result = (from p in db.NHANVIENs where p.NV_TAIKHOAN == TK && p.NV_MATKHAU == mahoa select p);
+            ViewBag.TKNV = TK;
+           var result = (from p in db.NHANVIENs where p.NV_TAIKHOAN == TK && p.NV_MATKHAU == mahoa select p);
                 if(result.Count() >= 1)
             {
                 if (remember == "1")

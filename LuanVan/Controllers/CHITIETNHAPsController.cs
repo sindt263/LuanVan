@@ -32,8 +32,7 @@ namespace LuanVan.Controllers
             IQueryable<CHITIETNHAP> model = db.CHITIETNHAPs.Include(c => c.PHIEUNHAPSP).Include(c => c.CHITIETSANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.CTSP_ID.Contains(searchTerm) || x.PN_ID.ToString().Contains(searchTerm)
-                || x.CTN_ID.ToString().Contains(searchTerm)|| x.CHITIETSANPHAM.CTSP_TEN.ToString().Contains(searchTerm));
+                model = model.Where(x => x.PN_ID.ToString().Contains(searchTerm) || x.CHITIETSANPHAM.CTSP_TEN.ToString().Contains(searchTerm));
 
             }
 
@@ -104,6 +103,7 @@ namespace LuanVan.Controllers
             return View(cHITIETNHAP);
         }
 
+      
         // GET: CHITIETNHAPs/Edit/5
         public ActionResult Edit(string id)
         {

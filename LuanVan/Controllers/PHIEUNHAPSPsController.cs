@@ -58,6 +58,7 @@ namespace LuanVan.Controllers
         {
             ViewBag.NCC_ID = new SelectList(db.NHACUNGCAPs, "NCC_ID", "NCC_TEN");
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN");
+
             return View();
         }
 

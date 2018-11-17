@@ -90,7 +90,7 @@
         [Display(Name = "Ngày tạo")]
         public DateTime? SP_NGAYTAO { get; set; }
 
-        [Display(Name = "Trạng thái")]
+        [Display(Name = "Thời gian bảo hành")]
         public int? SP_THOIGIANBH { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

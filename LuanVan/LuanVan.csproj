@@ -337,6 +337,7 @@
     <Content Include="Content\Chart\Chart.js\samples\tooltips\positioning.html" />
     <Content Include="Content\Chart\Chart.js\samples\utils.js" />
     <Content Include="Content\Chart\Canvas.js" />
+    <Content Include="Content\css\all.css" />
     <Content Include="Content\css\Login\css\popuo-box.css" />
     <Content Include="Content\css\Login\css\style.css" />
     <Content Include="Content\css\Login\images\b2.jpg" />
@@ -359,9 +360,13 @@
     <Content Include="Content\Images\Untitled.png" />
     <Content Include="Content\Images\wallpaper1.jpg" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\button.js" />
+    <Content Include="Content\js\Chart.min.js" />
     <Content Include="Content\js\JavaScript.js" />
     <Content Include="Content\js\jquery-1.11.3.min.js" />
+    <Content Include="Content\js\jquery.sharrre.min.js" />
     <Content Include="Content\js\popper.min.js" />
+    <Content Include="Content\js\shards.min.js" />
     <Content Include="Content\LayoutKH\css\bootstrap.min.css" />
     <Content Include="Content\LayoutKH\css\font-awesome.min.css" />
     <Content Include="Content\LayoutKH\css\owl.carousel.css" />
