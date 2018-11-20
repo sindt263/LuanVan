@@ -90,6 +90,7 @@
         [Display(Name = "Ngày tạo")]
         public DateTime? SP_NGAYTAO { get; set; }
 
+
         [Display(Name = "Thời gian bảo hành")]
         public int? SP_THOIGIANBH { get; set; }
 

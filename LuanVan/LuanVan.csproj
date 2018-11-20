@@ -353,6 +353,9 @@
     <Content Include="Content\Images\background.jpg" />
     <Content Include="Content\Images\bg-top.jpg" />
     <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\ImgTop\1292905.png" />
+    <Content Include="Content\Images\ImgTop\834897.png" />
+    <Content Include="Content\Images\ImgTop\973950.png" />
     <Content Include="Content\Images\kt123.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\Screenshot %281%29.png" />

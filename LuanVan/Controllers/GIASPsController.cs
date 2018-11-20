@@ -66,6 +66,13 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GIA_ID,GIA_GIA,GIA_NGAYCAPNHAT")] GIASP gIASP)
         {
+            string GIA_ID = Request["GIA_ID"].ToString();
+            GIASP GIA = db.GIASPs.Find(GIA_ID);
+            if (GIA != null)
+            {
+                ModelState.AddModelError("", "Mã giá bị trùng !");
+            }
+            else
             if (ModelState.IsValid)
             {
                 db.GIASPs.Add(gIASP);

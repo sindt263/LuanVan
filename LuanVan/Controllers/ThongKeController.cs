@@ -255,43 +255,68 @@ namespace LuanVan.Controllers
         public ActionResult SPBanNhieuNhat()
         {
             laygiatritrongthang();
-            ViewBag.NSX = db.NHASANXUATs.ToList();
+            ViewBag.SP = db.SANPHAMs.ToList();
             return View();
         }
         [HttpPost]
-        public ActionResult SPBanNhieuNhat(DateTime dau, DateTime cuoi)
+        public ActionResult SPBanNhieuNhat(string SP_ID,DateTime dau, DateTime cuoi)
         {
-            laygiatritrongthang();
-            var nsx = db.NHASANXUATs.ToList();
-            foreach (var i in nsx)
+            ViewBag.SP = db.SANPHAMs.ToList();
+            ViewBag.dauthang = dau;
+            ViewBag.cuoithang = cuoi;
+           
+            List<ThongKe> list = new List<ThongKe>();
+            if (SP_ID == "0")
             {
-                a(i.NSX_TEN, dau, cuoi);
+                var TKSP = (from ctsp in db.CHITIETSANPHAMs join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
+                            join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID where dn.TTDH_ID != 2
+                            && dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                            select ctsp);
+              
+                foreach (var i in TKSP)
+                {
+                    if (list.FirstOrDefault(sp => sp.SP_ID == i.SP_ID) == null)
+                    {
+                        var count = (from ctsp in db.CHITIETSANPHAMs
+                                    join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
+                                    join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
+                                    where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                                      && dn.TTDH_ID != 2 && ctsp.SP_ID == i.SP_ID
+                                    select ctsp);
+                        ThongKe tk = new ThongKe()
+                        {
+                            SP_ID = i.SP_ID,
+                            TenSP = i.SANPHAM.SP_TEN,
+                            SL = count.Count()
+                        };
+                        list.Add(tk);
+                    }
+                }
             }
-            List<ThongKe> li = Session["thongke"] as List<ThongKe>;
-            return View(li.OrderByDescending(a => a.SL));
+            else
+            {
+                var TKSP = (from ctsp in db.CHITIETSANPHAMs join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
+                            join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
+                           where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                             && dn.TTDH_ID != 2 && ctsp.SP_ID == SP_ID  select ctsp);
+
+                foreach (var i in TKSP)
+                {
+                    if (list.FirstOrDefault(sp => sp.SP_ID == i.SP_ID) == null)
+                    {
+                        ThongKe tk = new ThongKe()
+                        {
+                            SP_ID = i.SP_ID,
+                            TenSP = i.SANPHAM.SP_TEN,
+                            SL = TKSP.Count()
+                        };
+                        list.Add(tk);
+                    }
+                }
+            }
+            return View(list.OrderByDescending(sp=>sp.SL).ToList());
         }
 
-        public int a(string id, DateTime dau, DateTime cuoi)
-        {
-            if (Session["thongke"] == null) // Nếu giỏ hàng chưa được khởi tạo
-            {
-                Session["thongke"] = new List<ThongKe>();  // Khởi tạo Session["giohang"] là 1 List<CartItem>
-            }
-            List<ThongKe> thongKes = Session["thongke"] as List<ThongKe>;
-
-            int i = db.Database.SqlQuery<int>("select  COUNT(sp.SP_ID) from SANPHAM sp inner join NHASANXUAT nsx on sp.NSX_ID = nsx.NSX_ID inner join CHITIETDONHANG ctdn on ctdn.SP_ID = sp.SP_ID inner join DONHANG dn on ctdn.DN_ID = dn.DN_ID where nsx.NSX_TEN = N'" + id + "' and dn.DN_NGALAPDON >= N'" + dau + "' and dn.DN_NGALAPDON <= N'" + cuoi + "'").FirstOrDefault();
-
-            ThongKe thongKe = new ThongKe()
-            {
-                SL = i,
-                TenNSX = id
-            };
-            thongKes.Add(thongKe);
-            return i;
-        }
-
-
-
-
+      
     }
 }

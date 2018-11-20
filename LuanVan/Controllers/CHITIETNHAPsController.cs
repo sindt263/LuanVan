@@ -86,7 +86,7 @@ namespace LuanVan.Controllers
         public ActionResult CreateCTN(string id1, string id2,int id3)
         {
             CHITIETNHAP cHITIETNHAP = new CHITIETNHAP();
-
+            
             if (ModelState.IsValid)
             {
                 cHITIETNHAP.CTN_ID = db.autottang("CHITIETNHAP", "CTN_ID", db.CHITIETNHAPs.Count()).ToString();
@@ -117,7 +117,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETNHAP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_ID", cHITIETNHAP.CTSP_ID);
             return View(cHITIETNHAP);
         }
 
@@ -126,7 +126,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CTN_ID,PN_ID,SP_ID,CTN_GIA")] CHITIETNHAP cHITIETNHAP)
+        public ActionResult Edit([Bind(Include = "CTN_ID,PN_ID,CTSP_ID,CTN_GIA")] CHITIETNHAP cHITIETNHAP)
         {
             if (ModelState.IsValid)
             {
@@ -136,7 +136,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID", cHITIETNHAP.PN_ID);
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETNHAP.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_ID", cHITIETNHAP.CTSP_ID);
             return View(cHITIETNHAP);
         }
 

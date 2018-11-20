@@ -28,6 +28,7 @@ namespace LuanVan.Controllers
 
         public IEnumerable<CHITIETSANPHAM> ListAllPaging(string searchTerm, int page, int pageSize)
         {
+
             IQueryable<CHITIETSANPHAM> model = db.CHITIETSANPHAMs.Include(c => c.SANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {

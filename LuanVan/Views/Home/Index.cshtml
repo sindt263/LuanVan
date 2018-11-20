@@ -23,7 +23,7 @@
     <div class="view-details-link">
         @foreach (var item in ViewBag.NSX)
         {
-            <a href="Home/SearchSP?SearchTerm=@item.NSX_TEN">@item.NSX_TEN | </a>
+       <a href="Home/SearchSP?SearchTerm=@item.NSX_TEN" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">@item.NSX_TEN | </a>
         }
     </div>
     <!-- End brands area -->
@@ -60,6 +60,18 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
+                                             @if (i == 1)
+                                            {
+                                                <img src="~/Content/Images/ImgTop/834897.png" style="max-height:50px; max-width:50px" />
+                                            }
+                                            else if (i == 2)
+                                            {
+                                                <img src="~/Content/Images/ImgTop/1292905.png" style="max-height:50px; max-width:50px" />
+                                            }
+                                            else if (i == 3)
+                                            {
+                                                <img src="~/Content/Images/ImgTop/973950.png" style="max-height:50px; max-width:50px" />
+                                            }
                                         </div>
                                     </div>
                                     <div class="product-wid-price">
@@ -180,11 +192,23 @@
                                         @*<h2>Số lượng bán: @count</h2>*@
 
                                         <div class="product-wid-rating">
+                                            <i class="fa fa-save"></i>
+                                            <i class="fa fa-cc-paypal"></i>
+                                            <i class="fa fa-android"></i>
+                                            <i class="fa fa-apple"></i>
                                             <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                            @if (i == 1)
+                                            {
+                                                <img src="~/Content/Images/ImgTop/834897.png" style="max-height:50px; max-width:50px" />
+                                            }
+                                            else if (i == 2)
+                                            {
+                                                <img src="~/Content/Images/ImgTop/1292905.png" style="max-height:50px; max-width:50px" />
+                                            }
+                                            else if (i == 3)
+                                            {
+                                                <img src="~/Content/Images/ImgTop/973950.png" style="max-height:50px; max-width:50px" />
+                                            }
                                         </div>
                                     </div>
                                     <div class="product-wid-price">
@@ -439,7 +463,7 @@
                                                 </div>*@
                                             <!-- //for Details popup -->
 
-                                            <h2><a href="single-product.html">@i.SP_ID</a></h2>
+                                            <h2><a href="single-product.html">@i.SP_TEN</a></h2>
 
                                             <div class="product-carousel-price">
                                                 @{

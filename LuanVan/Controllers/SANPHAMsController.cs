@@ -35,7 +35,7 @@ namespace LuanVan.Controllers
 
             }
 
-            return model.OrderByDescending(x => x.SP_ID).ToPagedList(page, pageSize);
+            return model.OrderByDescending(x => x.SP_NGAYTAO).ToPagedList(page, pageSize);
         }
         // GET: SANPHAMs/Details/5
         public ActionResult Details(string id)
@@ -74,6 +74,13 @@ namespace LuanVan.Controllers
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
             HttpPostedFileBase file = Request.Files["Image"];
+            string SP_ID = Request["SP_ID"].ToString();
+
+            SANPHAM sp = db.SANPHAMs.Find(SP_ID);
+            if( sp != null)
+            {
+                ModelState.AddModelError("", "Mã sản phẩm đã tồn tại !");
+            }else
             if (ModelState.IsValid)
             {
                 db.SANPHAMs.Add(sANPHAM);

@@ -69,6 +69,7 @@ namespace LuanVan.Controllers
         public ActionResult Create([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
             HttpPostedFileBase file = Request.Files["Image"];
+          
             if (ModelState.IsValid)
             {
                 if (file != null)
