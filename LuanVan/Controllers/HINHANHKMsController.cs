@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -15,12 +17,26 @@ namespace LuanVan.Controllers
         private DataContext db = new DataContext();
 
         // GET: HINHANHKMs
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var hINHANHKMs = db.HINHANHKMs.Include(h => h.KHUYENMAI);
-            return View(hINHANHKMs.ToList());
+            var HAKM = new HINHANHKMsController();
+            var mode = HAKM.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(mode);
         }
 
+        public IEnumerable<HINHANHKM> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+            IQueryable<HINHANHKM> model = db.HINHANHKMs.Include(h => h.KHUYENMAI); ;
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.HAKM_ID.Contains(searchTerm) || x.KHUYENMAI.KM_TEN.Contains(searchTerm) );
+
+            }
+
+            return model.OrderByDescending(x => x.HAKM_ID).ToPagedList(page, pageSize);
+        }
         // GET: HINHANHKMs/Details/5
         public ActionResult Details(string id)
         {

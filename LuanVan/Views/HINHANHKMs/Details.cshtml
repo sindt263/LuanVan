@@ -24,12 +24,16 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HAKM_ND)
+            <asp:Repeater runat="server" id="myRepeater">
+                <ItemTemplate>
+                    <img src="/HINHANHKMs/getImageHA/@Model.KM_ID" alt="" width="600" height="300" style="float:left" />
+                </ItemTemplate>
+            </asp:Repeater>
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.HAKM_ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.HAKM_ID }) |
+    @Html.ActionLink("Quay lại", "Index")
 </p>

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LuanVan.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace LuanVan.Controllers
 {
@@ -48,12 +50,28 @@ namespace LuanVan.Controllers
         }
 
         // GET: BINHLUANCTSPs
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int page = 1, int pageSize = 11)
         {
-            var bINHLUANCTSPs = db.BINHLUANCTSPs.Include(b => b.SANPHAM).Include(b => b.KHACHHANG).Include(b => b.NHANVIEN);
-            return View(bINHLUANCTSPs.ToList());
+            var BL = new BINHLUANCTSPsController();
+            var mode = BL.ListAllPaging(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+           
+            return View(mode);
+            
         }
 
+        public IEnumerable<BINHLUANCTSP> ListAllPaging(string searchTerm, int page, int pageSize)
+        {
+
+            IQueryable<BINHLUANCTSP> model = db.BINHLUANCTSPs.Include(b => b.SANPHAM).Include(b => b.KHACHHANG).Include(b => b.NHANVIEN);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.KH_ID.Contains(searchTerm) || x.BL_ND.Contains(searchTerm) || x.SANPHAM.SP_TEN.Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.BL_THOIGIAN).ToPagedList(page, pageSize);
+        }
         // GET: BINHLUANCTSPs/Details/5
         public ActionResult Details(string id)
         {

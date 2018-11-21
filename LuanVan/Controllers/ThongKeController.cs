@@ -317,6 +317,70 @@ namespace LuanVan.Controllers
             return View(list.OrderByDescending(sp=>sp.SL).ToList());
         }
 
-      
+      public ActionResult ThongKeKH()
+        {
+            ViewBag.KH = db.KHACHHANGs.ToList();
+            laygiatritrongthang();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ThongKeKH(string KH_ID, DateTime dau, DateTime cuoi)
+        {
+            ViewBag.KH = db.KHACHHANGs.ToList();
+            laygiatritrongthang();
+            ViewBag.dauthang = dau;
+            ViewBag.cuoithang = cuoi;
+            List<ThongKe> list = new List<ThongKe>();
+            if (string.IsNullOrEmpty(KH_ID))
+            {
+                var TKKH = from kh in db.KHACHHANGs join dn in db.DONHANGs on kh.KH_ID equals dn.KH_ID select dn;
+
+                foreach(var i in TKKH)
+                {
+                    if (list.FirstOrDefault(sp => sp.KH_ID == i.KH_ID) == null)
+                    {
+                        var count = (from kh in db.KHACHHANGs join dn in db.DONHANGs on kh.KH_ID equals dn.KH_ID
+                                     join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
+                                     where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                                     && kh.KH_ID == i.KH_ID
+                                     select ctdn);
+                        ThongKe tk = new ThongKe()
+                        {
+                            KH_ID = i.KH_ID,
+                            KH_TEN= i.KHACHHANG.KH_TEN,
+                            TongTien = Convert.ToInt32(count.Sum(a=>a.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA))
+                        };
+                        list.Add(tk);
+                    }
+                }
+            }
+            else
+            {
+                var TKKH = from kh in db.KHACHHANGs join dn in db.DONHANGs on kh.KH_ID equals dn.KH_ID where kh.KH_ID == KH_ID select dn;
+
+                foreach (var i in TKKH)
+                {
+                    if (list.FirstOrDefault(sp => sp.KH_ID == i.KH_ID) == null)
+                    {
+                        var count = (from kh in db.KHACHHANGs
+                                     join dn in db.DONHANGs on kh.KH_ID equals dn.KH_ID
+                                     join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
+                                     where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                                     && dn.KH_ID == KH_ID
+                                     select ctdn);
+                        ThongKe tk = new ThongKe()
+                        {
+                            KH_ID = i.KH_ID,
+                            KH_TEN = i.KHACHHANG.KH_TEN,
+                            TongTien = Convert.ToInt32(count.Sum(a => a.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA))
+                        };
+                        list.Add(tk);
+                    }
+                }
+            }
+          
+            return View(list.OrderByDescending(sp => sp.TongTien).ToList());
+        }
     }
 }

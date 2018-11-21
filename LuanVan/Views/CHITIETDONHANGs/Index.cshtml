@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LuanVan.Models.CHITIETDONHANG>
+﻿@model IPagedList<LuanVan.Models.CHITIETDONHANG>
 
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,16 +29,16 @@
                     <table class="table table-striped table-bordered table-hover table-condensed" border="1">
                         <tr>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.CTDH_ID)
+                                @Html.DisplayName("Mã chi tiết")
                             </th>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.DN_ID)
+                                @Html.DisplayName("Mã đơn hàng")
                             </th>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.DONHANG.KH_ID)
+                                @Html.DisplayName("Mã khách hàng")
                             </th>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
+                                @Html.DisplayName("Tên sản phẩm")
                             </th>
 
                             <th class="text-center">tùy chọn</th>
@@ -44,38 +46,40 @@
 
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td class="text-center">
-                                @Html.DisplayFor(modelItem => item.CTDH_ID)
-                            </td> 
-                            <td class="text-center">
-                                @Html.DisplayFor(modelItem => item.DN_ID)
-                            </td>
-                            @if (item.DONHANG.KH_ID == null)
-                            {
-                                <td class="text-center">Khách không dùng tài khoản</td>
-                            }
-                            else
-                            {
+                            <tr>
                                 <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
+                                    @Html.DisplayFor(modelItem => item.CTDH_ID)
                                 </td>
-                            }
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.DN_ID)
+                                </td>
+                                @if (item.DONHANG.KH_ID == null)
+                                {
+                                    <td class="text-center">Khách không dùng tài khoản</td>
+                                }
+                                else
+                                {
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
+                                    </td>
+                                }
 
-                            <td class="text-left">
-                                @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
-                            </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
+                                </td>
 
-                            <td>
-                                <button class="btn btn-success" style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.CTDH_ID })</i> </button>
-                                <button class="btn btn-info" style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.CTDH_ID })</i> </button>
-                                <button class="btn btn-warning" style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.CTDH_ID })</i></button>
-                            </td>
-                        </tr>
+                                <td>
+                                    <button class="btn btn-success" style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.CTDH_ID })</i> </button>
+                                    <button class="btn btn-info" style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.CTDH_ID })</i> </button>
+                                    <button class="btn btn-warning" style="width:80px"><i class="fa fa-trash">@Html.ActionLink("Xóa", "Delete", new { id = item.CTDH_ID })</i></button>
+                                </td>
+                            </tr>
                         }
 
                     </table>
-
+                    <div class="col-md-12 text-center">
+                        @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang, SearchTerm = ViewBag.SearchTerm }))
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,6 +9,9 @@ namespace LuanVan.Models
     {
         public string SP_ID { set; get; }
         public string TenSP { set; get; }
+        public string KH_ID { set; get; }
+        public string KH_TEN { set; get; }
+        public int TongTien { set; get; }
         public int? SL { set; get; }
     }
 }

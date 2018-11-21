@@ -72,7 +72,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID");
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
             return View();
         }
 
@@ -81,7 +81,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO")] CHITIETDONHANG cHITIETDONHANG)
+        public ActionResult Create([Bind(Include = "CTDH_ID,DN_ID,CTSP_ID,CTDH_DIACHIGIAO")] CHITIETDONHANG cHITIETDONHANG)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace LuanVan.Controllers
             }
 
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }
 
@@ -109,7 +109,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }
 
@@ -118,7 +118,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CTDH_ID,DN_ID,SP_ID,CTDH_DIACHIGIAO")] CHITIETDONHANG cHITIETDONHANG)
+        public ActionResult Edit([Bind(Include = "CTDH_ID,DN_ID,CTSP_ID,CTDH_DIACHIGIAO")] CHITIETDONHANG cHITIETDONHANG)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETDONHANG.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }
 

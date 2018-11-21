@@ -67,16 +67,21 @@
         var id3 = document.getElementById("CTN_GIA");
        
 
-
-        $('#CreateCTN').click(function () {
-            $.ajax({
-                type: "GET",
-                url: '/ChiTietNhaps/CreateCTN/',
-                data: { 'id1': id1.value, 'id2': id2.value, 'id3': id3.value },
-                success: function (result) {
-                    $('#Viewss').html(result)
-                }
+        if (id3.value <= 0) {
+            id3.value = 0;
+            alert("Giá nhập không được nhỏ hơn không")
+        }
+        else {
+            $('#CreateCTN').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: '/ChiTietNhaps/CreateCTN/',
+                    data: { 'id1': id1.value, 'id2': id2.value, 'id3': id3.value },
+                    success: function (result) {
+                        $('#Viewss').html(result)
+                    }
+                })
             })
-        })
+        }
     })
 </script>

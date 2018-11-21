@@ -32,7 +32,7 @@ namespace LuanVan.Controllers
             IQueryable<CHITIETNHAP> model = db.CHITIETNHAPs.Include(c => c.PHIEUNHAPSP).Include(c => c.CHITIETSANPHAM);
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(x => x.PN_ID.ToString().Contains(searchTerm) || x.CHITIETSANPHAM.CTSP_TEN.ToString().Contains(searchTerm));
+                model = model.Where(x => x.PN_ID.ToString().Contains(searchTerm));
 
             }
 

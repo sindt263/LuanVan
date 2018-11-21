@@ -1,0 +1,96 @@
+﻿@model IEnumerable<LuanVan.Models.ThongKe>
+@using LuanVan.Models;
+
+@{
+    ViewBag.Title = "ThongKeKH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script language="javascript">
+
+    angular.module('myapp', [])
+        .controller('DateController', ['$scope', function ($scope) {
+            $scope.value2 = new Date("@ViewBag.dauthang");
+            $scope.value1 = new Date("@ViewBag.cuoithang");
+        }]);
+
+</script>
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div ng-app="myapp" class="container">
+        <div class="col-md-4 col-sm-4">
+            @Html.Label("Tên nhà sản xuất", new { @class = "control-label" })
+            <select id="KH_ID" name="KH_ID" class="form-control">
+                <option value="">-- Tất cả --</option>
+                @foreach (var i in ViewBag.KH)
+                {
+                    <option value="@i.KH_ID">@i.KH_TEN</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-8 col-sm-8" name="myForm" ng-controller="DateController">
+            <div class="col-md-3 col-sm-3">
+                <label class="control-label">Ngày bắt đầu</label>
+                <input type="date" ng-model="value2" id="dau" name="dau" class="form-control" />
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <label class="control-label">Ngày kết thúc</label>
+                <input type="date" ng-model="value1" id="cuoi" name="cuoi" class="form-control" />
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <input type="submit" id="thongke1" style="margin-top:25px" class="btn btn-success" value="Thống kê" />
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                Mã khách hàng
+            </th>
+            <th>
+                Tên khách hàng
+            </th>
+            <th>Tổng tiền mua</th>
+        </tr>
+        @{ int top = 1;}
+        @if (Model == null)
+        {
+            <h2>Chọn khoảng thời gian thống kê</h2>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.KH_ID
+                    </td>
+                    <td>
+                        @item.KH_TEN
+                    </td>
+                    <td>
+                        @item.TongTien.ToString("###,###")
+                        @if (top == 1)
+                        {
+                            <img src="~/Content/Images/ImgTop/834897.png" style="max-height:50px; max-width:50px" />
+                        }
+                        else if (top == 2)
+                        {
+                            <img src="~/Content/Images/ImgTop/1292905.png" style="max-height:50px; max-width:50px" />
+                        }
+                        else if (top == 3)
+                        {
+                            <img src="~/Content/Images/ImgTop/973950.png" style="max-height:50px; max-width:50px" />
+                        }
+                    </td>
+
+                </tr>
+                top++;
+            }
+
+        }
+    </table>
+}

@@ -113,17 +113,17 @@ namespace LuanVan.Controllers
         public ActionResult Edit([Bind(Include = "HA_ID,SP_ID,HA_ND")] HINHANHSP hINHANHSP)
         {
             HttpPostedFileBase file = Request.Files["Image"];
-             if (file != null && file.ContentLength >1)
+             
+            if (ModelState.IsValid)
+            {
+                if (file != null && file.ContentLength > 1)
                 {
                     Int32 length = file.ContentLength;
                     byte[] tempImage = new byte[length];
                     file.InputStream.Read(tempImage, 0, length);
                     hINHANHSP.HA_ND = tempImage;
                 }
-               
-            if (ModelState.IsValid)
-            {
-               
+
                 db.Entry(hINHANHSP).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -84,30 +84,36 @@
         var CTSP_TEN = document.getElementById("CTSP_TEN");
         var PN_ID = document.getElementById("PN_ID");
         var CTN_GIA = document.getElementById("CTN_GIA");
-        $('#CreateSP').click(function () {
-           
-            if (CTSP_ID.value == "" || CTSP_ID.value == null) {
-                alert("Mã sản phẩm không được rỗng !")
-            }else
-                if (SP_ID.value == "") {
-                alert("Tên sản phẩm không được rỗng !")
-            } else if (SP_ID.value == "") {
-                alert("Tên sản phẩm không được rỗng !")
-                } else 
-                    if (CTN_GIA.value == "") {
-                alert("Giá sản phẩm không được rỗng !")
-            } else {
-                $.ajax({
-                    type: "GET",
-                    url: '/ChiTietSanPhams/CreateSP/',
-                    data: {
-                        'CTSP_ID': CTSP_ID.value, 'SP_ID': SP_ID.value, 'CTSP_TEN': CTSP_TEN.value, 'PN_ID': PN_ID.value, 'CTN_GIA': CTN_GIA.value
-                    },
-                    success: function (result) {
-                        $('#Viewss').html(result)
-                    }
-                })
-            }
-        })
+
+        
+            $('#CreateSP').click(function () {
+
+                if (CTSP_ID.value == "" || CTSP_ID.value == null) {
+                    alert("Mã sản phẩm không được rỗng !")
+                } else
+                    if (SP_ID.value == "") {
+                        alert("Tên sản phẩm không được rỗng !")
+                    } else if (SP_ID.value == "") {
+                        alert("Tên sản phẩm không được rỗng !")
+                    } else
+                        if (CTN_GIA.value == "") {
+                            alert("Giá sản phẩm không được rỗng !")
+                        } else if (CTN_GIA.value <= 0) {
+                            CTN_GIA.value = 0;
+                            alert("Giá nhập không được nhỏ hơn không")
+                        }
+                        else {
+                            $.ajax({
+                                type: "GET",
+                                url: '/ChiTietSanPhams/CreateSP/',
+                                data: {
+                                    'CTSP_ID': CTSP_ID.value, 'SP_ID': SP_ID.value, 'CTSP_TEN': CTSP_TEN.value, 'PN_ID': PN_ID.value, 'CTN_GIA': CTN_GIA.value
+                                },
+                                success: function (result) {
+                                    $('#Viewss').html(result)
+                                }
+                            })
+                        }
+            }) 
     })
 </script>

@@ -25,7 +25,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HAKM_ND)
+            <asp:Repeater runat="server" id="myRepeater">
+                <ItemTemplate>
+                    <img src="/HINHANHKMs/getImageHA/@Model.KM_ID" alt="" width="600" height="300" style="float:left" />
+                </ItemTemplate>
+            </asp:Repeater>
         </dd>
 
     </dl>
@@ -34,8 +38,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Quay lại", "Index")
         </div>
     }
 </div>
