@@ -261,7 +261,7 @@ namespace LuanVan.Controllers
 
         public int GetGia(string id)
         {
-            int gia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID ='" + id + "'").SingleOrDefault();
+            int gia = db.Database.SqlQuery<int>("select Gia_Gia from GiaSP where Gia_ID ='" + id + "'").FirstOrDefault();
             return gia;
         }
 
@@ -277,17 +277,17 @@ namespace LuanVan.Controllers
 
         public string GetTenSP(string id)
         {
-            string tensp = db.Database.SqlQuery<string>("select SP_TEN from SanPham where SP_ID ='" + id + "'").SingleOrDefault();
+            string tensp = db.Database.SqlQuery<string>("select SP_TEN from SanPham where SP_ID ='" + id + "'").FirstOrDefault();
             return tensp;
         }
         public string GetCTSP(string id)
         {
-            string tensp = db.Database.SqlQuery<string>("select CTSP_ID from SanPham where SP_ID ='" + id + "'").SingleOrDefault();
+            string tensp = db.Database.SqlQuery<string>("select CTSP_ID from SanPham where SP_ID ='" + id + "'").FirstOrDefault();
             return tensp;
         }
         public string GetCTSP_TEN(string id)
         {
-            string tensp = db.Database.SqlQuery<string>("select CTSP_TEN from ChiTietSanPham where CTSP_ID ='" + id + "'").SingleOrDefault();
+            string tensp = db.Database.SqlQuery<string>("select SP_TEN from SanPham where SP_ID ='" + id + "'").FirstOrDefault();
             return tensp;
         }
 

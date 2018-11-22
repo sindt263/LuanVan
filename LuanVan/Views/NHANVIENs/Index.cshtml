@@ -16,7 +16,7 @@
                 @using (Html.BeginForm("Index", "NhanViens", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
                 {
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>

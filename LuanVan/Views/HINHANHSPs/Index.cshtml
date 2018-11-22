@@ -16,7 +16,7 @@
                 @using (Html.BeginForm("Index", "HinhAnhSPs", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
                 {
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
@@ -58,7 +58,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-success" style="width:80px"><i class="fa fa-edit"> @Html.ActionLink("Sửa", "Edit", new { id = item.HA_ID })</i> </button>
-                                    <button class="btn btn-info" style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.HA_ID })</i> </button>
+                                    @*<button class="btn btn-info" style="width:80px"><i class="fa fa-book">@Html.ActionLink("Chi tiết", "Details", new { id = item.HA_ID })</i> </button>*@
                                     <button class="btn btn-warning" style="width:80px"><i class="fa fa-trash"> @Html.ActionLink("Xóa", "Delete", new { id = item.HA_ID })</i></button>
                                 </td>
                             </tr>

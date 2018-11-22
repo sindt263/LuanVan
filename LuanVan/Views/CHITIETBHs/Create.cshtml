@@ -6,9 +6,11 @@
 }
 
 <script language="javascript">
+    var a = new Date()
     angular.module('myapp', [])
         .controller('DateController', ['$scope', function ($scope) {
             $scope.value = new Date();
+            $scope.value1 = new Date(a.getFullYear(), a.getMonth(), a.getDate() + 15);
         }]);
 
 </script>
@@ -64,7 +66,7 @@
         <div class="form-group" name="myForm" ng-controller="DateController">
             @Html.LabelFor(model => model.CTBH_NGAYTRA, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="date" name="CTBH_NGAYTRA" ng-model="value" id="CTBH_NGAYTRA" class="form-control" />
+                <input type="date" name="CTBH_NGAYTRA" ng-model="value1" id="CTBH_NGAYTRA" class="form-control" />
                 @Html.ValidationMessageFor(model => model.CTBH_NGAYTRA, "", new { @class = "text-danger" })
             </div>
         </div>

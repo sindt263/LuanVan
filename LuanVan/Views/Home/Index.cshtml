@@ -43,7 +43,7 @@
                                 string top = db.Database.SqlQuery<string>("select top " +i+ " sp.SP_ID from ((SANPHAM sp inner join CHITIETSANPHAM ctsp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.ctSP_ID)inner join DONHANG dn on ctdn.DN_ID =dn.DN_ID where dn.TTDH_ID != 2  group by sp.SP_ID, sp.SP_TEN order by Count(ctsp.CTSP_ID) desc ").LastOrDefault();
                                 int count = db.Database.SqlQuery<int>("select Count(ctsp.CTSP_ID) as count from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) inner join DonHang dn on ctdn.DN_ID = dn.DN_ID where sp.SP_ID= '" + top + "' and dn.TTDH_ID !=2").SingleOrDefault();
                                 <div class="single-wid-product">
-                                    <a href="/ChiTietSanPhams/Details/@top">
+                                    <a href="/SanPhams/Details/@top">
                                         <asp:Repeater runat="server" id="myRepeater">
                                             <ItemTemplate>
                                                 <img class="product-thumb" src="/HinhAnhSPs/getImage/@top" alt="Hình sản phẩm" />
@@ -51,7 +51,7 @@
                                         </asp:Repeater>
                                     </a>
                                     <div class="single-wid-product">
-                                        <a href="/ChiTietSanPhams/Details/@top"><h2 class="" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
+                                        <a href="/SanPhams/Details/@top"><h2 class="" style="font-size:large">@cHITIETSANPH.GetCTSP_TEN(top)</h2></a>
                                         <h2>Số lượng bán: @count</h2>
 
                                         <div class="product-wid-rating">
@@ -180,7 +180,7 @@
                                 string top = db.Database.SqlQuery<string>("select top " + i + " sp.SP_ID from ((ChitietSanPham ctsp inner join SanPham sp on sp.SP_ID = ctsp.SP_ID) inner join CHITIETDONHANG ctdn on ctsp.CTSP_ID = ctdn.CTSP_ID) group by sp.SP_ID, sp.SP_TEN order by Count(sp.SP_ID) desc ").LastOrDefault();
                                 var ii = db.SANPHAMs.Find(top);
                                 <div class="single-wid-product">
-                                    <a href="/ChiTietSanPhams/Details/@top">
+                                    <a href="/SanPhams/Details/@top">
                                         <asp:Repeater runat="server" id="myRepeater">
                                             <ItemTemplate>
                                                 <img class="product-thumb" src="/HinhAnhSPs/getImage/@top" alt="Hình sản phẩm" />
@@ -188,7 +188,7 @@
                                         </asp:Repeater>
                                     </a>
                                     <div class="single-wid-product">
-                                        <a href="/ChiTietSanPhams/Details/@top"><h2 class="" style="font-size:large">@ii.SP_TEN</h2></a>
+                                        <a href="/SanPhams/Details/@top"><h2 class="" style="font-size:large">@ii.SP_TEN</h2></a>
                                         @*<h2>Số lượng bán: @count</h2>*@
 
                                         <div class="product-wid-rating">
@@ -335,7 +335,7 @@
 
 
                                             <div class="product-carousel-price">
-                                                <a href="/ChiTietSanPhams/Details/@item.SP_ID"><h2 class="" style="font-size:large">@item.SP_TEN</h2></a>
+                                                <a href="/SanPhams/Details/@item.SP_ID"><h2 class="" style="font-size:large">@item.SP_TEN</h2></a>
                                                 @{
                                                     float newprice;
                                                     if (km.KM_GIATRI > 1)

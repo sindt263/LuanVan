@@ -90,7 +90,7 @@ namespace LuanVan.Controllers
         // GET: BINHLUANCTSPs/Create
         public ActionResult Create()
         {
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN");
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN");
             return View();
@@ -101,7 +101,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string id2,string id3,[Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN,BL_TL")] BINHLUANCTSP bINHLUANCTSP)
+        public ActionResult Create(string id2,string id3,[Bind(Include = "BL_ID,SP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN,BL_TL")] BINHLUANCTSP bINHLUANCTSP)
         {
             if (ModelState.IsValid)
             {
@@ -133,7 +133,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("details/"+id2, "SanPhams");
             }
 
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", bINHLUANCTSP.SP_ID);
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", bINHLUANCTSP.KH_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", bINHLUANCTSP.NV_ID);
             return View(bINHLUANCTSP);
@@ -187,7 +187,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", bINHLUANCTSP.SP_ID);
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", bINHLUANCTSP.KH_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", bINHLUANCTSP.NV_ID);
             return View(bINHLUANCTSP);
@@ -198,7 +198,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BL_ID,CTSP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN,BL_TL")] BINHLUANCTSP bINHLUANCTSP)
+        public ActionResult Edit([Bind(Include = "BL_ID,SP_ID,NV_ID,KH_ID,BL_ND,BL_THOIGIAN,BL_TL")] BINHLUANCTSP bINHLUANCTSP)
         {
             if (ModelState.IsValid)
             {
@@ -206,7 +206,7 @@ namespace LuanVan.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", bINHLUANCTSP.SP_ID);
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", bINHLUANCTSP.SP_ID);
             ViewBag.KH_ID = new SelectList(db.KHACHHANGs, "KH_ID", "KH_TEN", bINHLUANCTSP.KH_ID);
             ViewBag.NV_ID = new SelectList(db.NHANVIENs, "NV_ID", "NV_TEN", bINHLUANCTSP.NV_ID);
             return View(bINHLUANCTSP);

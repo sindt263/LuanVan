@@ -114,7 +114,14 @@ namespace LuanVan.Controllers
             return View();
         }
 
-
+        public ViewResult LuotDangNhapNV()
+        {
+            return View();
+        }
+        public ViewResult LuotDangNhapKH()
+        {
+            return View();
+        }
         // GET: NHANVIENs/Edit/5
         public ActionResult Edit(string id)
         {

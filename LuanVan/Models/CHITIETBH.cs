@@ -23,6 +23,7 @@
 
         [StringLength(30)]
         [Display(Name = "Mã sản phẩm")]
+        [Required(ErrorMessage ="Mã sản phẩm là bắt buộc.")]
         public string CTSP_ID { get; set; }
 
         [StringLength(10)]
@@ -32,11 +33,16 @@
         [Display(Name = "Mã trạng thái")]
         public short? TTBH_ID { get; set; }
 
+        [Display(Name = "Ngày bảo hành")]
+        [DataType(DataType.Date)]
         public DateTime? CTBH_NGAYBH { get; set; }
 
+        [Display(Name = "Ngày trả")]
+        [DataType(DataType.Date)]
         public DateTime? CTBH_NGAYTRA { get; set; }
 
         [StringLength(255)]
+        [Display(Name = "Ghi chú")]
         public string CTBH_GHICHU { get; set; }
 
         public virtual BAOHANH BAOHANH { get; set; }

@@ -108,7 +108,7 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
+            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "DN_ID", cHITIETDONHANG.DN_ID);
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }
@@ -126,7 +126,7 @@ namespace LuanVan.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "KH_ID", cHITIETDONHANG.DN_ID);
+            ViewBag.DN_ID = new SelectList(db.DONHANGs, "DN_ID", "DN_ID", cHITIETDONHANG.DN_ID);
             ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETDONHANG.CTSP_ID);
             return View(cHITIETDONHANG);
         }

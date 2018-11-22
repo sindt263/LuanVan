@@ -207,7 +207,6 @@ namespace LuanVan.Controllers
             if (ModelState.IsValid)
             {
               
-                 
                 db.Entry(kHACHHANG).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("IndexKH");

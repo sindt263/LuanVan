@@ -62,7 +62,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN");
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN");
             return View();
         }
@@ -72,25 +72,25 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CTBH_ID,SP_ID,BH_ID,TTBH_ID,CTBH_NGAYBH,CTBH_NGAYTRA,CTBH_GHICHU")] CHITIETBH cHITIETBH)
+        public ActionResult Create([Bind(Include = "CTBH_ID,CTSP_ID,BH_ID,TTBH_ID,CTBH_NGAYBH,CTBH_NGAYTRA,CTBH_GHICHU")] CHITIETBH cHITIETBH)
         {
-            string SP_ID = Request["SP_ID"];
-            string result = db.Database.SqlQuery<string>("select SP_ID from SanPham where SP_ID ='" + SP_ID + "'").SingleOrDefault();
-            if (result != null)
+            string CTSP_ID = Request["CTSP_ID"];
+            string result = db.Database.SqlQuery<string>("select CTSP_ID from ChiTietSanPham where CTSP_ID ='" + CTSP_ID + "' and CTSP_TRANGTHAI = 0").FirstOrDefault();
+            
+            if(result == null)
+            {
+                ModelState.AddModelError("", "Sản phẩm " + CTSP_ID +" chưa được bán hoặc không tồn tại.");
+            }else
             {
                 cHITIETBH.NV_ID = Session["NV_ID"].ToString();
                 cHITIETBH.CTBH_ID = db.autottang("ChiTietBH", "CTBH_ID", db.CHITIETBHs.Count()).ToString();
                 db.CHITIETBHs.Add(cHITIETBH);
                 db.SaveChanges();
                 ModelState.AddModelError("", "Đã thêm " + result);
-
             }
-            else
-            {
-                ModelState.AddModelError("", "Lỗi !");
-            }
+           
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN", cHITIETBH.BH_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETBH.CTSP_ID);
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN", cHITIETBH.TTBH_ID);
             return View(cHITIETBH);
         }
@@ -108,7 +108,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN", cHITIETBH.BH_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETBH.CTSP_ID);
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN", cHITIETBH.TTBH_ID);
             return View(cHITIETBH);
         }
@@ -118,7 +118,7 @@ namespace LuanVan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CTBH_ID,SP_ID,BH_ID,TTBH_ID,CTBH_NGAYBH,CTBH_NGAYTRA,CTBH_GHICHU")] CHITIETBH cHITIETBH)
+        public ActionResult Edit([Bind(Include = "CTBH_ID,CTSP_ID,BH_ID,TTBH_ID,CTBH_NGAYBH,CTBH_NGAYTRA,CTBH_GHICHU")] CHITIETBH cHITIETBH)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace LuanVan.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.BH_ID = new SelectList(db.BAOHANHs, "BH_ID", "BH_TEN", cHITIETBH.BH_ID);
-            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN", cHITIETBH.CTSP_ID);
+            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN", cHITIETBH.CTSP_ID);
             ViewBag.TTBH_ID = new SelectList(db.TRANGTHAIBHs, "TTBH_ID", "TTBH_TEN", cHITIETBH.TTBH_ID);
             return View(cHITIETBH);
         }

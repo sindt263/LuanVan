@@ -125,7 +125,7 @@ namespace LuanVan.Controllers
         public ActionResult Create([Bind(Include = "DN_ID,TTDH_ID,KH_ID,HTTT_ID,DN_NGALAPDON,DN_GHICHU,DN_SL,DN_SDT,DN_DIACHI,DN_MATHE,DN_CHUTHE,DN_NGAYCAP,DN_EMAIL")] DONHANG dONHANG)
         {
             string KH_ID = Request["KH_ID"];
-            string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").SingleOrDefault();
+            string result = db.Database.SqlQuery<string>("select KH_ID from KhachHang where KH_ID='" + KH_ID + "'").FirstOrDefault();
 
             if (result != null)
             {

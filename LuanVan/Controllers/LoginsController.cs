@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -20,7 +21,7 @@ namespace LuanVan.Controllers
         [HttpGet]
         public ActionResult LoginKH()
         {
-            
+
             Session["KH_ID"] = null;
             //Session["NV_ID"] = null;
             Session["KH_Ten"] = null;
@@ -29,20 +30,20 @@ namespace LuanVan.Controllers
             //Session["LNV_ID"] = null;
             Session["KH_DIACHI"] = null;
             HttpCookie userInfo = Request.Cookies["LoginKH"];
-            if(userInfo != null)
+            if (userInfo != null)
             {
                 ViewBag.TK = userInfo["KH_TaiKhoan"];
                 ViewBag.MK = userInfo["KH_MatKhau"];
             }
-            
+
             return View();
         }
 
         [HttpPost, ActionName("LoginKH")]
         [ValidateAntiForgeryToken]
         public ActionResult SubmitLoginKH()
-        {            
-            
+        {
+
             string TK = Request["TK"];
             string MK = Request["MK"];
             ViewBag.TK = TK;
@@ -51,7 +52,7 @@ namespace LuanVan.Controllers
             var result = (from p in db.KHACHHANGs where p.KH_TAIKHOAN == TK && p.KH_MATKHAU == chuoimahoa select p);
             if (result.Count() >= 1)
             {
-                if (remember =="1")
+                if (remember == "1")
                 {
                     HttpCookie userInfo = new HttpCookie("LoginKH");
                     userInfo["KH_TaiKhoan"] = TK;
@@ -77,13 +78,25 @@ namespace LuanVan.Controllers
                     Session["KH_EMAIL"] = item.KH_EMAIL;
                     Session["KH_DIACHI"] = item.KH_DIACHI;
                 }
-                
-                return Redirect("~/"+ Session["link"]);
+                string path = Server.MapPath("~/KhachHang.txt");
+                StreamReader r = new StreamReader(path);
+                string a = r.ReadToEnd();
+                r.Close();
+
+                StreamWriter w = new StreamWriter(path, false);
+                //true = ghi tiep vao file, false = ghi de le du lieu cu, neu file chua ton tai se dc tao ra, file test.txt cung cấp thư mục, nếu ko phai chi rõ duong dẫn
+
+                w.WriteLine("<tr><td class=\"text-center\"> " + Session["KH_ID"].ToString() + "</td> <td class=\"text-left\"> " + DateTime.Now + "</td></tr>");
+                w.WriteLine(a);
+
+                w.Close();
+                return Redirect("~/" + Session["link"]);
             }
-            else {
+            else
+            {
                 ModelState.AddModelError("", "Tài khoản hoặc mật khẩu sai ");
             }
-               
+
             return View();
         }
 
@@ -111,8 +124,8 @@ namespace LuanVan.Controllers
             string remember = Request["remember"];
             string mahoa = Encrypt(MK);
             ViewBag.TKNV = TK;
-           var result = (from p in db.NHANVIENs where p.NV_TAIKHOAN == TK && p.NV_MATKHAU == mahoa select p);
-                if(result.Count() >= 1)
+            var result = (from p in db.NHANVIENs where p.NV_TAIKHOAN == TK && p.NV_MATKHAU == mahoa select p);
+            if (result.Count() >= 1)
             {
                 if (remember == "1")
                 {
@@ -138,6 +151,19 @@ namespace LuanVan.Controllers
                     Session["NV_TEN"] = item.NV_TEN;
                     Session["LNV_ID"] = item.LNV_ID;
                 }
+                // Luu: 
+                string path = Server.MapPath("~/NhanVien.txt");
+                StreamReader r = new StreamReader(path);
+                string a = r.ReadToEnd();
+                r.Close();
+
+                StreamWriter w = new StreamWriter(path, false);
+                //true = ghi tiep vao file, false = ghi de le du lieu cu, neu file chua ton tai se dc tao ra, file test.txt cung cấp thư mục, nếu ko phai chi rõ duong dẫn
+
+                w.WriteLine("<tr><td class=\"text-center\"> " + Session["NV_ID"].ToString() + "</td> <td class=\"text-left\"> " + DateTime.Now + "</td></tr>");
+                w.WriteLine(a);
+               
+                w.Close();
                 return Redirect("~/ChiTietSanPhams/");
             }
             else
