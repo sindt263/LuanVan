@@ -115,7 +115,7 @@ namespace LuanVan.Controllers
         public ActionResult Create()
         {
             ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
-            ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs, "PN_ID", "PN_ID");
+            ViewBag.PN_ID = new SelectList(db.PHIEUNHAPSPs.OrderByDescending(x=>x.PN_ID), "PN_ID", "PN_ID");
             return View();
         }
 

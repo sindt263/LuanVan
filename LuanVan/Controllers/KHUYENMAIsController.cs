@@ -130,7 +130,7 @@ namespace LuanVan.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CTSP_ID = new SelectList(db.CHITIETSANPHAMs, "CTSP_ID", "CTSP_TEN");
+            ViewBag.SP_ID = new SelectList(db.SANPHAMs, "SP_ID", "SP_TEN");
             return View(kHUYENMAI);
         }
 
@@ -141,12 +141,12 @@ namespace LuanVan.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditMany([Bind(Include = "KM_ID,KM_TEN,KM_NGAYBATDAU,KM_GIATRI,KM_NGAYKETTHUC,KM_MOTA")] KHUYENMAI kHUYENMAI)
         {
-            string ctsp_id = Request["CTSP_ID"];  
+            string sp_id = Request["SP_ID"];  
             if (ModelState.IsValid)
             {
                 db.Entry(kHUYENMAI).State = EntityState.Modified;
                 db.SaveChanges();
-                db.Database.ExecuteSqlCommand("update sanpham set KM_ID ='"+kHUYENMAI.KM_ID+"' where CTSP_ID ='" + ctsp_id + "'");
+                db.Database.ExecuteSqlCommand("update sanpham set KM_ID ='"+kHUYENMAI.KM_ID+"' where SP_ID ='" + sp_id + "'");
                 return RedirectToAction("Index");
             }
 

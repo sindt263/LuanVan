@@ -157,7 +157,11 @@ namespace LuanVan.Controllers
             {
                 // Nếu sản phẩm khách chọn đã có trong giỏ hàng thì không thêm vào giỏ nữa mà tăng số lượng lên.
                 CartItem cardItem = giohang.FirstOrDefault(m => m.SanPhamID == SanPhamID);
-                cardItem.SoLuong++;
+                var max = (from p in db.CHITIETSANPHAMs where p.SP_ID == cardItem.SP_ID && p.CTSP_TRANGTHAI == 1 select p);
+                if (cardItem.SoLuong < max.Count())
+                {
+                    cardItem.SoLuong++;
+                }
             }
 
             // Action này sẽ chuyển hướng về trang chi tiết sp khi khách hàng đặt vào giỏ thành công. Bạn có thể chuyển về chính trang khách hàng vừa đứng bằng lệnh return Redirect(Request.UrlReferrer.ToString()); nếu muốn.
