@@ -33,12 +33,12 @@ namespace LuanVan.Controllers
                 if(Session["KH_ID"] != null)
                 {
                     bINHLUANCTSP.KH_ID = Session["KH_ID"].ToString();
-                    bINHLUANCTSP.NV_ID = "0";
+                    //bINHLUANCTSP.NV_ID = "0";
                 }
                 if (Session["NV_ID"] != null)
                 {
                     bINHLUANCTSP.NV_ID = Session["NV_ID"].ToString();
-                    bINHLUANCTSP.KH_ID = "0";
+                    //bINHLUANCTSP.KH_ID = "0";
                 }
                
                 db.BINHLUANCTSPs.Add(bINHLUANCTSP);

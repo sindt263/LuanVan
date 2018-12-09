@@ -74,7 +74,7 @@ namespace LuanVan.Controllers
             HINHANHSPsController hINHANHSPsController = new HINHANHSPsController();
             HINHANHSP hINHANHSP = new HINHANHSP();
             HttpPostedFileBase file = Request.Files["Image"];
-            string SP_ID = Request["SP_ID"].ToString();
+            string SP_ID = Request["SP_ID"].ToString().Replace(" ", "_");
 
             SANPHAM sp = db.SANPHAMs.Find(SP_ID);
             if( sp != null)
