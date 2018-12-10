@@ -132,7 +132,7 @@ namespace LuanVan.Controllers
         }
 
         // GET: CHITIETDONHANGs/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id,string id2)
         {
             if (id == null)
             {
@@ -143,7 +143,9 @@ namespace LuanVan.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cHITIETDONHANG);
+            db.Database.ExecuteSqlCommand("delete from ChiTietDonHang where CTDH_ID ='" + id + "' and CTSP_ID ='" + id2 + "'");
+            db.Database.ExecuteSqlCommand("update ChiTietSanPham set CTSP_TRANGTHAI = 1 where CTSP_ID = '" + id2 + "'");
+            return RedirectToAction("Index", "DonHangs");
         }
 
         // POST: CHITIETDONHANGs/Delete/5

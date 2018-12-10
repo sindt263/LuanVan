@@ -71,7 +71,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-success" style="width:80px"><i class="fa fa-edit">@Html.ActionLink("Sửa", "Edit", new { id = item.BL_ID })</i>  </button>
-                                    <button class="btn btn-info" style="width:80px"><i class="fa fa-info">@Html.ActionLink("Chi tiết", "Details", new { id = item.BL_ID })</i> </button>
+                                    @*<button class="btn btn-info" style="width:80px"><i class="fa fa-info">@Html.ActionLink("Chi tiết", "Details", new { id = item.BL_ID })</i> </button>*@
                                     
                                     <button class="btn btn-warning" style="width:80px"><i class="fa"> @Html.ActionLink("Xóa", "Delete", new { id = item.BL_ID })</i> </button>
                                     <button class="btn btn-group" style="width:80px"><i class="fa fa-edit"> </i><a href="~/SanPhams/Details/@item.SP_ID">Trả lời</a> </button>

@@ -22,7 +22,10 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
                             </th>
-                           
+                           @if(Session["NV_ID"] != null)
+                           {
+                               <th>Tùy chọn</th>
+                           }
                         </tr>
 
                         @foreach (var item in Model)
@@ -41,7 +44,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
                             </td>
-                          
+                            @if (Session["NV_ID"] != null)
+                            {
+                            <td> <button class="btn btn-warning" style="width:80px"><i class="fa"><a href="@Url.Action("Delete", new {id = item.CTDH_ID, id2 = item.CTSP_ID })" onclick="return confirm('Bạn có chắc muốn xóa @item.CHITIETSANPHAM.CTSP_TEN ?');" class="btn btn-danger btn-sm">Xóa</a> </i> </button></td>
+                            }
                         </tr>
                         }
 
