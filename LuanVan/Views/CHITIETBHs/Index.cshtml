@@ -31,7 +31,13 @@
                                 @Html.DisplayName("Tên bảo hành")
                             </th>
                             <th class="text-center">
-                                @Html.DisplayName("Tên sản phẩm")
+                                @Html.DisplayName("Mã sản phẩm")
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayName("Mã khách hàng")
+                            </th> 
+                            <th class="text-center">
+                                @Html.DisplayName("Nhân viên lập phiếu")
                             </th>
                             <th class="text-center">
                                 @Html.DisplayName("Trạng thái")
@@ -55,7 +61,13 @@
                                     @Html.DisplayFor(modelItem => item.BAOHANH.BH_TEN)
                                 </td>
                                 <td class="text-left">
-                                    @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
+                                    @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_ID)
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.KHACHHANG.KH_ID)
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.NV_ID)
                                 </td>
                                 <td class="text-left">
                                     @Html.DisplayFor(modelItem => item.TRANGTHAIBH.TTBH_TEN)

@@ -161,7 +161,7 @@ namespace LuanVan.Controllers
             ViewBag.dauthang = dau;
             if (id == "0")
             {
-                var model = (from pn in db.PHIEUNHAPSPs 
+                var model = (from pn in db.PHIEUNHAPSPs
                              join ctn in db.CHITIETNHAPs on pn.PN_ID equals ctn.PN_ID
                              join ctsp in db.CHITIETSANPHAMs on ctn.CTSP_ID equals ctsp.CTSP_ID
                              join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
@@ -189,6 +189,7 @@ namespace LuanVan.Controllers
             laygiatritrongthang();
             return View();
         }
+
         [HttpPost]
         public ViewResult ThongKeBanTheoNSX(string id, DateTime dau, DateTime cuoi)
         {
@@ -197,8 +198,11 @@ namespace LuanVan.Controllers
             ViewBag.cuoithang = cuoi;
 
             ViewBag.dauthang = dau;
+
             if (id == "0")
             {
+                //Vẽ biểu đồ phần trăm
+                
                 var model = (from dn in db.DONHANGs
                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
                              join ctsp in db.CHITIETSANPHAMs on ctdn.CTSP_ID equals ctsp.CTSP_ID
@@ -259,30 +263,32 @@ namespace LuanVan.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SPBanNhieuNhat(string SP_ID,DateTime dau, DateTime cuoi)
+        public ActionResult SPBanNhieuNhat(string SP_ID, DateTime dau, DateTime cuoi)
         {
             ViewBag.SP = db.SANPHAMs.ToList();
             ViewBag.dauthang = dau;
             ViewBag.cuoithang = cuoi;
-           
+
             List<ThongKe> list = new List<ThongKe>();
             if (SP_ID == "0")
             {
-                var TKSP = (from ctsp in db.CHITIETSANPHAMs join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
-                            join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID where dn.TTDH_ID != 2
-                            && dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                var TKSP = (from ctsp in db.CHITIETSANPHAMs
+                            join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
+                            join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
+                            where dn.TTDH_ID != 2
+&& dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
                             select ctsp);
-              
+
                 foreach (var i in TKSP)
                 {
                     if (list.FirstOrDefault(sp => sp.SP_ID == i.SP_ID) == null)
                     {
                         var count = (from ctsp in db.CHITIETSANPHAMs
-                                    join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
-                                    join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
-                                    where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
-                                      && dn.TTDH_ID != 2 && ctsp.SP_ID == i.SP_ID
-                                    select ctsp);
+                                     join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
+                                     join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
+                                     where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                                       && dn.TTDH_ID != 2 && ctsp.SP_ID == i.SP_ID
+                                     select ctsp);
                         ThongKe tk = new ThongKe()
                         {
                             SP_ID = i.SP_ID,
@@ -295,10 +301,12 @@ namespace LuanVan.Controllers
             }
             else
             {
-                var TKSP = (from ctsp in db.CHITIETSANPHAMs join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
+                var TKSP = (from ctsp in db.CHITIETSANPHAMs
+                            join ctdn in db.CHITIETDONHANGs on ctsp.CTSP_ID equals ctdn.CTSP_ID
                             join dn in db.DONHANGs on ctdn.DN_ID equals dn.DN_ID
-                           where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
-                             && dn.TTDH_ID != 2 && ctsp.SP_ID == SP_ID  select ctsp);
+                            where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
+                              && dn.TTDH_ID != 2 && ctsp.SP_ID == SP_ID
+                            select ctsp);
 
                 foreach (var i in TKSP)
                 {
@@ -314,10 +322,10 @@ namespace LuanVan.Controllers
                     }
                 }
             }
-            return View(list.OrderByDescending(sp=>sp.SL).ToList());
+            return View(list.OrderByDescending(sp => sp.SL).ToList());
         }
 
-      public ActionResult ThongKeKH()
+        public ActionResult ThongKeKH()
         {
             ViewBag.KH = db.KHACHHANGs.ToList();
             laygiatritrongthang();
@@ -336,11 +344,12 @@ namespace LuanVan.Controllers
             {
                 var TKKH = from kh in db.KHACHHANGs join dn in db.DONHANGs on kh.KH_ID equals dn.KH_ID select dn;
 
-                foreach(var i in TKKH)
+                foreach (var i in TKKH)
                 {
                     if (list.FirstOrDefault(sp => sp.KH_ID == i.KH_ID) == null)
                     {
-                        var count = (from kh in db.KHACHHANGs join dn in db.DONHANGs on kh.KH_ID equals dn.KH_ID
+                        var count = (from kh in db.KHACHHANGs
+                                     join dn in db.DONHANGs on kh.KH_ID equals dn.KH_ID
                                      join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
                                      where dn.DN_NGALAPDON >= dau && dn.DN_NGALAPDON <= cuoi
                                      && kh.KH_ID == i.KH_ID
@@ -348,8 +357,8 @@ namespace LuanVan.Controllers
                         ThongKe tk = new ThongKe()
                         {
                             KH_ID = i.KH_ID,
-                            KH_TEN= i.KHACHHANG.KH_TEN,
-                            TongTien = Convert.ToInt32(count.Sum(a=>a.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA))
+                            KH_TEN = i.KHACHHANG.KH_TEN,
+                            TongTien = Convert.ToInt32(count.Sum(a => a.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA))
                         };
                         list.Add(tk);
                     }
@@ -379,8 +388,64 @@ namespace LuanVan.Controllers
                     }
                 }
             }
-          
+
             return View(list.OrderByDescending(sp => sp.TongTien).ToList());
+        }
+
+        public ActionResult ThongKePhanTram()
+        {
+
+            laygiatritrongthang();
+            var data = (from dn in db.DONHANGs join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID where dn.TTDH_ID != 2 select ctdn);
+            List<DataPoint> dataPoints = new List<DataPoint>();
+
+            foreach (var i in data)
+            {
+                DateTime a = Convert.ToDateTime(i.DONHANG.DN_NGALAPDON);
+                DataPoint dataPoint = new DataPoint()
+                {
+                    X = " new Date(" + String.Format("{0:yyyy,MM-1,d}", a) + ")",
+                    Y = Convert.ToDouble(i.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA),
+                };
+                dataPoints.Add(dataPoint);
+            }
+
+            ViewBag.DataPoints = "";
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThongKePhanTram(DateTime dauthang, DateTime cuoithang)
+        {
+            @ViewBag.dauthang = dauthang;
+            @ViewBag.cuoithang = cuoithang;
+            var a = db.NHASANXUATs.ToList();
+            List<PiePoints> dataPoints = new List<PiePoints>();
+            var count = (from dn in db.DONHANGs
+                          join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
+                          join ctsp in db.CHITIETSANPHAMs on ctdn.CTSP_ID equals ctsp.CTSP_ID
+                          join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
+                          where dn.DN_NGALAPDON >= dauthang && dn.DN_NGALAPDON <= cuoithang && dn.TTDH_ID != 2
+                          select ctdn);
+            foreach (var item in a)
+            {
+                var result = (from dn in db.DONHANGs
+                              join ctdn in db.CHITIETDONHANGs on dn.DN_ID equals ctdn.DN_ID
+                              join ctsp in db.CHITIETSANPHAMs on ctdn.CTSP_ID equals ctsp.CTSP_ID
+                              join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
+                              where sp.NSX_ID == item.NSX_ID && dn.DN_NGALAPDON >= dauthang && dn.DN_NGALAPDON <= cuoithang && dn.TTDH_ID != 2
+                              select ctdn);
+                float kq = ((float)result.Count() / (float)count.Count()) * 100;
+                PiePoints dataPoint = new PiePoints()
+                {
+                    X = kq,
+                    legendText = item.NSX_TEN,
+                    Label = item.NSX_TEN,
+                };
+                dataPoints.Add(dataPoint);
+            }
+            string da = JsonConvert.SerializeObject(dataPoints);
+            ViewBag.DataPoints = da.Replace("\"label\"", "label").Replace("\"legendText\"", "legendText").Replace("\"x\"", "x");
+            return View(a);
         }
     }
 }

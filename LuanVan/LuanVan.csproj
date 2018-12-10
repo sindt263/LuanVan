@@ -258,6 +258,7 @@
     <Compile Include="Models\NHANVIEN.cs" />
     <Compile Include="Models\NHASANXUAT.cs" />
     <Compile Include="Models\PHIEUNHAPSP.cs" />
+    <Compile Include="Models\PiePoints.cs" />
     <Compile Include="Models\SANPHAM.cs" />
     <Compile Include="Models\SoSanhSP.cs" />
     <Compile Include="Models\sysdiagram.cs" />
@@ -4296,6 +4297,8 @@
     <Content Include="Views\ThongKe\ThongKeKH.cshtml" />
     <Content Include="Views\NHANVIENs\LuotDangNhapNV.cshtml" />
     <Content Include="Views\NHANVIENs\LuotDangNhapKH.cshtml" />
+    <Content Include="Views\CHITIETSANPHAMs\KTHang.cshtml" />
+    <Content Include="Views\ThongKe\ThongKePhanTram.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

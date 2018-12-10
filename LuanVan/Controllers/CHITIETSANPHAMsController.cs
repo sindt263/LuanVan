@@ -39,6 +39,27 @@ namespace LuanVan.Controllers
             return model.OrderByDescending(x => x.CTSP_ID).ToPagedList(page, pageSize);
         }
 
+        public ActionResult KTHang(string searchTerm, int page = 1, int pageSize = 11)
+        {
+            var SanPhams = new CHITIETSANPHAMsController();
+            var mode = SanPhams.ListAllPaging2(searchTerm, page, pageSize);
+            ViewBag.SearchTerm = searchTerm;
+            return View(mode);
+        }
+
+        public IEnumerable<SANPHAM> ListAllPaging2(string searchTerm, int page, int pageSize)
+        {
+
+            IQueryable<SANPHAM> model = db.SANPHAMs;
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model = model.Where(x => x.SP_ID.Contains(searchTerm) || x.SP_TEN.Contains(searchTerm));
+
+            }
+
+            return model.OrderByDescending(x => x.SP_NGAYTAO).ToPagedList(page, pageSize);
+        }
+
 
         public IEnumerable<CHITIETSANPHAM> ListAllPaging1(string searchTerm, int page, int pageSize)
         {

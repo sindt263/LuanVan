@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<LuanVan.Models.CHITIETDONHANG>
-
+@using LuanVan.Models
+@using Newtonsoft.Json
 @{
     ViewBag.Title = "ThongKeBanTheoNSX";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -45,6 +46,7 @@
             </div>
         </div>
     </div>
+   
     <table class="table">
         <tr>
             <th>
@@ -53,7 +55,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.CHITIETSANPHAM.CTSP_TEN)
             </th>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA)
             </th>
@@ -65,17 +67,17 @@
             </th>
 
         </tr>
-       
-           @if (Model == null)
-            {
+
+        @if (Model == null)
+        {
             <h2>Chọn khoảng thời gian thống kê</h2>
-            }
-            else
+        }
+        else
+        {
+            int sum = 0;
+            int i = 0;
+            foreach (var item in Model)
             {
-                int sum = 0;
-                int i = 0;
-                foreach (var item in Model)
-                {
                 <tr>
                     @if (item.DONHANG.KH_ID == null)
                     {
@@ -84,33 +86,33 @@
                     else
                     {
                         <td>
-                        @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
-                    </td>
+                            @Html.DisplayFor(modelItem => item.DONHANG.KH_ID)
+                        </td>
                     }
                     <td>
                         @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.CTSP_TEN)
                     </td>
-                    
+
                     <td>
                         @Html.DisplayFor(modelItem => item.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA)
                     </td>
-                     <td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.DONHANG.DN_NGALAPDON)
                     </td>
-                     <td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.DONHANG.TRANGTHAIDONHANG.TTDH_TEN)
                     </td>
 
                 </tr>
-                    sum = sum + Convert.ToInt32(item.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA);
-                    i++;
-                }
+                sum = sum + Convert.ToInt32(item.CHITIETSANPHAM.SANPHAM.GIASP.GIA_GIA);
+                i++;
+            }
             <div class="form-group">
                 <label class="control-label">Tổng</label>
                 <input type="text" disabled value="@sum.ToString("###,###,###")" class="form-control" />
                 <input type="text" disabled value="Tổng cộng: @i" class="form-control" />
             </div>
-            }
-        
+        }
+
     </table>
 }

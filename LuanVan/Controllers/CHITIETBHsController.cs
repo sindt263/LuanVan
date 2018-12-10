@@ -78,8 +78,9 @@ namespace LuanVan.Controllers
             DateTime CTBH_NGAYBH = Convert.ToDateTime(Request["CTBH_NGAYBH"]);
             DateTime CTBH_NGAYTRA = Convert.ToDateTime(Request["CTBH_NGAYTRA"]);
             string result = db.Database.SqlQuery<string>("select CTSP_ID from ChiTietSanPham where CTSP_ID ='" + CTSP_ID + "' and CTSP_TRANGTHAI = 0").FirstOrDefault();
-            
-            if(result == null)
+            string resultKH = db.Database.SqlQuery<string>("select KH_ID from DonHang dn inner join ChiTietDonHang ctdh on dn.DN_ID = ctdh.DN_ID where ctdh.CTSP_ID ='" + CTSP_ID+"'").FirstOrDefault();
+          
+            if (result == null)
             {
                 ModelState.AddModelError("", "Sản phẩm " + CTSP_ID +" chưa được bán hoặc không tồn tại.");
             }else if(CTBH_NGAYBH >= CTBH_NGAYTRA)
@@ -89,6 +90,7 @@ namespace LuanVan.Controllers
             else
             {
                 cHITIETBH.NV_ID = Session["NV_ID"].ToString();
+                cHITIETBH.KH_ID = resultKH;
                 cHITIETBH.CTBH_ID = db.autottang("ChiTietBH", "CTBH_ID", db.CHITIETBHs.Count()).ToString();
                 db.CHITIETBHs.Add(cHITIETBH);
                 db.SaveChanges();

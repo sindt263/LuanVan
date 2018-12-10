@@ -1,0 +1,61 @@
+﻿@using LuanVan.Models;
+@model IPagedList<LuanVan.Models.SANPHAM>
+@using PagedList
+@using PagedList.Mvc
+@{
+    /**/
+
+    ViewBag.Title = "KTHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DataContext db = new DataContext();
+}
+
+<div class="row container">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button class="btn btn-light"><i class="fa fa-plus"></i></button>
+                @using (Html.BeginForm("KTHang", "ChiTietSanPhams", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+                {
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success hidden-xs">Tìm</button>
+                    </div>
+                }
+            </div>
+            <table class="table">
+                <tr>
+                    <th class="text-center">
+                        Tên sản phẩm
+                    </th>
+                    <th class="text-center">Số lượng</th>
+                    <th class="text-center">Còn lại</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.SP_TEN)
+                        </td>
+                        @{ 
+                            var count = (from p in db.CHITIETSANPHAMs where p.SP_ID == item.SP_ID select p);
+                            var count1 = (from p in db.CHITIETSANPHAMs where p.SP_ID == item.SP_ID && p.CTSP_TRANGTHAI == 1 select p);
+                            }
+                        <td class="text-center">@count.Count()</td>
+                        <td class="text-center">
+                            @count1.Count()
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <div class="col-md-12 text-center">
+                @Html.PagedListPager(Model, sotrang => Url.Action("KTHang", new { page = sotrang, searchTerm = ViewBag.SearchTerm }))
+            </div>
+        </div>
+    </div>
+</div>
+<a href="~/ChiTietSanPhams"><input type="button" class="btn btn-info" value="Trở lại" /></a>
