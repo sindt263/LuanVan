@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string disabled = "";
-    
+
 }
 
 <script language="javascript">
@@ -19,119 +19,127 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal" ng-app="myapp">
-    <h4>Đơn hàng</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.DN_ID)
+    <div class="form-horizontal" ng-app="myapp">
+        <h4>Đơn hàng</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.DN_ID)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TTDH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("TTDH_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.TTDH_ID, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TTDH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TTDH_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TTDH_ID, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.HTTT_ID)
         </div>
-        @Html.HiddenFor(model => model.HTTT_ID)
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.KH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.KH_ID, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-            @Html.ValidationMessageFor(model => model.KH_ID, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.KH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KH_ID, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.KH_ID, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.KH_ID)
         </div>
-        @Html.HiddenFor(model => model.KH_ID)
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.HTTT_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("HTTT_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.HTTT_ID, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.HTTT_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("HTTT_ID", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.HTTT_ID, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.HTTT_ID)
         </div>
-        @Html.HiddenFor(model => model.HTTT_ID)
-    </div>
 
-    <div class="form-group" name="myForm" ng-controller="DateController">
-        @Html.LabelFor(model => model.DN_NGALAPDON, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_NGALAPDON, new { htmlAttributes = new { @class = "form-control", ng_model = "value", disabled = "disabled" } })
-            @Html.ValidationMessageFor(model => model.DN_NGALAPDON, "", new { @class = "text-danger" })
+        <div class="form-group" name="myForm" ng-controller="DateController">
+            @Html.LabelFor(model => model.DN_NGALAPDON, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_NGALAPDON, new { htmlAttributes = new { @class = "form-control", ng_model = "value", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.DN_NGALAPDON, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_NGALAPDON)
         </div>
-        @Html.HiddenFor(model => model.DN_NGALAPDON)
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DN_GHICHU, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_GHICHU, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_GHICHU, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DN_GHICHU, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_GHICHU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DN_GHICHU, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_GHICHU)
         </div>
-        @Html.HiddenFor(model => model.DN_GHICHU)
-    </div>
 
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.DN_SL, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_SL, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_SL, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.DN_SL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DN_SL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DN_SL, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.DN_SDT, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_SDT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DN_SDT, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_SDT)
         </div>
-    </div>*@
-    <div class="form-group">
-        @Html.LabelFor(model => model.DN_SDT, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_SDT, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_SDT, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DN_EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DN_EMAIL, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_EMAIL)
         </div>
-        @Html.HiddenFor(model => model.DN_SDT)
-    </div> 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DN_EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_EMAIL, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_EMAIL, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DN_DIACHI, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_DIACHI, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DN_DIACHI, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_DIACHI)
         </div>
-        @Html.HiddenFor(model => model.DN_EMAIL)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.DN_DIACHI, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_DIACHI, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_DIACHI, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DN_MATHE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_MATHE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DN_MATHE, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_MATHE)
         </div>
-        @Html.HiddenFor(model => model.DN_DIACHI)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.DN_MATHE, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_MATHE, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_MATHE, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DN_CHUTHE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_CHUTHE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DN_CHUTHE, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_CHUTHE)
         </div>
-        @Html.HiddenFor(model => model.DN_MATHE)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.DN_CHUTHE, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_CHUTHE, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_CHUTHE, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DN_NGAYCAP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DN_NGAYCAP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DN_NGAYCAP, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.DN_NGAYCAP)
         </div>
-        @Html.HiddenFor(model => model.DN_CHUTHE)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.DN_NGAYCAP, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DN_NGAYCAP, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DN_NGAYCAP, "", new { @class = "text-danger" })
-        </div>
-        @Html.HiddenFor(model => model.DN_NGAYCAP)
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Lưu" class="btn btn-success" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @if (Model.TTDH_ID != 4)
+                {
+                    <input type="submit" value="Lưu" class="btn btn-success" disabled/>
+                }
+                else
+                {
+                    <input type="submit" value="Lưu" class="btn btn-success" />
+                }
+
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>

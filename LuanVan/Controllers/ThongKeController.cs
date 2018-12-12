@@ -166,7 +166,7 @@ namespace LuanVan.Controllers
                              join ctsp in db.CHITIETSANPHAMs on ctn.CTSP_ID equals ctsp.CTSP_ID
                              join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
                              where pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
-                             select ctn);
+                             select ctn).OrderByDescending(a=>a.PHIEUNHAPSP.PN_NGAY);
                 return View(model);
             }
             else
@@ -177,7 +177,7 @@ namespace LuanVan.Controllers
                              join ctsp in db.CHITIETSANPHAMs on ctn.CTSP_ID equals ctsp.CTSP_ID
                              join sp in db.SANPHAMs on ctsp.SP_ID equals sp.SP_ID
                              where sp.NSX_ID == id && pn.PN_NGAY >= dau && pn.PN_NGAY <= cuoi
-                             select ctn);
+                             select ctn).OrderByDescending(a => a.PHIEUNHAPSP.PN_NGAY);
                 return View(model);
             }
 
@@ -437,7 +437,7 @@ namespace LuanVan.Controllers
                 float kq = ((float)result.Count() / (float)count.Count()) * 100;
                 PiePoints dataPoint = new PiePoints()
                 {
-                    X = kq,
+                    X = Math.Round(kq,2),
                     legendText = item.NSX_TEN,
                     Label = item.NSX_TEN,
                 };
