@@ -85,7 +85,7 @@ namespace LuanVan.Controllers
 
 
 
-            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
+            ViewBag.KM = (from p in db.KHUYENMAIs where p.KM_NGAYKETTHUC >= DateTime.Now && p.KM_NGAYBATDAU <= DateTime.Now && p.KM_ID != "0" select p).OrderByDescending(a => a.KM_NGAYBATDAU);
 
 
             ViewBag.SPMoi = db.SANPHAMs.OrderByDescending(n => n.SP_NGAYTAO).Take(6);

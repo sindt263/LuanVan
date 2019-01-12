@@ -23,7 +23,7 @@
     <div class="view-details-link">
         @foreach (var item in ViewBag.NSX)
         {
-       <a href="Home/SearchSP?SearchTerm=@item.NSX_TEN" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:14px">@item.NSX_TEN | </a>
+       <a href="~/Home/SearchSP?SearchTerm=@item.NSX_TEN" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:14px">@item.NSX_TEN | </a>
         }
     </div>
     <!-- End brands area -->
@@ -319,7 +319,7 @@
                                                 <div class="product-hover">
                                                     @if (cHITIETSANPH.KTKho(item.SP_ID) == 0)
                                                     {
-                                                        <h4 class="text-danger">Hết hàng</h4>
+                                                        <h4 class="text-danger" style="background-color:black">Hết hàng</h4>
 
                                                     }
                                                     else
@@ -420,7 +420,7 @@
                                                 <div class="product-hover">
                                                     @if (item.CTSP_TRANGTHAI == 0)
                                                     {
-                                                        <h4 class="text-danger">Hết hàng</h4>
+                                                        <h4 class="text-danger" style="background-color:black">Hết hàng</h4>
 
                                                     }
                                                     else
@@ -562,7 +562,7 @@
                                                 <div class="product-hover">
                                                     @if (cHITIETSANPH.KTKho(i.SP_ID) == 0)
                                                     {
-                                                        <h4 class="text-danger">Hết hàng</h4>
+                                                        <h4 class="text-danger" style="background-color:black">Hết hàng</h4>
 
                                                     }
                                                     else
